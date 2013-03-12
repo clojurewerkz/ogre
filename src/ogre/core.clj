@@ -1,5 +1,5 @@
 (ns ogre.core
-  (:refer-clojure :exclude [filter and or range count memoize iterate next]))
+  (:refer-clojure :exclude [filter and or range count memoize iterate next map]))
 
 ;;https://groups.google.com/forum/?fromgroups=#!topic/clojure/GAGF38uI1-o
 (defn- merge-meta! 

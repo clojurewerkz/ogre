@@ -1,6 +1,16 @@
 (ns ogre.map
-  (:refer-clojure :exclude [memoize])
+  (:refer-clojure :exclude [memoize map])
   (:use ogre.util))
+
+
+;; GremlinPipeline<S,Map<String,Object>>	map() 
+;; Add a PropertyMapPipe to the end of the Pipeline.
+
+;;TODO: does this make sense from within clojure?
+(defn map
+  ([p] (.map p))
+  ([p & args] (.map p (keywords-to-strings args)))
+  )
 
 ;; <T> GremlinPipeline<S,T>
 ;; transform(com.tinkerpop.pipes.PipeFunction<E,T> function) 

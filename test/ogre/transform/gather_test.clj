@@ -1,6 +1,5 @@
 (ns ogre.transform.gather-test
   (:use [clojure.test])
-  (:import (com.tinkerpop.blueprints.impls.tg TinkerGraphFactory))
   (:require [ogre.core :as q]
             [ogre.test-util :as g]))
 

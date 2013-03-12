@@ -83,6 +83,9 @@
 
 ;;Inspiried by gather, these take the first element in the object
 ;;returned and convert it to something useful for clojure.
+(defn convert-to-map [m]
+  (into {} (for [[k v] m] [(keyword k) v])))
+
 (defn first-of [p]
   (-> p into-vec first))
 
@@ -92,9 +95,14 @@
 (defn first-into-set [p]
   (set (first-of p)))
 
-;; GremlinPipeline<S,Map<String,Object>>	map() 
-;; Add a PropertyMapPipe to the end of the Pipeline.
+(defn first-into-map [p]
+  (convert-to-map (first-of p)))
 
-;;TODO: does this make sense from within clojure?
-(defn into-map [p i]
-  (into {} (.map p i)))
+(defn all-into-vecs [p]
+  (map vec (into-vec p)))
+
+(defn all-into-sets [p]
+  (map set (into-vec p)))
+
+(defn all-into-maps [p]
+  (map convert-to-map (into-vec p)))

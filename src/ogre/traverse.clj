@@ -5,7 +5,7 @@
 ;; Add a BothPipe to the end of the Pipeline.
 
 (defn both [p & labels]
-  (.both p (keywords-to-labels labels)))
+  (.both p (keywords-to-strings labels)))
 
 (defn <-> [& args]
   (apply both args))
@@ -14,7 +14,7 @@
 ;; Add a BothEdgesPipe to the end of the Pipeline.
 
 (defn both-edges [p & labels]
-  (.bothE p (keywords-to-labels labels)))
+  (.bothE p (keywords-to-strings labels)))
 
 (defn <E> [& args]
   (apply both-edges args))
@@ -29,7 +29,7 @@
 ;; Add a InPipe to the end of the Pipeline.
 
 (defn in [p & labels]
-  (.in p (keywords-to-labels labels)))
+  (.in p (keywords-to-strings labels)))
 
 (defn <-- [& args]
   (apply in args))
@@ -38,7 +38,7 @@
 ;; Add an InEdgesPipe to the end of the Pipeline.
 
 (defn in-edges [p & labels]
-  (.inE p (keywords-to-labels labels)))
+  (.inE p (keywords-to-strings labels)))
 
 (defn <E-- [& args]
   (apply in-edges args))
@@ -53,7 +53,7 @@
 ;; Add an OutPipe to the end of the Pipeline.
 
 (defn out [p & labels]
-  (.out p (keywords-to-labels labels)))
+  (.out p (keywords-to-strings labels)))
 
 (defn --> [& args]
   (apply out args))
@@ -61,7 +61,7 @@
 ;; GremlinPipeline<S,com.tinkerpop.blueprints.Edge>	outE(String... labels) 
 ;; Add an OutEdgesPipe to the end of the Pipeline.
 (defn out-edges [p & labels]
-  (.outE p (keywords-to-labels labels)))
+  (.outE p (keywords-to-strings labels)))
 
 (defn --E> [& args]
   (apply out-edges args))

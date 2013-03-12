@@ -26,7 +26,7 @@
 (defn str-array [strs]
   (into-array String strs))
 
-(defn keywords-to-labels [labels]
+(defn keywords-to-strings [labels]
   (->> labels
        (filter identity)
        (map name)
