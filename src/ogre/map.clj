@@ -9,7 +9,7 @@
 ;;TODO: does this make sense from within clojure?
 (defn map
   ([p] (.map p))
-  ([p & args] (.map p (keywords-to-strings args)))
+;;  ([p & args] (.map p (keywords-to-strings args)))
   )
 
 ;; <T> GremlinPipeline<S,T>
