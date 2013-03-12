@@ -1,12 +1,12 @@
 # Ogre
 
 Ogre is a clojure wrapper for
-[gremlin](https://github.com/tinkerpop/gremlin/wiki). It was derived
+[Gremlin](https://github.com/tinkerpop/gremlin/wiki). It was derived
 from [Hermes](https://github.com/zmaril/hermes) and inspired by
 [Titanium](https://github.com/clojurewerkz/titanium). The goal of this
 project is to provide a solid, well tested Clojure wrapper for
-gremlin. To that effect, we aim to port most of the tests over from
-gremiln itself and eventually provide rigorous documentation and
+Gremlin. To that effect, we aim to port most of the tests over from
+Gremiln itself and eventually provide rigorous documentation and
 examples. Currently, Ogre powers Hermes.
 
 
