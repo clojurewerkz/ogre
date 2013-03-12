@@ -1,65 +1,42 @@
 (ns ogre.god-test
   (:use [clojure.test])
   (:import (com.tinkerpop.blueprints.impls.tg TinkerGraphFactory))
-  (:require [ogre.core :as q]))
-
-(defn clean-graph []
-  (let [graph (TinkerGraphFactory/createTinkerGraph)]
-    (map #(.removeEdge graph %) (seq (.getEdges graph)))
-    (map #(.removeVertex graph %) (seq (.getVertices graph)))
-    graph))
-
-(defn set-properties [w m]
-  (doseq [[k v] m]
-    (.setProperty w (name k) v)))
-
-(def vid (atom 100))
-
-(defn new-vertex [graph m]
-  (let [v (.addVertex graph (swap! vid inc))]
-    (set-properties v m)
-    v))
-
-(defn connect
-  ([graph v1 label v2] (connect graph v1 label v2 {}))
-  ([graph v1 label v2 m]
-     (let [edge (.addEdge graph (swap! vid inc) v1 v2 (name label))]
-       (set-properties edge m)
-       edge)))
+  (:require [ogre.core :as q]
+            [ogre.test-util :as g]))
 
 ;;Adapted from
 ;;https://github.com/clojurewerkz/titanium/blob/master/test/clojurewerkz/titanium/integration_test.clj
 (deftest test-graph-of-gods
-  (let [graph (clean-graph)
-        saturn   (new-vertex graph {:name "Saturn"   :type "titan"})
-        jupiter  (new-vertex graph {:name "Jupiter"  :type "god"})
-        hercules (new-vertex graph {:name "Hercules" :type "demigod"})
-        alcmene  (new-vertex graph {:name "Alcmene"  :type "human"})
-        neptune  (new-vertex graph {:name "Neptune"  :type "god"})
-        pluto    (new-vertex graph {:name "Pluto"    :type "god"})
-        sea      (new-vertex graph {:name "Sea"      :type "location"})
-        sky      (new-vertex graph {:name "Sky"      :type "location"})
-        tartarus (new-vertex graph {:name "Tartarus" :type "location"})
-        nemean   (new-vertex graph {:name "Nemean"   :type "monster"})
-        hydra    (new-vertex graph {:name "Hydra"    :type "monster"})
-        cerberus (new-vertex graph {:name "Cerberus" :type "monster"})]
-    (connect graph neptune :lives sea)
-    (connect graph jupiter :lives sky)
-    (connect graph pluto   :lives tartarus)
-    (connect graph jupiter :father saturn)
-    (connect graph hercules :father jupiter)
-    (connect graph hercules :mother alcmene)
-    (connect graph jupiter :brother pluto)
-    (connect graph pluto :brother jupiter)
-    (connect graph neptune :brother pluto)
-    (connect graph pluto :brother neptune)
-    (connect graph jupiter :brother neptune)
-    (connect graph neptune :brother jupiter)
-    (connect graph cerberus :lives tartarus)
-    (connect graph pluto :pet cerberus)
-    (connect graph hercules :battled nemean {:times 1})
-    (connect graph hercules :battled hydra {:times 2})
-    (connect graph hercules :battled cerberus {:times 12})
+  (g/use-clean-graph!)
+  (let [saturn   (g/create! {:name "Saturn"   :type "titan"})
+        jupiter  (g/create! {:name "Jupiter"  :type "god"})
+        hercules (g/create! {:name "Hercules" :type "demigod"})
+        alcmene  (g/create! {:name "Alcmene"  :type "human"})
+        neptune  (g/create! {:name "Neptune"  :type "god"})
+        pluto    (g/create! {:name "Pluto"    :type "god"})
+        sea      (g/create! {:name "Sea"      :type "location"})
+        sky      (g/create! {:name "Sky"      :type "location"})
+        tartarus (g/create! {:name "Tartarus" :type "location"})
+        nemean   (g/create! {:name "Nemean"   :type "monster"})
+        hydra    (g/create! {:name "Hydra"    :type "monster"})
+        cerberus (g/create! {:name "Cerberus" :type "monster"})]
+    (g/connect! neptune :lives sea)
+    (g/connect! jupiter :lives sky)
+    (g/connect! pluto   :lives tartarus)
+    (g/connect! jupiter :father saturn)
+    (g/connect! hercules :father jupiter)
+    (g/connect! hercules :mother alcmene)
+    (g/connect! jupiter :brother pluto)
+    (g/connect! pluto :brother jupiter)
+    (g/connect! neptune :brother pluto)
+    (g/connect! pluto :brother neptune)
+    (g/connect! jupiter :brother neptune)
+    (g/connect! neptune :brother jupiter)
+    (g/connect! cerberus :lives tartarus)
+    (g/connect! pluto :pet cerberus)
+    (g/connect! hercules :battled nemean {:times 1})
+    (g/connect! hercules :battled hydra {:times 2})
+    (g/connect! hercules :battled cerberus {:times 12})
     (let [r1 (q/query saturn
                       (q/<-- :father)
                       (q/<-- :father)
@@ -91,7 +68,7 @@
                            (q/as  "god")
                            (q/--> :lives)
                            (q/as  "place")
-                           (q/select (fn [v1] (.getProperty v1 "name")))
+                           (q/select (fn [v1] (g/get-property v1 :name)))
                            (q/into-set))
                   (map (fn [row] (into [] row))))
           ]

@@ -1,11 +1,12 @@
 # ogre
 
-Clojure wrapper for gremlin. Derived from
-[Hermes](https://github.com/zmaril/hermes), inspired by
+Clojure wrapper for gremlin. It was derived from
+[Hermes](https://github.com/zmaril/hermes) and inspired by
 [Titanium](https://github.com/clojurewerkz/titanium). The goal of this
 project is to provide a solid, well tested Clojure wrapper around
 gremlin. To that effect, we aim to port most of the tests over from
-gremiln itself. 
+gremiln itself and eventually provide documentation. It powers
+Hermes right now. 
 
 ## Usage
 
