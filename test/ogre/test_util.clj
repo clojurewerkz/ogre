@@ -38,5 +38,8 @@
 (defn get-property [v k]
   (.getProperty v (name k)))
 
+(defn get-vertices []
+  (.getVertices *graph*))
+
 (defn find-by-id [i]
   (.getVertex *graph* i))

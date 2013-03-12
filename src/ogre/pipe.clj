@@ -80,7 +80,6 @@
 (defn into-set [p]
   (into #{} (to-list p)))
 
-
 ;;Inspiried by gather, these take the first element in the object
 ;;returned and convert it to something useful for clojure.
 (defn convert-to-map [m]

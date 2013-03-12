@@ -1,6 +1,5 @@
 (ns ogre.transform.map-test
   (:use [clojure.test])
-  (:import (com.tinkerpop.blueprints.impls.tg TinkerGraphFactory))
   (:require [ogre.core :as q]
             [ogre.test-util :as g]))
 
@@ -28,8 +27,7 @@
                      q/map
                      q/all-into-maps)
           vadas (first (filter #(= "vadas" (:name %)) ms))
-          josh  (first (filter #(= "josh" (:name %)) ms))
-          ]
+          josh  (first (filter #(= "josh" (:name %)) ms))]
       (is (= 27 (:age vadas)))
       (is (= 32 (:age josh)))
       (is (= 2 (count ms))))))

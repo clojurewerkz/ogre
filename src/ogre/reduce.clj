@@ -1,6 +1,7 @@
 (ns ogre.reduce
   (:refer-clojure :exclude [count])
-  (:use ogre.util))
+  (:use ogre.util)
+  (:import (com.tinkerpop.pipes.transform TransformPipe)))
 
 ;; GremlinPipeline<S,List>	gather() 
 ;; Add a GatherPipe to the end of the Pipeline.
@@ -18,7 +19,12 @@
 
 (defn order
   ([p] (.order p))
-  ([p f compare] (.order p (f-to-pipe f) (f-to-pipe compare))))
+  ([p compare]
+     (.order p (f-to-pipe (fn [pair]                                      
+                            (compare (.getA pair)
+                                     (.getB pair)))))))
+;; (defn order-decr
+;;   ([p] (.order p )))
 
 ;; long	count() 
 ;; Return the number of objects iterated through the pipeline.
