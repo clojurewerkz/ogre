@@ -3,7 +3,7 @@
            (com.tinkerpop.pipes PipeFunction Pipe)
            (com.tinkerpop.gremlin Tokens$T)))
 
-(defmacro blank-pipe [& body]
+(defmacro headless-pipe [& body]
   `(-> (GremlinPipeline.)
        ~@body))
 
@@ -17,25 +17,27 @@
 (defn convert-symbol-to-token [s]
   (case s
     ==   Tokens$T/eq
-    !=   Tokens$T/neq  
+    not=   Tokens$T/neq  
     >=   Tokens$T/gte
     >    Tokens$T/gt
     <=   Tokens$T/lte
     <    Tokens$T/lt))
 
+(defn str-array [strs]
+  (into-array String strs))
+
 (defn keywords-to-labels [labels]
-  (into-array String (map name (clojure.core/filter identity labels))))
+  (->> labels
+       (filter identity)
+       (map name)
+       str-array))
 
 (defn f-to-pipe [f]
   (reify PipeFunction
-    (compute [_ arg] (f arg))))
-
+    (compute [this arg] (f arg))))
 
 (defn pipe-array [ps]
   (into-array Pipe ps))
 
-(defn pipef-array [pfs]
-  (into-array PipeFunction pfs))
-
-(defn str-array [pfs]
-  (into-array PipeFunction pfs))
+(defn fs-to-pipef-array [fs]
+  (into-array PipeFunction (map f-to-pipe fs)))

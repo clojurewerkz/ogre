@@ -40,8 +40,9 @@
 ;; GremlinPipeline<S,com.tinkerpop.pipes.util.structures.Row>	select(com.tinkerpop.pipes.PipeFunction... columnFunctions) 
 ;; Add a SelectPipe to the end of the Pipeline.
 
-(defn select [p f]
-  (.select p (pipef-array [(f-to-pipe f)])))
+(defn select
+  ([p] (.select p))
+  ([p f] (.select p (fs-to-pipef-array [f]))))
 
 ;; GremlinPipeline<S,E>	memoize(int numberedStep) 
 ;; Add a MemoizePipe to the end of the Pipeline.
@@ -66,4 +67,4 @@
 ;; Add a PathPipe or PathPipe to the end of the Pipeline.
 
 (defn path [p & args]
-  (.path p (pipef-array map f-to-pipe args)))
+  (.path p (fs-to-pipef-array args)))

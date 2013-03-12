@@ -35,7 +35,7 @@
 
 ;;TODO: tree structure?
 (defn tree [p & fs]
-  (.tree p (pipef-array (map f-to-pipe fs))))
+  (.tree p (fs-to-pipef-array fs)))
 
 ;; GremlinPipeline<S,E>	store() 
 ;; Add an StorePipe to the end of the Pipeline.
