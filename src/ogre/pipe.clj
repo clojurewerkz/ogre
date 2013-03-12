@@ -71,16 +71,30 @@
 ;; List<E>	toList() 
 ;; Return a list of all the objects in the pipeline.
 
+(defn to-list [p]
+  (.toList p))
+
 (defn into-vec [p]
-  (seq (.toList p)))
+  (into [] (to-list p)))
 
 (defn into-set [p]
-  (set (.toList p)))
+  (into #{} (to-list p)))
+
+
+;;Inspiried by gather, these take the first element in the object
+;;returned and convert it to something useful for clojure.
+(defn first-of [p]
+  (-> p into-vec first))
+
+(defn first-into-vec [p]
+  (vec (first-of p)))
+
+(defn first-into-set [p]
+  (set (first-of p)))
 
 ;; GremlinPipeline<S,Map<String,Object>>	map() 
 ;; Add a PropertyMapPipe to the end of the Pipeline.
 
 ;;TODO: does this make sense from within clojure?
-;;TODO: convert this over to Persistent
 (defn into-map [p i]
   (into {} (.map p i)))
