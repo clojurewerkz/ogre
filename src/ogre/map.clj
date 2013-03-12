@@ -1,5 +1,5 @@
 (ns ogre.map
-  (:refer-clojure :exclude [count memoize])
+  (:refer-clojure :exclude [memoize])
   (:use ogre.util))
 
 ;; <T> GremlinPipeline<S,T>

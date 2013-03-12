@@ -8,6 +8,7 @@
                  ["sonatype" {:url "http://oss.sonatype.org/content/repositories/snapshots"}]
                  ["oracle" "http://download.oracle.com/maven/"]]  
   :dependencies [[org.clojure/clojure "1.4.0"]
-                 [com.tinkerpop.gremlin/gremlin-java "2.2.0"]]
+                 [com.tinkerpop.gremlin/gremlin-java "2.2.0"]
+                 [com.tinkerpop.blueprints/blueprints-core "2.2.0"]]
   :test-paths ["test" "src/test/ogre"]
   :aliases {"test!" ["do" "clean," "deps," "test"]})
