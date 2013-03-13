@@ -8,15 +8,6 @@
 (defn filter [p f]
   (.filter p (f-to-pipe f)))
 
-;; GremlinPipeline<S,E>	and(com.tinkerpop.pipes.Pipe<E,?>... pipes) 
-;; Add an AndFilterPipe to the end the Pipeline.
-
-;;(and (blank-pipe (q/-->) (q/count))
-;;     (blank-pipe (q/-->) (q/count)))
-
-(defn and [p & es]
-  (.and p (pipe-array es)))
-
 ;; GremlinPipeline<S,E>	dedup() 
 ;; Add a DuplicateFilterPipe to the end of the Pipeline.
 ;; GremlinPipeline<S,E>	dedup(com.tinkerpop.pipes.PipeFunction<E,?> dedupFunction) 
@@ -58,12 +49,6 @@
 
 (defn interval [p key start end]
   (.interval p (name key) (float start) (float end)))
-
-;; GremlinPipeline<S,E>	or(com.tinkerpop.pipes.Pipe<E,?>... pipes) 
-;; Add an OrFilterPipe to the end the Pipeline.
-
-(defn or [p & es]
-  (.or p (pipe-array es)))
 
 ;; GremlinPipeline<S,E>	random(Double bias) 
 ;; Add a RandomFilterPipe to the end of the Pipeline.
