@@ -49,3 +49,6 @@
 
 (defn find-by-id [i]
   (.getVertex *graph* i))
+
+(defn prop-pred [key pred value v]
+  (pred value (get-property key v)))

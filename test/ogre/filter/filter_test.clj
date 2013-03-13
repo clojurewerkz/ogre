@@ -3,9 +3,6 @@
   (:require [ogre.core :as q]
             [ogre.test-util :as g]))
 
-(defn prop-pred [key pred value v]
-  (pred value (g/get-property key v)))
-
 (deftest test-filter-step
   (g/use-new-tinker-graph!)
   (testing "test_g_V_filterXfalseX"
@@ -22,7 +19,7 @@
   
   (testing "test_g_V_filterXlang_eq_javaX()"
     (let [vs (q/query (g/get-vertices)
-                      (q/filter (partial prop-pred :lang = "java"))                    
+                      (q/filter (partial g/prop-pred :lang = "java"))                    
                       (q/into-vec))]
       (is (= 2 (count vs)))
       (is (= #{"lop" "ripple"} (set (map (partial g/get-property :name) vs))))))
