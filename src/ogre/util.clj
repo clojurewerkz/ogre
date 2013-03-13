@@ -3,7 +3,7 @@
            (com.tinkerpop.pipes PipeFunction Pipe)
            (com.tinkerpop.gremlin Tokens$T)))
 
-(defmacro headless-pipe [& body]
+(defmacro bare-pipe [& body]
   `(-> (GremlinPipeline.)
        ~@body))
 
