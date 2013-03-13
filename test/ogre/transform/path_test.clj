@@ -10,14 +10,14 @@
                         (q/property :name)
                         q/path
                         q/first-into-vec)]
-      (is (= "marko" (g/get-property (first path) :name)))
+      (is (= "marko" (g/get-property :name (first path))))
       (is (= "marko" (second path)))))
   (testing "g.getVertex(1).out.path{it.age}{it.name}"
     (let [path (q/query (g/find-by-id 1)
                         q/-->
                         (q/path
-                         #(g/get-property % :age)
-                         #(g/get-property % :name))
+                         (partial g/get-property :age)
+                         (partial g/get-property :name))
                         q/all-into-vecs)
           age  (map first path)
           names  (map second path)]

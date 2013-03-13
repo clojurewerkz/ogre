@@ -67,7 +67,7 @@
                            (q/as  "god")
                            (q/--> :lives)
                            (q/as  "place")
-                           (q/select (fn [v1] (g/get-property v1 :name)))
+                           (q/select (partial g/get-property :name))
                            (q/into-set)
                            ((partial map (partial into []))))]
       (is (= r1 hercules))

@@ -35,8 +35,11 @@
      (-> (.addEdge *graph* (swap! vid inc) v1 v2 (name label)) 
          (set-properties! m))))
 
-(defn get-property [v k]
+(defn get-property [k v]
   (.getProperty v (name k)))
+
+(defn get-id [v]
+  (.getId v))
 
 (defn get-vertices []
   (.getVertices *graph*))

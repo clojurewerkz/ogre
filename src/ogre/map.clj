@@ -52,7 +52,11 @@
 
 (defn select
   ([p] (.select p))
-  ([p f] (.select p (fs-to-pipef-array [f]))))
+  ([p & fs] (.select p (fs-to-pipef-array fs))))
+
+(defn select-only
+  ([p cols] (select-only p cols identity))
+  ([p cols & fs] (.select p cols (fs-to-pipef-array fs))))
 
 ;; GremlinPipeline<S,E>	memoize(int numberedStep) 
 ;; Add a MemoizePipe to the end of the Pipeline.
