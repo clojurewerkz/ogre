@@ -50,8 +50,8 @@
 ;; end of the Pipeline.
 
 (defmacro has-not
-  ([p k v] `(.has-not ~p ~(name k) ~v))
-  ([p k c v] `(.has-not ~p ~(name k) (convert-symbol-to-token '~c) ~v)))
+  ([p k v] `(.hasNot ~p ~(name k) ~v))
+  ([p k c v] `(.hasNot ~p ~(name k) (convert-symbol-to-token '~c) ~v)))
 
 ;; GremlinPipeline<S,? extends com.tinkerpop.blueprints.Element>	interval(String key, Object startValue, Object endValue) 
 ;; Add an IntervalFilterPipe to the end of the Pipeline.
