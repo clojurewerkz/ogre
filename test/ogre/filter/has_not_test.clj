@@ -3,7 +3,7 @@
   (:require [ogre.core :as q]
             [ogre.test-util :as g]))
 
-(deftest test-filter-step
+(deftest test-has-not-step
   (g/use-new-tinker-graph!)
   (testing "test_g_V_hasNotXname_markoX"
     (let [vs (q/query (g/get-vertices)

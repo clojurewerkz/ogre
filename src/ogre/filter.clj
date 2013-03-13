@@ -57,7 +57,7 @@
 ;; Add an IntervalFilterPipe to the end of the Pipeline.
 
 (defn interval [p key start end]
-  (.intreval p (name key) start end))
+  (.interval p (name key) (float start) (float end)))
 
 ;; GremlinPipeline<S,E>	or(com.tinkerpop.pipes.Pipe<E,?>... pipes) 
 ;; Add an OrFilterPipe to the end the Pipeline.
