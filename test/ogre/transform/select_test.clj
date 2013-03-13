@@ -12,7 +12,7 @@
                              (q/as "b")
                              q/select
                              q/all-into-vecs)]
-      ;;TODO turn these into maps in core
+
       (is (= #{"1"} (set (map (comp g/get-id first) selection))))
       (is (= #{"2" "4"} (set (map (comp g/get-id second) selection))))
       (is (= 2 (count selection)))

@@ -38,6 +38,9 @@
 (defn get-property [k v]
   (.getProperty v (name k)))
 
+(defn get-label [e]
+  (.getLabel e))
+
 (defn get-id [v]
   (.getId v))
 
