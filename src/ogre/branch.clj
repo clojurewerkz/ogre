@@ -1,4 +1,5 @@
 (ns ogre.branch
+  (:refer-clojure :exclude [loop])
   (:use ogre.util))
 
 ;; GremlinPipeline<S,?>	copySplit(com.tinkerpop.pipes.Pipe<E,?>... pipes) 
@@ -30,7 +31,27 @@
 ;; Add a LoopPipe to the end of the Pipeline.
 ;; GremlinPipeline<S,E>	loop(int numberedStep, com.tinkerpop.pipes.PipeFunction<com.tinkerpop.pipes.branch.LoopPipe.LoopBundle<E>,Boolean> whileFunction, com.tinkerpop.pipes.PipeFunction<com.tinkerpop.pipes.branch.LoopPipe.LoopBundle<E>,Boolean> emitFunction)
 ;; Add a LoopPipe to the end of the Pipeline.
+
+(defn loop-unbundler [f]
+  (fn [b]
+    (f (.getLoops b)
+       (.getObject b)
+       (.getPath b))))
+
+(defn loop
+  ([p i while-f]
+     (.loop p i (f-to-pipe (loop-unbundler while-f))))
+  ([p i while-f emit-f]
+     (.loop p i (f-to-pipe (loop-unbundler while-f)) (f-to-pipe emit-f))))
+
 ;; GremlinPipeline<S,E>	loop(String namedStep, com.tinkerpop.pipes.PipeFunction<com.tinkerpop.pipes.branch.LoopPipe.LoopBundle<E>,Boolean> whileFunction) 
 ;; Add a LoopPipe to the end of the Pipeline.
 ;; GremlinPipeline<S,E>	loop(String namedStep, com.tinkerpop.pipes.PipeFunction<com.tinkerpop.pipes.branch.LoopPipe.LoopBundle<E>,Boolean> whileFunction, com.tinkerpop.pipes.PipeFunction<com.tinkerpop.pipes.branch.LoopPipe.LoopBundle<E>,Boolean> emitFunction) 
 ;; Add a LoopPipe to the end of the Pipeline.
+
+(defn loop-to
+  ([p s while-f]
+     (.loop p s (f-to-pipe (loop-unbundler while-f))))
+  ([p s while-f emit-f]
+     (.loop p s (f-to-pipe (loop-unbundler while-f))
+            (f-to-pipe emit-f))))

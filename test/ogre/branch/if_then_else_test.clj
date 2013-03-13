@@ -12,5 +12,5 @@
                                       identity
                                       #(q/query % q/--> q/to-list))
                       (q/into-vec))]
-      (= 3 (count vs))
-      (= 2 (count (set vs))))))                        
+      (is (= 3 (count vs)))
+      (is (= 2 (count (set vs)))))))                        
