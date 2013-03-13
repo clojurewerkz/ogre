@@ -17,7 +17,7 @@
 ;; Add a TransformFunctionPipe to the end of the Pipeline.
 
 (defn transform [p f]
-  (.transfrom p (f-to-pipe f)))
+  (.transform p (f-to-pipe f)))
 
 ;; GremlinPipeline<S,E>	_() 
 ;; Add an IdentityPipe to the end of the Pipeline.

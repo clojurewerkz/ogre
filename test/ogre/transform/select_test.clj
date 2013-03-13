@@ -4,6 +4,7 @@
             [ogre.test-util :as g]))
 
 (deftest test-select-step
+  (g/use-new-tinker-graph!)
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select()"
     (let [selection (q/query (g/find-by-id 1)
                              (q/as "a")
