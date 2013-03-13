@@ -13,21 +13,21 @@
                       q/-->
                       q/into-vec)]
       (is (= #{"vadas" "josh" "lop"})
-          (set (map (partial g/get-property :name) vs)))))
+          (g/get-names-set vs))))
   
   (testing "test_g_v2_in()"
     (let [vs (q/query (g/find-by-id 2)
                       q/<--
                       q/into-vec)]
       (is (= #{"marko"})
-          (set (map (partial g/get-property :name) vs)))))
+          (g/get-names-set vs))))
   
   (testing "test_g_v4_both()"
     (let [vs (q/query (g/find-by-id 2)
                       q/<->
                       q/into-vec)]
       (is (= #{"marko" "ripple" "lop"})
-          (set (map (partial g/get-property :name) vs)))))
+          (g/get-names-set vs))))
   
   (testing "test_g_E"
     "Nothign to see here")
@@ -62,7 +62,7 @@
                       q/in-vertex
                       q/into-vec)]
       (is (= #{"vadas" "josh" "lop"})
-          (set (map (partial g/get-property :name) vs)))))
+          (g/get-names-set vs))))
 
   (testing "test_g_v2_inE_outV"
     (let [vs (q/query (g/find-by-id 2)
@@ -70,21 +70,21 @@
                       q/out-vertex
                       q/into-vec)]
       (is (= #{"vadas" "josh" "lop"})
-          (set (map (partial g/get-property :name) vs)))))
+          (g/get-names-set vs))))
 
   (testing "test_g_v1_out(knows)"
     (let [vs (q/query (g/find-by-id 1)
                       (q/--> :knows)
                       q/into-vec)]
       (is (= #{"vadas" "josh"})
-          (set (map (partial g/get-property :name) vs)))))
+          (g/get-names-set vs))))
 
   (testing "test_g_v1_out(knows created)"
     (let [vs (q/query (g/find-by-id 1)
                       (q/--> :knows :created)
                       q/into-vec)]
       (is (= #{"vadas" "josh"})
-          (set (map (partial g/get-property :name) vs)))))
+          (g/get-names-set vs))))
   
   (testing "test_g_v1_outE(knows)_inV"
     (let [vs (q/query (g/find-by-id 1)
@@ -92,7 +92,7 @@
                       q/in-vertex
                       q/into-vec)]
       (is (= #{"vadas" "josh"})
-          (set (map (partial g/get-property :name) vs)))))
+          (g/get-names-set vs))))
 
   (testing "test_g_v1_outE(knows created)_inE"
     (let [vs (q/query (g/find-by-id 1)
@@ -100,7 +100,7 @@
                       q/in-vertex
                       q/into-vec)]
       (is (= #{"vadas" "josh"})
-          (set (map (partial g/get-property :name) vs)))))
+          (g/get-names-set vs))))
 
   (testing "test_g_v1_out_out"
     (let [vs (q/query (g/find-by-id 1)
@@ -108,7 +108,7 @@
                       q/-->
                       q/into-vec)]
       (is (= #{"ripple" "lop"})
-          (set (map (partial g/get-property :name) vs)))))
+          (g/get-names-set vs))))
 
   (testing "test_g_v1_out_out_out"
     (let [vs (q/query (g/find-by-id 1)
@@ -116,4 +116,4 @@
                       q/-->
                       q/-->
                       q/into-vec)]
-      (is (= (count vs))))))
+      (is (= 0 (count vs))))))

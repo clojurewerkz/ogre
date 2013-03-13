@@ -58,3 +58,9 @@
 
 (defn get-names-set [vs]
   (set (get-names vs)))
+
+(defn get-ages [vs]
+  (map (partial get-property :age) vs))
+
+(defn get-ages-set [vs]
+  (set (get-ages vs)))

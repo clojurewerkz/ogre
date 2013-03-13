@@ -11,4 +11,4 @@
                       (q/interval :weight 0 0.6)
                       (q/in-vertex)
                       (q/into-vec))]
-      (is (= #{"lop" "vadas"} (set (map (partial g/get-property :name) vs)))))))
+      (is (= #{"lop" "vadas"} (g/get-names-set vs))))))

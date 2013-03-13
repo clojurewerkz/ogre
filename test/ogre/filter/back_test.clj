@@ -10,7 +10,7 @@
                       q/-->
                       (q/back 1)
                       q/into-vec)]
-      (is (= #{"marko"} (set (map (partial g/get-property :name) vs))))
+      (is (= #{"marko"} (g/get-names-set vs)))
       (is (= 1 (count vs)))))
   
   (testing "test_g_v1_asXhereX_out_backXhereX()"
@@ -19,7 +19,7 @@
                       q/-->
                       (q/back-to "here")
                       q/into-vec)]
-      (is (= #{"marko"} (set (map (partial g/get-property :name) vs))))
+      (is (= #{"marko"} (g/get-names-set vs)))
       (is (= 1 (count vs)))))
 
   (testing "test_g_v4_out_filterXlang_eq_javaX_backX1X"
@@ -28,7 +28,7 @@
                       (q/filter #(= "java" (g/get-property :lang % )))
                       (q/back 1)
                       q/into-vec)]
-      (is (= #{"ripple" "lop"} (set (map (partial g/get-property :name) vs))))
+      (is (= #{"ripple" "lop"} (g/get-names-set vs)))
       (is (= 2 (count vs)))))
 
   (testing "test_g_v4_out_asXhereX_filterXlang_eq_javaX_backXhereX()"
@@ -38,16 +38,16 @@
                       (q/filter #(= "java" (g/get-property :lang % )))
                       (q/back-to "here")
                       q/into-vec)]
-      (is (= #{"ripple" "lop"} (set (map (partial g/get-property :name) vs))))
+      (is (= #{"ripple" "lop"} (g/get-names-set vs)))
       (is (= 2 (count vs)))))
 
   (testing "test_g_v4_out_asXhereX_filterXlang_eq_javaX_backXhereX_propertyXnameX"
     (let [names (q/query (g/find-by-id 4)
-                      q/-->
-                      (q/as "here")
-                      (q/filter #(= "java" (g/get-property :lang % )))
-                      (q/back-to "here")
-                      (q/property :name)
-                      q/into-set)]
+                         q/-->
+                         (q/as "here")
+                         (q/filter #(= "java" (g/get-property :lang % )))
+                         (q/back-to "here")
+                         (q/property :name)
+                         q/into-set)]
       (is (= #{"ripple" "lop"} names))
       (is (= 2 (count names))))))

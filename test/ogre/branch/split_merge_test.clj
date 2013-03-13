@@ -57,5 +57,4 @@
       (is (= "vadas" (nth (nth names 0) 2)))
       (is (= 27      (nth (nth ages  0) 2)))
       (is (= "josh"  (nth (nth names 1) 2)))
-      (is (= 32      (nth (nth ages  1) 2)))
-      )))                        
+      (is (= 32      (nth (nth ages  1) 2))))))                        

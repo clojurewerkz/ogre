@@ -22,7 +22,7 @@
                       (q/filter (partial g/prop-pred :lang = "java"))                    
                       (q/into-vec))]
       (is (= 2 (count vs)))
-      (is (= #{"lop" "ripple"} (set (map (partial g/get-property :name) vs))))))
+      (is (= #{"lop" "ripple"} (g/get-names-set vs)))))
 
   (testing "test_g_v1_out_filterXage_gt_30X"
     (let [vs (q/query (g/find-by-id 1)
@@ -43,4 +43,4 @@
                                     boolean))                    
                       (q/into-vec))]
       (is (= 2 (count vs)))
-      (is (= #{"marko" "peter"} (set (map (partial g/get-property :name) vs)))))))
+      (is (= #{"marko" "peter"} (g/get-names-set vs))))))

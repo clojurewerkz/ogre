@@ -18,7 +18,7 @@
                       (q/range 0 0)
                       (q/in-vertex)
                       (q/into-vec))]
-      (is (some #{"ripple" "lop"} (map (partial g/get-property :name) vs)))
+      (is (some #{"ripple" "lop"} (g/get-names vs)))
       (is (= 1 (count vs)))))
   (testing "test_g_v1_outXknowsX_outXcreatedX_rangeX0_0X"
     (let [vs (q/query (g/find-by-id 1)
@@ -26,7 +26,7 @@
                       (q/--> :created)
                       (q/range 0 0)
                       (q/into-vec))]
-      (is (some #{"ripple" "lop"} (map (partial g/get-property :name) vs)))
+      (is (some #{"ripple" "lop"} (g/get-names vs)))
       (is (= 1 (count vs)))))
   (testing "test_g_v1_outXcreatedX_inXcreatedX_rangeX1_2X"
     (let [vs (q/query (g/find-by-id 1)
@@ -34,7 +34,7 @@
                       (q/<-- :created)
                       (q/range 1 2)
                       (q/into-vec))]
-      (is (some #{"josh" "peter" "marko"} (map (partial g/get-property :name) vs)))
+      (is (some #{"josh" "peter" "marko"} (g/get-names vs)))
       (is (= 2 (count vs)))))
   (testing "test_g_v1_outXcreatedX_inEXcreatedX_rangeX1_2X_outV"
     (let [vs (q/query (g/find-by-id 1)
@@ -43,5 +43,5 @@
                       (q/range 1 2)
                       q/out-vertex
                       (q/into-vec))]
-      (is (some #{"josh" "peter" "marko"} (map (partial g/get-property :name) vs)))
+      (is (some #{"josh" "peter" "marko"} (g/get-names vs)))
       (is (= 2 (count vs))))))

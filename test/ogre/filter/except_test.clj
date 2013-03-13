@@ -10,7 +10,7 @@
                       q/-->
                       (q/except [(g/find-by-id 2)])
                       (q/into-vec))]
-      (is (= #{"josh" "lop"} (set (map (partial g/get-property :name) vs))))))
+      (is (= #{"josh" "lop"} (g/get-names-set vs)))))
   (testing "test_g_v1_out_aggregateXxX_out_exceptXxX"
     ;;TODO reapproach this once aggregate has been figured out
     )
