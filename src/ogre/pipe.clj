@@ -17,10 +17,14 @@
 
 ;; GremlinPipeline<S,?>	back(int numberedStep) 
 ;; Add a BackFilterPipe to the end of the Pipeline.
+(defn back [p i]
+  (.back p i))
+
+
 ;; GremlinPipeline<S,?>	back(String namedStep) 
 ;; Add a BackFilterPipe to the end of the Pipeline.
 
-(defn back [p i]
+(defn back-to [p i]
   (.back p i))
 
 ;; GremlinPipeline<S,E>	enablePath() 
