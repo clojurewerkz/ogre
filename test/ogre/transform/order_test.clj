@@ -1,7 +1,7 @@
 (ns ogre.transform.order-test
   (:use [clojure.test])
   (:require [ogre.core :as q]
-            [ogre.test-util :as g]))
+            [ogre.tinkergraph :as g]))
 
 (deftest test-order-step
   (g/use-new-tinker-graph!)

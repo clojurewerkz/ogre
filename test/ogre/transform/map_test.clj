@@ -1,7 +1,7 @@
 (ns ogre.transform.map-test
   (:use [clojure.test])
   (:require [ogre.core :as q]
-            [ogre.test-util :as g]))
+            [ogre.tinkergraph :as g]))
 
 (deftest test-map-step
   (g/use-new-tinker-graph!)

@@ -1,7 +1,7 @@
 (ns ogre.branch.if-then-else-test
   (:use [clojure.test])
   (:require [ogre.core :as q]
-            [ogre.test-util :as g]))
+            [ogre.tinkergraph :as g]))
 
 (deftest test-if-then-else-step
   (g/use-new-tinker-graph!)

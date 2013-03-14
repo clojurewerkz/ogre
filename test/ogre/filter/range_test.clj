@@ -1,7 +1,7 @@
 (ns ogre.filter.range-test
   (:use [clojure.test])
   (:require [ogre.core :as q]
-            [ogre.test-util :as g]))
+            [ogre.tinkergraph :as g]))
 
 (deftest test-range-step
   (g/use-new-tinker-graph!)
