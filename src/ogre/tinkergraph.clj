@@ -1,4 +1,4 @@
-(ns ogre.test-util
+(ns ogre.tinkergraph
   (:use [clojure.test])
   (:import (com.tinkerpop.blueprints.impls.tg TinkerGraphFactory))
   (:require [ogre.core :as q]))
