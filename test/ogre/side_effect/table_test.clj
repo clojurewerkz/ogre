@@ -13,7 +13,7 @@
                          q/--> 
                          (q/property :name)
                          (q/as "b")
-                         q/cap-table)]
+                         q/get-table)]
       (is (= #{{:a elem :b "josh"}
                {:a elem :b "lop"}
                {:a elem :b "vadas"}}
@@ -25,7 +25,7 @@
                          (q/as "a")
                          q/--> 
                          (q/as "b")
-                         (q/cap-table (partial g/get-property :name)))]
+                         (q/get-table (partial g/get-property :name)))]
       (is (= #{{:a "marko" :b "josh"}
                {:a "marko" :b "lop"}
                {:a "marko" :b "vadas"}}
@@ -38,7 +38,7 @@
                          q/-->
                          (q/property :name)
                          (q/as "b")
-                         (q/cap-table (partial g/get-property :name)
+                         (q/get-table (partial g/get-property :name)
                                       count))]
       (is (= #{{:a "marko" :b 3}
                {:a "marko" :b 4}

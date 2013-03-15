@@ -47,8 +47,7 @@
                                [(nth names i) (.getColumn row i)])))]
     (map converter ts)))
 
-(defn cap-table
-  ([p] (cap-table p identity))
+(defn get-table
   ([p & fs] (->> (.table p  (fs-to-pipef-array fs))
                  (.cap)
                  (.toList)
@@ -68,8 +67,31 @@
 ;; GremlinPipeline<S,E>	tree(com.tinkerpop.pipes.util.structures.Tree tree, com.tinkerpop.pipes.PipeFunction... branchFunctions) 
 ;; Add a TreePipe to the end of the Pipeline This step maintains an internal tree representation of the paths that have flowed through the step.
 
-(defn tree [p & fs]
-  (.tree p (fs-to-pipef-array fs)))
+
+(defn- convert-tree-helper [name t]
+  (let [names (seq (.getObjectsAtDepth t 1))
+        children (seq (.getTreesAtDepth t 2))
+        nexts (vec (map convert-tree-helper names children))]
+    (if (empty? nexts)
+      {:value name}
+      {:value name :children nexts})))
+
+(defn convert-tree [t]
+  (let [name (first (seq (.getObjectsAtDepth t 1)))
+        names (seq (.getObjectsAtDepth t 2))
+        children (seq (.getTreesAtDepth t 3))
+        nexts (vec (map convert-tree-helper names children))]
+    (if (empty? nexts)
+      {:value name}
+      {:value name :children nexts})))
+
+(defn get-tree [p & fs]
+  (-> (.tree p (fs-to-pipef-array fs))
+      (.cap)
+      (.toList)
+      seq
+      first
+      convert-tree))
 
 (defn tree-into [p t & fs]
   (.tree p t (fs-to-pipef-array fs)))
