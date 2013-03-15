@@ -1,5 +1,6 @@
 (ns ogre.side-effect
-  (:import (com.tinkerpop.pipes.util.structures Table Tree ))
+  (:import (com.tinkerpop.pipes.util.structures Table Tree))
+  (:require [ogre.pipe :as pipe])
   (:use ogre.util))
 
 (defn new-list [] (java.util.ArrayList.))
@@ -37,9 +38,23 @@
 ;; GremlinPipeline<S,E>	table(com.tinkerpop.pipes.util.structures.Table table, com.tinkerpop.pipes.PipeFunction... columnFunctions) 
 ;; Add a TablePipe to the end of the Pipeline.
 
-(defn table
-  ([p] (.table p))
-  ([p & fs] (.table p (fs-to-pipef-array))))
+
+(defn convert-table [t]
+  (let [ts (seq t)
+        names (map keyword (.getColumnNames t))
+        converter (fn [row]
+                    (into {} (for [i (range (count names))]
+                               [(nth names i) (.getColumn row i)])))]
+    (map converter ts)))
+
+(defn cap-table
+  ([p] (cap-table p identity))
+  ([p & fs] (->> (.table p  (fs-to-pipef-array fs))
+                 (.cap)
+                 (.toList)
+                 seq
+                 first
+                 convert-table)))
 
 (defn table-into
   ([p t] (.table p t))
