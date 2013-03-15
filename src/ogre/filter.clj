@@ -6,7 +6,7 @@
 ;; Add an FilterFunctionPipe to the end of the Pipeline.
 
 (defn filter [p f]
-  (.filter p (f-to-pipe f)))
+  (.filter p (f-to-pipef f)))
 
 ;; GremlinPipeline<S,E>	dedup() 
 ;; Add a DuplicateFilterPipe to the end of the Pipeline.
@@ -15,7 +15,7 @@
 
 (defn dedup
   ([p] (.dedup p))
-  ([p f] (.dedup p (f-to-pipe f))))
+  ([p f] (.dedup p (f-to-pipef f))))
 
 ;; GremlinPipeline<S,E>	except(Collection<E> collection) 
 ;; Add an ExceptFilterPipe to the end of the Pipeline.

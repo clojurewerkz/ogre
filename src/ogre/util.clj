@@ -32,7 +32,7 @@
        (map name)
        str-array))
 
-(defn f-to-pipe [f]
+(defn f-to-pipef [f]
   (reify PipeFunction
     (compute [this arg] (f arg))))
 
@@ -40,4 +40,4 @@
   (into-array Pipe ps))
 
 (defn fs-to-pipef-array [fs]
-  (into-array PipeFunction (map f-to-pipe fs)))
+  (into-array PipeFunction (map f-to-pipef fs)))

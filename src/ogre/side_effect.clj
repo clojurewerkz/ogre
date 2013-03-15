@@ -19,7 +19,7 @@
 ;; Add a SideEffectFunctionPipe to the end of the Pipeline.
 
 (defn side-effect [p f]
-  (.sideEffect p (f-to-pipe f)))
+  (.sideEffect p (f-to-pipef f)))
 
 ;; GremlinPipeline<S,?>	cap() 
 ;; Add a SideEffectCapPipe to the end of the Pipeline.
@@ -106,19 +106,19 @@
 ;; Add a StorePipe to the end of the Pipeline.
 ;;TODO: figure out what this is supposed to do within clojure
 
-(defn store
-  ([p] (.store p))
-  ([p f] (.store p (f-to-pipe f))))
+;; (defn store
+;;   ([p] (.store p))
+;;   ([p f] (.store p (f-to-pipe f))))
 
-(defn store-into
-  ([p c] (.store p c))
-  ([p c f] (.store p c (f-to-pipe f))))
+;; (defn store-into
+;;   ([p c] (.store p c))
+;;   ([p c f] (.store p c (f-to-pipe f))))
 
 ;; Collection<E>	fill(Collection<E> collection) 
 ;; Fill the provided collection with the objects in the pipeline.
 
-(defn fill [c]
-  (.fill c))
+;; (defn fill [c]
+;;   (.fill c))
 
 
 ;; GremlinPipeline<S,E>	groupBy(Map<?,List<?>> map, com.tinkerpop.pipes.PipeFunction keyFunction, com.tinkerpop.pipes.PipeFunction valueFunction) 
@@ -144,9 +144,16 @@
 ;; GremlinPipeline<S,E>	groupCount(com.tinkerpop.pipes.PipeFunction keyFunction, com.tinkerpop.pipes.PipeFunction<com.tinkerpop.pipes.util.structures.Pair<?,Number>,Number> valueFunction) 
 ;; Add a GroupCountPipe or GroupCountFunctionPipe to the end of the Pipeline.
 
-;;TODO: extend groupCount further 
-(defn group-count [p]
-  (.group-count p))
+(defn get-group-count
+  ([p] (get-group-count p identity))
+  ([p f] (get-group-count p f (fn [a b] (inc b))))
+  ([p f g]
+     (-> (.groupCount p (f-to-pipef f) (f-to-pipef (fn [arg] (g (.getA arg) (.getB arg)))))
+         (.cap)
+         (.toList)
+         seq
+         first
+         (#(into {} %)))))
 
 ;; GremlinPipeline<S,E>	aggregate() 
 ;; Add an AggregatePipe to the end of the Pipeline.

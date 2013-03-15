@@ -10,7 +10,7 @@
 
 (defn gather
   ([p] (.gather p))
-  ([p f] (.gather p (f-to-pipe f))))
+  ([p f] (.gather p (f-to-pipef f))))
 
 ;; GremlinPipeline<S,E>	order() 
 ;; Add an OrderPipe to the end of the Pipeline.
@@ -20,7 +20,7 @@
 (defn order
   ([p] (.order p))
   ([p compare]
-     (.order p (f-to-pipe (fn [pair]                                      
+     (.order p (f-to-pipef (fn [pair]                                      
                             (compare (.getA pair)
                                      (.getB pair)))))))
 ;; (defn order-decr

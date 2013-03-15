@@ -24,7 +24,7 @@
 ;; Add an IfThenElsePipe to the end of the Pipeline.
 
 (defn if-then-else [p pred then else]
-  (.ifThenElse p (f-to-pipe pred) (f-to-pipe then) (f-to-pipe else)))
+  (.ifThenElse p (f-to-pipef pred) (f-to-pipef then) (f-to-pipef else)))
 
 
 ;; GremlinPipeline<S,E>	loop(int numberedStep, com.tinkerpop.pipes.PipeFunction<com.tinkerpop.pipes.branch.LoopPipe.LoopBundle<E>,Boolean> whileFunction) 
@@ -40,9 +40,9 @@
 
 (defn loop
   ([p i while-f]
-     (.loop p i (f-to-pipe (loop-unbundler while-f))))
+     (.loop p i (f-to-pipef (loop-unbundler while-f))))
   ([p i while-f emit-f]
-     (.loop p i (f-to-pipe (loop-unbundler while-f)) (f-to-pipe emit-f))))
+     (.loop p i (f-to-pipef (loop-unbundler while-f)) (f-to-pipef emit-f))))
 
 ;; GremlinPipeline<S,E>	loop(String namedStep, com.tinkerpop.pipes.PipeFunction<com.tinkerpop.pipes.branch.LoopPipe.LoopBundle<E>,Boolean> whileFunction) 
 ;; Add a LoopPipe to the end of the Pipeline.
@@ -51,7 +51,8 @@
 
 (defn loop-to
   ([p s while-f]
-     (.loop p s (f-to-pipe (loop-unbundler while-f))))
+     (.loop p s (f-to-pipef (loop-unbundler while-f))))
   ([p s while-f emit-f]
-     (.loop p s (f-to-pipe (loop-unbundler while-f))
-            (f-to-pipe emit-f))))
+     (.loop p s
+            (f-to-pipef (loop-unbundler while-f))
+            (f-to-pipef emit-f))))
