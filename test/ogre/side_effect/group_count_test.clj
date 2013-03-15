@@ -17,5 +17,3 @@
                          (q/get-group-count (partial g/get-property :name)
                                             (fn [a b] (+ 2 b))))]
       (is (= group {"lop" 6 "ripple" 2})))))
-
-

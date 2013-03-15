@@ -131,6 +131,19 @@
 ;; Add a GroupByReducePipe to the end of the Pipeline.
 
 
+(defn get-grouped-by
+  ([p f g] (get-grouped-by p f g identity))
+  ([p f g r]
+     (let [results      (-> (.groupBy p (f-to-pipef f) (f-to-pipef g))
+                            (.cap)
+                            (.toList)
+                            seq
+                            first)]
+       (->> results
+            (into {})
+            (map (fn [[a b]] [a (vec b)]))
+            (into {})))))
+
 ;; GremlinPipeline<S,E>	groupCount() 
 ;; Add a GroupCountPipe to the end of the Pipeline.
 ;; GremlinPipeline<S,E>	groupCount(Map<?,Number> map) 
