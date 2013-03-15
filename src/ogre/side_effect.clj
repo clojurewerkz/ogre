@@ -1,5 +1,18 @@
 (ns ogre.side-effect
+  (:import (com.tinkerpop.pipes.util.structures Table Tree ))
   (:use ogre.util))
+
+(defn new-list [] (java.util.ArrayList.))
+
+(defn new-tree [] (Table.))
+
+(defn new-table [] (Tree.))
+
+(defn convert-list [] (java.util.ArrayList.))
+
+(defn convert-tree [] (Table.))
+
+(defn convert-table [] (Tree.))
 
 ;; GremlinPipeline<S,E>	sideEffect(com.tinkerpop.pipes.PipeFunction<E,?> sideEffectFunction) 
 ;; Add a SideEffectFunctionPipe to the end of the Pipeline.
@@ -23,19 +36,28 @@
 ;; Add a TablePipe to the end of the Pipeline.
 ;; GremlinPipeline<S,E>	table(com.tinkerpop.pipes.util.structures.Table table, com.tinkerpop.pipes.PipeFunction... columnFunctions) 
 ;; Add a TablePipe to the end of the Pipeline.
-;;TODO: What does a table entail? Implement this in full
+
 (defn table
   ([p] (.table p))
-  ([p f] (.table (f-to-pipe f))))
+  ([p & fs] (.table p (fs-to-pipef-array))))
+
+(defn table-into
+  ([p t] (.table p t))
+  ([p t & args]
+     (if (= clojure.lang.PersistentVector (type (first args)))
+       (.table p t (first args) (fs-to-pipef-array (rest args)))
+       (.table p t (fs-to-pipef-array args)))))
 
 ;; GremlinPipeline<S,E>	tree(com.tinkerpop.pipes.PipeFunction... branchFunctions) 
 ;; Add a TreePipe to the end of the Pipeline This step maintains an internal tree representation of the paths that have flowed through the step.
 ;; GremlinPipeline<S,E>	tree(com.tinkerpop.pipes.util.structures.Tree tree, com.tinkerpop.pipes.PipeFunction... branchFunctions) 
 ;; Add a TreePipe to the end of the Pipeline This step maintains an internal tree representation of the paths that have flowed through the step.
 
-;;TODO: tree structure?
 (defn tree [p & fs]
   (.tree p (fs-to-pipef-array fs)))
+
+(defn tree-into [p t & fs]
+  (.tree p t (fs-to-pipef-array fs)))
 
 ;; GremlinPipeline<S,E>	store() 
 ;; Add an StorePipe to the end of the Pipeline.
@@ -47,13 +69,19 @@
 ;; Add a StorePipe to the end of the Pipeline.
 ;;TODO: figure out what this is supposed to do within clojure
 
-(defn store [p]
-  (.store p))
+(defn store
+  ([p] (.store p))
+  ([p f] (.store p (f-to-pipe f))))
+
+(defn store-into
+  ([p c] (.store p c))
+  ([p c f] (.store p c (f-to-pipe f))))
 
 ;; Collection<E>	fill(Collection<E> collection) 
 ;; Fill the provided collection with the objects in the pipeline.
 
-;;TODO: does this make sense from within clojure? 
+(defn fill [c]
+  (.fill c))
 
 
 ;; GremlinPipeline<S,E>	groupBy(Map<?,List<?>> map, com.tinkerpop.pipes.PipeFunction keyFunction, com.tinkerpop.pipes.PipeFunction valueFunction) 
@@ -64,6 +92,7 @@
 ;; Add a GroupByPipe to the end of the Pipeline.
 ;; GremlinPipeline<S,E>	groupBy(com.tinkerpop.pipes.PipeFunction keyFunction, com.tinkerpop.pipes.PipeFunction valueFunction, com.tinkerpop.pipes.PipeFunction reduceFunction) 
 ;; Add a GroupByReducePipe to the end of the Pipeline.
+
 
 ;; GremlinPipeline<S,E>	groupCount() 
 ;; Add a GroupCountPipe to the end of the Pipeline.

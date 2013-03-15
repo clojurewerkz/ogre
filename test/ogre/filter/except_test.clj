@@ -1,7 +1,8 @@
 (ns ogre.filter.except-test
   (:use [clojure.test])
-  (:require [ogre.core :as q]
-            [ogre.tinkergraph :as g]))
+  (:require [ogre.core :as q]            
+            [ogre.tinkergraph :as g]
+            [ogre.test-util :as u]))
 
 (deftest test-except-step
   (g/use-new-tinker-graph!)
@@ -10,7 +11,7 @@
                       q/-->
                       (q/except [(g/find-by-id 2)])
                       (q/into-vec))]
-      (is (= #{"josh" "lop"} (g/get-names-set vs)))))
+      (is (= #{"josh" "lop"} (u/get-names-set vs)))))
   (testing "test_g_v1_out_aggregateXxX_out_exceptXxX"
     ;;TODO reapproach this once aggregate has been figured out
     )

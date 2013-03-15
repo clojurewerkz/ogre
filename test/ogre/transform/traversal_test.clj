@@ -1,7 +1,8 @@
 (ns ogre.transform.traversal-test
   (:use [clojure.test])
   (:require [ogre.core :as q]
-            [ogre.tinkergraph :as g]))
+            [ogre.tinkergraph :as g]
+            [ogre.test-util :as u]))
 
 (deftest test-transform-step
   (g/use-new-tinker-graph!)
@@ -13,21 +14,21 @@
                       q/-->
                       q/into-vec)]
       (is (= #{"vadas" "josh" "lop"})
-          (g/get-names-set vs))))
+          (u/get-names-set vs))))
   
   (testing "test_g_v2_in()"
     (let [vs (q/query (g/find-by-id 2)
                       q/<--
                       q/into-vec)]
       (is (= #{"marko"})
-          (g/get-names-set vs))))
+          (u/get-names-set vs))))
   
   (testing "test_g_v4_both()"
     (let [vs (q/query (g/find-by-id 2)
                       q/<->
                       q/into-vec)]
       (is (= #{"marko" "ripple" "lop"})
-          (g/get-names-set vs))))
+          (u/get-names-set vs))))
   
   (testing "test_g_E"
     "Nothign to see here")
@@ -62,7 +63,7 @@
                       q/in-vertex
                       q/into-vec)]
       (is (= #{"vadas" "josh" "lop"})
-          (g/get-names-set vs))))
+          (u/get-names-set vs))))
 
   (testing "test_g_v2_inE_outV"
     (let [vs (q/query (g/find-by-id 2)
@@ -70,21 +71,21 @@
                       q/out-vertex
                       q/into-vec)]
       (is (= #{"vadas" "josh" "lop"})
-          (g/get-names-set vs))))
+          (u/get-names-set vs))))
 
   (testing "test_g_v1_out(knows)"
     (let [vs (q/query (g/find-by-id 1)
                       (q/--> :knows)
                       q/into-vec)]
       (is (= #{"vadas" "josh"})
-          (g/get-names-set vs))))
+          (u/get-names-set vs))))
 
   (testing "test_g_v1_out(knows created)"
     (let [vs (q/query (g/find-by-id 1)
                       (q/--> :knows :created)
                       q/into-vec)]
       (is (= #{"vadas" "josh"})
-          (g/get-names-set vs))))
+          (u/get-names-set vs))))
   
   (testing "test_g_v1_outE(knows)_inV"
     (let [vs (q/query (g/find-by-id 1)
@@ -92,7 +93,7 @@
                       q/in-vertex
                       q/into-vec)]
       (is (= #{"vadas" "josh"})
-          (g/get-names-set vs))))
+          (u/get-names-set vs))))
 
   (testing "test_g_v1_outE(knows created)_inE"
     (let [vs (q/query (g/find-by-id 1)
@@ -100,7 +101,7 @@
                       q/in-vertex
                       q/into-vec)]
       (is (= #{"vadas" "josh"})
-          (g/get-names-set vs))))
+          (u/get-names-set vs))))
 
   (testing "test_g_v1_out_out"
     (let [vs (q/query (g/find-by-id 1)
@@ -108,7 +109,7 @@
                       q/-->
                       q/into-vec)]
       (is (= #{"ripple" "lop"})
-          (g/get-names-set vs))))
+          (u/get-names-set vs))))
 
   (testing "test_g_v1_out_out_out"
     (let [vs (q/query (g/find-by-id 1)

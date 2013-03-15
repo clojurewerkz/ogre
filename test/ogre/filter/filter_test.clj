@@ -1,7 +1,8 @@
 (ns ogre.filter.filter-test
   (:use [clojure.test])
   (:require [ogre.core :as q]
-            [ogre.tinkergraph :as g]))
+            [ogre.tinkergraph :as g]
+            [ogre.test-util :as u]))
 
 (deftest test-filter-step
   (g/use-new-tinker-graph!)
@@ -19,10 +20,10 @@
   
   (testing "test_g_V_filterXlang_eq_javaX()"
     (let [vs (q/query (g/get-vertices)
-                      (q/filter (partial g/prop-pred :lang = "java"))                    
+                      (q/filter (partial u/prop-pred :lang = "java"))                    
                       (q/into-vec))]
       (is (= 2 (count vs)))
-      (is (= #{"lop" "ripple"} (g/get-names-set vs)))))
+      (is (= #{"lop" "ripple"} (u/get-names-set vs)))))
 
   (testing "test_g_v1_out_filterXage_gt_30X"
     (let [vs (q/query (g/find-by-id 1)
@@ -43,4 +44,4 @@
                                     boolean))                    
                       (q/into-vec))]
       (is (= 2 (count vs)))
-      (is (= #{"marko" "peter"} (g/get-names-set vs))))))
+      (is (= #{"marko" "peter"} (u/get-names-set vs))))))

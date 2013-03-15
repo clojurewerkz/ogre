@@ -1,7 +1,8 @@
 (ns ogre.filter.interval-test
   (:use [clojure.test])
   (:require [ogre.core :as q]
-            [ogre.tinkergraph :as g]))
+            [ogre.tinkergraph :as g]
+            [ogre.test-util :as u]))
 
 (deftest test-interval-step
   (g/use-new-tinker-graph!)
@@ -11,4 +12,4 @@
                       (q/interval :weight 0 0.6)
                       (q/in-vertex)
                       (q/into-vec))]
-      (is (= #{"lop" "vadas"} (g/get-names-set vs))))))
+      (is (= #{"lop" "vadas"} (u/get-names-set vs))))))
