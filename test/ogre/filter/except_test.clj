@@ -10,7 +10,7 @@
     (let [vs (q/query (g/find-by-id 1)
                       q/-->
                       (q/except [(g/find-by-id 2)])
-                      (q/into-vec))]
+                      (q/into-vec!))]
       (is (= #{"josh" "lop"} (u/get-names-set vs)))))
   (testing "test_g_v1_out_aggregateXxX_out_exceptXxX"
     ;;TODO reapproach this once aggregate has been figured out
@@ -21,5 +21,5 @@
                       (q/<-- :created)
                       (q/except [(g/find-by-id 1)])
                       (q/property :name)
-                      (q/into-set))]
+                      (q/into-set!))]
       (is (= #{"peter" "josh"} names)))))

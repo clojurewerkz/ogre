@@ -11,11 +11,11 @@
                     q/-->
                     q/id
                     q/gather
-                    q/first-into-set))))
+                    q/first-into-set!))))
   (testing "g(v1).out.gather(identity)"
     (is (= #{"2" "3" "4"}
            (q/query (g/find-by-id 1)
                     q/-->
                     q/id
                     (q/gather identity)
-                    q/first-into-set)))))
+                    q/first-into-set!)))))

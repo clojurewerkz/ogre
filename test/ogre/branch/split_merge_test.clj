@@ -12,7 +12,7 @@
                           (q/bare-pipe (q/property :name))
                           (q/bare-pipe (q/property :age)))
                          q/fair-merge
-                         (q/into-vec)
+                         (q/into-vec!)
                          ((partial partition-all 2)))]
       (is (every? #{'("vadas" 27) '("josh" 32) '("lop" nil)}
                   props))))
@@ -24,7 +24,7 @@
                           (q/bare-pipe (q/property :name))
                           (q/bare-pipe (q/property :age)))
                          q/exhaust-merge
-                         (q/into-vec))]
+                         (q/into-vec!))]
       (is (= #{"vadas" "josh"} (set (take 2 props))))
       (is (= #{27 32} (set (drop 2 props))))))
 
@@ -36,7 +36,7 @@
                           (q/bare-pipe (q/property :age)))
                          q/exhaust-merge
                          q/path
-                         (q/all-into-vecs))
+                         (q/all-into-vecs!))
           names (take 2 props)
           ages  (drop 2 props)]
       (is (= 2 (count names)))

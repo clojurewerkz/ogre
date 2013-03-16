@@ -3,18 +3,6 @@
   (:require [ogre.pipe :as pipe])
   (:use ogre.util))
 
-(defn new-list [] (java.util.ArrayList.))
-
-(defn new-tree [] (Table.))
-
-(defn new-table [] (Tree.))
-
-(defn convert-list [] (java.util.ArrayList.))
-
-(defn convert-tree [] (Table.))
-
-(defn convert-table [] (Tree.))
-
 ;; GremlinPipeline<S,E>	sideEffect(com.tinkerpop.pipes.PipeFunction<E,?> sideEffectFunction) 
 ;; Add a SideEffectFunctionPipe to the end of the Pipeline.
 
@@ -47,7 +35,7 @@
                                [(nth names i) (.getColumn row i)])))]
     (map converter ts)))
 
-(defn get-table
+(defn get-table!
   ([p & fs] (->> (.table p  (fs-to-pipef-array fs))
                  (.cap)
                  (.toList)
@@ -85,7 +73,7 @@
       {:value name}
       {:value name :children nexts})))
 
-(defn get-tree [p & fs]
+(defn get-tree! [p & fs]
   (-> (.tree p (fs-to-pipef-array fs))
       (.cap)
       (.toList)
@@ -131,8 +119,8 @@
 ;; Add a GroupByReducePipe to the end of the Pipeline.
 
 
-(defn get-grouped-by
-  ([p f g] (get-grouped-by p f g identity))
+(defn get-grouped-by!
+  ([p f g] (get-grouped-by! p f g identity))
   ([p f g r]
      (let [results      (-> (.groupBy p (f-to-pipef f) (f-to-pipef g))
                             (.cap)
@@ -157,9 +145,9 @@
 ;; GremlinPipeline<S,E>	groupCount(com.tinkerpop.pipes.PipeFunction keyFunction, com.tinkerpop.pipes.PipeFunction<com.tinkerpop.pipes.util.structures.Pair<?,Number>,Number> valueFunction) 
 ;; Add a GroupCountPipe or GroupCountFunctionPipe to the end of the Pipeline.
 
-(defn get-group-count
-  ([p] (get-group-count p identity))
-  ([p f] (get-group-count p f (fn [a b] (inc b))))
+(defn get-group-count!
+  ([p] (get-group-count! p identity))
+  ([p f] (get-group-count! p f (fn [a b] (inc b))))
   ([p f g]
      (-> (.groupCount p (f-to-pipef f) (f-to-pipef (fn [arg] (g (.getA arg) (.getB arg)))))
          (.cap)

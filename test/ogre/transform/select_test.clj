@@ -11,7 +11,7 @@
                              (q/--> :knows)
                              (q/as "b")
                              q/select
-                             q/all-into-vecs)]
+                             q/all-into-vecs!)]
       ;;TODO turn these into maps in core
       (is (= #{"1"} (set (map (comp g/get-id first) selection))))
       (is (= #{"2" "4"} (set (map (comp g/get-id second) selection))))
@@ -23,7 +23,7 @@
                              (q/--> :knows)
                              (q/as "b")
                              (q/select (partial g/get-property :name))
-                             q/all-into-vecs)]
+                             q/all-into-vecs!)]
       (is (= #{"marko"} (set (map first selection))))
       (is (= #{"josh" "vadas"} (set (map second selection))))
       (is (= 2 (count selection)))
@@ -34,7 +34,7 @@
                              (q/--> :knows)
                              (q/as "b")
                              (q/select-only ["a"])
-                             q/all-into-vecs)]
+                             q/all-into-vecs!)]
       (is (= 2 (count selection)))
       (is (= 1 (count (first selection))))
       (is (= #{"1"} (set (map (comp g/get-id first) selection))))))
@@ -44,7 +44,7 @@
                              (q/--> :knows)
                              (q/as "b")
                              (q/select-only ["a"] (partial g/get-property :name))
-                             q/all-into-vecs)]
+                             q/all-into-vecs!)]
       (is (= 2 (count selection)))
       (is (= 1 (count (first selection))))
       (is (= #{"marko"} (set (map first selection)))))))

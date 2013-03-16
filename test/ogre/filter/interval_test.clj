@@ -11,5 +11,5 @@
                       (q/--E>)
                       (q/interval :weight 0 0.6)
                       (q/in-vertex)
-                      (q/into-vec))]
+                      (q/into-vec!))]
       (is (= #{"lop" "vadas"} (u/get-names-set vs))))))

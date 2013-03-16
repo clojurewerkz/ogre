@@ -12,7 +12,7 @@
           names (q/query elem
                       (q/side-effect (partial swap! lst conj))
                       (q/property :name)
-                      q/into-vec)]
+                      q/into-vec!)]
       (is (= elem (first @lst)))
       (is (= "marko" (first names)))))
   
@@ -23,7 +23,7 @@
                       q/-->
                       (q/side-effect (partial swap! lst conj))
                       (q/property :name)
-                      q/into-vec)]
+                      q/into-vec!)]
       (= 3 (count @lst))
       (= #{"josh" "lop" "vadas"} (set names))))
 
@@ -34,7 +34,7 @@
                       q/-->
                       (q/side-effect (constantly false))
                       (q/property :name)
-                      q/into-vec)]
+                      q/into-vec!)]
       (= 3 (count @lst))
       (= #{"josh" "lop" "vadas"} (set names)))))
 

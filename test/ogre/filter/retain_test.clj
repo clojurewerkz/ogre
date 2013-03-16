@@ -9,7 +9,7 @@
     (let [vs (q/query (g/find-by-id 1)
                       (q/-->)
                       (q/retain [(g/find-by-id 2)])
-                      (q/into-vec))]
+                      (q/into-vec!))]
       (is (= 1 (count vs)))
       (is (= "vadas" (g/get-property :name (first vs))))))
 
@@ -17,6 +17,6 @@
     (let [vs (q/query (g/find-by-id 1)
                       (q/-->)
                       (q/retain [(g/find-by-id 2)])
-                      (q/into-vec))]
+                      (q/into-vec!))]
       ;;TODO finish this once aggregrate is finished
 )))                        

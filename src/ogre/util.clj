@@ -16,7 +16,7 @@
 
 (defn convert-symbol-to-token [s]
   (case s
-    ==   Tokens$T/eq
+    =   Tokens$T/eq
     not=   Tokens$T/neq  
     >=   Tokens$T/gte
     >    Tokens$T/gt

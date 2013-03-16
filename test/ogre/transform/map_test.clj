@@ -8,7 +8,7 @@
   (testing "g(v1).map"
     (let [m (q/query (g/find-by-id 1)
                      q/map
-                     q/first-into-map)]
+                     q/first-into-map!)]
       (is (= "marko" (:name m)))
       (is (= 29 (:age m)))
       (is (= 2 (count m)))))
@@ -25,7 +25,7 @@
     (let [ms (q/query (g/find-by-id 1)
                      (q/--> :knows)
                      q/map
-                     q/all-into-maps)
+                     q/all-into-maps!)
           vadas (first (filter #(= "vadas" (:name %)) ms))
           josh  (first (filter #(= "josh" (:name %)) ms))]
       (is (= 27 (:age vadas)))

@@ -10,7 +10,7 @@
     (let [tree (q/query (g/find-by-id 1)
                          q/-->
                          q/-->
-                         (q/get-tree (partial g/get-property :name)))]
+                         (q/get-tree! (partial g/get-property :name)))]
       (is (= "marko" (:value tree)))
       (is (= "josh" (get-in tree [:children 0 :value])))
       (is (= "lop" (get-in tree [:children 0 :children 0 :value])))

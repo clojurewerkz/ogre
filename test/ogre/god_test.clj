@@ -39,36 +39,37 @@
     (let [r1 (q/query saturn
                       (q/<-- :father)
                       (q/<-- :father)
-                      q/into-vec
+                      q/into-vec!
                       first)
           r2 (q/query hercules
                       (q/--> :father :mother)
                       (q/property :name)
-                      (q/into-set))
+                      (q/into-set!))
           r3 (q/query hercules
                       (q/--E> :battled)
                       (q/has  :times > 1)
                       (q/in-vertex)
                       (q/property :name)
-                      (q/into-set))
+                      (q/into-set!))
           c3 (q/query hercules
                       (q/--E> :battled)
                       (q/has  :times > 1)
                       (q/in-vertex)
+                      (q/into-vec!)
                       (q/count))
           r4 (q/query pluto
                       (q/--> :lives)
                       (q/<-- :lives)
                       (q/except [pluto])
                       (q/property :name)
-                      (q/into-set))
+                      (q/into-set!))
           r5 (q/query pluto
                            (q/--> :brother)
                            (q/as  "god")
                            (q/--> :lives)
                            (q/as  "place")
                            (q/select (partial g/get-property :name))
-                           (q/into-set)
+                           (q/into-set!)
                            ((partial map (partial into []))))]
       (is (= r1 hercules))
       (is (= r2 #{"Alcmene" "Jupiter"}))

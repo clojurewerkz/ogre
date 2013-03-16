@@ -9,19 +9,19 @@
   (testing "test_g_V_filterXfalseX"
     (let [vs (q/query (g/get-vertices)
                       (q/filter (constantly false))                    
-                      (q/into-vec))]
+                      (q/into-vec!))]
       (is (= 0 (count vs)))))
 
   (testing "test_g_V_filterXtrueX"
     (let [vs (q/query (g/get-vertices)
                       (q/filter (constantly true))                    
-                      (q/into-vec))]
+                      (q/into-vec!))]
       (is (= 6 (count vs)))))
   
   (testing "test_g_V_filterXlang_eq_javaX()"
     (let [vs (q/query (g/get-vertices)
                       (q/filter (partial u/prop-pred :lang = "java"))                    
-                      (q/into-vec))]
+                      (q/into-vec!))]
       (is (= 2 (count vs)))
       (is (= #{"lop" "ripple"} (u/get-names-set vs)))))
 
@@ -31,7 +31,7 @@
                       (q/filter (fn [v]
                                   (let [age (g/get-property :age v)]
                                     (and (not (nil? age)) (> age 30)))))                    
-                      (q/into-vec))]
+                      (q/into-vec!))]
       (is (= 1 (count vs)))
       (is (= #{32} (set (map (partial g/get-property :age) vs))))))
 
@@ -42,6 +42,6 @@
                                     first
                                     #{\m \p}
                                     boolean))                    
-                      (q/into-vec))]
+                      (q/into-vec!))]
       (is (= 2 (count vs)))
       (is (= #{"marko" "peter"} (u/get-names-set vs))))))

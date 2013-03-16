@@ -9,13 +9,13 @@
     (let [names (q/query (g/get-vertices)
                          (q/property :name)
                          q/order
-                         q/into-vec)]
+                         q/into-vec!)]
       (is ["josh" "lop" "marko""peter" "ripple" "vadas"] names)))
   (testing "g(g.getVertices).property('name').order(ab)"
     (let [names (q/query (g/get-vertices)
                          (q/property :name)
                          (q/order #(compare %2 %1))
-                         q/into-vec)]
+                         q/into-vec!)]
       (is ["vadas""ripple""peter" "marko" "lop" "josh"] names)))
 
   (testing "g(g.getVertices).order(a.name>b.name).property('name')"
@@ -24,7 +24,7 @@
                                     (compare (g/get-property :name a)
                                              (g/get-property :name b))))
                          (q/property :name)
-                         q/into-vec)]
+                         q/into-vec!)]
       (is ["vadas""ripple""peter" "marko" "lop" "josh"] names)))
 
   ;;Gremlin 0.2.3 ?

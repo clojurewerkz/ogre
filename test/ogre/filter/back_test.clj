@@ -10,7 +10,7 @@
     (let [vs (q/query (g/find-by-id 1)
                       q/-->
                       (q/back 1)
-                      q/into-vec)]
+                      q/into-vec!)]
       (is (= #{"marko"} (u/get-names-set vs)))
       (is (= 1 (count vs)))))
   
@@ -19,7 +19,7 @@
                       (q/as "here")
                       q/-->
                       (q/back-to "here")
-                      q/into-vec)]
+                      q/into-vec!)]
       (is (= #{"marko"} (u/get-names-set vs)))
       (is (= 1 (count vs)))))
 
@@ -28,7 +28,7 @@
                       q/-->
                       (q/filter #(= "java" (g/get-property :lang % )))
                       (q/back 1)
-                      q/into-vec)]
+                      q/into-vec!)]
       (is (= #{"ripple" "lop"} (u/get-names-set vs)))
       (is (= 2 (count vs)))))
 
@@ -38,7 +38,7 @@
                       (q/as "here")
                       (q/filter #(= "java" (g/get-property :lang % )))
                       (q/back-to "here")
-                      q/into-vec)]
+                      q/into-vec!)]
       (is (= #{"ripple" "lop"} (u/get-names-set vs)))
       (is (= 2 (count vs)))))
 
@@ -49,6 +49,6 @@
                          (q/filter #(= "java" (g/get-property :lang % )))
                          (q/back-to "here")
                          (q/property :name)
-                         q/into-set)]
+                         q/into-set!)]
       (is (= #{"ripple" "lop"} names))
       (is (= 2 (count names))))))

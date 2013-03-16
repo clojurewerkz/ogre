@@ -10,7 +10,7 @@
                          q/<->
                          q/dedup
                          (q/property :name)
-                         (q/into-vec))]
+                         (q/into-vec!))]
       (is (= ["marko" "josh" "peter" "vadas""lop" "ripple" ] names))))
 
   (testing "test_g_V_both_dedup_name()"
@@ -18,7 +18,7 @@
                          q/<->
                          (q/dedup (partial g/get-property :lang))
                          (q/property :name)
-                         (q/into-vec))]
+                         (q/into-vec!))]
       (is (= 2 (count names)))
       (is (some #{"marko" "josh" "peter" "vadas"} names))
       (is (some #{"lop" "ripple"} names)))))

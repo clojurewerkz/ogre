@@ -71,5 +71,5 @@
 ;; GremlinPipeline<S,E>	simplePath() 
 ;; Add a CyclicPathFilterPipe to the end of the Pipeline.
 
-(defn simplePath [p]
+(defn simple-path [p]
   (.simplePath p))
