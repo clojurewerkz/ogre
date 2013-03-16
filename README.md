@@ -5,8 +5,9 @@
 Ogre is a Clojure wrapper for
 [Gremlin](https://github.com/tinkerpop/gremlin/wiki). The goal of this
 project is to provide a solid, well tested Clojure wrapper for
-Gremlin. Currently, Ogre powers Hermes. For documentation and usage,
-see [OgreDocs](http://ogredocs.com/).
+Gremlin. Currently, Ogre powers
+[Hermes](https://github.com/zmaril/hermes). For documentation and
+usage, see [OgreDocs](http://ogredocs.com/).
 
 
 ## Usage
