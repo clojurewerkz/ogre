@@ -1,4 +1,4 @@
-(defproject zmaril/ogre "0.0.1"
+(defproject zmaril/ogre "2.2.0.0"
   :description "Clojure wrapper around gremlin"
   :url "https://github.com/zmaril/ogre"
   :license {:name "Eclipse Public License"

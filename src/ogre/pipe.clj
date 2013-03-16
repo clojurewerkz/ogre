@@ -52,9 +52,13 @@
 
 ;; GremlinPipeline<S,?>	optional(int numberedStep) 
 ;; Add an OptionalPipe to the end of the Pipeline.
+(defn optional [p s]
+  (.optional p s))
+
 ;; GremlinPipeline<S,?>	optional(String namedStep) 
 ;; Add an OptionalPipe to the end of the Pipeline.
-(defn optional [p s]
+
+(defn optional-to [p s]
   (.optional p s))
 
 ;; GremlinPipeline<S,S>	start(S object) 
