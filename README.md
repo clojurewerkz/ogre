@@ -1,4 +1,4 @@
-<img src="http:/ogredocs.com/ogre.png" height="200"></img>
+<img src="ogredocs.com/ogre.png" height="200"></img>
 
 # Ogre
 
