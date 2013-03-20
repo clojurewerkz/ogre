@@ -14,10 +14,10 @@
   `(-> (GremlinPipeline. ~xs)
        ~@body))
 
-(defn convert-symbol-to-token [s]
+(defn convert-symbol-to-compare [s]
   (case s
-    =   Tokens$T/eq
-    not=   Tokens$T/neq  
+    =    Tokens$T/eq
+    not= Tokens$T/neq  
     >=   Tokens$T/gte
     >    Tokens$T/gt
     <=   Tokens$T/lte

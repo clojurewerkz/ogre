@@ -1,6 +1,6 @@
 (ns ogre.filter
   (:refer-clojure :exclude [filter and or range])
-  (:use ogre.util))
+  (:require [ogre.util :refer (convert-symbol-to-compare f-to-pipef)]))
 
 ;; GremlinPipeline<S,E>	filter(com.tinkerpop.pipes.PipeFunction<E,Boolean> filterFunction) 
 ;; Add an FilterFunctionPipe to the end of the Pipeline.
@@ -30,7 +30,7 @@
 
 (defmacro has
   ([p k v] `(.has ~p ~(name k) ~v))
-  ([p k c v] `(.has ~p ~(name k) (convert-symbol-to-token '~c) ~v)))
+  ([p k c v] `(.has ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
 
 
 ;; GremlinPipeline<S,? extends com.tinkerpop.blueprints.Element>	hasNot(String key, Object value) 
@@ -42,7 +42,7 @@
 
 (defmacro has-not
   ([p k v] `(.hasNot ~p ~(name k) ~v))
-  ([p k c v] `(.hasNot ~p ~(name k) (convert-symbol-to-token '~c) ~v)))
+  ([p k c v] `(.hasNot ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
 
 ;; GremlinPipeline<S,? extends com.tinkerpop.blueprints.Element>	interval(String key, Object startValue, Object endValue) 
 ;; Add an IntervalFilterPipe to the end of the Pipeline.
