@@ -56,7 +56,7 @@
                       (q/has  :times > 1)
                       (q/in-vertex)
                       (q/into-vec!)
-                      (q/count))
+                      (q/count!))
           r4 (q/query pluto
                       (q/--> :lives)
                       (q/<-- :lives)

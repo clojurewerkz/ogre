@@ -3,29 +3,11 @@
   (:require [ogre.pipe :as pipe])
   (:use ogre.util))
 
-;; GremlinPipeline<S,E>	sideEffect(com.tinkerpop.pipes.PipeFunction<E,?> sideEffectFunction) 
-;; Add a SideEffectFunctionPipe to the end of the Pipeline.
-
 (defn side-effect [p f]
   (.sideEffect p (f-to-pipef f)))
 
-;; GremlinPipeline<S,?>	cap() 
-;; Add a SideEffectCapPipe to the end of the Pipeline.
-
 (defn cap [p]
   (.cap p))
-
-;; GremlinPipeline<S,E>	table() 
-;; Add a TablePipe to the end of the Pipeline.
-;; GremlinPipeline<S,E>	table(com.tinkerpop.pipes.PipeFunction... columnFunctions) 
-;; Add a TablePipe to the end of the Pipeline.
-;; GremlinPipeline<S,E>	table(com.tinkerpop.pipes.util.structures.Table table) 
-;; Add a TablePipe to the end of the Pipeline.
-;; GremlinPipeline<S,E>	table(com.tinkerpop.pipes.util.structures.Table table, Collection<String> stepNames, com.tinkerpop.pipes.PipeFunction... columnFunctions) 
-;; Add a TablePipe to the end of the Pipeline.
-;; GremlinPipeline<S,E>	table(com.tinkerpop.pipes.util.structures.Table table, com.tinkerpop.pipes.PipeFunction... columnFunctions) 
-;; Add a TablePipe to the end of the Pipeline.
-
 
 (defn convert-table [t]
   (let [ts (seq t)
@@ -49,12 +31,6 @@
      (if (= clojure.lang.PersistentVector (type (first args)))
        (.table p t (first args) (fs-to-pipef-array (rest args)))
        (.table p t (fs-to-pipef-array args)))))
-
-;; GremlinPipeline<S,E>	tree(com.tinkerpop.pipes.PipeFunction... branchFunctions) 
-;; Add a TreePipe to the end of the Pipeline This step maintains an internal tree representation of the paths that have flowed through the step.
-;; GremlinPipeline<S,E>	tree(com.tinkerpop.pipes.util.structures.Tree tree, com.tinkerpop.pipes.PipeFunction... branchFunctions) 
-;; Add a TreePipe to the end of the Pipeline This step maintains an internal tree representation of the paths that have flowed through the step.
-
 
 (defn- convert-tree-helper [name t]
   (let [names (seq (.getObjectsAtDepth t 1))
@@ -109,16 +85,6 @@
 ;;   (.fill c))
 
 
-;; GremlinPipeline<S,E>	groupBy(Map<?,List<?>> map, com.tinkerpop.pipes.PipeFunction keyFunction, com.tinkerpop.pipes.PipeFunction valueFunction) 
-;; Add a GroupByPipe to the end of the Pipeline.
-;; GremlinPipeline<S,E>	groupBy(Map reduceMap, com.tinkerpop.pipes.PipeFunction keyFunction, com.tinkerpop.pipes.PipeFunction valueFunction, com.tinkerpop.pipes.PipeFunction reduceFunction) 
-;; Add a GroupByReducePipe to the end of the Pipeline.
-;; GremlinPipeline<S,E>	groupBy(com.tinkerpop.pipes.PipeFunction keyFunction, com.tinkerpop.pipes.PipeFunction valueFunction) 
-;; Add a GroupByPipe to the end of the Pipeline.
-;; GremlinPipeline<S,E>	groupBy(com.tinkerpop.pipes.PipeFunction keyFunction, com.tinkerpop.pipes.PipeFunction valueFunction, com.tinkerpop.pipes.PipeFunction reduceFunction) 
-;; Add a GroupByReducePipe to the end of the Pipeline.
-
-
 (defn get-grouped-by!
   ([p f g] (get-grouped-by! p f g identity))
   ([p f g r]
@@ -131,19 +97,6 @@
             (into {})
             (map (fn [[a b]] [a (vec b)]))
             (into {})))))
-
-;; GremlinPipeline<S,E>	groupCount() 
-;; Add a GroupCountPipe to the end of the Pipeline.
-;; GremlinPipeline<S,E>	groupCount(Map<?,Number> map) 
-;; Add a GroupCountPipe to the end of the Pipeline.
-;; GremlinPipeline<S,E>	groupCount(Map<?,Number> map, com.tinkerpop.pipes.PipeFunction keyFunction) 
-;; Add a GroupCountPipe or GroupCountFunctionPipe to the end of the Pipeline.
-;; GremlinPipeline<S,E>	groupCount(Map<?,Number> map, com.tinkerpop.pipes.PipeFunction keyFunction, com.tinkerpop.pipes.PipeFunction<com.tinkerpop.pipes.util.structures.Pair<?,Number>,Number> valueFunction) 
-;; Add a GroupCountPipe or GroupCountFunctionPipe to the end of the Pipeline.
-;; GremlinPipeline<S,E>	groupCount(com.tinkerpop.pipes.PipeFunction keyFunction) 
-;; Add a GroupCountPipe or GroupCountFunctionPipe to the end of the Pipeline.
-;; GremlinPipeline<S,E>	groupCount(com.tinkerpop.pipes.PipeFunction keyFunction, com.tinkerpop.pipes.PipeFunction<com.tinkerpop.pipes.util.structures.Pair<?,Number>,Number> valueFunction) 
-;; Add a GroupCountPipe or GroupCountFunctionPipe to the end of the Pipeline.
 
 (defn get-group-count!
   ([p] (get-group-count! p identity))
