@@ -5,7 +5,7 @@
   (:use ogre.util))
 
 (defn copy-split [^GremlinPipeline p & es]
-  (.copySplit p ^java.util.List (pipe-array es)))
+  (.copySplit p (pipe-array es)))
 
 (defn exhaust-merge [^GremlinPipeline p]
   (.exhaustMerge p))
@@ -25,15 +25,15 @@
        (.getPath b))))
 
 (defn loop
-  ([^GremlinPipeline p i while-f]
+  ([^GremlinPipeline p ^Integer i while-f]
      (.loop p i (f-to-pipef (loop-unbundler while-f))))
-  ([^GremlinPipeline p i while-f emit-f]
+  ([^GremlinPipeline p ^Integer i while-f emit-f]
      (.loop p i (f-to-pipef (loop-unbundler while-f)) (f-to-pipef emit-f))))
 
 (defn loop-to
-  ([^GremlinPipeline p s while-f]
+  ([^GremlinPipeline p ^String s while-f]
      (.loop p s (f-to-pipef (loop-unbundler while-f))))
-  ([^GremlinPipeline p s while-f emit-f]
+  ([^GremlinPipeline p ^String s while-f emit-f]
      (.loop p s
             (f-to-pipef (loop-unbundler while-f))
             (f-to-pipef emit-f))))

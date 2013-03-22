@@ -53,9 +53,8 @@
                       (q/into-set!))
           c3 (q/query hercules
                       (q/--E> :battled)
-                      (q/has  :times > 1)
+                      (q/has :times > 1)
                       (q/in-vertex)
-                      (q/into-vec!)
                       (q/count!))
           r4 (q/query pluto
                       (q/--> :lives)

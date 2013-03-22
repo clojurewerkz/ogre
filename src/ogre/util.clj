@@ -32,14 +32,14 @@
        (map name)
        str-array))
 
-(defn f-to-pipef [f]
+(defn ^PipeFunction f-to-pipef [f]
   (reify PipeFunction
     (compute [this arg] (f arg))))
 
 (defn pipe-array
-  ^"[Lcom.tinkerpop.pipes.Pipe;" [ps]
+  [ps]
   (into-array Pipe ps))
 
 (defn fs-to-pipef-array
-  ^"[Lcom.tinkerpop.pipes.PipeFunction;" [fs]
+  [fs]
   (into-array PipeFunction (map f-to-pipef fs)))
