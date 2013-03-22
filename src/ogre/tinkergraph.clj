@@ -1,11 +1,12 @@
 (ns ogre.tinkergraph
   (:use [clojure.test])
-  (:import (com.tinkerpop.blueprints.impls.tg TinkerGraphFactory))
+  (:import (com.tinkerpop.blueprints.impls.tg TinkerGraphFactory)
+           (com.tinkerpop.blueprints Vertex Graph Edge Element))
   (:require [ogre.core :as q]))
 
 
 ;;Tinkergraph manipulation
-(def ^{:dynamic true} *graph*)
+(def ^{:dynamic true :tag Graph} *graph*)
 
 (defn use-new-tinker-graph! []
   (alter-var-root (var *graph*) (fn [_]
@@ -18,10 +19,10 @@
 
 ;;Element mutation
 
-(defn set-property! [v key value]
+(defn set-property! [^Vertex v key value]
   (.setProperty v (name key) value))
 
-(defn set-properties! [v m]
+(defn set-properties! [^Vertex v m]
   (doseq [[key value] m] (set-property! v key value))
   v)
 
@@ -41,19 +42,18 @@
 
 ;;Element reading
 
-(defn get-property [k v]
+(defn get-property [k ^Vertex v]
   (.getProperty v (name k)))
 
-(defn get-keys [k v]
+(defn get-keys [k ^Vertex v]
   (.getProperty v (name k)))
 
-(defn get-label [e]
+(defn get-label [^Edge e]
   (.getLabel e))
 
-(defn get-id [v]
+(defn get-id [^Element v]
   (.getId v))
 
-(defn find-by-kv [k v])
 ;;Element retriveal
 (defn get-vertices []
   (.getVertices *graph*))

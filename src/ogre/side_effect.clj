@@ -1,5 +1,5 @@
 (ns ogre.side-effect
-  (:import (com.tinkerpop.pipes.util.structures Table Tree)
+  (:import (com.tinkerpop.pipes.util.structures Table Tree Row)
            (com.tinkerpop.gremlin.java GremlinPipeline))
   (:require [ogre.pipe :as pipe])
   (:use ogre.util))
@@ -10,12 +10,12 @@
 (defn cap [^GremlinPipeline p]
   (.cap p))
 
-(defn convert-table [t]
+(defn convert-table [^Table t]
   (let [ts (seq t)
         names (map keyword (.getColumnNames t))
-        converter (fn [row]
+        converter (fn [^Row row]
                     (into {} (for [i (range (count names))]
-                               [(nth names i) (.getColumn row i)])))]
+                               [(nth names i) (.getColumn row ^Integer i)])))]
     (map converter ts)))
 
 (defn get-table!
@@ -26,14 +26,14 @@
                  first
                  convert-table)))
 
-(defn table-into
-  ([^GremlinPipeline p t] (.table p t))
-  ([^GremlinPipeline p t & args]
-     (if (= clojure.lang.PersistentVector (type (first args)))
-       (.table p t (first args) (fs-to-pipef-array (rest args)))
-       (.table p t (fs-to-pipef-array args)))))
+;; (defn table-into
+;;   ([^GremlinPipeline p ^Table t] (.table p t))
+;;   ([^GremlinPipeline p ^Table t & args]
+;;      (if (= clojure.lang.PersistentVector (type (first args)))
+;;        (.table p t (first args) (fs-to-pipef-array (rest args)))
+;;        (.table p t (fs-to-pipef-array args)))))
 
-(defn- convert-tree-helper [name t]
+(defn- convert-tree-helper [name ^Tree t]
   (let [names (seq (.getObjectsAtDepth t 1))
         children (seq (.getTreesAtDepth t 2))
         nexts (vec (map convert-tree-helper names children))]
@@ -41,7 +41,7 @@
       {:value name}
       {:value name :children nexts})))
 
-(defn convert-tree [t]
+(defn convert-tree [^Tree t]
   (let [name (first (seq (.getObjectsAtDepth t 1)))
         names (seq (.getObjectsAtDepth t 2))
         children (seq (.getTreesAtDepth t 3))
@@ -58,8 +58,8 @@
       first
       convert-tree))
 
-(defn tree-into [^GremlinPipeline p t & fs]
-  (.tree p t (fs-to-pipef-array fs)))
+;; (defn tree-into [^GremlinPipeline p t & fs]
+;;   (.tree p t (fs-to-pipef-array fs)))
 
 ;; GremlinPipeline<S,E>	store() 
 ;; Add an StorePipe to the end of the Pipeline.
@@ -103,7 +103,7 @@
   ([p] (get-group-count! p identity))
   ([p f] (get-group-count! p f (fn [a b] (inc b))))
   ([^GremlinPipeline p ^clojure.lang.IFn f ^clojure.lang.IFn g]
-     (-> (.groupCount p (f-to-pipef f) (f-to-pipef (fn [arg] (g (.getA arg) (.getB arg)))))
+     (-> (.groupCount p (f-to-pipef f) (f-to-pipef (fn [^Row arg] (g (.getA ^Row arg) (.getB ^Row arg)))))
          (.cap)
          (.toList)
          seq

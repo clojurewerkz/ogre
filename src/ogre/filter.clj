@@ -1,6 +1,7 @@
 (ns ogre.filter
   (:refer-clojure :exclude [filter and or range])
-  (:import (com.tinkerpop.gremlin.java GremlinPipeline))
+  (:import (com.tinkerpop.gremlin.java GremlinPipeline)
+           (com.tinkerpop.gremlin Tokens$T))
   (:require [ogre.util :refer (convert-symbol-to-compare f-to-pipef)]))
 
 (defn filter [^GremlinPipeline p f]
@@ -14,12 +15,20 @@
   (.except p xs))
 
 (defmacro has
-  ([^GremlinPipeline p k v] `(.has ~p ~(name k) ~v))
-  ([^GremlinPipeline p k c v] `(.has ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
+  ([p k v]
+     `(.has ~(with-meta p {:tag 'GremlinPipeline}) ~(name k) ~v))
+  ([p k c v]
+     `(.has ~(with-meta p {:tag 'GremlinPipeline}) ~(name k)
+            (convert-symbol-to-compare '~c)
+            ~v)))
 
 (defmacro has-not
-  ([^GremlinPipeline p k v] `(.hasNot ~p ~(name k) ~v))
-  ([^GremlinPipeline p k c v] `(.hasNot ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
+  ([p k v]
+     `(.hasNot ~(with-meta p {:tag 'GremlinPipeline}) ~(name k) ~v))
+  ([p k c v]
+     `(.hasNot ~(with-meta p {:tag 'GremlinPipeline}) ~(name k)
+               (convert-symbol-to-compare '~c)
+               ~v)))
 
 (defn interval [^GremlinPipeline p key start end]
   (.interval p ^String (name key) ^Float (float start) ^Float (float end)))
