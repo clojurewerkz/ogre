@@ -1,40 +1,41 @@
 (ns ogre.map
   (:refer-clojure :exclude [memoize map])
+  (:import (com.tinkerpop.gremlin.java GremlinPipeline))
   (:use ogre.util))
 
 (defn map
-  ([p & keys] (.map p (keywords-to-strings keys))))
+  ([^GremlinPipeline p & keys] (.map p (keywords-to-strings keys))))
 
-(defn transform [p f]
+(defn transform [^GremlinPipeline p f]
   (.transform p (f-to-pipef f)))
 
 
-(defn _ [p]
+(defn _ [^GremlinPipeline p]
   (._ p))
 
-(defn id [p] (.id p))
+(defn id [^GremlinPipeline p] (.id p))
 
 
-(defn property [p prop]
+(defn property [^GremlinPipeline p prop]
   (.property p (name prop)))
 
-(defn label [p]
+(defn label [^GremlinPipeline p]
   (.label p))
 
 (defn select
-  ([p] (.select p))
-  ([p & fs] (.select p (fs-to-pipef-array fs))))
+  ([^GremlinPipeline p] (.select p))
+  ([^GremlinPipeline p & fs] (.select p (fs-to-pipef-array fs))))
 
 (defn select-only
-  ([p cols] (select-only p cols identity))
-  ([p cols & fs] (.select p cols (fs-to-pipef-array fs))))
+  ([^GremlinPipeline p cols] (select-only p cols identity))
+  ([^GremlinPipeline p ^java.util.Collection cols & fs] (.select p cols (fs-to-pipef-array fs))))
 
-(defn memoize
-  ([is] (.memoize is))
-  ([is m] (.memoize is m)))
+;; (defn memoize
+;;   ([is] (.memoize is))
+;;   ([is m] (.memoize is m)))
 
-(defn scatter [p]
+(defn scatter [^GremlinPipeline p]
   (.scatter p))
 
-(defn path [p & args]
+(defn path [^GremlinPipeline p & args]
   (.path p (fs-to-pipef-array args)))

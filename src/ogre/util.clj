@@ -23,10 +23,10 @@
     <=   Tokens$T/lte
     <    Tokens$T/lt))
 
-(defn str-array [strs]
+(defn ^"[Ljava.lang.String;" str-array [strs]
   (into-array String strs))
 
-(defn keywords-to-strings [labels]
+(defn ^"[Ljava.lang.String;" keywords-to-strings [labels]
   (->> labels
        (filter identity)
        (map name)
@@ -36,10 +36,10 @@
   (reify PipeFunction
     (compute [this arg] (f arg))))
 
-(defn pipe-array
+(defn ^"[Lcom.tinkerpop.pipes.Pipe;" pipe-array
   [ps]
   (into-array Pipe ps))
 
-(defn fs-to-pipef-array
+(defn ^"[Lcom.tinkerpop.pipes.PipeFunction;" fs-to-pipef-array
   [fs]
   (into-array PipeFunction (map f-to-pipef fs)))

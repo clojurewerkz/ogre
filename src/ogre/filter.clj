@@ -10,7 +10,7 @@
   ([^GremlinPipeline p] (.dedup p))
   ([^GremlinPipeline p f] (.dedup p (f-to-pipef f))))
 
-(defn except [^GremlinPipeline p xs]
+(defn except [^GremlinPipeline p ^java.util.Collection xs]
   (.except p xs))
 
 (defmacro has
@@ -21,16 +21,16 @@
   ([^GremlinPipeline p k v] `(.hasNot ~p ~(name k) ~v))
   ([^GremlinPipeline p k c v] `(.hasNot ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
 
-(defn interval [^GremlinPipeline p ^clojure.lang.Keyword key ^Double start ^Double end]
-  (.interval p (name key) (float start) (float end)))
+(defn interval [^GremlinPipeline p key start end]
+  (.interval p ^String (name key) ^Float (float start) ^Float (float end)))
 
-(defn random [^GremlinPipeline p ^Float bias]
+(defn random [^GremlinPipeline p ^Double bias]
   (.random p bias))
 
 (defn range [^GremlinPipeline p ^Integer low ^Integer high]
   (.range p low high))
 
-(defn retain [^GremlinPipeline p coll]
+(defn retain [^GremlinPipeline p ^java.util.Collection coll]
   (.retain p coll))
 
 (defn simple-path [^GremlinPipeline p]

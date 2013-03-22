@@ -1,18 +1,19 @@
 (ns ogre.pipe
   (:refer-clojure :exclude [iterate next])
-  (:import (com.tinkerpop.gremlin.java GremlinPipeline))
+  (:import (com.tinkerpop.gremlin.java GremlinPipeline)
+           (com.tinkerpop.blueprints Vertex))
   (:use ogre.util))
 
 (defn add [^GremlinPipeline p e]
   (.add p e))
 
-(defn as [^GremlinPipeline p s]
+(defn as [^GremlinPipeline p ^String s]
   (.as p s))
 
-(defn back [^GremlinPipeline p i]
+(defn back [^GremlinPipeline p ^Integer i]
   (.back p i))
 
-(defn back-to [^GremlinPipeline p i]
+(defn back-to [^GremlinPipeline p ^String i]
   (.back p i))
 
 (defn enable-path [^GremlinPipeline p]
@@ -27,17 +28,17 @@
 (defn optimize [^GremlinPipeline p b]
   (.optimize p b))
 
-(defn optional [^GremlinPipeline p s]
+(defn optional [^GremlinPipeline p ^Integer s]
   (.optional p s))
 
-(defn optional-to [^GremlinPipeline p s]
+(defn optional-to [^GremlinPipeline p ^String s]
   (.optional p s))
 
 (defn start [^GremlinPipeline p o]
   (.start p o))
 
-(defn step [^GremlinPipeline p e]
-  (.step p e))
+;; (defn step [^GremlinPipeline p e]
+;;   (.step p e))
 
 (defn to-list! [^GremlinPipeline p]
   (.toList p))
@@ -77,5 +78,5 @@
 ;; Reversed property accessors
 
 (defn prop [k]
-  (fn [v]
+  (fn [^Vertex v]
     (.getProperty v (name k))))
