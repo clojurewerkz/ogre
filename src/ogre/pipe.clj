@@ -1,44 +1,45 @@
 (ns ogre.pipe
   (:refer-clojure :exclude [iterate next])
+  (:import (com.tinkerpop.gremlin.java GremlinPipeline))
   (:use ogre.util))
 
-(defn add [p e]
+(defn add [^GremlinPipeline p e]
   (.add p e))
 
-(defn as [p s]
+(defn as [^GremlinPipeline p s]
   (.as p s))
 
-(defn back [p i]
+(defn back [^GremlinPipeline p i]
   (.back p i))
 
-(defn back-to [p i]
+(defn back-to [^GremlinPipeline p i]
   (.back p i))
 
-(defn enable-path [p]
+(defn enable-path [^GremlinPipeline p]
   (.enablePath p))
 
-(defn iterate [p]
+(defn iterate [^GremlinPipeline p]
   (.iterate p))
 
-(defn next [p i]
+(defn next [^GremlinPipeline p i]
   (.next p i))
 
-(defn optimize [p b]
+(defn optimize [^GremlinPipeline p b]
   (.optimize p b))
 
-(defn optional [p s]
+(defn optional [^GremlinPipeline p s]
   (.optional p s))
 
-(defn optional-to [p s]
+(defn optional-to [^GremlinPipeline p s]
   (.optional p s))
 
-(defn start [p o]
+(defn start [^GremlinPipeline p o]
   (.start p o))
 
-(defn step [p e]
+(defn step [^GremlinPipeline p e]
   (.step p e))
 
-(defn to-list! [p]
+(defn to-list! [^GremlinPipeline p]
   (.toList p))
 
 (defn into-vec! [p]

@@ -39,5 +39,6 @@
 (defn pipe-array [ps]
   (into-array Pipe ps))
 
-(defn fs-to-pipef-array [fs]
+(defn fs-to-pipef-array
+  ^"[Lcom.tinkerpop.pipes.PipeFunction;" [fs]
   (into-array PipeFunction (map f-to-pipef fs)))

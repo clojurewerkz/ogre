@@ -4,7 +4,7 @@
 ;;https://groups.google.com/forum/?fromgroups=#!topic/clojure/GAGF38uI1-o
 (defn- merge-meta! 
   "Destructively merge metadata from a source object into a target." 
-  [source target] 
+  [^clojure.lang.Var source ^clojure.lang.Var target]
   (.setMeta target 
     (merge (meta source) 
            (select-keys (meta target) [:name :ns])))) 
@@ -15,7 +15,7 @@ namespace."
   [& namespaces] 
   (doseq [ns namespaces] 
     (require ns) 
-    (doseq [[sym v] (ns-publics (find-ns ns))] 
+    (doseq [[sym ^clojure.lang.Var v] (ns-publics (find-ns ns))] 
       (merge-meta! v 
         (if (.isBound v) 
           (intern *ns* sym (var-get v)) 

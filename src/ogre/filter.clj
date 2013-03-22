@@ -1,36 +1,37 @@
 (ns ogre.filter
   (:refer-clojure :exclude [filter and or range])
+  (:import (com.tinkerpop.gremlin.java GremlinPipeline))
   (:require [ogre.util :refer (convert-symbol-to-compare f-to-pipef)]))
 
-(defn filter [p f]
+(defn filter [^GremlinPipeline p f]
   (.filter p (f-to-pipef f)))
 
 (defn dedup
-  ([p] (.dedup p))
-  ([p f] (.dedup p (f-to-pipef f))))
+  ([^GremlinPipeline p] (.dedup p))
+  ([^GremlinPipeline p f] (.dedup p (f-to-pipef f))))
 
-(defn except [p xs]
+(defn except [^GremlinPipeline p xs]
   (.except p xs))
 
 (defmacro has
-  ([p k v] `(.has ~p ~(name k) ~v))
-  ([p k c v] `(.has ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
+  ([^GremlinPipeline p k v] `(.has ~p ~(name k) ~v))
+  ([^GremlinPipeline p k c v] `(.has ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
 
 (defmacro has-not
-  ([p k v] `(.hasNot ~p ~(name k) ~v))
-  ([p k c v] `(.hasNot ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
+  ([^GremlinPipeline p k v] `(.hasNot ~p ~(name k) ~v))
+  ([^GremlinPipeline p k c v] `(.hasNot ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
 
-(defn interval [p key start end]
+(defn interval [^GremlinPipeline p ^clojure.lang.Keyword key ^Double start ^Double end]
   (.interval p (name key) (float start) (float end)))
 
-(defn random [p bias]
+(defn random [^GremlinPipeline p ^Float bias]
   (.random p bias))
 
-(defn range [p low high]
+(defn range [^GremlinPipeline p ^Integer low ^Integer high]
   (.range p low high))
 
-(defn retain [p coll]
+(defn retain [^GremlinPipeline p coll]
   (.retain p coll))
 
-(defn simple-path [p]
+(defn simple-path [^GremlinPipeline p]
   (.simplePath p))

@@ -1,12 +1,13 @@
 (ns ogre.side-effect
-  (:import (com.tinkerpop.pipes.util.structures Table Tree))
+  (:import (com.tinkerpop.pipes.util.structures Table Tree)
+           (com.tinkerpop.gremlin.java GremlinPipeline))
   (:require [ogre.pipe :as pipe])
   (:use ogre.util))
 
-(defn side-effect [p f]
+(defn side-effect [^GremlinPipeline p ^clojure.lang.IFn f]
   (.sideEffect p (f-to-pipef f)))
 
-(defn cap [p]
+(defn cap [^GremlinPipeline p]
   (.cap p))
 
 (defn convert-table [t]
@@ -18,7 +19,7 @@
     (map converter ts)))
 
 (defn get-table!
-  ([p & fs] (->> (.table p  (fs-to-pipef-array fs))
+  ([^GremlinPipeline p & fs] (->> (.table p (fs-to-pipef-array fs))
                  (.cap)
                  (.toList)
                  seq
@@ -26,8 +27,8 @@
                  convert-table)))
 
 (defn table-into
-  ([p t] (.table p t))
-  ([p t & args]
+  ([^GremlinPipeline p t] (.table p t))
+  ([^GremlinPipeline p t & args]
      (if (= clojure.lang.PersistentVector (type (first args)))
        (.table p t (first args) (fs-to-pipef-array (rest args)))
        (.table p t (fs-to-pipef-array args)))))
@@ -49,7 +50,7 @@
       {:value name}
       {:value name :children nexts})))
 
-(defn get-tree! [p & fs]
+(defn get-tree! [^GremlinPipeline p & fs]
   (-> (.tree p (fs-to-pipef-array fs))
       (.cap)
       (.toList)
@@ -57,7 +58,7 @@
       first
       convert-tree))
 
-(defn tree-into [p t & fs]
+(defn tree-into [^GremlinPipeline p t & fs]
   (.tree p t (fs-to-pipef-array fs)))
 
 ;; GremlinPipeline<S,E>	store() 
@@ -71,12 +72,12 @@
 ;;TODO: figure out what this is supposed to do within clojure
 
 ;; (defn store
-;;   ([p] (.store p))
-;;   ([p f] (.store p (f-to-pipe f))))
+;;   ([^GremlinPipeline p] (.store p))
+;;   ([^GremlinPipeline p f] (.store p (f-to-pipe f))))
 
 ;; (defn store-into
-;;   ([p c] (.store p c))
-;;   ([p c f] (.store p c (f-to-pipe f))))
+;;   ([^GremlinPipeline p c] (.store p c))
+;;   ([^GremlinPipeline p c f] (.store p c (f-to-pipe f))))
 
 ;; Collection<E>	fill(Collection<E> collection) 
 ;; Fill the provided collection with the objects in the pipeline.
@@ -87,7 +88,7 @@
 
 (defn get-grouped-by!
   ([p f g] (get-grouped-by! p f g identity))
-  ([p f g r]
+  ([^GremlinPipeline p f g r]
      (let [results      (-> (.groupBy p (f-to-pipef f) (f-to-pipef g))
                             (.cap)
                             (.toList)
@@ -101,7 +102,7 @@
 (defn get-group-count!
   ([p] (get-group-count! p identity))
   ([p f] (get-group-count! p f (fn [a b] (inc b))))
-  ([p f g]
+  ([^GremlinPipeline p ^IFn g]
      (-> (.groupCount p (f-to-pipef f) (f-to-pipef (fn [arg] (g (.getA arg) (.getB arg)))))
          (.cap)
          (.toList)
