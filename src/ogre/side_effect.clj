@@ -102,7 +102,7 @@
 (defn get-group-count!
   ([p] (get-group-count! p identity))
   ([p f] (get-group-count! p f (fn [a b] (inc b))))
-  ([^GremlinPipeline p ^IFn g]
+  ([^GremlinPipeline p ^clojure.lang.IFn f ^clojure.lang.IFn g]
      (-> (.groupCount p (f-to-pipef f) (f-to-pipef (fn [arg] (g (.getA arg) (.getB arg)))))
          (.cap)
          (.toList)

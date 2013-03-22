@@ -36,7 +36,8 @@
   (reify PipeFunction
     (compute [this arg] (f arg))))
 
-(defn pipe-array [ps]
+(defn pipe-array
+  ^"[Lcom.tinkerpop.pipes.Pipe;" [ps]
   (into-array Pipe ps))
 
 (defn fs-to-pipef-array
