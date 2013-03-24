@@ -8,7 +8,7 @@ It is for querying graphs that conform to the [Tinkerpop Blueprints](http://tink
 
 ## Project Goals
 
- * Provide an API that makes [Tinkerpop Blueprints](http://tinkerpop.com) really easy to use from Clojure
+ * Provide an API that makes [Tinkerpop Blueprints](http://tinkerpop.com) graphs really easy to query from Clojure
  * Be reasonably feature complete
  * Don't introduce any significant amount of performance overhead
 
