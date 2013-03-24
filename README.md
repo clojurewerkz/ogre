@@ -15,8 +15,10 @@ It is for querying graphs that conform to the [Tinkerpop Blueprints](http://tink
 
 ## Community
 
-[Orge has a mailing list](https://groups.google.com/forum/#!forum/clojure-titanium).
-Feel free to join it and ask any questions you may have.
+Ogre questions are welcomed on the [Gremlin mailing list](https://groups.google.com/forum/?fromgroups#!forum/gremlin-users).
+If you use Ogre with Titanium, feel free to also use [Titanium's mailing list](https://groups.google.com/forum/#!forum/clojure-titanium).
+
+Please ask any questions you may have!
 
 
 ## Project Maturity
