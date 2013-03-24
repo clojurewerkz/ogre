@@ -3,8 +3,7 @@
 <img src="https://raw.github.com/zmaril/ogre/master/ogre.png" height="200"></img>
 
 Ogre is a Clojure "dialect" of [Gremlin](https://github.com/tinkerpop/gremlin/wiki).
-
-Orge is a Clojure library for working with graphs that conform to the [Tinkerpop Blueprints](http://tinkerpop.com) interface.
+It is for querying graphs that conform to the [Tinkerpop Blueprints](http://tinkerpop.com) interface.
 
 
 ## Project Goals
