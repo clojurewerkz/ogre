@@ -14,7 +14,7 @@
   `(-> (GremlinPipeline. ~xs)
        ~@body))
 
-(defn ^com.tinkerpop.gremlin.Tokens$T convert-symbol-to-compare [s]
+(defn ^"com.tinkerpop.gremlin.Tokens$T" convert-symbol-to-compare [s]
   (case s
     =    Tokens$T/eq
     not= Tokens$T/neq  

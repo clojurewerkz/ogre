@@ -16,19 +16,15 @@
 
 (defmacro has
   ([p k v]
-     `(.has ~(with-meta p {:tag 'GremlinPipeline}) ~(name k) ~v))
+     `(.has ~p ~(name k) ~v))
   ([p k c v]
-     `(.has ~(with-meta p {:tag 'GremlinPipeline}) ~(name k)
-            (convert-symbol-to-compare '~c)
-            ~v)))
+     `(.has ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
 
 (defmacro has-not
   ([p k v]
-     `(.hasNot ~(with-meta p {:tag 'GremlinPipeline}) ~(name k) ~v))
+     `(.hasNot ~p ~(name k) ~v))
   ([p k c v]
-     `(.hasNot ~(with-meta p {:tag 'GremlinPipeline}) ~(name k)
-               (convert-symbol-to-compare '~c)
-               ~v)))
+     `(.hasNot ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
 
 (defn interval [^GremlinPipeline p key start end]
   (.interval p ^String (name key) ^Float (float start) ^Float (float end)))
