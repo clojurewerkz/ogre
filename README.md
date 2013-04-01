@@ -1,6 +1,6 @@
 # Orge, a Clojure Library For Querying Blueprints Graphs
 
-<img src="https://raw.github.com/zmaril/ogre/master/ogre.png" height="200"></img>
+<img src="https://raw.github.com/clojurewerkz/ogre/master/ogre.png" height="200"></img>
 
 Ogre is a Clojure "dialect" of [Gremlin](https://github.com/tinkerpop/gremlin/wiki).
 It is for querying graphs that conform to the [Tinkerpop Blueprints](http://tinkerpop.com) interface.
