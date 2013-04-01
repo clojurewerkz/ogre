@@ -1,6 +1,6 @@
-(defproject zmaril/ogre "2.3.0.1-SNAPSHOT"
+(defproject clojurewerkz/ogre "2.3.0.1-SNAPSHOT"
   :description "Clojure wrapper around gremlin"
-  :url "https://github.com/zmaril/ogre"
+  :url "https://github.com/clojurewerkz/ogre"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}  
   :dependencies [[org.clojure/clojure "1.5.1"]
