@@ -17,9 +17,9 @@
     )
   (testing "test_g_v1_outXcreatedX_inXcreatedX_exceptXg_v1X_propertyXnameX"
     (let [names (q/query (g/find-by-id 1)
-                      (q/--> :created)
-                      (q/<-- :created)
-                      (q/except [(g/find-by-id 1)])
-                      (q/property :name)
-                      (q/into-set!))]
+                         (q/--> [:created])
+                         (q/<-- [:created])
+                         (q/except [(g/find-by-id 1)])
+                         (q/property :name)
+                         (q/into-set!))]
       (is (= #{"peter" "josh"} names)))))

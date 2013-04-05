@@ -23,9 +23,9 @@
   ;;     (is (= 2 (count m)))))
   (testing "g(v1).out('knows').map()"
     (let [ms (q/query (g/find-by-id 1)
-                     (q/--> :knows)
-                     q/map
-                     q/all-into-maps!)
+                      (q/--> [:knows])
+                      q/map
+                      q/all-into-maps!)
           vadas (first (filter #(= "vadas" (:name %)) ms))
           josh  (first (filter #(= "josh" (:name %)) ms))]
       (is (= 27 (:age vadas)))

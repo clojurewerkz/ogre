@@ -19,7 +19,7 @@
 
   (testing "test_g_v1_outXknowsX_copySplitXpropertyXnameX__propertyXageXX_exhaustMerge"
     (let [props (q/query (g/find-by-id 1)
-                         (q/--> :knows)
+                         (q/--> [:knows])
                          (q/copy-split
                           (q/bare-pipe (q/property :name))
                           (q/bare-pipe (q/property :age)))
@@ -30,7 +30,7 @@
 
     (testing "test_g_v1_outXknowsX_copySplitXpropertyXnameX__propertyXageXX_exhaustMerge_path"
     (let [props (q/query (g/find-by-id 1)
-                         (q/--> :knows)
+                         (q/--> [:knows])
                          (q/copy-split
                           (q/bare-pipe (q/property :name))
                           (q/bare-pipe (q/property :age)))

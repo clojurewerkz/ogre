@@ -75,21 +75,21 @@
 
   (testing "test_g_v1_out(knows)"
     (let [vs (q/query (g/find-by-id 1)
-                      (q/--> :knows)
+                      (q/--> [:knows])
                       q/into-vec!)]
       (is (= #{"vadas" "josh"})
           (u/get-names-set vs))))
 
   (testing "test_g_v1_out(knows created)"
     (let [vs (q/query (g/find-by-id 1)
-                      (q/--> :knows :created)
+                      (q/--> [:knows :created])
                       q/into-vec!)]
       (is (= #{"vadas" "josh"})
           (u/get-names-set vs))))
   
   (testing "test_g_v1_outE(knows)_inV"
     (let [vs (q/query (g/find-by-id 1)
-                      (q/--E> :knows)
+                      (q/--E> [:knows])
                       q/in-vertex
                       q/into-vec!)]
       (is (= #{"vadas" "josh"})
@@ -97,7 +97,7 @@
 
   (testing "test_g_v1_outE(knows created)_inE"
     (let [vs (q/query (g/find-by-id 1)
-                      (q/--E> :knows :created)
+                      (q/--E> [:knows :created])
                       q/in-vertex
                       q/into-vec!)]
       (is (= #{"vadas" "josh"})

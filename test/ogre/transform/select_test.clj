@@ -8,7 +8,7 @@
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select()"
     (let [selection (q/query (g/find-by-id 1)
                              (q/as "a")
-                             (q/--> :knows)
+                             (q/--> [:knows])
                              (q/as "b")
                              q/select
                              q/all-into-vecs!)]
@@ -20,7 +20,7 @@
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select()"
     (let [selection (q/query (g/find-by-id 1)
                              (q/as "a")
-                             (q/--> :knows)
+                             (q/--> [:knows])
                              (q/as "b")
                              (q/select (partial g/get-property :name))
                              q/all-into-vecs!)]
@@ -31,7 +31,7 @@
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select([a])"
     (let [selection (q/query (g/find-by-id 1)
                              (q/as "a")
-                             (q/--> :knows)
+                             (q/--> [:knows])
                              (q/as "b")
                              (q/select-only ["a"])
                              q/all-into-vecs!)]
@@ -41,7 +41,7 @@
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select([a],name)"
     (let [selection (q/query (g/find-by-id 1)
                              (q/as "a")
-                             (q/--> :knows)
+                             (q/--> [:knows])
                              (q/as "b")
                              (q/select-only ["a"] (partial g/get-property :name))
                              q/all-into-vecs!)]
