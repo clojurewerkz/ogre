@@ -6,20 +6,26 @@
 (defn map
   ([^GremlinPipeline p & keys] (.map p (keywords-to-strings keys))))
 
-(defn transform [^GremlinPipeline p f]
+(defn transform 
+  [^GremlinPipeline p f]
   (.transform p (f-to-pipef f)))
 
 
-(defn _ [^GremlinPipeline p]
+(defn _ 
+  [^GremlinPipeline p]
   (._ p))
 
-(defn id [^GremlinPipeline p] (.id p))
+(defn id 
+  [^GremlinPipeline p] 
+  (.id p))
 
 
-(defn property [^GremlinPipeline p prop]
+(defn property 
+  [^GremlinPipeline p prop]
   (.property p (name prop)))
 
-(defn label [^GremlinPipeline p]
+(defn label 
+  [^GremlinPipeline p]
   (.label p))
 
 (defn select
@@ -34,8 +40,10 @@
 ;;   ([is] (.memoize is))
 ;;   ([is m] (.memoize is m)))
 
-(defn scatter [^GremlinPipeline p]
+(defn scatter 
+  [^GremlinPipeline p]
   (.scatter p))
 
-(defn path [^GremlinPipeline p & args]
+(defn path 
+  [^GremlinPipeline p & args]
   (.path p (fs-to-pipef-array args)))

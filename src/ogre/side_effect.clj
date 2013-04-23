@@ -4,13 +4,16 @@
   (:require [ogre.pipe :as pipe])
   (:use ogre.util))
 
-(defn side-effect [^GremlinPipeline p ^clojure.lang.IFn f]
+(defn side-effect 
+  [^GremlinPipeline p ^clojure.lang.IFn f]
   (.sideEffect p (f-to-pipef f)))
 
-(defn cap [^GremlinPipeline p]
+(defn cap 
+  [^GremlinPipeline p]
   (.cap p))
 
-(defn convert-table [^Table t]
+(defn convert-table 
+  [^Table t]
   (let [ts (seq t)
         names (map keyword (.getColumnNames t))
         converter (fn [^Row row]
@@ -33,7 +36,8 @@
 ;;        (.table p t (first args) (fs-to-pipef-array (rest args)))
 ;;        (.table p t (fs-to-pipef-array args)))))
 
-(defn- convert-tree-helper [name ^Tree t]
+(defn- convert-tree-helper 
+  [name ^Tree t]
   (let [names (seq (.getObjectsAtDepth t 1))
         children (seq (.getTreesAtDepth t 2))
         nexts (vec (map convert-tree-helper names children))]
@@ -41,7 +45,8 @@
       {:value name}
       {:value name :children nexts})))
 
-(defn convert-tree [^Tree t]
+(defn convert-tree 
+  [^Tree t]
   (let [name (first (seq (.getObjectsAtDepth t 1)))
         names (seq (.getObjectsAtDepth t 2))
         children (seq (.getTreesAtDepth t 3))
@@ -50,7 +55,8 @@
       {:value name}
       {:value name :children nexts})))
 
-(defn get-tree! [^GremlinPipeline p & fs]
+(defn get-tree! 
+  [^GremlinPipeline p & fs]
   (-> (.tree p (fs-to-pipef-array fs))
       (.cap)
       (.toList)

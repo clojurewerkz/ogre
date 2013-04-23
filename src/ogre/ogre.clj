@@ -9,16 +9,16 @@
            (select-keys (meta target) [:name :ns])))) 
 
 (defn immigrate 
-  "Add all the public vars in a list of namespaces to the current 
-namespace." 
-  [& namespaces] 
+  "Add all the public vars in a list of namespaces to the current
+  namespace." 
+  [& namespaces]
   (doseq [ns namespaces] 
     (require ns) 
     (doseq [[sym v] (ns-publics (find-ns ns))] 
       (merge-meta! v 
-        (if (.isBound v) 
-          (intern *ns* sym (var-get v)) 
-          (intern *ns* sym))))))
+                   (if (.isBound v) 
+                     (intern *ns* sym (var-get v)) 
+                     (intern *ns* sym))))))
 
 (immigrate 'ogre.util)
 (immigrate 'ogre.branch)

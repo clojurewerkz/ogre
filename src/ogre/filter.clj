@@ -4,14 +4,16 @@
            (com.tinkerpop.gremlin Tokens$T))
   (:require [ogre.util :refer (convert-symbol-to-compare f-to-pipef)]))
 
-(defn filter [^GremlinPipeline p f]
+(defn filter 
+  [^GremlinPipeline p f]
   (.filter p (f-to-pipef f)))
 
 (defn dedup
   ([^GremlinPipeline p] (.dedup p))
   ([^GremlinPipeline p f] (.dedup p (f-to-pipef f))))
 
-(defn except [^GremlinPipeline p ^java.util.Collection xs]
+(defn except 
+  [^GremlinPipeline p ^java.util.Collection xs]
   (.except p xs))
 
 (defmacro has
@@ -26,17 +28,22 @@
   ([p k c v]
      `(.hasNot ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
 
-(defn interval [^GremlinPipeline p key start end]
+(defn interval 
+  [^GremlinPipeline p key start end]
   (.interval p ^String (name key) ^Float (float start) ^Float (float end)))
 
-(defn random [^GremlinPipeline p ^Double bias]
+(defn random 
+  [^GremlinPipeline p ^Double bias]
   (.random p bias))
 
-(defn range [^GremlinPipeline p ^Integer low ^Integer high]
+(defn range 
+  [^GremlinPipeline p ^Integer low ^Integer high]
   (.range p low high))
 
-(defn retain [^GremlinPipeline p ^java.util.Collection coll]
+(defn retain 
+  [^GremlinPipeline p ^java.util.Collection coll]
   (.retain p coll))
 
-(defn simple-path [^GremlinPipeline p]
+(defn simple-path 
+  [^GremlinPipeline p]
   (.simplePath p))

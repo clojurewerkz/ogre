@@ -68,14 +68,12 @@
                       (q/--> [:lives])
                       (q/as  "place")
                       (q/select (partial g/get-property :name))
-                      (q/into-set!)
-                      ((partial map (partial into []))))]
+                      (q/all-into-maps!))]
       (is (= r1 hercules))
       (is (= r2 #{"Alcmene" "Jupiter"}))
       (is (= r3 #{"Cerberus" "Hydra"}))
       (is (= c3 2))
       (is (= r4 #{"Cerberus"}))
-      ;; when https://github.com/tinkerpop/pipes/issues/75 is fixed,
-      ;; we will be able to turn tables into vectors of maps, as they
-      ;; should be represented (Neocons does it for Cypher responses). MK.
-      (is (= '(["Jupiter" "Sky"] ["Neptune" "Sea"]) r5)))))
+      (is (= r5
+             '({:god "Neptune" :place "Sea"}
+               {:god "Jupiter" :place "Sky"}))))))

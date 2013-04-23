@@ -17,5 +17,6 @@
 ;; (defn order-decr
 ;;   ([p] (.order p )))
 
-(defn count! [^GremlinPipeline p]
+(defn count! 
+  [^GremlinPipeline p]
   (.count p))
