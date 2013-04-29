@@ -45,7 +45,7 @@ definition to your `pom.xml`:
 
 With Leiningen:
 
-    [zmaril/ogre "2.2.0.0"]
+    [zmaril/ogre "2.3.0.1"]
 
 
 With Maven:
@@ -53,7 +53,7 @@ With Maven:
     <dependency>
       <groupId>zmaril</groupId>
       <artifactId>ogre</artifactId>
-      <version>2.2.0.0</version>
+      <version>2.3.0.1</version>
     </dependency>
 
 
