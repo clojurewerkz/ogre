@@ -60,7 +60,7 @@ With Maven:
 
 ## Documentation & Examples
 
- * [Guides](http://ogredocs.com/)
+ * [Guides](http://ogre.clojurewerkz.org/)
 
 
 ### Code Examples
