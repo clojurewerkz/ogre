@@ -30,6 +30,6 @@
   (testing "g(g.getVertices).property('name').order(decr)"
     (let [names (q/query (g/get-vertices)
                          (q/property :name)
-                         q/order-decr
+                         q/reverse
                          q/into-vec!)]
       (is ["vadas""ripple""peter" "marko" "lop" "josh"] names))))

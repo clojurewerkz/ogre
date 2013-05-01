@@ -2,6 +2,8 @@
 
 * `--E>`\`<E--` have become `-E>`\`<E-`. This enforces all shortened
   traversal methods to only be three characters long.
+* `reverse` has been added. This function reverses the order of the
+  elements in the pipeline. 
 
 ## Changes in Ogre 2.3.0.1
 

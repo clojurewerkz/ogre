@@ -1,5 +1,5 @@
 (ns ogre.core
-  (:refer-clojure :exclude [filter and or range count memoize iterate next map loop])
+  (:refer-clojure :exclude [filter and or range count memoize iterate next map loop reverse])
   (:require [potemkin :as po]
             [ogre.util        :as util]
             [ogre.branch      :as branch]
@@ -48,6 +48,7 @@
 (po/import-fn map/path)
 
 ;; ogre.pipe
+;; TODO break this into pipe and executors
 (po/import-fn pipe/add)
 (po/import-fn pipe/as)
 (po/import-fn pipe/back)
@@ -59,6 +60,8 @@
 (po/import-fn pipe/optional)
 (po/import-fn pipe/optional-to)
 (po/import-fn pipe/start)
+(po/import-fn pipe/prop)
+
 (po/import-fn pipe/to-list!)
 (po/import-fn pipe/into-vec!)
 (po/import-fn pipe/into-set!)
@@ -69,12 +72,12 @@
 (po/import-fn pipe/all-into-vecs!)
 (po/import-fn pipe/all-into-sets!)
 (po/import-fn pipe/all-into-maps!)
-(po/import-fn pipe/prop)
+
 
 ;; ogre.reduce
 (po/import-fn reduce/gather)
 (po/import-fn reduce/order)
-(po/import-fn reduce/order-decr)
+(po/import-fn reduce/reverse)
 (po/import-fn reduce/count!)
 
 ;; ogre.traverse

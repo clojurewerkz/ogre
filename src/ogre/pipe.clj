@@ -73,8 +73,8 @@
   (into {} (for [[k v] m] [(keyword k) v])))
 
 (defmethod convert-to-map Row
-  [m]
-  (into {} (for [k (.getColumnNames m)] 
+  [^Row m]
+  (into {} (for [^String k (.getColumnNames m)] 
              [(keyword k) (.getColumn m k)])))
 
 (defn first-of! 

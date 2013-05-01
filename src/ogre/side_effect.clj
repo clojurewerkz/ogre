@@ -1,5 +1,5 @@
 (ns ogre.side-effect
-  (:import (com.tinkerpop.pipes.util.structures Table Tree Row)
+  (:import (com.tinkerpop.pipes.util.structures Table Tree Row Pair)
            (com.tinkerpop.gremlin.java GremlinPipeline))
   (:require [ogre.pipe :as pipe])
   (:use ogre.util))
@@ -109,7 +109,9 @@
   ([p] (get-group-count! p identity))
   ([p f] (get-group-count! p f (fn [a b] (inc b))))
   ([^GremlinPipeline p ^clojure.lang.IFn f ^clojure.lang.IFn g]
-     (-> (.groupCount p (f-to-pipef f) (f-to-pipef (fn [^Row arg] (g (.getA ^Row arg) (.getB ^Row arg)))))
+     (-> (.groupCount p (f-to-pipef f) 
+                      (f-to-pipef (fn [^Pair arg] 
+                                    (g (.getA arg) (.getB arg)))))
          (.cap)
          (.toList)
          seq

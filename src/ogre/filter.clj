@@ -18,7 +18,9 @@
 
 (defmacro has
   ([p k v]
-     `(.has ~p ~(name k) ~v))
+     `(.has ~(with-meta p {:tag GremlinPipeline}) 
+            ~(name k)
+            ~v))
   ([p k c v]
      `(.has ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
 
