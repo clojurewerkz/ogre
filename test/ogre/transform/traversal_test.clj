@@ -35,7 +35,7 @@
   
   (testing "test_g_v1_outE()"
     (let [es (q/query (g/find-by-id 1)
-                      q/--E>
+                      q/-E>
                       q/into-vec!)]
       (is (= 3 (count es)))
       (is (= #{"created" "knows"}
@@ -43,7 +43,7 @@
   
   (testing "test_g_v2_outE()"
     (let [es (q/query (g/find-by-id 2)
-                      q/<E--
+                      q/<E-
                       q/into-vec!)]
       (is (= 1 (count es)))
       (is (= #{"knows"}
@@ -59,7 +59,7 @@
 
   (testing "test_g_v1_outE_inV"
     (let [vs (q/query (g/find-by-id 1)
-                      q/--E>
+                      q/-E>
                       q/in-vertex
                       q/into-vec!)]
       (is (= #{"vadas" "josh" "lop"})
@@ -67,7 +67,7 @@
 
   (testing "test_g_v2_inE_outV"
     (let [vs (q/query (g/find-by-id 2)
-                      q/<E--
+                      q/<E-
                       q/out-vertex
                       q/into-vec!)]
       (is (= #{"vadas" "josh" "lop"})
@@ -89,7 +89,7 @@
   
   (testing "test_g_v1_outE(knows)_inV"
     (let [vs (q/query (g/find-by-id 1)
-                      (q/--E> [:knows])
+                      (q/-E> [:knows])
                       q/in-vertex
                       q/into-vec!)]
       (is (= #{"vadas" "josh"})
@@ -97,7 +97,7 @@
 
   (testing "test_g_v1_outE(knows created)_inE"
     (let [vs (q/query (g/find-by-id 1)
-                      (q/--E> [:knows :created])
+                      (q/-E> [:knows :created])
                       q/in-vertex
                       q/into-vec!)]
       (is (= #{"vadas" "josh"})

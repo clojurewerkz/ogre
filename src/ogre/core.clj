@@ -86,13 +86,13 @@
 (po/import-fn traverse/in)
 (po/import-fn traverse/<--)
 (po/import-fn traverse/in-edges)
-(po/import-fn traverse/<E--)
+(po/import-fn traverse/<E-)
 (po/import-fn traverse/in-vertex)
 
 (po/import-fn traverse/out)
 (po/import-fn traverse/-->)
 (po/import-fn traverse/out-edges)
-(po/import-fn traverse/--E>)
+(po/import-fn traverse/-E>)
 (po/import-fn traverse/out-vertex)
 
 ;; ogre.side-effect

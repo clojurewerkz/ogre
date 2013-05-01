@@ -12,7 +12,7 @@
       (is (= "marko" name))))
   (testing "test_g_v1_outE_label_transformXlengthX()"
     (let [names (q/query (g/find-by-id 1)
-                         q/--E>
+                         q/-E>
                          q/label
                          (q/transform count)
                          q/into-vec!)]

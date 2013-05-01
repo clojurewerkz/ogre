@@ -15,7 +15,7 @@
   (testing "test_g_v1_outXknowsX_outEXcreatedX_rangeX0_0X_inV"
     (let [vs (q/query (g/find-by-id 1)
                       (q/--> [:knows])
-                      (q/--E> [:created])
+                      (q/-E> [:created])
                       (q/range 0 0)
                       (q/in-vertex)
                       (q/into-vec!))]
@@ -40,7 +40,7 @@
   (testing "test_g_v1_outXcreatedX_inEXcreatedX_rangeX1_2X_outV"
     (let [vs (q/query (g/find-by-id 1)
                       (q/--> [:created])
-                      (q/<E-- [:created])
+                      (q/<E- [:created])
                       (q/range 1 2)
                       q/out-vertex
                       (q/into-vec!))]

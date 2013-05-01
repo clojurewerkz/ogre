@@ -35,7 +35,7 @@
   ([^GremlinPipeline p] (in-edges p []))
   ([^GremlinPipeline p labels] (.inE p (keywords-to-strings labels))))
 
-(defn <E-- 
+(defn <E-
   [& args]
   (apply in-edges args))
 
@@ -59,7 +59,7 @@
   ([^GremlinPipeline p labels] (.outE p (keywords-to-strings labels))))
 
 
-(defn --E> 
+(defn -E> 
   [& args]
   (apply out-edges args))
 

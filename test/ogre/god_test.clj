@@ -46,13 +46,13 @@
                       (q/property :name)
                       (q/into-set!))
           r3 (q/query hercules
-                      (q/--E> [:battled])
+                      (q/-E> [:battled])
                       (q/has  :times > 1)
                       (q/in-vertex)
                       (q/property :name)
                       (q/into-set!))
           c3 (q/query hercules
-                      (q/--E> [:battled])
+                      (q/-E> [:battled])
                       (q/has :times > 1)
                       (q/in-vertex)
                       (q/count!))
