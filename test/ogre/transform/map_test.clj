@@ -12,15 +12,13 @@
       (is (= "marko" (:name m)))
       (is (= 29 (:age m)))
       (is (= 2 (count m)))))
-  ;;Gremlin 0.2.3?
-  ;; (testing "g(v1).map('name' 'id')"
-  ;;   (let [m (q/query (g/find-by-id 1)
-  ;;                    (q/map :name :id)
-  ;;                   q/first-into-map)]
-  ;;     (println m)
-  ;;     (is (= "marko" (:name m)))
-  ;;     (is (= 29 (:age m)))
-  ;;     (is (= 2 (count m)))))
+  (testing "g(v1).map('name' 'id')"
+    (let [m (q/query (g/find-by-id 1)
+                     (q/map :name :id)
+                     q/first-into-map!)]
+      (is (= "marko" (:name m)))
+      (is (= nil (:age m)))
+      (is (= 2 (count m)))))
   (testing "g(v1).out('knows').map()"
     (let [ms (q/query (g/find-by-id 1)
                       (q/--> [:knows])
