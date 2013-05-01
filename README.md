@@ -23,15 +23,16 @@ Please ask any questions you may have!
 
 ## Project Maturity
 
-Orge is a young project. [Titanium](http://titanium.clojurewerkz.org) is currently being ported to use it.
-
-As the project matures, we will update this section.
+Orge is a young project.
+[Archimedes](https://github.com/clojurewerkz/archimedes) currently
+uses it. Ogre feels incredibly useful, but nobody has put it into
+production yet. We'll update this section as people do.
 
 
 
 ## Artifacts
 
-Orge artifacts are [released to Clojars](https://clojars.org/zmaril/ogre). If you are using Maven, add the following repository
+Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre). If you are using Maven, add the following repository
 definition to your `pom.xml`:
 
 ``` xml
@@ -45,7 +46,7 @@ definition to your `pom.xml`:
 
 With Leiningen:
 
-    [zmaril/ogre "2.2.0.0"]
+    [zmaril/ogre "2.3.0.1"]
 
 
 With Maven:
@@ -53,14 +54,14 @@ With Maven:
     <dependency>
       <groupId>zmaril</groupId>
       <artifactId>ogre</artifactId>
-      <version>2.2.0.0</version>
+      <version>2.3.0.1</version>
     </dependency>
 
 
 
 ## Documentation & Examples
 
- * [Guides](http://ogredocs.com/)
+ * [Guides](http://ogre.clojurewerkz.org/)
 
 
 ### Code Examples
@@ -82,7 +83,6 @@ is always recommended.
 ## Continuous Integration
 
 TBD: add it to travis-ci.org.
-
 
 
 ## Development

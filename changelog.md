@@ -1,6 +1,8 @@
 ## Changes in Ogre 2.3.0.1
 
-`convert-to-map` is now polymorphic and converts Rows as well.
+* `convert-to-map` is now polymorphic and converts Rows as well.
+* Ogre is now a Clojurewerkz project.
+* Traversals now take in a list of labels.
 
 ## Changes in Ogre 2.3.0.0 
 
