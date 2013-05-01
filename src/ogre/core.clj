@@ -74,6 +74,7 @@
 ;; ogre.reduce
 (po/import-fn reduce/gather)
 (po/import-fn reduce/order)
+(po/import-fn reduce/order-decr)
 (po/import-fn reduce/count!)
 
 ;; ogre.traverse

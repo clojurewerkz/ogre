@@ -27,11 +27,9 @@
                          q/into-vec!)]
       (is ["vadas""ripple""peter" "marko" "lop" "josh"] names)))
 
-  ;;Gremlin 0.2.3 ?
-  ;; (testing "g(g.getVertices).property('name').order(decr)"
-  ;;   (let [names (q/query (g/get-vertices)
-  ;;                        (q/property :name)
-  ;;                        q/order-decr
-  ;;                        q/into-vec)]
-  ;;     (is ["vadas""ripple""peter" "marko" "lop" "josh"] names))) 
-  )
+  (testing "g(g.getVertices).property('name').order(decr)"
+    (let [names (q/query (g/get-vertices)
+                         (q/property :name)
+                         q/order-decr
+                         q/into-vec!)]
+      (is ["vadas""ripple""peter" "marko" "lop" "josh"] names))))

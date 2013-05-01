@@ -2,6 +2,7 @@
   (:refer-clojure :exclude [count])
   (:use ogre.util)
   (:import (com.tinkerpop.gremlin.java GremlinPipeline)
+           (com.tinkerpop.pipes.transform TransformPipe$Order);
            (com.tinkerpop.pipes.util.structures Pair)))
 
 (defn gather
@@ -14,8 +15,9 @@
      (.order p (f-to-pipef (fn [^Pair pair]                                      
                              (compare (.getA pair)
                                       (.getB pair)))))))
-;; (defn order-decr
-;;   ([p] (.order p )))
+(defn order-decr
+  [^GremlinPipeline p] 
+  (.order p TransformPipe$Order/DECR))
 
 (defn count! 
   [^GremlinPipeline p]
