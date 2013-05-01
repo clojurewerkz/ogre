@@ -4,21 +4,23 @@
            (com.tinkerpop.pipes.branch LoopPipe$LoopBundle))
   (:use ogre.util))
 
-(defn copy-split [^GremlinPipeline p & es]
+(defn copy-split 
+  [^GremlinPipeline p & es]
   (.copySplit p (pipe-array es)))
 
-(defn exhaust-merge [^GremlinPipeline p]
+(defn exhaust-merge 
+  [^GremlinPipeline p]
   (.exhaustMerge p))
 
-
-(defn fair-merge [^GremlinPipeline p]
+(defn fair-merge 
+  [^GremlinPipeline p]
   (.fairMerge p))
 
-(defn if-then-else [^GremlinPipeline p pred then else]
+(defn if-then-else 
+  [^GremlinPipeline p pred then else]
   (.ifThenElse p (f-to-pipef pred) (f-to-pipef then) (f-to-pipef else)))
 
-
-(defn loop-unbundler [f]
+(defn- loop-unbundler [f]
   (fn [^LoopPipe$LoopBundle b]
     (f (.getLoops b)
        (.getObject b)

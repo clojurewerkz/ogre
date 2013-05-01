@@ -10,7 +10,6 @@
   [^GremlinPipeline p f]
   (.transform p (f-to-pipef f)))
 
-
 (defn _ 
   [^GremlinPipeline p]
   (._ p))
@@ -18,7 +17,6 @@
 (defn id 
   [^GremlinPipeline p] 
   (.id p))
-
 
 (defn property 
   [^GremlinPipeline p prop]
