@@ -14,6 +14,13 @@
   `(-> (GremlinPipeline. ~xs)
        ~@body))
 
+(defmacro subquery 
+  ""
+  [& body]
+  `(fn [p#]
+     (-> p#
+         ~@body)))
+
 (defn ^"com.tinkerpop.gremlin.Tokens$T" convert-symbol-to-compare [s]
   (case s
     =    Tokens$T/eq
