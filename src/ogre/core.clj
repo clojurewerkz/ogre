@@ -13,6 +13,7 @@
 
 ;; ogre.util
 (po/import-macro util/query)
+(po/import-macro util/subquery)
 (po/import-macro util/bare-pipe)
 
 ;; ogre.branch
