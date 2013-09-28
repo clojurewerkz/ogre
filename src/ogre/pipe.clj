@@ -52,9 +52,17 @@
 ;; (defn step [^GremlinPipeline p e]
 ;;   (.step p e))
 
-(defn to-list! 
+(defn to-java-array-list! 
+  "Collects all results into java.util.ArrayList.  Useful when passed back to pipes/gremlin."
   [^GremlinPipeline p]
   (.toList p))
+
+(defn to-list! 
+  "Collects results lazily, makes efficient use of the the lazy nature of pipes/gremlin graph walking."
+  [^GremlinPipeline p]
+  (if (.hasNext p)
+    (let [n (.next p)]
+        (cons n (lazy-seq (to-list! p))))))
 
 (defn into-vec! 
   [^GremlinPipeline p]
