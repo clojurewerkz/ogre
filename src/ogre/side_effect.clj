@@ -4,14 +4,6 @@
   (:require [ogre.pipe :as pipe])
   (:use ogre.util))
 
-(defn side-effect 
-  [^GremlinPipeline p ^clojure.lang.IFn f]
-  (.sideEffect p (f-to-pipef f)))
-
-(defn cap 
-  [^GremlinPipeline p]
-  (.cap p))
-
 (defn convert-table 
   [^Table t]
   (let [ts (seq t)

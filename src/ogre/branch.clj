@@ -8,18 +8,6 @@
   [^GremlinPipeline p & es]
   (.copySplit p (pipe-array es)))
 
-(defn exhaust-merge 
-  [^GremlinPipeline p]
-  (.exhaustMerge p))
-
-(defn fair-merge 
-  [^GremlinPipeline p]
-  (.fairMerge p))
-
-(defn if-then-else 
-  [^GremlinPipeline p pred then else]
-  (.ifThenElse p (f-to-pipef pred) (f-to-pipef then) (f-to-pipef else)))
-
 (defn- loop-unbundler [f]
   (fn [^LoopPipe$LoopBundle b]
     (f (.getLoops b)
