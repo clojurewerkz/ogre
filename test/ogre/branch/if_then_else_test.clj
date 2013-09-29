@@ -11,7 +11,7 @@
                       q/-->
                       (q/if-then-else (partial u/prop-pred :lang = "java")
                                       identity
-                                      #(q/query % q/--> q/to-list!))
+                                      #(q/query % q/--> q/into-vec!))
                       q/into-vec!)]
       (is (= 3 (count vs)))
       (is (= 2 (count (set vs)))))))                        

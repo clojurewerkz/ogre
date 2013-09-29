@@ -52,17 +52,22 @@
 ;; (defn step [^GremlinPipeline p e]
 ;;   (.step p e))
 
-(defn to-list! 
+(defmacro ^{:private true}
+  to-java-list! 
   [^GremlinPipeline p]
-  (.toList p))
+  `(.toList ~p))
 
 (defn into-vec! 
   [^GremlinPipeline p]
-  (into [] (to-list! p)))
+  (into [] (to-java-list! p)))
 
 (defn into-set! 
   [^GremlinPipeline p]
-  (into #{} (to-list! p)))
+  (into #{} (to-java-list! p)))
+
+(defn into-list! 
+  [^GremlinPipeline p]
+  (into '() (to-java-list! p)))
 
 ;;Inspiried by gather, these take the first element in the object
 ;;returned and convert it to something useful for clojure.
@@ -79,7 +84,7 @@
 
 (defn first-of! 
   [^GremlinPipeline p]
-  (-> p into-vec! first))
+  (-> p (next 1) first))
 
 (defn first-into-vec! 
   [^GremlinPipeline p]
