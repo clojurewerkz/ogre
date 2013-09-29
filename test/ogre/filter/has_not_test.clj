@@ -24,10 +24,4 @@
     (let [vs (q/query (g/get-vertices)
                       (q/has-not :blah nil)                    
                       (q/into-vec!))]
-      (is (= 0 (count vs)))))  
-  (testing "test_g_V_hasNotXage_gt_32X"
-    (let [vs (q/query (g/get-vertices)
-                      (q/has-not :age > (int 32))                    
-                      (q/into-vec!))]
-      (is (= 3 (count vs)))
-      (is (every? (partial >= 32) (u/get-ages vs))))))
+      (is (= 0 (count vs))))))

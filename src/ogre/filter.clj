@@ -25,10 +25,8 @@
      `(.has ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
 
 (defmacro has-not
-  ([p k v]
-     `(.hasNot ~p ~(name k) ~v))
-  ([p k c v]
-     `(.hasNot ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
+  [p k v] 
+  `(.hasNot ~p ~(name k) ~v))
 
 (defn interval 
   [^GremlinPipeline p key start end]

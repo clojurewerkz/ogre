@@ -5,9 +5,9 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}  
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [potemkin "0.2.0"]
-                 [com.tinkerpop.gremlin/gremlin-java "2.3.0"]
-                 [com.tinkerpop.blueprints/blueprints-core "2.3.0"]
-                 [com.tinkerpop/pipes "2.3.0"]]
+                 [com.tinkerpop.gremlin/gremlin-java "2.4.0"]
+                 [com.tinkerpop.blueprints/blueprints-core "2.4.0"]
+                 [com.tinkerpop/pipes "2.4.0"]]
   :test-paths ["test" "src/test/ogre"]
   :profiles {:1.4    {:dependencies [[org.clojure/clojure "1.4.0"]]}
              :1.6    {:dependencies [[org.clojure/clojure "1.6.0-master-SNAPSHOT"]]}
