@@ -3,7 +3,7 @@
   (:refer-clojure :exclude [filter and or range count memoize iterate next map loop reverse])
   (:require [potemkin :as po]
             [ogre.util        :as util :refer 
-             [keywords-to-strings f-to-pipef]]
+             [keywords-to-strings f-to-pipef fs-to-pipef-array]]
             [ogre.branch      :as branch]
             [ogre.filter      :as filter]
             [ogre.map         :as map]
@@ -26,6 +26,8 @@
    ["simplePath" "TODO: Write doc string"]
    ["enablePath" "TODO: Write doc string"] 
    ["cap" "TODO: Write doc string"]
+   ["path" "TODO:Write doc string"
+    clojure.lang.ArraySeq]
    ["range" "TODO: Write doc string"
     Integer Integer]
    ["sideEffect" "TODO: Write doc string"
@@ -66,16 +68,23 @@
         arguments 
         (map-indexed #(vary-meta (symbol (str "arg" %1)) assoc :tag %2) args)
 
+        pre-args (flatten (clojure.core/map (fn [sym]
+                                              (if (= clojure.lang.ArraySeq (:tag (meta sym)))
+                                                `(& ~sym)
+                                                sym))
+                                            arguments))
+
         transformed-args
         (clojure.core/map (fn [sym]
                             (condp = (:tag (meta sym))
                               clojure.lang.Keyword `(name ~sym)
                               clojure.lang.IFn `(f-to-pipef ~sym)
+                              clojure.lang.ArraySeq `(fs-to-pipef-array ~sym)
                               sym))
                           arguments)
         ^GremlinPipeline p (gensym "pipeline")]
     `(defn ~fcall ~doc 
-       ([~p ~@arguments] (~method ~p ~@transformed-args)))))
+       ([~p ~@pre-args] (~method ~p ~@transformed-args)))))
 
 (doseq [s simple-methods] 
   (eval (function-template s)))
@@ -83,7 +92,7 @@
 ;;Define the travesal methods
 (doseq [[direction short shortE name1] '((both <-> <E> both-vertices)
                                          (in   <-- <E- in-vertex)
-                                         ( out  --> -E> out-vertex))]
+                                         (out  --> -E> out-vertex))]
   (let [j1 (symbol (str "." direction))
         f1 (symbol (str direction "-edges"))
         j2 (symbol (str "." direction "E"))
@@ -128,7 +137,6 @@
 (po/import-fn map/map)
 (po/import-fn map/select)
 (po/import-fn map/select-only)
-(po/import-fn map/path)
 
 ;; ogre.pipe
 ;; TODO break this into pipe and executors

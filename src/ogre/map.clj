@@ -22,7 +22,3 @@
 ;; (defn memoize
 ;;   ([is] (.memoize is))
 ;;   ([is m] (.memoize is m)))
-
-(defn path 
-  [^GremlinPipeline p & args]
-  (.path p (fs-to-pipef-array args)))
