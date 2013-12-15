@@ -5,19 +5,19 @@
 
 (defn map
   ([^GremlinPipeline p & keys] 
-     (.map p (keywords-to-strings keys))))
+     (conj p #(.map % (keywords-to-strings keys)))))
 
 (defn select
   ([^GremlinPipeline p]
-     (.select p))
+     (conj p #(.select %)))
   ([^GremlinPipeline p & fs] 
-     (.select p (fs-to-pipef-array fs))))
+     (conj p #(.select % (fs-to-pipef-array fs)))))
 
 (defn select-only
   ([^GremlinPipeline p cols]
      (select-only p cols identity))
   ([^GremlinPipeline p ^java.util.Collection cols & fs] 
-     (.select p cols (fs-to-pipef-array fs))))
+     (conj p #(.select % cols (fs-to-pipef-array fs)) )))
 
 ;; (defn memoize
 ;;   ([is] (.memoize is))

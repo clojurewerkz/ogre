@@ -5,8 +5,8 @@
   (:use ogre.util))
 
 (defn copy-split 
-  [^GremlinPipeline p & es]
-  (.copySplit p (pipe-array es)))
+  [p & es]
+  (conj p #(.copySplit % (pipe-array es))))
 
 (defn- loop-unbundler [f]
   (fn [^LoopPipe$LoopBundle b]
@@ -16,14 +16,16 @@
 
 (defn loop
   ([^GremlinPipeline p ^Integer i while-f]
-     (.loop p i (f-to-pipef (loop-unbundler while-f))))
+     (conj p #(.loop % i (f-to-pipef (loop-unbundler while-f)))))
   ([^GremlinPipeline p ^Integer i while-f emit-f]
-     (.loop p i (f-to-pipef (loop-unbundler while-f)) (f-to-pipef emit-f))))
+     (conj p #(.loop % i 
+                     (f-to-pipef (loop-unbundler while-f))
+                     (f-to-pipef emit-f)))))
 
 (defn loop-to
   ([^GremlinPipeline p ^String s while-f]
-     (.loop p s (f-to-pipef (loop-unbundler while-f))))
+     (conj p #(.loop % s (f-to-pipef (loop-unbundler while-f)))))
   ([^GremlinPipeline p ^String s while-f emit-f]
-     (.loop p s
-            (f-to-pipef (loop-unbundler while-f))
-            (f-to-pipef emit-f))))
+     (conj p #(.loop % s
+                     (f-to-pipef (loop-unbundler while-f))
+                     (f-to-pipef emit-f)))))

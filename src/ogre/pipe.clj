@@ -7,15 +7,15 @@
 
 (defn back-to 
   [^GremlinPipeline p ^String s]
-  (.back p s))
+  (conj p #(.back % s)))
 
 (defn iterate!
   [^GremlinPipeline p]
-  (.iterate p))
+  (.iterate (compile-query p)))
 
 (defn next!
   [^GremlinPipeline p i]
-  (.next p i))
+  (.next (compile-query p) i))
 
 ;; (defn step [^GremlinPipeline p e]
 ;;   (.step p e))
@@ -23,7 +23,7 @@
 (defmacro ^{:private true}
   to-java-list! 
   [^GremlinPipeline p]
-  `(.toList ~p))
+  `(.toList (compile-query ~p)))
 
 (defn into-vec! 
   [^GremlinPipeline p]
@@ -78,6 +78,9 @@
   [^GremlinPipeline p]
   (map convert-to-map (into-vec! p)))
 
+(defn count! 
+  [^GremlinPipeline p]
+  (.count (compile-query p)))
 ;; Reversed property accessors
 
 (defn prop 

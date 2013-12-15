@@ -12,7 +12,6 @@
             [ogre.side-effect :as side-effect]
             [clojure.string   :as stur]))
 
-
 ;;Define functions for the simple methods.
 ;;TODO: Put in a call to name for string arguments string?
 ;;TODO: Add docstrings to all these
@@ -84,7 +83,7 @@
                           arguments)
         ^GremlinPipeline p (gensym "pipeline")]
     `(defn ~fcall ~doc 
-       ([~p ~@pre-args] (~method ~p ~@transformed-args)))))
+       ([~p ~@pre-args] (conj ~p (fn [parg#] (~method parg# ~@transformed-args)))))))
 
 (doseq [s simple-methods] 
   (eval (function-template s)))
@@ -99,23 +98,21 @@
         j3 (symbol (str "." direction "V"))]
     (eval `(do
              (defn ~direction 
-               ([^GremlinPipeline p#] 
-                  (~direction p# []))
+               ([^GremlinPipeline p#] (~direction p# []))
                ([^GremlinPipeline p# labels#]
-                  (~j1 p# (keywords-to-strings labels#))))
+                  (conj p# (fn [parg#] (~j1 parg# (keywords-to-strings labels#))))))
              (defn ~short
                [& args#]
                (apply ~direction args#))
              (defn ~f1
-               ([^GremlinPipeline p#] 
-                  (~f1 p# []))
+               ([^GremlinPipeline p#] (~f1 p# []))
                ([^GremlinPipeline p# labels#] 
-                  (~j2 p# (keywords-to-strings labels#))))
+                  (conj p# (fn [parg#] (~j2 parg# (keywords-to-strings labels#))))))
              (defn ~shortE
                [& args#]
                (apply ~f1 args#))
              (defn ~name1 [^GremlinPipeline p#]
-               (~j3 p#))))))
+               (conj p# (fn [parg#] (~j3 parg#))))))))
 
 ;; ogre.util
 (po/import-macro util/query)
@@ -154,13 +151,12 @@
 (po/import-fn pipe/all-into-vecs!)
 (po/import-fn pipe/all-into-sets!)
 (po/import-fn pipe/all-into-maps!)
-
+(po/import-fn pipe/count!)
 
 ;; ogre.reduce
 (po/import-fn reduce/gather)
 (po/import-fn reduce/order)
 (po/import-fn reduce/reverse)
-(po/import-fn reduce/count!)
 
 ;; ogre.side-effect
 (po/import-fn side-effect/get-table!)

@@ -6,6 +6,12 @@
 (deftest test-split-merge-test-step
   (g/use-new-tinker-graph!)
   (testing "test_g_v1_out_copySplitXpropertyXnameX__propertyXageXX_fairMerge"
+    (println (q/query (g/find-by-id 1)
+                      q/-->
+                      (q/copy-split
+                          (q/bare-pipe (q/property :name))
+                          (q/bare-pipe (q/property :age)))
+                      ))
     (let [props (q/query (g/find-by-id 1)
                          q/-->
                          (q/copy-split
