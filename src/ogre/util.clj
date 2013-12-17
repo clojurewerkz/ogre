@@ -3,6 +3,7 @@
            (com.tinkerpop.pipes PipeFunction Pipe)
            (com.tinkerpop.gremlin Tokens$T)))
 
+;;TODO bring over the one test from the lazy branch
 (defmacro bare-pipe 
   [& body]
   `(reduce #(%2 %1) (GremlinPipeline.) (-> [] ~@body)))
@@ -52,5 +53,6 @@
   (into-array PipeFunction (map f-to-pipef fs)))
 
 (defn compile-query 
+  ^GremlinPipeline 
   [[xs & fs]]
   (reduce #(%2 %1) (GremlinPipeline. xs) fs))

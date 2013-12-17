@@ -6,16 +6,16 @@
            (com.tinkerpop.pipes.util.structures Pair)))
 
 (defn gather
-  ([^GremlinPipeline p] (conj p #(.gather %)))
-  ([^GremlinPipeline p f]
-     (conj p #(.gather % (f-to-pipef f)))))
+  ([p] (conj p #(.gather ^GremlinPipeline %)))
+  ([p f]
+     (conj p #(.gather ^GremlinPipeline % (f-to-pipef f)))))
 
 (defn order
-  ([^GremlinPipeline p] (conj p #(.order %)))
-  ([^GremlinPipeline p compare]
-     (conj p #(.order % (f-to-pipef (fn [^Pair pair]       
-                                      (compare (.getA pair)
-                                               (.getB pair))))) )))
+  ([p] (conj p #(.order ^GremlinPipeline %)))
+  ([p compare]
+     (conj p #(.order ^GremlinPipeline % (f-to-pipef (fn [^Pair pair]       
+                                                       (compare (.getA pair)
+                                                                (.getB pair))))) )))
 (defn reverse
-  [^GremlinPipeline p] 
-  (conj p #(.order % TransformPipe$Order/DECR)))
+  [p] 
+  (conj p #(.order ^GremlinPipeline % TransformPipe$Order/DECR)))

@@ -6,35 +6,35 @@
   (:use ogre.util))
 
 (defn back-to 
-  [^GremlinPipeline p ^String s]
-  (conj p #(.back % s)))
+  [p ^String s]
+  (conj p #(.back ^GremlinPipeline % s)))
 
 (defn iterate!
-  [^GremlinPipeline p]
-  (.iterate (compile-query p)))
+  [p]
+  (.iterate ^GremlinPipeline (compile-query p)))
 
 (defn next!
-  [^GremlinPipeline p i]
-  (.next (compile-query p) i))
+  [p i]
+  (.next ^GremlinPipeline (compile-query p) i))
 
 ;; (defn step [^GremlinPipeline p e]
 ;;   (.step p e))
 
 (defmacro ^{:private true}
   to-java-list! 
-  [^GremlinPipeline p]
-  `(.toList (compile-query ~p)))
+  [p]
+  `(.toList ^GremlinPipeline (compile-query ~p)))
 
 (defn into-vec! 
-  [^GremlinPipeline p]
+  [p]
   (into [] (to-java-list! p)))
 
 (defn into-set! 
-  [^GremlinPipeline p]
+  [p]
   (into #{} (to-java-list! p)))
 
 (defn into-list! 
-  [^GremlinPipeline p]
+  [p]
   (into '() (to-java-list! p)))
 
 ;;Inspiried by gather, these take the first element in the object
@@ -51,36 +51,36 @@
              [(keyword k) (.getColumn m k)])))
 
 (defn first-of! 
-  [^GremlinPipeline p]
+  [p]
   (-> p (next! 1) first))
 
 (defn first-into-vec! 
-  [^GremlinPipeline p]
+  [p]
   (vec (first-of! p)))
 
 (defn first-into-set! 
-  [^GremlinPipeline p]
+  [p]
   (set (first-of! p)))
 
 (defn first-into-map! 
-  [^GremlinPipeline p]
+  [p]
   (convert-to-map (first-of! p)))
 
 (defn all-into-vecs! 
-  [^GremlinPipeline p]
+  [p]
   (map vec (into-vec! p)))
 
 (defn all-into-sets! 
-  [^GremlinPipeline p]
+  [p]
   (map set (into-vec! p)))
 
 (defn all-into-maps! 
-  [^GremlinPipeline p]
+  [p]
   (map convert-to-map (into-vec! p)))
 
 (defn count! 
-  [^GremlinPipeline p]
-  (.count (compile-query p)))
+  [p]
+  (.count ^GremlinPipeline (compile-query p)))
 ;; Reversed property accessors
 
 (defn prop 

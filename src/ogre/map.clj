@@ -4,20 +4,20 @@
   (:use ogre.util))
 
 (defn map
-  ([^GremlinPipeline p & keys] 
-     (conj p #(.map % (keywords-to-strings keys)))))
+  ([p & keys] 
+     (conj p #(.map ^GremlinPipeline % (keywords-to-strings keys)))))
 
 (defn select
-  ([^GremlinPipeline p]
-     (conj p #(.select %)))
-  ([^GremlinPipeline p & fs] 
-     (conj p #(.select % (fs-to-pipef-array fs)))))
+  ([p]
+     (conj p #(.select ^GremlinPipeline %)))
+  ([p & fs] 
+     (conj p #(.select ^GremlinPipeline % (fs-to-pipef-array fs)))))
 
 (defn select-only
-  ([^GremlinPipeline p cols]
+  ([p cols]
      (select-only p cols identity))
-  ([^GremlinPipeline p ^java.util.Collection cols & fs] 
-     (conj p #(.select % cols (fs-to-pipef-array fs)) )))
+  ([p ^java.util.Collection cols & fs] 
+     (conj p #(.select ^GremlinPipeline % cols (fs-to-pipef-array fs)) )))
 
 ;; (defn memoize
 ;;   ([is] (.memoize is))

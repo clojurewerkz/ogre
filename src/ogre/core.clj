@@ -12,9 +12,11 @@
             [ogre.side-effect :as side-effect]
             [clojure.string   :as stur]))
 
-;;Define functions for the simple methods.
-;;TODO: Put in a call to name for string arguments string?
-;;TODO: Add docstrings to all these
+;;Define functions for the simple methods.  
+
+;;TODO: Wherever there is a HERE, that function fails to reflect.  It
+;;looks like whenever the args aren't all clojure types reflection
+;;fails. No idea why. 
 (def simple-methods 
   [["exhaustMerge" "TODO: Write doc string"] 
    ["fairMerge" "TODO: Write doc string"] 
@@ -27,7 +29,7 @@
    ["cap" "TODO: Write doc string"]
    ["path" "TODO:Write doc string"
     clojure.lang.ArraySeq]
-   ["range" "TODO: Write doc string"
+   ["range" "TODO: Write doc string" ;;;HERE
     Integer Integer]
    ["sideEffect" "TODO: Write doc string"
     clojure.lang.IFn]
@@ -39,23 +41,23 @@
     clojure.lang.IFn]
    ["property" "TODO: Write doc string"
     clojure.lang.Keyword]
-   ["except" "TODO: Write doc string"
+   ["except" "TODO: Write doc string" ;;HERE
     java.util.Collection]
-   ["random" "TODO: Write doc string"
+   ["random" "TODO: Write doc string" ;;HERE
     Double]
-   ["retain" "TODO: Write doc string"
+   ["retain" "TODO: Write doc string" ;;HERE
     java.util.Collection]
    ["add" "TODO: Write doc string"
     Object]
-   ["as" "TODO: Write doc string"
+   ["as" "TODO: Write doc string" ;;HERE
     String]
-   ["back" "TODO: Write doc string"
+   ["back" "TODO: Write doc string" ;;HERE
     Integer]
    ["optimize" "TODO: Write doc string"
     Object]
-   ["optional" "TODO: Write doc string"
+   ["optional" "TODO: Write doc string" ;;HERE
     Integer]
-   ["optional-to" "TODO: Write doc string"
+   ["optional-to" "TODO: Write doc string" ;;HERE
     String]
    ["start" "TODO: Write doc string"
     Object]])
@@ -80,10 +82,9 @@
                               clojure.lang.IFn `(f-to-pipef ~sym)
                               clojure.lang.ArraySeq `(fs-to-pipef-array ~sym)
                               sym))
-                          arguments)
-        ^GremlinPipeline p (gensym "pipeline")]
+                          arguments)]
     `(defn ~fcall ~doc 
-       ([~p ~@pre-args] (conj ~p (fn [parg#] (~method parg# ~@transformed-args)))))))
+       ([p# ~@pre-args] (conj p# (fn [parg#] (~method ^GremlinPipeline parg# ~@transformed-args)))))))
 
 (doseq [s simple-methods] 
   (eval (function-template s)))
@@ -98,21 +99,21 @@
         j3 (symbol (str "." direction "V"))]
     (eval `(do
              (defn ~direction 
-               ([^GremlinPipeline p#] (~direction p# []))
-               ([^GremlinPipeline p# labels#]
-                  (conj p# (fn [parg#] (~j1 parg# (keywords-to-strings labels#))))))
+               ([p#] (~direction p# []))
+               ([p# labels#]
+                  (conj p# (fn [parg#] (~j1 ^GremlinPipeline parg# (keywords-to-strings labels#))))))
              (defn ~short
                [& args#]
                (apply ~direction args#))
              (defn ~f1
-               ([^GremlinPipeline p#] (~f1 p# []))
-               ([^GremlinPipeline p# labels#] 
-                  (conj p# (fn [parg#] (~j2 parg# (keywords-to-strings labels#))))))
+               ([p#] (~f1 p# []))
+               ([p# labels#] 
+                  (conj p# (fn [^GremlinPipeline parg#] (~j2 parg# (keywords-to-strings labels#))))))
              (defn ~shortE
                [& args#]
                (apply ~f1 args#))
-             (defn ~name1 [^GremlinPipeline p#]
-               (conj p# (fn [parg#] (~j3 parg#))))))))
+             (defn ~name1 [p#]
+               (conj p# (fn [parg#] (~j3 ^GremlinPipeline parg#))))))))
 
 ;; ogre.util
 (po/import-macro util/query)

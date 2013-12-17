@@ -6,7 +6,7 @@
 
 (defn copy-split 
   [p & es]
-  (conj p #(.copySplit % (pipe-array es))))
+  (conj p #(.copySplit ^GremlinPipeline % (pipe-array es))))
 
 (defn- loop-unbundler [f]
   (fn [^LoopPipe$LoopBundle b]
@@ -15,17 +15,17 @@
        (.getPath b))))
 
 (defn loop
-  ([^GremlinPipeline p ^Integer i while-f]
-     (conj p #(.loop % i (f-to-pipef (loop-unbundler while-f)))))
-  ([^GremlinPipeline p ^Integer i while-f emit-f]
-     (conj p #(.loop % i 
+  ([p ^Integer i while-f]
+     (conj p #(.loop ^GremlinPipeline % i (f-to-pipef (loop-unbundler while-f)))))
+  ([p ^Integer i while-f emit-f]
+     (conj p #(.loop ^GremlinPipeline % i 
                      (f-to-pipef (loop-unbundler while-f))
                      (f-to-pipef emit-f)))))
 
 (defn loop-to
-  ([^GremlinPipeline p ^String s while-f]
-     (conj p #(.loop % s (f-to-pipef (loop-unbundler while-f)))))
-  ([^GremlinPipeline p ^String s while-f emit-f]
-     (conj p #(.loop % s
+  ([p ^String s while-f]
+     (conj p #(.loop ^GremlinPipeline % s (f-to-pipef (loop-unbundler while-f)))))
+  ([p ^String s while-f emit-f]
+     (conj p #(.loop ^GremlinPipeline % s
                      (f-to-pipef (loop-unbundler while-f))
                      (f-to-pipef emit-f)))))

@@ -5,8 +5,10 @@
   (:require [ogre.util :refer (convert-symbol-to-compare f-to-pipef)]))
 
 (defn dedup
-  ([^GremlinPipeline p]   (conj p #(.dedup %)))
-  ([^GremlinPipeline p f] (conj p #(.dedup % (f-to-pipef f)))))
+  ([p]   
+     (conj p #(.dedup ^GremlinPipeline %)))
+  ([p f] 
+     (conj p #(.dedup ^GremlinPipeline % (f-to-pipef f)))))
 
 (defmacro has
   ([p k v]
@@ -21,6 +23,8 @@
   `(conj ~p (fn [parg#] (.hasNot parg# ~(name k) ~v))))
 
 (defn interval 
-  [^GremlinPipeline p key start end]
-  (conj p #(.interval % ^String (name key) 
-                      ^Float (float start) ^Float (float end))))
+  [p key start end]
+  (conj p #(.interval ^GremlinPipeline % 
+                      ^String (name key) 
+                      ^Float  (float start) 
+                      ^Float  (float end))))
