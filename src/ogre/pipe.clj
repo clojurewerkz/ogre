@@ -37,6 +37,12 @@
   [p]
   (into '() (to-java-list! p)))
 
+(defn into-lazy-seq!
+  [p]
+  (let [pipe (compile-query p)
+        f (fn [_] (first (.next pipe 1)))]
+    (clojure.core/iterate f (f nil))))
+
 ;;Inspiried by gather, these take the first element in the object
 ;;returned and convert it to something useful for clojure.
 (defmulti convert-to-map class)
