@@ -21,46 +21,71 @@
   [["exhaustMerge" "TODO: Write doc string"] 
    ["fairMerge" "TODO: Write doc string"] 
    ["_" "TODO: Write doc string"]
-   ["id" "TODO: Write doc string"]
-   ["label" "TODO: Write doc string"] 
+   ["id" "Returns the unique identifier of the given element."]
+   ["label" "Returns the label of the given edge."] 
    ["scatter" "TODO: Write doc string"] 
    ["simplePath" "TODO: Write doc string"]
    ["enablePath" "TODO: Write doc string"] 
    ["cap" "TODO: Write doc string"]
    ["path" "TODO:Write doc string"
     clojure.lang.ArraySeq]
-   ["range" "TODO: Write doc string" ;;;HERE
-    Integer Integer]
-   ["sideEffect" "TODO: Write doc string"
+
+   ["range" 
+    "Returns the objects from within the given range (inclusive) of
+    indices for the pipeline."  
+    Integer Integer] ;;;HERE
+
+   ["sideEffect" 
+    "Maps a function across each element in the pipeline,
+    but not necessarily changing the pipeline elements."
     clojure.lang.IFn]
-   ["ifThenElse" "TODO: Write doc string"
+
+   ["ifThenElse" 
+    "Given three functions, if the first function is true, the result
+    of the second function is returned, otherwise the result of the
+    third function is returned."  
     clojure.lang.IFn clojure.lang.IFn clojure.lang.IFn]
-   ["filter" "TODO: Write doc string" 
+
+   ["filter" 
+    "Filters out elements in the pipeline according to the given
+    predicate function." 
     clojure.lang.IFn]
-   ["transform" "TODO: Write doc string"
+
+   ["transform" 
+    "Maps the given function over the elements in the pipeline and
+    returns the results." 
     clojure.lang.IFn]
-   ["property" "TODO: Write doc string"
+
+   ["property"
+    "Given a keyword or string, returns the corresponding property for
+    each element in the pipeline."  
     clojure.lang.Keyword]
-   ["except" "TODO: Write doc string" ;;HERE
-    java.util.Collection]
-   ["random" "TODO: Write doc string" ;;HERE
-    Double]
-   ["retain" "TODO: Write doc string" ;;HERE
-    java.util.Collection]
-   ["add" "TODO: Write doc string"
-    Object]
-   ["as" "TODO: Write doc string" ;;HERE
+
+   ["except"
+    "Filters out all of elements that are in the given collection." 
+    java.util.Collection] ;;Here
+
+   ["random" 
+    "Each element is sampled according to the given probability."     
+    Double] ;;HERE
+
+   ["retain" 
+    "Given a collection, only retains elements from the given
+    collection. Given a string corresponding to a named step, retains
+    all elements that were present at the named step."
+    java.util.Collection] ;; HERE
+   
+   ["as" 
+    "Names the previous step in the pipeline the given string." ;;HERE
     String]
-   ["back" "TODO: Write doc string" ;;HERE
+
+   ["back" 
+    "Return to the results of the given step." ;;HERE
     Integer]
-   ["optimize" "TODO: Write doc string"
-    Object]
-   ["optional" "TODO: Write doc string" ;;HERE
-    Integer]
-   ["optional-to" "TODO: Write doc string" ;;HERE
-    String]
-   ["start" "TODO: Write doc string"
-    Object]])
+
+   ["optional" 
+    "Returns the results of the current step and the given named step." 
+    String]])
 
 (defn function-template [[f doc & args]]
   (let [method (symbol (str "." f))
@@ -82,9 +107,10 @@
                               clojure.lang.IFn `(f-to-pipef ~sym)
                               clojure.lang.ArraySeq `(fs-to-pipef-array ~sym)
                               sym))
-                          arguments)]
+                          arguments)
+        p (gensym "pipeline")]
     `(defn ~fcall ~doc 
-       ([p# ~@pre-args] (conj p# (fn [parg#] (~method ^GremlinPipeline parg# ~@transformed-args)))))))
+       ([~p ~@pre-args] (conj ~p (fn [parg#] (~method ^GremlinPipeline parg# ~@transformed-args)))))))
 
 (doseq [s simple-methods] 
   (eval (function-template s)))
@@ -99,6 +125,9 @@
         j3 (symbol (str "." direction "V"))]
     (eval `(do
              (defn ~direction 
+               ;; ~(str "Traverses edges along the "
+               ;;       direction 
+               ;;       " direction and returns the vertices.")
                ([p#] (~direction p# []))
                ([p# labels#]
                   (conj p# (fn [parg#] (~j1 ^GremlinPipeline parg# (keywords-to-strings labels#))))))
