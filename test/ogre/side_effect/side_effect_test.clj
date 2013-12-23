@@ -24,8 +24,8 @@
                       (q/side-effect (partial swap! lst conj))
                       (q/property :name)
                       q/into-vec!)]
-      (= 3 (count @lst))
-      (= #{"josh" "lop" "vadas"} (set names))))
+      (is (= 3 (count @lst)))
+      (is (= #{"josh" "lop" "vadas"} (set names)))))
 
   (testing "test_g_v1_out_sideEffectXfalseX_propertyXnameX"
     (let [lst (atom [])
@@ -35,8 +35,8 @@
                       (q/side-effect (constantly false))
                       (q/property :name)
                       q/into-vec!)]
-      (= 3 (count @lst))
-      (= #{"josh" "lop" "vadas"} (set names)))))
+      (is (= 3 (count @lst)))
+      (is (= #{"josh" "lop" "vadas"} (set names))))))
 
 
 
