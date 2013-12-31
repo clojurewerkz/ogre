@@ -99,6 +99,6 @@ on GitHub.
 
 ## License
 
-Copyright (C) 2013 Zack Maril
+Copyright (C) 2014 Zack Maril
 
 Licensed under the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html) (the same as Clojure).
