@@ -36,7 +36,10 @@
     (g/connect! hercules :battled nemean {:times 1})
     (g/connect! hercules :battled hydra {:times 2})
     (g/connect! hercules :battled cerberus {:times 12})
-    (let [r1 (q/query saturn
+    (let [r0 (q/query (g/get-vertices)
+                      (q/has :type "human")
+                      q/count!)
+          r1 (q/query saturn
                       (q/<-- [:father])
                       (q/<-- [:father])
                       q/into-vec!
@@ -69,6 +72,7 @@
                       (q/as  "place")
                       (q/select (partial g/get-property :name))
                       (q/all-into-maps!))]
+      (is (= r0 1))
       (is (= r1 hercules))
       (is (= r2 #{"Alcmene" "Jupiter"}))
       (is (= r3 #{"Cerberus" "Hydra"}))

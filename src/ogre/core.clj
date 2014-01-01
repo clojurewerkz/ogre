@@ -1,15 +1,148 @@
 (ns ogre.core
+  (:import (com.tinkerpop.gremlin.java GremlinPipeline))
   (:refer-clojure :exclude [filter and or range count memoize iterate next map loop reverse])
   (:require [potemkin :as po]
-            [ogre.util        :as util]
+            [ogre.util        :as util :refer 
+             [keywords-to-strings f-to-pipef fs-to-pipef-array]]
             [ogre.branch      :as branch]
             [ogre.filter      :as filter]
             [ogre.map         :as map]
             [ogre.pipe        :as pipe]
             [ogre.reduce      :as reduce]
-            [ogre.traverse    :as traverse]
-            [ogre.side-effect :as side-effect]))
+            [ogre.side-effect :as side-effect]
+            [clojure.string   :as stur]))
 
+;;Define functions for the simple methods.  
+
+;;TODO: Wherever there is a HERE, that function fails to reflect.  It
+;;looks like whenever the args aren't all clojure types reflection
+;;fails. No idea why. 
+(def simple-methods 
+  [["exhaustMerge" "TODO: Write doc string"] 
+   ["fairMerge" "TODO: Write doc string"] 
+   ["_" "TODO: Write doc string"]
+   ["id" "Returns the unique identifier of the given element."]
+   ["label" "Returns the label of the given edge."] 
+   ["scatter" "TODO: Write doc string"] 
+   ["simplePath" "TODO: Write doc string"]
+   ["enablePath" "TODO: Write doc string"] 
+   ["cap" "TODO: Write doc string"]
+   ["path" "TODO:Write doc string"
+    clojure.lang.ArraySeq]
+
+   ["range" 
+    "Returns the objects from within the given range (inclusive) of
+    indices for the pipeline."  
+    Integer Integer] ;;;HERE
+
+   ["sideEffect" 
+    "Maps a function across each element in the pipeline,
+    but not necessarily changing the pipeline elements."
+    clojure.lang.IFn]
+
+   ["ifThenElse" 
+    "Given three functions, if the first function is true, the result
+    of the second function is returned, otherwise the result of the
+    third function is returned."  
+    clojure.lang.IFn clojure.lang.IFn clojure.lang.IFn]
+
+   ["filter" 
+    "Filters out elements in the pipeline according to the given
+    predicate function." 
+    clojure.lang.IFn]
+
+   ["transform" 
+    "Maps the given function over the elements in the pipeline and
+    returns the results." 
+    clojure.lang.IFn]
+
+   ["property"
+    "Given a keyword or string, returns the corresponding property for
+    each element in the pipeline."  
+    clojure.lang.Keyword]
+
+   ["except"
+    "Filters out all of elements that are in the given collection." 
+    java.util.Collection] ;;Here
+
+   ["random" 
+    "Each element is sampled according to the given probability."     
+    Double] ;;HERE
+
+   ["retain" 
+    "Given a collection, only retains elements from the given
+    collection. Given a string corresponding to a named step, retains
+    all elements that were present at the named step."
+    java.util.Collection] ;; HERE
+   
+   ["as" 
+    "Names the previous step in the pipeline the given string." ;;HERE
+    String]
+
+   ["back" 
+    "Return to the results of the given step." ;;HERE
+    Integer]
+
+   ["optional" 
+    "Returns the results of the current step and the given named step." 
+    String]])
+
+(defn function-template [[f doc & args]]
+  (let [method (symbol (str "." f))
+        fcall  (symbol (stur/replace f #"[A-Z]" 
+                                     #(str "-" (stur/lower-case %1))))
+        arguments 
+        (map-indexed #(vary-meta (symbol (str "arg" %1)) assoc :tag %2) args)
+
+        pre-args (flatten (clojure.core/map (fn [sym]
+                                              (if (= clojure.lang.ArraySeq (:tag (meta sym)))
+                                                `(& ~sym)
+                                                sym))
+                                            arguments))
+
+        transformed-args
+        (clojure.core/map (fn [sym]
+                            (condp = (:tag (meta sym))
+                              clojure.lang.Keyword `(name ~sym)
+                              clojure.lang.IFn `(f-to-pipef ~sym)
+                              clojure.lang.ArraySeq `(fs-to-pipef-array ~sym)
+                              sym))
+                          arguments)
+        p (gensym "pipeline")]
+    `(defn ~fcall ~doc 
+       ([~p ~@pre-args] (conj ~p (fn [parg#] (~method ^GremlinPipeline parg# ~@transformed-args)))))))
+
+(doseq [s simple-methods] 
+  (eval (function-template s)))
+
+;;Define the travesal methods
+(doseq [[direction short shortE name1] '((both <-> <E> both-vertices)
+                                         (in   <-- <E- in-vertex)
+                                         (out  --> -E> out-vertex))]
+  (let [j1 (symbol (str "." direction))
+        f1 (symbol (str direction "-edges"))
+        j2 (symbol (str "." direction "E"))
+        j3 (symbol (str "." direction "V"))]
+    (eval `(do
+             (defn ~direction 
+               ;; ~(str "Traverses edges along the "
+               ;;       direction 
+               ;;       " direction and returns the vertices.")
+               ([p#] (~direction p# []))
+               ([p# labels#]
+                  (conj p# (fn [parg#] (~j1 ^GremlinPipeline parg# (keywords-to-strings labels#))))))
+             (defn ~short
+               [& args#]
+               (apply ~direction args#))
+             (defn ~f1
+               ([p#] (~f1 p# []))
+               ([p# labels#] 
+                  (conj p# (fn [^GremlinPipeline parg#] (~j2 parg# (keywords-to-strings labels#))))))
+             (defn ~shortE
+               [& args#]
+               (apply ~f1 args#))
+             (defn ~name1 [p#]
+               (conj p# (fn [parg#] (~j3 ^GremlinPipeline parg#))))))))
 
 ;; ogre.util
 (po/import-macro util/query)
@@ -18,51 +151,28 @@
 
 ;; ogre.branch
 (po/import-fn branch/copy-split)
-(po/import-fn branch/exhaust-merge)
-(po/import-fn branch/fair-merge)
-(po/import-fn branch/if-then-else)
 (po/import-fn branch/loop)
 (po/import-fn branch/loop-to)
 
 ;; ogre.filter
-(po/import-fn filter/filter)
 (po/import-fn filter/dedup)
-(po/import-fn filter/except)
 (po/import-macro filter/has)
 (po/import-macro filter/has-not)
 (po/import-fn filter/interval)
-(po/import-fn filter/random)
-(po/import-fn filter/range)
-(po/import-fn filter/retain)
-(po/import-fn filter/simple-path)
 
 ;; ogre.map
 (po/import-fn map/map)
-(po/import-fn map/transform)
-(po/import-fn map/_)
-(po/import-fn map/id)
-(po/import-fn map/property)
-(po/import-fn map/label)
 (po/import-fn map/select)
 (po/import-fn map/select-only)
-(po/import-fn map/scatter)
-(po/import-fn map/path)
 
 ;; ogre.pipe
 ;; TODO break this into pipe and executors
-(po/import-fn pipe/add)
-(po/import-fn pipe/as)
-(po/import-fn pipe/back)
 (po/import-fn pipe/back-to)
-(po/import-fn pipe/enable-path)
-(po/import-fn pipe/iterate)
-(po/import-fn pipe/next)
-(po/import-fn pipe/optimize)
-(po/import-fn pipe/optional)
-(po/import-fn pipe/optional-to)
-(po/import-fn pipe/start)
+(po/import-fn pipe/next!)
+(po/import-fn pipe/iterate!)
 (po/import-fn pipe/prop)
 
+(po/import-fn pipe/into-lazy-seq!)
 (po/import-fn pipe/into-vec!)
 (po/import-fn pipe/into-set!)
 (po/import-fn pipe/first-of!)
@@ -72,36 +182,14 @@
 (po/import-fn pipe/all-into-vecs!)
 (po/import-fn pipe/all-into-sets!)
 (po/import-fn pipe/all-into-maps!)
-
+(po/import-fn pipe/count!)
 
 ;; ogre.reduce
 (po/import-fn reduce/gather)
 (po/import-fn reduce/order)
 (po/import-fn reduce/reverse)
-(po/import-fn reduce/count!)
-
-;; ogre.traverse
-(po/import-fn traverse/both)
-(po/import-fn traverse/<->)
-(po/import-fn traverse/both-edges)
-(po/import-fn traverse/<E>)
-(po/import-fn traverse/both-vertices)
-
-(po/import-fn traverse/in)
-(po/import-fn traverse/<--)
-(po/import-fn traverse/in-edges)
-(po/import-fn traverse/<E-)
-(po/import-fn traverse/in-vertex)
-
-(po/import-fn traverse/out)
-(po/import-fn traverse/-->)
-(po/import-fn traverse/out-edges)
-(po/import-fn traverse/-E>)
-(po/import-fn traverse/out-vertex)
 
 ;; ogre.side-effect
-(po/import-fn side-effect/side-effect)
-(po/import-fn side-effect/cap)
 (po/import-fn side-effect/get-table!)
 (po/import-fn side-effect/get-tree!)
 (po/import-fn side-effect/get-grouped-by!)

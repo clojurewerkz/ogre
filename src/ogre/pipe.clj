@@ -1,73 +1,47 @@
 (ns ogre.pipe
-  (:refer-clojure :exclude [iterate next])
+  (:refer-clojure :exclude [iterate])
   (:import (com.tinkerpop.gremlin.java GremlinPipeline)
            (com.tinkerpop.blueprints Vertex)
            (com.tinkerpop.pipes.util.structures Row))
   (:use ogre.util))
 
-(defn add 
-  [^GremlinPipeline p e]
-  (.add p e))
-
-(defn as 
-  [^GremlinPipeline p ^String s]
-  (.as p s))
-
-(defn back 
-  [^GremlinPipeline p ^Integer i]
-  (.back p i))
-
 (defn back-to 
-  [^GremlinPipeline p ^String i]
-  (.back p i))
+  [p ^String s]
+  (conj p #(.back ^GremlinPipeline % s)))
 
-(defn enable-path 
-  [^GremlinPipeline p]
-  (.enablePath p))
+(defn iterate!
+  [p]
+  (.iterate ^GremlinPipeline (compile-query p)))
 
-(defn iterate 
-  [^GremlinPipeline p]
-  (.iterate p))
-
-(defn next 
-  [^GremlinPipeline p i]
-  (.next p i))
-
-(defn optimize 
-  [^GremlinPipeline p b]
-  (.optimize p b))
-
-(defn optional 
-  [^GremlinPipeline p ^Integer s]
-  (.optional p s))
-
-(defn optional-to 
-  [^GremlinPipeline p ^String s]
-  (.optional p s))
-
-(defn start 
-  [^GremlinPipeline p o]
-  (.start p o))
+(defn next!
+  [p i]
+  (.next ^GremlinPipeline (compile-query p) i))
 
 ;; (defn step [^GremlinPipeline p e]
 ;;   (.step p e))
 
 (defmacro ^{:private true}
   to-java-list! 
-  [^GremlinPipeline p]
-  `(.toList ~p))
+  [p]
+  `(.toList ^GremlinPipeline (compile-query ~p)))
 
 (defn into-vec! 
-  [^GremlinPipeline p]
+  [p]
   (into [] (to-java-list! p)))
 
 (defn into-set! 
-  [^GremlinPipeline p]
+  [p]
   (into #{} (to-java-list! p)))
 
 (defn into-list! 
-  [^GremlinPipeline p]
+  [p]
   (into '() (to-java-list! p)))
+
+(defn into-lazy-seq!
+  [p]
+  (let [pipe (compile-query p)
+        f (fn [_] (first (.next pipe 1)))]
+    (clojure.core/iterate f (f nil))))
 
 ;;Inspiried by gather, these take the first element in the object
 ;;returned and convert it to something useful for clojure.
@@ -83,33 +57,36 @@
              [(keyword k) (.getColumn m k)])))
 
 (defn first-of! 
-  [^GremlinPipeline p]
-  (-> p (next 1) first))
+  [p]
+  (-> p (next! 1) first))
 
 (defn first-into-vec! 
-  [^GremlinPipeline p]
+  [p]
   (vec (first-of! p)))
 
 (defn first-into-set! 
-  [^GremlinPipeline p]
+  [p]
   (set (first-of! p)))
 
 (defn first-into-map! 
-  [^GremlinPipeline p]
+  [p]
   (convert-to-map (first-of! p)))
 
 (defn all-into-vecs! 
-  [^GremlinPipeline p]
+  [p]
   (map vec (into-vec! p)))
 
 (defn all-into-sets! 
-  [^GremlinPipeline p]
+  [p]
   (map set (into-vec! p)))
 
 (defn all-into-maps! 
-  [^GremlinPipeline p]
+  [p]
   (map convert-to-map (into-vec! p)))
 
+(defn count! 
+  [p]
+  (.count ^GremlinPipeline (compile-query p)))
 ;; Reversed property accessors
 
 (defn prop 

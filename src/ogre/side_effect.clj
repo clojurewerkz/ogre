@@ -2,15 +2,8 @@
   (:import (com.tinkerpop.pipes.util.structures Table Tree Row Pair)
            (com.tinkerpop.gremlin.java GremlinPipeline))
   (:require [ogre.pipe :as pipe])
+
   (:use ogre.util))
-
-(defn side-effect 
-  [^GremlinPipeline p ^clojure.lang.IFn f]
-  (.sideEffect p (f-to-pipef f)))
-
-(defn cap 
-  [^GremlinPipeline p]
-  (.cap p))
 
 (defn convert-table 
   [^Table t]
@@ -22,12 +15,13 @@
     (map converter ts)))
 
 (defn get-table!
-  ([^GremlinPipeline p & fs] (->> (.table p (fs-to-pipef-array fs))
-                 (.cap)
-                 (.toList)
-                 seq
-                 first
-                 convert-table)))
+  ([^GremlinPipeline p & fs] (->> (.table (compile-query p)
+                                          (fs-to-pipef-array fs))
+                                  (.cap)
+                                  (.toList)
+                                  seq
+                                  first
+                                  convert-table)))
 
 ;; (defn table-into
 ;;   ([^GremlinPipeline p ^Table t] (.table p t))
@@ -57,7 +51,7 @@
 
 (defn get-tree! 
   [^GremlinPipeline p & fs]
-  (-> (.tree p (fs-to-pipef-array fs))
+  (-> (.tree (compile-query p) (fs-to-pipef-array fs))
       (.cap)
       (.toList)
       seq
@@ -95,7 +89,8 @@
 (defn get-grouped-by!
   ([p f g] (get-grouped-by! p f g identity))
   ([^GremlinPipeline p f g r]
-     (let [results      (-> (.groupBy p (f-to-pipef f) (f-to-pipef g))
+     (let [results      (-> (.groupBy (compile-query p)
+                                      (f-to-pipef f) (f-to-pipef g))
                             (.cap)
                             (.toList)
                             seq
@@ -109,7 +104,8 @@
   ([p] (get-group-count! p identity))
   ([p f] (get-group-count! p f (fn [a b] (inc b))))
   ([^GremlinPipeline p ^clojure.lang.IFn f ^clojure.lang.IFn g]
-     (-> (.groupCount p (f-to-pipef f) 
+     (-> (.groupCount (compile-query p)
+                      (f-to-pipef f) 
                       (f-to-pipef (fn [^Pair arg] 
                                     (g (.getA arg) (.getB arg)))))
          (.cap)

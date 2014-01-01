@@ -1,4 +1,4 @@
-(defproject clojurewerkz/ogre "2.3.0.2-SNAPSHOT"
+(defproject clojurewerkz/ogre "2.4.0.0-SNAPSHOT"
   :description "Clojure wrapper around gremlin"
   :url "https://github.com/clojurewerkz/ogre"
   :license {:name "Eclipse Public License"
@@ -19,4 +19,5 @@
                  "sonatype-snapshots" {:url "http://oss.sonatype.org/content/repositories/snapshots"
                                        :snapshots true
                                        :releases {:checksum :fail :update :always}}}
-  :warn-on-reflection true)
+  :global-vars {*warn-on-reflection* true
+                *assert* false})

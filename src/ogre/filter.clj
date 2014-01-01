@@ -4,46 +4,27 @@
            (com.tinkerpop.gremlin Tokens$T))
   (:require [ogre.util :refer (convert-symbol-to-compare f-to-pipef)]))
 
-(defn filter 
-  [^GremlinPipeline p f]
-  (.filter p (f-to-pipef f)))
-
 (defn dedup
-  ([^GremlinPipeline p] (.dedup p))
-  ([^GremlinPipeline p f] (.dedup p (f-to-pipef f))))
-
-(defn except 
-  [^GremlinPipeline p ^java.util.Collection xs]
-  (.except p xs))
+  ([p]   
+     (conj p #(.dedup ^GremlinPipeline %)))
+  ([p f] 
+     (conj p #(.dedup ^GremlinPipeline % (f-to-pipef f)))))
 
 (defmacro has
   ([p k v]
-     `(.has ~(with-meta p {:tag GremlinPipeline}) 
-            ~(name k)
-            ~v))
+     `(conj ~p (fn [parg#] (.has parg# ~(name k) ~v))))
   ([p k c v]
-     `(.has ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
+     `(conj ~p (fn [parg#] (.has parg# ~(name k) 
+                                 (convert-symbol-to-compare '~c)
+                                 ~v)))))
 
 (defmacro has-not
   [p k v] 
-  `(.hasNot ~p ~(name k) ~v))
+  `(conj ~p (fn [parg#] (.hasNot parg# ~(name k) ~v))))
 
 (defn interval 
-  [^GremlinPipeline p key start end]
-  (.interval p ^String (name key) ^Float (float start) ^Float (float end)))
-
-(defn random 
-  [^GremlinPipeline p ^Double bias]
-  (.random p bias))
-
-(defn range 
-  [^GremlinPipeline p ^Integer low ^Integer high]
-  (.range p low high))
-
-(defn retain 
-  [^GremlinPipeline p ^java.util.Collection coll]
-  (.retain p coll))
-
-(defn simple-path 
-  [^GremlinPipeline p]
-  (.simplePath p))
+  [p key start end]
+  (conj p #(.interval ^GremlinPipeline % 
+                      ^String (name key) 
+                      ^Float  (float start) 
+                      ^Float  (float end))))

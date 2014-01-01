@@ -5,20 +5,8 @@
   (:use ogre.util))
 
 (defn copy-split 
-  [^GremlinPipeline p & es]
-  (.copySplit p (pipe-array es)))
-
-(defn exhaust-merge 
-  [^GremlinPipeline p]
-  (.exhaustMerge p))
-
-(defn fair-merge 
-  [^GremlinPipeline p]
-  (.fairMerge p))
-
-(defn if-then-else 
-  [^GremlinPipeline p pred then else]
-  (.ifThenElse p (f-to-pipef pred) (f-to-pipef then) (f-to-pipef else)))
+  [p & es]
+  (conj p #(.copySplit ^GremlinPipeline % (pipe-array es))))
 
 (defn- loop-unbundler [f]
   (fn [^LoopPipe$LoopBundle b]
@@ -27,15 +15,17 @@
        (.getPath b))))
 
 (defn loop
-  ([^GremlinPipeline p ^Integer i while-f]
-     (.loop p i (f-to-pipef (loop-unbundler while-f))))
-  ([^GremlinPipeline p ^Integer i while-f emit-f]
-     (.loop p i (f-to-pipef (loop-unbundler while-f)) (f-to-pipef emit-f))))
+  ([p ^Integer i while-f]
+     (conj p #(.loop ^GremlinPipeline % i (f-to-pipef (loop-unbundler while-f)))))
+  ([p ^Integer i while-f emit-f]
+     (conj p #(.loop ^GremlinPipeline % i 
+                     (f-to-pipef (loop-unbundler while-f))
+                     (f-to-pipef emit-f)))))
 
 (defn loop-to
-  ([^GremlinPipeline p ^String s while-f]
-     (.loop p s (f-to-pipef (loop-unbundler while-f))))
-  ([^GremlinPipeline p ^String s while-f emit-f]
-     (.loop p s
-            (f-to-pipef (loop-unbundler while-f))
-            (f-to-pipef emit-f))))
+  ([p ^String s while-f]
+     (conj p #(.loop ^GremlinPipeline % s (f-to-pipef (loop-unbundler while-f)))))
+  ([p ^String s while-f emit-f]
+     (conj p #(.loop ^GremlinPipeline % s
+                     (f-to-pipef (loop-unbundler while-f))
+                     (f-to-pipef emit-f)))))

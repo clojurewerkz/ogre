@@ -3,16 +3,17 @@
            (com.tinkerpop.pipes PipeFunction Pipe)
            (com.tinkerpop.gremlin Tokens$T)))
 
-(defmacro bare-pipe [& body]
-  `(-> (GremlinPipeline.)
-       ~@body))
+;;TODO bring over the one test from the lazy branch
+(defmacro bare-pipe 
+  [& body]
+  `(reduce #(%2 %1) (GremlinPipeline.) (-> [] ~@body)))
+
 
 (defmacro defpipe [name & body]
   `(def ~name (blank-pipe ~@body)))
 
 (defmacro query [xs & body]  
-  `(-> (GremlinPipeline. ~xs)
-       ~@body))
+  `(-> [~xs] ~@body))
 
 (defmacro subquery 
   ""
@@ -50,3 +51,8 @@
 (defn ^"[Lcom.tinkerpop.pipes.PipeFunction;" fs-to-pipef-array
   [fs]
   (into-array PipeFunction (map f-to-pipef fs)))
+
+(defn compile-query 
+  ^GremlinPipeline 
+  [[xs & fs]]
+  (reduce #(%2 %1) (GremlinPipeline. xs) fs))
