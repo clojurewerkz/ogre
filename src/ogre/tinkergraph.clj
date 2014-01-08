@@ -14,8 +14,10 @@
 
 (defn use-clean-graph! []
   (use-new-tinker-graph!)
-  (map #(.removeEdge *graph* %) (seq (.getEdges *graph*)))
-  (map #(.removeVertex *graph* %) (seq (.getVertices *graph*))))
+  (doseq [edge (.getEdges *graph*)]
+    (.removeEdge *graph* edge))
+  (doseq [vertex (.getVertices *graph*)]
+    (.removeVertex *graph* vertex)))
 
 ;;Element mutation
 
