@@ -11,7 +11,7 @@
   :test-paths ["test" "src/test/ogre"]
   :profiles {:1.4    {:dependencies [[org.clojure/clojure "1.4.0"]]}
              :1.6    {:dependencies [[org.clojure/clojure "1.6.0"]]}
-             :master {:dependencies [[org.clojure/clojure "1.6.0-master-SNAPSHOT"]]}}
+             :master {:dependencies [[org.clojure/clojure "1.7.0-master-SNAPSHOT"]]}}
   :aliases {"all" ["with-profile" "dev:dev,1.4:dev,1.6"]}
   :repositories {"sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
                              :snapshots false
