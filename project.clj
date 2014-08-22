@@ -8,7 +8,7 @@
                  [com.tinkerpop.gremlin/gremlin-java "2.5.0"]
                  [com.tinkerpop.blueprints/blueprints-core "2.5.0"]
                  [com.tinkerpop/pipes "2.5.0"]]
-  :test-paths ["test" "src/test/ogre"]
+  :source-paths ["src/clojure"]
   :profiles {:1.4    {:dependencies [[org.clojure/clojure "1.4.0"]]}
              :1.6    {:dependencies [[org.clojure/clojure "1.6.0"]]}
              :master {:dependencies [[org.clojure/clojure "1.7.0-master-SNAPSHOT"]]}}
