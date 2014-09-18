@@ -1,4 +1,4 @@
-(defproject clojurewerkz/ogre "2.5.0.0-SNAPSHOT"
+(defproject clojurewerkz/ogre "2.6.0.0-SNAPSHOT"
   :description "Clojure wrapper around gremlin"
   :url "https://github.com/clojurewerkz/ogre"
   :license {:name "Eclipse Public License"
