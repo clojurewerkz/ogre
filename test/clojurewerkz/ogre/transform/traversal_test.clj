@@ -70,7 +70,7 @@
                       q/<E-
                       q/out-vertex
                       q/into-vec!)]
-      (is (= #{"vadas" "josh" "lop"}
+      (is (= #{"marko"}
              (u/get-names-set vs)))))
 
   (testing "test_g_v1_out(knows)"
