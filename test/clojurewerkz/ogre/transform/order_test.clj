@@ -21,8 +21,8 @@
   (testing "g(g.getVertices).order(a.name>b.name).property('name')"
     (let [names (q/query (g/get-vertices)
                          (q/order (fn [a b]
-                                    (compare (g/get-property :name a)
-                                             (g/get-property :name b))))
+                                    (compare (g/get-property :name b)
+                                             (g/get-property :name a))))
                          (q/property :name)
                          q/into-vec!)]
       (is (= ["vadas""ripple""peter" "marko" "lop" "josh"] names))))
