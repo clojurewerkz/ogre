@@ -1,4 +1,4 @@
-# Orge, a Clojure Library For Querying Blueprints Graphs
+# Ogre, a Clojure Library For Querying Blueprints Graphs
 
 <img src="https://raw.github.com/clojurewerkz/ogre/master/ogre.png" height="200"></img>
 
