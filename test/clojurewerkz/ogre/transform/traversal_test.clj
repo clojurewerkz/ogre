@@ -84,7 +84,7 @@
     (let [vs (q/query (g/find-by-id 1)
                       (q/--> [:knows :created])
                       q/into-vec!)]
-      (is (= #{"vadas" "josh", "lop"}
+      (is (= #{"vadas" "josh" "lop"}
              (u/get-names-set vs)))))
 
   (testing "test_g_v1_outE(knows)_inV"
@@ -100,7 +100,7 @@
                       (q/-E> [:knows :created])
                       q/in-vertex
                       q/into-vec!)]
-      (is (= #{"vadas" "josh", "lop"}
+      (is (= #{"vadas" "josh" "lop"}
              (u/get-names-set vs)))))
 
   (testing "test_g_v1_out_out"
