@@ -100,7 +100,7 @@
                       (q/-E> [:knows :created])
                       q/in-vertex
                       q/into-vec!)]
-      (is (= #{"vadas" "josh"}
+      (is (= #{"vadas" "josh", "lop"}
              (u/get-names-set vs)))))
 
   (testing "test_g_v1_out_out"
