@@ -8,31 +8,31 @@
   (g/use-new-tinker-graph!)
   (testing "test_g_V()"
     "Nothing for Ogre to do here")
-  
+
   (testing "test_g_v1_out()"
     (let [vs (q/query (g/find-by-id 1)
                       q/-->
                       q/into-vec!)]
       (is (= #{"vadas" "josh" "lop"}
              (u/get-names-set vs)))))
-  
+
   (testing "test_g_v2_in()"
     (let [vs (q/query (g/find-by-id 2)
                       q/<--
                       q/into-vec!)]
       (is (= #{"marko"}
              (u/get-names-set vs)))))
-  
+
   (testing "test_g_v4_both()"
-    (let [vs (q/query (g/find-by-id 2)
+    (let [vs (q/query (g/find-by-id 4)
                       q/<->
                       q/into-vec!)]
       (is (= #{"marko" "ripple" "lop"}
              (u/get-names-set vs)))))
-  
+
   (testing "test_g_E"
     "Nothign to see here")
-  
+
   (testing "test_g_v1_outE()"
     (let [es (q/query (g/find-by-id 1)
                       q/-E>
@@ -40,7 +40,7 @@
       (is (= 3 (count es)))
       (is (= #{"created" "knows"}
              (set (map g/get-label es))))))
-  
+
   (testing "test_g_v2_outE()"
     (let [es (q/query (g/find-by-id 2)
                       q/<E-
@@ -48,7 +48,7 @@
       (is (= 1 (count es)))
       (is (= #{"knows"}
              (set (map g/get-label es))))))
-  
+
   (testing "test_g_v4_bothE()"
     (let [es (q/query (g/find-by-id 4)
                       q/<E>
@@ -86,7 +86,7 @@
                       q/into-vec!)]
       (is (= #{"vadas" "josh"}
              (u/get-names-set vs)))))
-  
+
   (testing "test_g_v1_outE(knows)_inV"
     (let [vs (q/query (g/find-by-id 1)
                       (q/-E> [:knows])
