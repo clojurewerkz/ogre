@@ -1,31 +1,28 @@
-# Ogre, a Clojure Library For Querying Blueprints Graphs
+# Ogre
 
 <img src="https://raw.github.com/clojurewerkz/ogre/master/ogre.png" height="200"></img>
 
-Ogre is a Clojure "dialect" of [Gremlin](http://gremlin.tinkerpop.com).
-It is for querying graphs that conform to the [Tinkerpop Blueprints](http://blueprints.tinkerpop.com) interface.
+Ogre is a Clojure "flavor" of the [Gremlin](http://gremlin.tinkerpop.com) graph query language. Like Gremlin, it can be used to query graphs that conform to the [Tinkerpop Blueprints](http://blueprints.tinkerpop.com) interface.
+
+## Project Goals
+
+* Provide and API that enhances the expressivity of Gremlin when working in Clojure.
+* Expose the all the features of Gremlin and Blueprints as it makes sense in Clojure.
+* Don't introduce any significant amount of performance overhead.
 
 ## Community
 
-Ogre questions are welcomed on the [Gremlin mailing list](https://groups.google.com/forum/?fromgroups#!forum/gremlin-users).
-If you use Ogre with Titanium, feel free to also use [Titanium's mailing list](https://groups.google.com/forum/#!forum/clojure-titanium).
+Questions related to Ogre can be asked on the [clojure-titanium mailing list](https://groups.google.com/forum/#!forum/clojure-titanium). 
 
-Please ask any questions you may have!
-
+To subscribe for announcements of releases, important changes and so on, please follow [@ClojureWerkz](https://twitter.com/#!/clojurewerkz) on Twitter.
 
 ## Project Maturity
 
-Orge is a young project.
-[Archimedes](https://github.com/clojurewerkz/archimedes) currently
-uses it. Ogre feels incredibly useful, but nobody has put it into
-production yet. We'll update this section as people do.
-
-
+Orge is a young project that regained active development in 2014.
 
 ## Artifacts
 
-Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre). If you are using Maven, add the following repository
-definition to your `pom.xml`:
+Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre). Maven users should add the following repository definition to your `pom.xml`:
 
 ``` xml
 <repository>
@@ -38,56 +35,34 @@ definition to your `pom.xml`:
 
 With Leiningen:
 
-    [zmaril/ogre "2.3.0.1"]
-
+    [clojurewerkz/ogre "2.3.0.1"]
 
 With Maven:
 
     <dependency>
-      <groupId>zmaril</groupId>
+      <groupId>clojurewerkz</groupId>
       <artifactId>ogre</artifactId>
       <version>2.3.0.1</version>
     </dependency>
-
-
 
 ## Documentation & Examples
 
  * [Guides](http://ogre.clojurewerkz.org/)
 
 
-### Code Examples
-
-Our [test suite](test/orge) has many code examples.
-
-
-### Mailing List
-
-Don't hesitate to join our [mailing list](https://groups.google.com/forum/#!forum/clojure-titanium) and ask questions!
-
-
 ## Supported Clojure Versions
 
-Orge is built from the ground up for Clojure 1.4 and up. The most recent stable release
-is always recommended.
-
+Orge requires Clojure 1.4 and up. The most recent stable release is always recommended.
 
 ## Continuous Integration
 
-TBD: add it to travis-ci.org.
-
+[![Build Status](https://travis-ci.org/clojurewerkz/ogre.svg?branch=master)](https://travis-ci.org/clojurewerkz/ogre)
 
 ## Development
 
-Orge uses [Leiningen 2](https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md). Make sure you have it installed and then run tests against
-supported Clojure versions using
+Orge uses [Leiningen 2](https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md). Once installed and run tests against supported Clojure versions using:
 
     lein2 all test
-
-Then create a branch and make your changes on it. Once you are done with your changes and all tests pass, submit a pull request
-on GitHub.
-
-
 
 ## License
 
