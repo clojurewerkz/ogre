@@ -2,18 +2,8 @@
 
 <img src="https://raw.github.com/clojurewerkz/ogre/master/ogre.png" height="200"></img>
 
-Ogre is a Clojure "dialect" of [Gremlin](https://github.com/tinkerpop/gremlin/wiki).
-It is for querying graphs that conform to the [Tinkerpop Blueprints](http://tinkerpop.com) interface.
-
-
-# Disclaimer: Ogre development is currently on hiatus. There are major breaking changes that need to be made to this library and the documentation and the primary developer ([zmaril](https://github.com/zmaril)) is too busy finishing college to make them. If you are interested in making the changes, please get in touch, otherwise beware!
-
-## Project Goals
-
- * Provide an API that makes [Tinkerpop Blueprints](http://tinkerpop.com) graphs really easy to query from Clojure
- * Be reasonably feature complete
- * Don't introduce any significant amount of performance overhead
-
+Ogre is a Clojure "dialect" of [Gremlin](http://gremlin.tinkerpop.com).
+It is for querying graphs that conform to the [Tinkerpop Blueprints](http://blueprints.tinkerpop.com) interface.
 
 ## Community
 
