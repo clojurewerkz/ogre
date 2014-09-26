@@ -1,3 +1,7 @@
+## Changes in Ogre 2.5.0.0
+
+* Bump to support of TinkerPop 2.5.0.
+
 ## Changes in Ogre 2.3.0.2
 
 * `--E>`\`<E--` have become `-E>`\`<E-`. This enforces all shortened
