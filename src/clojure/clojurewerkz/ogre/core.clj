@@ -173,6 +173,7 @@
 (po/import-fn pipe/prop)
 
 (po/import-fn pipe/into-lazy-seq!)
+(po/import-fn pipe/into-list!)
 (po/import-fn pipe/into-vec!)
 (po/import-fn pipe/into-set!)
 (po/import-fn pipe/first-of!)
