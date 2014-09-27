@@ -1,5 +1,5 @@
-(defproject clojurewerkz/ogre "2.5.0.0-SNAPSHOT"
-  :description "Clojure wrapper around gremlin"
+(defproject clojurewerkz/ogre "2.5.0.0"
+  :description "Clojure dialect of the Gremlin graph processing language"
   :url "https://github.com/clojurewerkz/ogre"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
