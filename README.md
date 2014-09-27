@@ -35,14 +35,14 @@ Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre).
 
 With Leiningen:
 
-    [clojurewerkz/ogre "2.3.0.1"]
+    [clojurewerkz/ogre "2.5.0.0-SNAPSHOT"]
 
 With Maven:
 
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>ogre</artifactId>
-      <version>2.3.0.1</version>
+      <version>2.5.0.0-SNAPSHOT</version>
     </dependency>
 
 ## Documentation & Examples
