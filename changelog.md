@@ -1,7 +1,9 @@
 ## Changes in Ogre 2.5.0.0
 
-* Bump to support of TinkerPop 2.5.0.
-* Add `into-list!` function.
+ * Bump to support of TinkerPop 2.5.0.
+ * Arity 2 `has` and `has-not` filters.
+ * Add `into-list!` function.
+ * Potemkin dependency is dropped.
 
 ## Changes in Ogre 2.3.0.2
 
