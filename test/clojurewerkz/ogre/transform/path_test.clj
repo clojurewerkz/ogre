@@ -12,28 +12,15 @@
                         q/first-into-vec!)]
       (is (= "marko" (g/get-property :name (first path))))
       (is (= "marko" (second path)))))
+  
   (testing "g.getVertex(1).out.path{it.age}{it.name}"
     (let [path (q/query (g/find-by-id 1)
                         q/-->
                         (q/path
                          (partial g/get-property :age)
                          (partial g/get-property :name))
-                        q/all-into-vecs!)
-          age  (map first path)
-          names  (map second path)]
-      (is (= [29 29 29] age))
-      (is (= ["vadas" "josh" "lop"] names))))
-  (testing "g.getVertex(1).out.path{it.age}{it.name}"
-    (let [path (q/query (g/find-by-id 1)
-                        q/-->
-                        (q/path
-                         (partial g/get-property :age)
-                         (partial g/get-property :name))
-                        q/all-into-vecs!)
-          age  (map first path)
-          names  (map second path)]
-      (is (= [29 29 29] age))
-      (is (= ["vadas" "josh" "lop"] names))))
+                        q/all-into-vecs!)]
+      (is (= (sort path) (sort [[29 "vadas"] [29 "josh"] [29 "lop"]])))))
 
   (testing "g.V.out.loop(1,loops_lt_3)X_path{it.name,it.lang}"
     (let [path (q/query (g/get-vertices)
