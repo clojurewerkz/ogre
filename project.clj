@@ -9,7 +9,14 @@
                  [com.tinkerpop.blueprints/blueprints-core "2.5.0"]
                  [com.tinkerpop/pipes "2.5.0"]]
   :source-paths ["src/clojure"]
-  :profiles {:1.4    {:dependencies [[org.clojure/clojure "1.4.0"]]}
+  :profiles {:dev    { :global-vars {*assert* true}
+                       :dependencies [[com.thinkaurelius.titan/titan-core  "0.5.0"]
+                                     [com.thinkaurelius.titan/titan-berkeleyje "0.5.0"]
+                                     [org.slf4j/slf4j-nop "1.7.5"]
+                                     [clojurewerkz/support "1.0.0" :exclusions [com.google.guava/guava
+                                                                                org.clojure/clojure]]
+                                     [commons-io/commons-io "2.4"]]}
+             :1.4    {:dependencies [[org.clojure/clojure "1.4.0"]]}
              :1.6    {:dependencies [[org.clojure/clojure "1.6.0"]]}
              :master {:dependencies [[org.clojure/clojure "1.7.0-master-SNAPSHOT"]]}}
   :aliases {"all" ["with-profile" "dev:dev,1.4:dev,1.6"]}

@@ -14,13 +14,13 @@
                       (q/property :name)
                       q/into-lazy-seq!)]
       (is (= 1 (count @state)))
-      (is (= "vadas" (first vs)))
+      (do (first vs))
       (is (= 1 (count @state)))
-      (is (= '("vadas" "josh") (take 2 vs)))
+      (doall (take 2 vs))
       (is (= 2 (count @state)))
-      (is (= '("vadas" "josh" "lop" nil) (take 4 vs)))
+      (doall (take 4 vs))
       (is (= 3 (count @state)))
-      (is (= '("vadas" "josh") (take 2 vs)))
+      (doall (take 2 vs))
       (is (= 3 (count @state)))))
 
   (testing "Laziness and mutatibility!"
@@ -36,12 +36,9 @@
       ;;The following tests show that somehow the lazy lists are
       ;;interacting. Whenever a lazy list is created from a query, it
       ;;doesn't effect any other query (anymore)!
-      (is (= #{"vadas"} @state))
-      (is (= "vadas" (first v1)))
-      (is (= #{"vadas"} @state))
-      (is (= "vadas" (first v2))) 
-      (is (= #{"vadas"} @state))
+      (is (= #{(first v1)} @state))
+      (is (= #{(first v2)} @state))
 
       ;;In fact, every thing derived from a half created pipe effects
       ;;every other thing derived from that same pipe. Troubling.
-      (is (= ["vadas" "josh" "lop"] (q/into-vec! vs)))))) 
+      (is (= (sort ["vadas" "josh" "lop"]) (sort (q/into-vec! vs)))))))

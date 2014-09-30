@@ -11,7 +11,9 @@
                          q/-->
                          q/-->
                          (q/get-tree! (partial g/get-property :name)))]
+      (print tree)
       (is (= "marko" (:value tree)))
       (is (= "josh" (get-in tree [:children 0 :value])))
-      (is (= "lop" (get-in tree [:children 0 :children 0 :value])))
-      (is (= "ripple" (get-in tree [:children 0 :children 1 :value]))))))
+      (is (=
+            (sort-by :value [{:value "lop"} {:value "ripple"}])
+            (sort-by :value (get-in tree [:children 0 :children])))))))

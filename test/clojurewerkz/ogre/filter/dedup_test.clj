@@ -11,7 +11,7 @@
                          q/dedup
                          (q/property :name)
                          (q/into-vec!))]
-      (is (= ["marko" "josh" "peter" "vadas""lop" "ripple" ] names))))
+      (is (= (sort ["marko" "josh" "peter" "vadas" "lop" "ripple"]) (sort names)))))
 
   (testing "test_g_V_both_dedup_name()"
     (let [names (q/query (g/get-vertices)
