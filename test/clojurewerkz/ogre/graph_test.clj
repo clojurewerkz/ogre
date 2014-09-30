@@ -1,7 +1,7 @@
-(ns clojurewerkz.archimedes.graph-test
+(ns clojurewerkz.ogre.graph-test
   (:use [clojure.test :only (use-fixtures deftest testing is)])
-  (:require [clojurewerkz.archimedes.graph :as g]
-            [clojurewerkz.archimedes.vertex :as v]
+  (:require [clojurewerkz.ogre.graph :as g]
+            [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.support.io :as sio])
   (:import  [com.tinkerpop.blueprints.impls.tg TinkerGraphFactory TinkerGraph]
             [com.thinkaurelius.titan.core TitanFactory TitanGraph]

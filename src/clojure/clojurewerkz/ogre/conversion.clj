@@ -1,4 +1,4 @@
-(ns clojurewerkz.archimedes.conversion
+(ns clojurewerkz.ogre.conversion
   (:import [com.tinkerpop.blueprints Direction Query$Compare]))
 
 (defprotocol EdgeDirectionConversion

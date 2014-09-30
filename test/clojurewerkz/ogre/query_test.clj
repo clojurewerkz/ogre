@@ -1,8 +1,8 @@
-(ns clojurewerkz.archimedes.query-test
-  (:require [clojurewerkz.archimedes.graph  :as g]
-            [clojurewerkz.archimedes.vertex :as v]
-            [clojurewerkz.archimedes.edge   :as e]
-            [clojurewerkz.archimedes.query  :as q])
+(ns clojurewerkz.ogre.query-test
+  (:require [clojurewerkz.ogre.graph  :as g]
+            [clojurewerkz.ogre.vertex :as v]
+            [clojurewerkz.ogre.edge   :as e]
+            [clojurewerkz.ogre.query  :as q])
   (:use [clojure.test :only (deftest is)]))
 
 

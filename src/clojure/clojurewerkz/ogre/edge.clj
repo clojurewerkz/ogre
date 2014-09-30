@@ -1,12 +1,12 @@
-(ns clojurewerkz.archimedes.edge
+(ns clojurewerkz.ogre.edge
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
   (:import (com.tinkerpop.blueprints Vertex Edge Direction Graph)
            (com.tinkerpop.blueprints.impls.tg TinkerGraph))
-  (:require [clojurewerkz.archimedes.vertex :as v]
-            [clojurewerkz.archimedes.graph :refer (*element-id-key* *edge-label-key*)]
-            [clojurewerkz.archimedes.conversion :refer (to-edge-direction)]
-            [clojurewerkz.archimedes.query :as q]
-            [clojurewerkz.archimedes.element :as ele]
+  (:require [clojurewerkz.ogre.vertex :as v]
+            [clojurewerkz.ogre.graph :refer (*element-id-key* *edge-label-key*)]
+            [clojurewerkz.ogre.conversion :refer (to-edge-direction)]
+            [clojurewerkz.ogre.query :as q]
+            [clojurewerkz.ogre.element :as ele]
             [potemkin :as po]))
 
 (po/import-fn ele/get)

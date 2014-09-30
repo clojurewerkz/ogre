@@ -1,9 +1,9 @@
-(ns clojurewerkz.archimedes.io-test
+(ns clojurewerkz.ogre.io-test
   (:use [clojure.test :only (deftest testing is)])
-  (:require [clojurewerkz.archimedes.graph :as g]
-            [clojurewerkz.archimedes.io :as io]
-            [clojurewerkz.archimedes.vertex :as v]
-            [clojurewerkz.archimedes.edge :as e]
+  (:require [clojurewerkz.ogre.graph :as g]
+            [clojurewerkz.ogre.io :as io]
+            [clojurewerkz.ogre.vertex :as v]
+            [clojurewerkz.ogre.edge :as e]
             [clojure.java.io :as clj-io])
   (:import [java.io File]))
 

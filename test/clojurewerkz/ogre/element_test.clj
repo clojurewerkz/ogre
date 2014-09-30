@@ -1,8 +1,8 @@
-(ns clojurewerkz.archimedes.element-test
+(ns clojurewerkz.ogre.element-test
   (:use [clojure.test :only [deftest is]])
-  (:require [clojurewerkz.archimedes.graph :refer (clean-tinkergraph)]
-            [clojurewerkz.archimedes.vertex :as v]
-            [clojurewerkz.archimedes.edge :as e]))
+  (:require [clojurewerkz.ogre.graph :refer (clean-tinkergraph)]
+            [clojurewerkz.ogre.vertex :as v]
+            [clojurewerkz.ogre.edge :as e]))
 
 (deftest test-get-keys
   (let [g (clean-tinkergraph)

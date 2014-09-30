@@ -12,7 +12,7 @@
                         q/first-into-vec!)]
       (is (= "marko" (g/get-property :name (first path))))
       (is (= "marko" (second path)))))
-  
+
   (testing "g.getVertex(1).out.path{it.age}{it.name}"
     (let [path (q/query (g/find-by-id 1)
                         q/-->

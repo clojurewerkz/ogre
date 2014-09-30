@@ -1,4 +1,4 @@
-(ns clojurewerkz.archimedes.element
+(ns clojurewerkz.ogre.element
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
   (:import com.tinkerpop.blueprints.Element))
 

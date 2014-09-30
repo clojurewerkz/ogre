@@ -1,8 +1,8 @@
-(ns clojurewerkz.archimedes.vertex-test
+(ns clojurewerkz.ogre.vertex-test
   (:use [clojure.test :only (deftest testing is)])
-  (:require [clojurewerkz.archimedes.graph :as g]
-            [clojurewerkz.archimedes.vertex :as v]
-            [clojurewerkz.archimedes.edge :as e]))
+  (:require [clojurewerkz.ogre.graph :as g]
+            [clojurewerkz.ogre.vertex :as v]
+            [clojurewerkz.ogre.edge :as e]))
 
 (deftest test-create
   (let [graph (g/clean-tinkergraph)

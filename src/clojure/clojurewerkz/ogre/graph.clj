@@ -1,4 +1,4 @@
-(ns clojurewerkz.archimedes.graph
+(ns clojurewerkz.ogre.graph
   (:import (com.tinkerpop.blueprints Element Graph TransactionalGraph
                                      ThreadedTransactionalGraph
                                      TransactionalGraph$Conclusion)

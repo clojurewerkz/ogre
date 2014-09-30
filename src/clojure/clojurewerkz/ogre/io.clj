@@ -1,6 +1,6 @@
-(ns clojurewerkz.archimedes.io
+(ns clojurewerkz.ogre.io
   (:require [clojure.java.io :as io]
-            [clojurewerkz.archimedes.graph :as g])
+            [clojurewerkz.ogre.graph :as g])
   (:import [com.tinkerpop.blueprints.util.io.graphml GraphMLWriter GraphMLReader]
            [com.tinkerpop.blueprints.util.io.gml GMLWriter GMLReader]
            [com.tinkerpop.blueprints.util.io.graphson GraphSONWriter GraphSONReader GraphSONMode]))

@@ -1,4 +1,6 @@
 (ns clojurewerkz.ogre.util
+  (:require [clojure.reflect :as r])
+  (:use [clojure.pprint :only (pprint)])
   (:import (com.tinkerpop.gremlin.java GremlinPipeline)
            (com.tinkerpop.pipes PipeFunction Pipe)
            (com.tinkerpop.gremlin Tokens$T)))
@@ -56,3 +58,6 @@
   ^GremlinPipeline 
   [[xs & fs]]
   (reduce #(%2 %1) (GremlinPipeline. xs) fs))
+
+(defn keywords-to-str-array [strs]
+  (into-array String (map name strs)))
