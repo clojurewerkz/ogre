@@ -1,13 +1,14 @@
 (ns clojurewerkz.ogre.branch.if-then-else-test
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
-            [clojurewerkz.ogre.tinkergraph :as g]
+            [clojurewerkz.ogre.vertex :as v]
+            [clojurewerkz.ogre.graph :as g]
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-if-then-else-step
   (testing "test_g_v1_out_ifThenElseXlang_eq_java__it__outX_name"
-    (let [g (g/use-new-tinker-graph!)
-          vs (q/query (g/find-by-id g 1)
+    (let [g (g/new-tinkergraph)
+          vs (q/query (v/find-by-id g 1)
                       q/-->
                       (q/if-then-else (partial u/prop-pred :lang = "java")
                                       identity

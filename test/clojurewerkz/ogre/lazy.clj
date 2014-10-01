@@ -1,14 +1,15 @@
 (ns clojurewerkz.ogre.lazy
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
-            [clojurewerkz.ogre.tinkergraph :as g]
+            [clojurewerkz.ogre.graph :as g]
+            [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-laziness
   (testing "Laziness!"
     (let [state (atom [])
-          g (g/use-new-tinker-graph!)
-          vs (q/query (g/find-by-id g 1)
+          g (g/new-tinkergraph)
+          vs (q/query (v/find-by-id g 1)
                       q/-->
                       (q/side-effect (fn [_] (swap! state conj nil)))
                       (q/property :name)
@@ -25,8 +26,8 @@
 
   (testing "Laziness and mutatibility!"
     (let [state (atom #{})
-          g (g/use-new-tinker-graph!)
-          vs (q/query (g/find-by-id g 1)
+          g (g/new-tinkergraph)
+          vs (q/query (v/find-by-id g 1)
                       q/-->
                       (q/side-effect (fn [v] 
                                        (swap! state conj

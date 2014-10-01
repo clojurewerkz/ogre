@@ -1,17 +1,17 @@
 (ns clojurewerkz.ogre.test-util
-  (:require [clojurewerkz.ogre.tinkergraph :refer (get-property)]))
+  (:require [clojurewerkz.ogre.element :as el]))
 
 (defn prop-pred [key pred value v]
-  (pred value (get-property key v)))
+  (pred value (el/get v key)))
 
 (defn get-names [vs]
-  (map (partial get-property :name) vs))
+  (map #(el/get % :name) vs))
 
 (defn get-names-set [vs]
   (set (get-names vs)))
 
 (defn get-ages [vs]
-  (map (partial get-property :age) vs))
+  (map #(el/get % :age) vs))
 
 (defn get-ages-set [vs]
   (set (get-ages vs)))
