@@ -5,9 +5,9 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-transform-step
-  (g/use-new-tinker-graph!)  
   (testing "test_g_v1_out_backX1X"
-    (let [vs (q/query (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          vs (q/query (g/find-by-id g 1)
                       q/-->
                       (q/back 1)
                       q/into-vec!)]
@@ -15,7 +15,8 @@
       (is (= 1 (count vs)))))
   
   (testing "test_g_v1_asXhereX_out_backXhereX()"
-    (let [vs (q/query (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          vs (q/query (g/find-by-id g 1)
                       (q/as "here")
                       q/-->
                       (q/back-to "here")
@@ -24,7 +25,8 @@
       (is (= 1 (count vs)))))
 
   (testing "test_g_v4_out_filterXlang_eq_javaX_backX1X"
-    (let [vs (q/query (g/find-by-id 4)
+    (let [g (g/use-new-tinker-graph!)
+          vs (q/query (g/find-by-id g 4)
                       q/-->
                       (q/filter #(= "java" (g/get-property :lang % )))
                       (q/back 1)
@@ -33,7 +35,8 @@
       (is (= 2 (count vs)))))
 
   (testing "test_g_v4_out_asXhereX_filterXlang_eq_javaX_backXhereX()"
-    (let [vs (q/query (g/find-by-id 4)
+    (let [g (g/use-new-tinker-graph!)
+          vs (q/query (g/find-by-id g 4)
                       q/-->
                       (q/as "here")
                       (q/filter #(= "java" (g/get-property :lang % )))
@@ -43,7 +46,8 @@
       (is (= 2 (count vs)))))
 
   (testing "test_g_v4_out_asXhereX_filterXlang_eq_javaX_backXhereX_propertyXnameX"
-    (let [names (q/query (g/find-by-id 4)
+    (let [g (g/use-new-tinker-graph!)
+          names (q/query (g/find-by-id g 4)
                          q/-->
                          (q/as "here")
                          (q/filter #(= "java" (g/get-property :lang % )))

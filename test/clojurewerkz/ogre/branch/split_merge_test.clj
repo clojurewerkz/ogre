@@ -4,9 +4,9 @@
             [clojurewerkz.ogre.tinkergraph :as g]))
 
 (deftest test-split-merge-test-step
-  (g/use-new-tinker-graph!)
   (testing "test_g_v1_out_copySplitXpropertyXnameX__propertyXageXX_fairMerge"
-    (let [props (q/query (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          props (q/query (g/find-by-id g 1)
                          q/-->
                          (q/copy-split
                           (q/bare-pipe (q/property :name))
@@ -18,7 +18,8 @@
                   props))))
 
   (testing "test_g_v1_outXknowsX_copySplitXpropertyXnameX__propertyXageXX_exhaustMerge"
-    (let [props (q/query (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          props (q/query (g/find-by-id g 1)
                          (q/--> [:knows])
                          (q/copy-split
                           (q/bare-pipe (q/property :name))
@@ -29,7 +30,8 @@
       (is (= #{27 32} (set (drop 2 props))))))
 
     (testing "test_g_v1_outXknowsX_copySplitXpropertyXnameX__propertyXageXX_exhaustMerge_path"
-    (let [props (q/query (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          props (q/query (g/find-by-id g 1)
                          (q/--> [:knows])
                          (q/copy-split
                           (q/bare-pipe (q/property :name))

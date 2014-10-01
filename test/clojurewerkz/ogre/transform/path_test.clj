@@ -4,9 +4,9 @@
             [clojurewerkz.ogre.tinkergraph :as g]))
 
 (deftest test-path-step
-  (g/use-new-tinker-graph!)
   (testing "g.getVertex(1).property('name').path"
-    (let [path (q/query (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          path (q/query (g/find-by-id g 1)
                         (q/property :name)
                         q/path
                         q/first-into-vec!)]
@@ -14,7 +14,8 @@
       (is (= "marko" (second path)))))
 
   (testing "g.getVertex(1).out.path{it.age}{it.name}"
-    (let [path (q/query (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          path (q/query (g/find-by-id g 1)
                         q/-->
                         (q/path
                          (partial g/get-property :age)
@@ -23,7 +24,8 @@
       (is (= (sort path) (sort [[29 "vadas"] [29 "josh"] [29 "lop"]])))))
 
   (testing "g.V.out.loop(1,loops_lt_3)X_path{it.name,it.lang}"
-    (let [path (q/query (g/get-vertices)
+    (let [g (g/use-new-tinker-graph!)
+          path (q/query (g/get-vertices g)
                         q/-->
                         (q/loop 1 (fn [i o p] (< i 3)))
                         (q/path identity

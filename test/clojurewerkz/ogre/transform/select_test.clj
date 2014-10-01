@@ -4,9 +4,9 @@
             [clojurewerkz.ogre.tinkergraph :as g]))
 
 (deftest test-select-step
-  (g/use-new-tinker-graph!)
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select()"
-    (let [selection (q/query (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+           selection (q/query (g/find-by-id g 1)
                              (q/as "a")
                              (q/--> [:knows])
                              (q/as "b")
@@ -18,7 +18,8 @@
       (is (= 2 (count selection)))
       (is (= 2 (count (first selection))))))
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select()"
-    (let [selection (q/query (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          selection (q/query (g/find-by-id g 1)
                              (q/as "a")
                              (q/--> [:knows])
                              (q/as "b")
@@ -29,7 +30,8 @@
       (is (= 2 (count selection)))
       (is (= 2 (count (first selection))))))
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select([a])"
-    (let [selection (q/query (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          selection (q/query (g/find-by-id g 1)
                              (q/as "a")
                              (q/--> [:knows])
                              (q/as "b")
@@ -39,7 +41,8 @@
       (is (= 1 (count (first selection))))
       (is (= #{"1"} (set (map (comp g/get-id first) selection))))))
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select([a],name)"
-    (let [selection (q/query (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          selection (q/query (g/find-by-id g 1)
                              (q/as "a")
                              (q/--> [:knows])
                              (q/as "b")

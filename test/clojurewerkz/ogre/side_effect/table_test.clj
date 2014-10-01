@@ -5,9 +5,9 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-table-step
-  (g/use-new-tinker-graph!)  
   (testing "test_g_v1_asXaX_out_properyXnameX_asXbX_table_cap"
-    (let [elem (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          elem (g/find-by-id g 1)
           table (q/query elem
                          (q/as "a")
                          q/--> 
@@ -20,7 +20,8 @@
              (set table)))))
 
   (testing "test_g_v1_asXaX_out_asXbX_tableXnameX_cap"
-    (let [elem (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          elem (g/find-by-id g 1)
           table (q/query elem
                          (q/as "a")
                          q/--> 
@@ -32,7 +33,8 @@
              (set table)))))
 
   (testing "test_g_v1_asXaX_out_propertyXnameX_asXbX_tableXname_lengthX_cap"
-    (let [elem (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          elem (g/find-by-id g 1)
           table (q/query elem
                          (q/as "a")
                          q/-->
