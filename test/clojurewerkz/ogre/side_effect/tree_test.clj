@@ -1,16 +1,17 @@
 (ns clojurewerkz.ogre.side-effect.tree-test
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
-            [clojurewerkz.ogre.tinkergraph :as g]
+            [clojurewerkz.ogre.graph :as g]
+            [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-tree-step
   (testing "test_g_v1_out_out_treeXnameX_cap"
-    (let [g (g/use-new-tinker-graph!)
-          tree (q/query (g/find-by-id g 1)
+    (let [g (g/new-tinkergraph)
+          tree (q/query (v/find-by-id g 1)
                          q/-->
                          q/-->
-                         (q/get-tree! (partial g/get-property :name)))]
+                         (q/get-tree! #(v/get % :name)))]
       (is (= "marko" (:value tree)))
       (is (= "josh" (get-in tree [:children 0 :value])))
       (is (=

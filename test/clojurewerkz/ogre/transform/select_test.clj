@@ -1,37 +1,38 @@
 (ns clojurewerkz.ogre.transform.select-test
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
-            [clojurewerkz.ogre.tinkergraph :as g]))
+            [clojurewerkz.ogre.vertex :as v]
+            [clojurewerkz.ogre.graph :as g]))
 
 (deftest test-select-step
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select()"
-    (let [g (g/use-new-tinker-graph!)
-           selection (q/query (g/find-by-id g 1)
+    (let [g (g/new-tinkergraph)
+           selection (q/query (v/find-by-id g 1)
                              (q/as "a")
                              (q/--> [:knows])
                              (q/as "b")
                              q/select
                              q/all-into-vecs!)]
       ;;TODO turn these into maps in core
-      (is (= #{"1"} (set (map (comp g/get-id first) selection))))
-      (is (= #{"2" "4"} (set (map (comp g/get-id second) selection))))
+      (is (= #{"1"} (set (map (comp v/id-of first) selection))))
+      (is (= #{"2" "4"} (set (map (comp v/id-of second) selection))))
       (is (= 2 (count selection)))
       (is (= 2 (count (first selection))))))
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select()"
-    (let [g (g/use-new-tinker-graph!)
-          selection (q/query (g/find-by-id g 1)
+    (let [g (g/new-tinkergraph)
+          selection (q/query (v/find-by-id g 1)
                              (q/as "a")
                              (q/--> [:knows])
                              (q/as "b")
-                             (q/select (partial g/get-property :name))
+                             (q/select #(v/get % :name))
                              q/all-into-vecs!)]
       (is (= #{"marko"} (set (map first selection))))
       (is (= #{"josh" "vadas"} (set (map second selection))))
       (is (= 2 (count selection)))
       (is (= 2 (count (first selection))))))
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select([a])"
-    (let [g (g/use-new-tinker-graph!)
-          selection (q/query (g/find-by-id g 1)
+    (let [g (g/new-tinkergraph)
+          selection (q/query (v/find-by-id g 1)
                              (q/as "a")
                              (q/--> [:knows])
                              (q/as "b")
@@ -39,14 +40,14 @@
                              q/all-into-vecs!)]
       (is (= 2 (count selection)))
       (is (= 1 (count (first selection))))
-      (is (= #{"1"} (set (map (comp g/get-id first) selection))))))
+      (is (= #{"1"} (set (map (comp v/id-of first) selection))))))
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select([a],name)"
-    (let [g (g/use-new-tinker-graph!)
-          selection (q/query (g/find-by-id g 1)
+    (let [g (g/new-tinkergraph)
+          selection (q/query (v/find-by-id g 1)
                              (q/as "a")
                              (q/--> [:knows])
                              (q/as "b")
-                             (q/select-only ["a"] (partial g/get-property :name))
+                             (q/select-only ["a"] #(v/get % :name))
                              q/all-into-vecs!)]
       (is (= 2 (count selection)))
       (is (= 1 (count (first selection))))
