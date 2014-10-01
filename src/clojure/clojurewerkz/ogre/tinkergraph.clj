@@ -5,9 +5,6 @@
   (:require [clojurewerkz.ogre.core :as q]))
 
 
-;;Tinkergraph manipulation
-(def ^{:dynamic true :tag Graph} *graph*)
-
 (defn use-new-tinker-graph! []
   (TinkerGraphFactory/createTinkerGraph))
 
