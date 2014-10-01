@@ -9,15 +9,15 @@
 (def ^{:dynamic true :tag Graph} *graph*)
 
 (defn use-new-tinker-graph! []
-  (alter-var-root (var *graph*) (fn [_]
-                                  (TinkerGraphFactory/createTinkerGraph))))
+  (TinkerGraphFactory/createTinkerGraph))
 
 (defn use-clean-graph! []
-  (use-new-tinker-graph!)
-  (doseq [edge (.getEdges *graph*)]
-    (.removeEdge *graph* edge))
-  (doseq [vertex (.getVertices *graph*)]
-    (.removeVertex *graph* vertex)))
+  (let [graph (use-new-tinker-graph!)]
+    (doseq [edge (.getEdges graph)]
+      (.removeEdge graph edge))
+    (doseq [vertex (.getVertices graph)]
+      (.removeVertex graph vertex))
+    ))
 
 ;;Element mutation
 
@@ -32,14 +32,14 @@
 (def vid (atom 100))
 
 (defn create!
-  ([]  (create! {}))
-  ([m] (-> (.addVertex *graph* (swap! vid inc))
+  ([graph]  (create! graph {}))
+  ([graph m] (-> (.addVertex graph (swap! vid inc))
            (set-properties! m))))
 
 (defn connect!
-  ([v1 label v2] (connect! v1 label v2 {}))
-  ([v1 label v2 m]
-     (-> (.addEdge *graph* (swap! vid inc) v1 v2 (name label)) 
+  ([graph v1 label v2] (connect! graph v1 label v2 {}))
+  ([graph v1 label v2 m]
+     (-> (.addEdge graph (swap! vid inc) v1 v2 (name label))
          (set-properties! m))))
 
 ;;Element reading
@@ -57,12 +57,12 @@
   (.getId v))
 
 ;;Element retriveal
-(defn get-vertices []
-  (.getVertices *graph*))
+(defn get-vertices [graph]
+  (.getVertices graph))
 
-(defn get-edges []
-  (.getEdges *graph*))
+(defn get-edges [graph]
+  (.getEdges graph))
 
-(defn find-by-id [i]
-  (.getVertex *graph* i))
+(defn find-by-id [graph i]
+  (.getVertex graph i))
 

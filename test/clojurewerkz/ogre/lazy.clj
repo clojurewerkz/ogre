@@ -5,10 +5,10 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-laziness
-  (g/use-new-tinker-graph!)  
   (testing "Laziness!"
     (let [state (atom [])
-          vs (q/query (g/find-by-id 1)
+          g (g/use-new-tinker-graph!)
+          vs (q/query (g/find-by-id g 1)
                       q/-->
                       (q/side-effect (fn [_] (swap! state conj nil)))
                       (q/property :name)
@@ -25,7 +25,8 @@
 
   (testing "Laziness and mutatibility!"
     (let [state (atom #{})
-          vs (q/query (g/find-by-id 1)
+          g (g/use-new-tinker-graph!)
+          vs (q/query (g/find-by-id g 1)
                       q/-->
                       (q/side-effect (fn [v] 
                                        (swap! state conj

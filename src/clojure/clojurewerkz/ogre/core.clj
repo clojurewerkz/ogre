@@ -118,7 +118,7 @@
 ;;Define the travesal methods
 (doseq [[direction short shortE name1] '((both <-> <E> both-vertices)
                                          (in   <-- <E- in-vertex)
-                                         (out  --> -E> out-vertex))]
+                                         (out   --> -E> out-vertex))]
   (let [j1 (symbol (str "." direction))
         f1 (symbol (str direction "-edges"))
         j2 (symbol (str "." direction "E"))

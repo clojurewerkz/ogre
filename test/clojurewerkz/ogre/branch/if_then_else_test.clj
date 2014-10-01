@@ -5,9 +5,9 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-if-then-else-step
-  (g/use-new-tinker-graph!)
   (testing "test_g_v1_out_ifThenElseXlang_eq_java__it__outX_name"
-    (let [vs (q/query (g/find-by-id 1)
+    (let [g (g/use-new-tinker-graph!)
+          vs (q/query (g/find-by-id g 1)
                       q/-->
                       (q/if-then-else (partial u/prop-pred :lang = "java")
                                       identity
