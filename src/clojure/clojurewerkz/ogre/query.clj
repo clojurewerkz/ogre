@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.query
   (:refer-clojure :exclude [count])
   (:require [clojurewerkz.ogre.conversion :refer (convert-symbol-to-compare to-edge-direction)])
-  (:import  [com.tinkerpop.blueprints Vertex Edge Direction Query]))
+  (:import  [com.tinkerpop.gremlin.structure Vertex Edge Direction Query]))
 
 ;;
 ;; Implementation

@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.vertex
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import (com.tinkerpop.blueprints Vertex Direction Graph)
-           (com.tinkerpop.blueprints.impls.tg TinkerGraph))
+  (:import (com.tinkerpop.gremlin.structure Vertex Direction Graph)
+           (com.tinkerpop.gremlin.tinkergraph.structure TinkerGraph))
   (:require [clojurewerkz.ogre.graph :refer (*element-id-key*)]
             [clojurewerkz.ogre.util :refer (keywords-to-str-array)]
             [clojurewerkz.ogre.conversion :refer (to-edge-direction)]
@@ -26,16 +26,16 @@
 (defn refresh
   "Gets a vertex back from the database and refreshes it to be usable again."
   [g vertex]
-  (.getVertex g vertex))
+  (.v g (.id vertex))
 
 ;;
 ;; Removal methods
 ;;
 
 (defn remove!
-  "Remove a vertex from the given graph."
-  [g vertex]
-  (.removeVertex ^Graph g vertex))
+  "Remove a vertex from the graph."
+  [vertex]
+  (.remove vertex))
 
 
 ;;
@@ -53,19 +53,19 @@
   "Retrieves nodes by id from the given graph."
   [g & ids]
   (if (= 1 (count ids))
-    (.getVertex g (first ids))
-    (seq (for [id ids] (.getVertex g id)))))
+    (.v g (first ids))
+    (seq (for [id ids] (.v g id)))))
 
 (defn find-by-kv
   "Given a key and a value, returns the set of all vertices that
    sastify the pair."
   [g k v]
-  (set (.getVertices g (name k) v)))
+  (set (filter #(= (.value % (name k)) v) (.V g))))
 
 (defn get-all-vertices
   "Returns all vertices."
   [g]
-  (set (.getVertices g)))
+  (set (.V g)))
 
 (defn edges-of
   "Returns edges that this vertex is part of with direction and with given labels"

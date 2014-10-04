@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.pipe
   (:refer-clojure :exclude [iterate])
   (:import (com.tinkerpop.gremlin.java GremlinPipeline)
-           (com.tinkerpop.blueprints Vertex)
+           (com.tinkerpop.gremlin.structure Vertex)
            (com.tinkerpop.pipes.util.structures Row))
   (:use clojurewerkz.ogre.util))
 

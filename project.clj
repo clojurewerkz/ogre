@@ -5,9 +5,12 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [potemkin "0.3.3"]
-                 [com.tinkerpop.gremlin/gremlin-java "2.5.0"]
-                 [com.tinkerpop.blueprints/blueprints-core "2.5.0"]
-                 [com.tinkerpop/pipes "2.5.0"]]
+                 [com.tinkerpop/gremlin-core "3.0.0.M2"]
+                 [com.tinkerpop/tinkergraph-gremlin "3.0.0.M2"]
+                 ;[com.tinkerpop.gremlin/gremlin-java "2.5.0"]
+                 ;[com.tinkerpop.blueprints/blueprints-core "2.5.0"]
+                 ;[com.tinkerpop/pipes "2.5.0"]
+                 ]
   :source-paths ["src/clojure"]
   :profiles {:dev    { :global-vars {*assert* true}
                        :dependencies [[com.thinkaurelius.titan/titan-core  "0.5.0"]

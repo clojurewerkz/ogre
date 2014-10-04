@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.edge
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import (com.tinkerpop.blueprints Vertex Edge Direction Graph)
-           (com.tinkerpop.blueprints.impls.tg TinkerGraph))
+  (:import (com.tinkerpop.gremlin.structure Vertex Edge Direction Graph)
+           (com.tinkerpop.gremlin.tinkergraph.structure TinkerGraph))
   (:require [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.graph :refer (*element-id-key* *edge-label-key*)]
             [clojurewerkz.ogre.conversion :refer (to-edge-direction)]
@@ -26,7 +26,7 @@
 (defn refresh
   "Goes and grabs the edge from the graph again. Useful for \"refreshing\" stale edges."
   [g ^Edge edge]
-   (.getEdge g (.getId edge)))
+   (.e g (.id edge)))
 
 ;;
 ;; Removal methods
@@ -34,8 +34,8 @@
 
 (defn remove!
   "Remove an edge."
-  [g ^Edge edge]
-  (.removeEdge g edge))
+  [^Edge edge]
+  (.remove edge))
 
 ;;
 ;; Information getters

@@ -1,8 +1,6 @@
 (ns clojurewerkz.ogre.graph
-  (:import (com.tinkerpop.blueprints Element Graph TransactionalGraph
-                                     ThreadedTransactionalGraph
-                                     TransactionalGraph$Conclusion)
-           (com.tinkerpop.blueprints.impls.tg TinkerGraphFactory)))
+  (:import (com.tinkerpop.gremlin.structure Element Graph)
+           (com.tinkerpop.gremlin.tinkergraph.structure TinkerFactory TinkerGraph)))
 
 (def ^{:dynamic true} *element-id-key* :__id__)
 
@@ -19,20 +17,20 @@
 
 (defn new-tinkergraph
   []
-  (TinkerGraphFactory/createTinkerGraph))
+  (TinkerFactory/createClassic))
 
 (defn clean-tinkergraph
   []
   (let [g (new-tinkergraph)]
-  (doseq [e (seq (.getEdges g))] (.removeEdge g e))
-  (doseq [v (seq (.getVertices g))] (.removeVertex g v))
+  (doseq [e (seq (.E g))] (.remove e))
+  (doseq [v (seq (.V g))] (.remove v))
   g))
 
 (defn get-features
   "Get a map of features for a graph.
-  (http://tinkerpop.com/docs/javadocs/blueprints/2.1.0/com/tinkerpop/blueprints/Features.html)"
+  (http://www.tinkerpop.com/javadocs/3.0.0.M2/com/tinkerpop/gremlin/structure/Graph.Features.html)"
   [g]
-  (.. g getFeatures toMap))
+  (.. g features toMap))
 
 (defn get-feature
   "Gets the value of the feature for a graph."
@@ -50,7 +48,7 @@
 (defn commit
   "Commit all changes to the graph."
   [g]
-  (.commit g))
+  (.. g tx commit))
 
 (defn shutdown
   "Shutdown the graph."
@@ -60,7 +58,7 @@
 (defn rollback
   "Stops the current transaction and rolls back any changes made."
   [g]
-  (.rollback g))
+  (.. g tx rollback))
 
 (defn with-transaction*
   [graph f & {:keys [threaded? rollback?]}]

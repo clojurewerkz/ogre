@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.conversion
-  (:import [com.tinkerpop.blueprints Direction Query$Compare]))
+  (:import [com.tinkerpop.gremlin.structure Direction Compare]))
 
 (defprotocol EdgeDirectionConversion
   (to-edge-direction [input] "Converts input to a Blueprints edge direction"))
@@ -22,9 +22,9 @@
 
 (defn convert-symbol-to-compare [s]
   (case s
-    =    Query$Compare/EQUAL
-    not= Query$Compare/NOT_EQUAL
-    >=   Query$Compare/GREATER_THAN_EQUAL
-    >    Query$Compare/GREATER_THAN
-    <=   Query$Compare/LESS_THAN_EQUAL
-    <    Query$Compare/LESS_THAN))
+    =    Compare/EQUAL
+    not= Compare/NOT_EQUAL
+    >=   Compare/GREATER_THAN_EQUAL
+    >    Compare/GREATER_THAN
+    <=   Compare/LESS_THAN_EQUAL
+    <    Compare/LESS_THAN))

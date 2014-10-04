@@ -1,25 +1,25 @@
 (ns clojurewerkz.ogre.element
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import com.tinkerpop.blueprints.Element))
+  (:import com.tinkerpop.gremlin.structure.Element))
 
 (defn get
   ([^Element elem key]
      (get elem key nil))
   ([^Element elem key not-found]
-     (let [value (.getProperty elem (name key))]
+     (let [value (.property elem (name key))]
        (if (nil? value) not-found value))))
 
 (defn keys
   [^Element elem]
-  (set (map keyword (.getPropertyKeys elem))))
+  (set (map keyword (.keys elem))))
 
 (defn vals
   [^Element elem]
-  (set (map #(.getProperty elem %) (.getPropertyKeys elem))))
+  (set (map #(.property elem %) (.keys elem))))
 
 (defn id-of
   [^Element elem]
-  (.getId elem))
+  (.id elem))
 
 (defn assoc!
   [^Element elem & kvs]
@@ -27,7 +27,7 @@
   ;;Important when using types. You aren't ever going to change a
   ;;user's id for example.
   (doseq [[key value] (partition 2 kvs)]
-      (.setProperty elem (name key) value))
+      (.property elem (name key) value))
   elem)
 
 (defn merge!
@@ -38,7 +38,7 @@
 
 (defn dissoc!
   [^Element elem & keys]
-  (doseq [key keys] (.removeProperty elem (name key)))
+  (doseq [key keys] (.remove (.property elem (name key))))
   elem)
 
 (defn update!
