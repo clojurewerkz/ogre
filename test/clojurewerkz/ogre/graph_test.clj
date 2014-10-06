@@ -69,7 +69,7 @@
 ;      (is (= (count (v/get-all-vertices tx)) 1)))
 ;    (is (empty? (v/get-all-vertices *graph*)))))
 
-;(def num-attempts (atom 0))
+(def num-attempts (atom 0))
 
 (deftest test-transaction-retry
   (testing "Retry transaction"

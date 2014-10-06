@@ -6,7 +6,8 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [potemkin "0.3.3"]
                  [com.tinkerpop/gremlin-core "3.0.0.M2"]
-                 [com.tinkerpop/tinkergraph-gremlin "3.0.0.M2"]]
+                 [com.tinkerpop/tinkergraph-gremlin "3.0.0.M2"]
+                 [com.tinkerpop/neo4j-gremlin "3.0.0.M2"]]
   :source-paths ["src/clojure"]
   :profiles {:dev    { :global-vars {*assert* true}
                        :dependencies [[com.tinkerpop.blueprints/blueprints-neo4j-graph  "2.5.0"]

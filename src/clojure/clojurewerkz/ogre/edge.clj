@@ -44,7 +44,7 @@
 (defn label-of
   "Get the label of the edge"
   [^Edge edge]
-  (keyword (.getLabel edge)))
+  (keyword (.label edge)))
 
 (defn to-map
   "Returns a persisten map representing the edge."
@@ -57,13 +57,13 @@
   "Retrieves edges by id from the graph."
   [g & ids]
   (if (= 1 (count ids))
-                (.getEdge g (first ids))
-                (seq (for [id ids] (.getEdge g id)))))
+                (.e g (first ids))
+                (seq (for [id ids] (.e g id)))))
 
 (defn get-all-edges
   "Returns all edges."
   [g]
-  (set (.getEdges g)))
+  (set (.E g)))
 
 (defn ^Vertex get-vertex
   "Get the vertex of the edge in a certain direction."
