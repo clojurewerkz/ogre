@@ -6,18 +6,12 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [potemkin "0.3.3"]
                  [com.tinkerpop/gremlin-core "3.0.0.M2"]
-                 [com.tinkerpop/tinkergraph-gremlin "3.0.0.M2"]
-                 ;[com.tinkerpop.gremlin/gremlin-java "2.5.0"]
-                 ;[com.tinkerpop.blueprints/blueprints-core "2.5.0"]
-                 ;[com.tinkerpop/pipes "2.5.0"]
-                 ]
+                 [com.tinkerpop/tinkergraph-gremlin "3.0.0.M2"]]
   :source-paths ["src/clojure"]
   :profiles {:dev    { :global-vars {*assert* true}
-                       :dependencies [[com.thinkaurelius.titan/titan-core  "0.5.0"]
-                                     [com.thinkaurelius.titan/titan-berkeleyje "0.5.0"]
+                       :dependencies [[com.tinkerpop.blueprints/blueprints-neo4j-graph  "2.5.0"]
                                      [org.slf4j/slf4j-nop "1.7.5"]
-                                     [clojurewerkz/support "1.0.0" :exclusions [com.google.guava/guava
-                                                                                org.clojure/clojure]]
+                                     [clojurewerkz/support "1.0.0" :exclusions [org.clojure/clojure]]
                                      [commons-io/commons-io "2.4"]]}
              :1.4    {:dependencies [[org.clojure/clojure "1.4.0"]]}
              :1.6    {:dependencies [[org.clojure/clojure "1.6.0"]]}
