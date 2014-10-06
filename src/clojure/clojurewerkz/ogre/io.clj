@@ -2,7 +2,6 @@
   (:require [clojure.java.io :as io]
             [clojurewerkz.ogre.graph :as g])
   (:import [com.tinkerpop.blueprints.util.io.graphml GraphMLWriter GraphMLReader]
-           [com.tinkerpop.blueprints.util.io.gml GMLWriter GMLReader]
            [com.tinkerpop.blueprints.util.io.graphson GraphSONWriter GraphSONReader GraphSONMode]))
 
 (defn- load-graph-with-reader
@@ -16,10 +15,6 @@
     (throw (Exception. "Cannot write a graph that does not support vertex iteration.")))
   (let [out-stream (io/output-stream string-or-file)]
     (writer g out-stream)))
-
-;; GML
-(def load-graph-gml (partial load-graph-with-reader #(GMLReader/inputGraph %1 %2)))
-(def write-graph-gml (partial write-graph-with-writer #(GMLWriter/outputGraph %1 %2)))
 
 ;; GraphML
 (def load-graph-graphml (partial load-graph-with-reader #(GraphMLReader/inputGraph %1 %2)))
