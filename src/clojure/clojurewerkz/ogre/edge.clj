@@ -5,7 +5,6 @@
   (:require [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.graph :refer (*element-id-key* *edge-label-key*)]
             [clojurewerkz.ogre.conversion :refer (to-edge-direction)]
-            [clojurewerkz.ogre.query :as q]
             [clojurewerkz.ogre.element :as ele]
             [potemkin :as po]))
 
@@ -86,28 +85,30 @@
   [(.getVertex edge Direction/OUT)
    (.getVertex edge Direction/IN)])
 
-(defn edges-between
-  "Returns a set of the edges between two vertices, direction considered."
-  ([^Vertex v1 ^Vertex v2]
-     (edges-between v1 nil v2))
-  ([^Vertex v1 label ^Vertex v2]
-     ;; Source for these edge queries:
-     ;; https://groups.google.com/forum/?fromgroups=#!topic/gremlin-users/R2RJxJc1BHI
-     (let [^Edge edges (q/find-edges v1
-                                     (q/direction :out)
-                                     (q/labels label))
-           v2-id (.getId v2)
-           edge-set (set (filter #(= v2-id (.getId (.getVertex % (to-edge-direction :in)))) edges))]
-       (when (not (empty? edge-set))
-         edge-set))))
+(comment "TODO: sort this out once we have GraphTraversal going"
+  (defn edges-between
+    "Returns a set of the edges between two vertices, direction considered."
+    ([^Vertex v1 ^Vertex v2]
+       (edges-between v1 nil v2))
+    ([^Vertex v1 label ^Vertex v2]
+       ;; Source for these edge queries:
+       ;; https://groups.google.com/forum/?fromgroups=#!topic/gremlin-users/R2RJxJc1BHI
+       (let [^Edge edges (q/find-edges v1
+                                       (q/direction :out)
+                                       (q/labels label))
+             v2-id (.getId v2)
+             edge-set (set (filter #(= v2-id (.getId (.getVertex % (to-edge-direction :in)))) edges))]
+         (when (not (empty? edge-set))
+           edge-set))))
 
-(defn connected?
-  "Returns whether or not two vertices are connected. Optional third
-   arguement specifying the label of the edge."
-  ([^Vertex v1 ^Vertex v2]
-     (connected? v1 nil v2))
-  ([^Vertex v1 label ^Vertex v2]
-     (not (empty? (edges-between v1 label v2)))))
+  (defn connected?
+    "Returns whether or not two vertices are connected. Optional third
+     arguement specifying the label of the edge."
+    ([^Vertex v1 ^Vertex v2]
+       (connected? v1 nil v2))
+    ([^Vertex v1 label ^Vertex v2]
+       (not (empty? (edges-between v1 label v2))))))
+
 
 ;;
 ;; Creation methods

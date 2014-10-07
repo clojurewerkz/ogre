@@ -1,8 +1,7 @@
 (ns clojurewerkz.ogre.query-test
   (:require [clojurewerkz.ogre.graph  :as g]
             [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.edge   :as e]
-            [clojurewerkz.ogre.query  :as q])
+            [clojurewerkz.ogre.edge   :as e])
   (:use [clojure.test :only (deftest is)]))
 
 
