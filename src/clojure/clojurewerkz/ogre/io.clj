@@ -29,7 +29,7 @@
       (set-if-present batch-size (.batchSize %1 %2))
       (.create))))
 (def read-graph-graphml
-  ([] (partial read-graph-with-reader #(.readGraph (make-graphml-reader) %1 %2)))
+  ([] (read-graph-graphml (make-graphml-reader)))
   ([reader](partial read-graph-with-reader #(.readGraph reader %1 %2))))
 
 ;; GraphML Writer
@@ -44,7 +44,7 @@
       (set-if-present batch-size (.xmlSchemaLocation %1 %2)))
       (.create)))
 (def write-graph-graphml
-  ([] (partial write-graph-with-writer #(writeGraph (make-graphml-writer) %1 %2)))
+  ([] (write-graph-graphml (make-graphml-writer)))
   ([writer] (partial write-graph-with-writer #(.writeGraph writer %1 %2))))
 
 ;; GraphSON Reader
@@ -59,7 +59,7 @@
       (set-if-present batch-size (.batchSize %1 %2))
       (.create))))
 (def read-graph-graphson
-  ([] (partial read-graph-with-reader #(.readGraph (make-graphml-reader) %1 %2)))
+  ([] (read-graph-graphson (make-graphml-reader)))
   ([reader](partial read-graph-with-reader #(.readGraph reader %1 %2))))
 
 ;; GraphSON Writer
@@ -72,5 +72,5 @@
       (set-if-present embed-types (.embedTypes %1 %2))
       (.create)))
 (def write-graph-graphson
-  ([] (partial write-graph-with-writer #(writeGraph (make-graphml-writer) %1 %2)))
+  ([] (write-graph-graphson (make-graphml-writer)))
   ([writer] (partial write-graph-with-writer #(.writeGraph writer %1 %2))))
