@@ -1,6 +1,7 @@
 (ns clojurewerkz.ogre.vertex
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
   (:import (com.tinkerpop.gremlin.structure Vertex Direction Graph)
+           (com.tinkerpop.gremlin.process T)
            (com.tinkerpop.gremlin.tinkergraph.structure TinkerGraph))
   (:require [clojurewerkz.ogre.graph :refer (*element-id-key*)]
             [clojurewerkz.ogre.util :refer (keywords-to-str-array)]
@@ -67,15 +68,6 @@
   [g]
   (set (.V g)))
 
-(defn edges-of
-  "Returns edges that this vertex is part of with direction and with given labels"
-  [^Vertex v direction & labels]
-  (let [dir (to-edge-direction direction)]
-    (case dir
-      Direction/IN (incoming-edges-of v labels)
-      Direction/OUT (outgoing-edges-of v labels)
-      Direction/BOTH (all-edges-of v labels))))
-
 (defn all-edges-of
   "Returns edges that this vertex is part of, with given labels"
   [^Vertex v & labels]
@@ -91,14 +83,14 @@
   [^Vertex v & labels]
   (.inE v (keywords-to-str-array labels)))
 
-(defn connected-vertices-of
-  "Returns vertices connected to this vertex with a certain direction by the given labels"
+(defn edges-of
+  "Returns edges that this vertex is part of with direction and with given labels"
   [^Vertex v direction & labels]
   (let [dir (to-edge-direction direction)]
     (case dir
-      Direction/IN (connected-in-vertices v labels)
-      Direction/OUT (connected-out-vertices v labels)
-      Direction/BOTH (all-connected-vertices v labels))))
+      Direction/IN (incoming-edges-of v labels)
+      Direction/OUT (outgoing-edges-of v labels)
+      Direction/BOTH (all-edges-of v labels))))
 
 (defn connected-out-vertices
   "Returns vertices connected to this vertex by an outbound edge with the given labels"
@@ -114,6 +106,15 @@
   "Returns vertices connected to this vertex with the given labels"
   [^Vertex v & labels]
   (.both v (keywords-to-str-array labels)))
+
+(defn connected-vertices-of
+  "Returns vertices connected to this vertex with a certain direction by the given labels"
+  [^Vertex v direction & labels]
+  (let [dir (to-edge-direction direction)]
+    (case dir
+      Direction/IN (connected-in-vertices v labels)
+      Direction/OUT (connected-out-vertices v labels)
+      Direction/BOTH (all-connected-vertices v labels))))
 
 ;;
 ;; Creation methods
@@ -132,7 +133,7 @@
   ([g id]
      (create-with-id! g id {}))
   ([g id m]
-     (let [^Vertex new-vertex (.addVertex ^Graph g id)]
+     (let [^Vertex new-vertex (.addVertex ^Graph g {T/id id})]
        (merge! new-vertex m))))
 
 (defn upsert!

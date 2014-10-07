@@ -22,9 +22,9 @@
 
 (defn convert-symbol-to-compare [s]
   (case s
-    =    Compare/EQUAL
-    not= Compare/NOT_EQUAL
-    >=   Compare/GREATER_THAN_EQUAL
-    >    Compare/GREATER_THAN
-    <=   Compare/LESS_THAN_EQUAL
-    <    Compare/LESS_THAN))
+    =    Compare/eq
+    not= Compare/neq
+    >=   Compare/gte
+    >    Compare/gt
+    <=   Compare/lte
+    <    Compare/lt))

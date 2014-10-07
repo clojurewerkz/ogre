@@ -1,6 +1,7 @@
 (ns clojurewerkz.ogre.edge
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
   (:import (com.tinkerpop.gremlin.structure Vertex Edge Direction Graph)
+           (com.tinkerpop.gremlin.process T)
            (com.tinkerpop.gremlin.tinkergraph.structure TinkerGraph))
   (:require [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.graph :refer (*element-id-key* *edge-label-key*)]
@@ -67,23 +68,27 @@
 (defn ^Vertex get-vertex
   "Get the vertex of the edge in a certain direction."
   [^Edge e direction]
-  (.getVertex e (to-edge-direction direction)))
+  (let [dir (to-edge-direction direction)]
+    (case dir
+      Direction/IN (.inV e)
+      Direction/OUT (.outV e)
+      Direction/BOTH (.bothV e))))
 
 (defn ^Vertex head-vertex
   "Get the head vertex of the edge."
   [^Edge e]
-  (.getVertex e Direction/IN))
+  (.inV e))
 
 (defn ^Vertex tail-vertex
   "Get the tail vertex of the edge."
   [^Edge e]
-  (.getVertex e Direction/OUT))
+  (.outV e))
 
 (defn endpoints
   "Returns the endpoints of the edge in array with the order [starting-node,ending-node]."
   [^Edge edge]
-  [(.getVertex edge Direction/OUT)
-   (.getVertex edge Direction/IN)])
+  [(tail-vertex edge)
+   (head-vertex edge)])
 
 (comment "TODO: sort this out once we have GraphTraversal going"
   (defn edges-between
@@ -116,21 +121,22 @@
 
 (defn connect!
   "Connects two vertices with the given label, and, optionally, with the given properties."
-  ([g ^Vertex v1 label ^Vertex v2]
-     (connect! g v1 label v2 {}))
-  ([g ^Vertex v1 label ^Vertex v2 data]
-     (let [new-edge (.addEdge g nil v1 v2 ^String (name label))]
+  ([^Vertex v1 label ^Vertex v2]
+     (connect! v1 label v2 {}))
+  ([^Vertex v1 label ^Vertex v2 data]
+     (let [new-edge (.addEdge v1 ^String (name label) v2)]
        (merge! new-edge data))))
 
 (defn connect-with-id!
   "Connects two vertices with the given label, and, optionally, with the given properties."
-  ([g id ^Vertex v1 label ^Vertex v2]
-     (connect-with-id! g id v1 label v2 {}))
-  ([g id ^Vertex v1 label ^Vertex v2 data]
-     (let [new-edge (.addEdge g id v1 v2 ^String (name label))]
+  ([id ^Vertex v1 label ^Vertex v2]
+     (connect-with-id! id v1 label v2 {}))
+  ([id ^Vertex v1 label ^Vertex v2 data]
+     (let [new-edge (.addEdge v1 ^String (name label) v2 {T/id id})]
        (merge! new-edge data))))
 
-(defn upconnect!
+(comment "TODO: sort this out once we have GraphTraversal going"
+  (defn upconnect!
   "Upconnect takes all the edges between the given vertices with the
    given label and, if the data is provided, merges the data with the
    current properties of the edge. If no such edge exists, then an
@@ -142,21 +148,23 @@
        (do
          (doseq [^Edge edge edges] (merge! edge data))
          edges)
-       #{(connect! g v1 label v2 data)})))
+       #{(connect! g v1 label v2 data)}))))
 
-(defn unique-upconnect!
-  "Like upconnect!, but throws an error when more than element is returned."
-  [& args]
-  (let [upconnected (apply upconnect! args)]
-    (if (= 1 (count upconnected))
-      (first upconnected)
-      (throw (Throwable.
-              (str
-               "Don't call unique-upconnect! when there is more than one element returned.\n"
-               "There were " (count upconnected) " edges returned.\n"
-               "The arguments were: " args "\n"))))))
+(comment "TODO: sort this out once we have GraphTraversal going"
+  (defn unique-upconnect!
+    "Like upconnect!, but throws an error when more than element is returned."
+    [& args]
+    (let [upconnected (apply upconnect! args)]
+      (if (= 1 (count upconnected))
+        (first upconnected)
+        (throw (Throwable.
+                (str
+                 "Don't call unique-upconnect! when there is more than one element returned.\n"
+                 "There were " (count upconnected) " edges returned.\n"
+                 "The arguments were: " args "\n")))))))
 
-(defn upconnect-with-id!
+(comment "TODO: sort this out once we have GraphTraversal going"
+  (defn upconnect-with-id!
   "Upconnect takes all the edges between the given vertices with the
    given label and, if the data is provided, merges the data with the
    current properties of the edge. If no such edge exists, then an
@@ -168,16 +176,17 @@
        (do
          (doseq [^Edge edge edges] (merge! edge data))
          edges)
-       #{(connect-with-id! g id v1 label v2 data)})))
+       #{(connect-with-id! g id v1 label v2 data)}))))
 
-(defn unique-upconnect-with-id!
-  "Like upconnect!, but throws an error when more than element is returned."
-  [& args]
-  (let [upconnected (apply upconnect-with-id! args)]
-    (if (= 1 (count upconnected))
-      (first upconnected)
-      (throw (Throwable.
-              (str
-               "Don't call unique-upconnect! when there is more than one element returned.\n"
-               "There were " (count upconnected) " edges returned.\n"
-               "The arguments were: " args "\n"))))))
+(comment "TODO: sort this out once we have GraphTraversal going"
+  (defn unique-upconnect-with-id!
+    "Like upconnect!, but throws an error when more than element is returned."
+    [& args]
+    (let [upconnected (apply upconnect-with-id! args)]
+      (if (= 1 (count upconnected))
+        (first upconnected)
+        (throw (Throwable.
+                (str
+                 "Don't call unique-upconnect! when there is more than one element returned.\n"
+                 "There were " (count upconnected) " edges returned.\n"
+                 "The arguments were: " args "\n")))))))

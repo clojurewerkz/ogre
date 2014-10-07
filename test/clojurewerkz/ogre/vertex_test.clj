@@ -23,7 +23,7 @@
     (v/dissoc! u :a)
     (is (= 2   (v/get u :b)))
     (is (= nil (v/get u :a)))
-    (is (= 10 (v/get u :a 10)))    ))
+    (is (= 10 (v/get u :a 10)))))
 
 (deftest test-multiple-property-mutation
   (let [graph (g/clean-tinkergraph)
@@ -87,7 +87,7 @@
         v3 (v/create-with-id! graph 102 {:age 2 :name "C"})]
     (is (= #{v1 v2 v3} (v/get-all-vertices graph)))))
 
-(deftest test-adjacent-object-retriveal
+(deftest test-adjacent-object-retrieval
   (let [graph (g/clean-tinkergraph)
         v1 (v/create-with-id!  graph 100 {:age 1 :name "A"})
         v2 (v/create-with-id!  graph 101 {:age 2 :name "B"})
