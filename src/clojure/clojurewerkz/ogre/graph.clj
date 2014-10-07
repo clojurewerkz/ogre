@@ -19,13 +19,6 @@
   []
   (TinkerFactory/createClassic))
 
-(defn clean-tinkergraph
-  []
-  (let [g (new-tinkergraph)]
-  (doseq [e (seq (.E g))] (.remove e))
-  (doseq [v (seq (.V g))] (.remove v))
-  g))
-
 (defn get-features
   "Get a map of features for a graph.
   (http://www.tinkerpop.com/javadocs/3.0.0.M2/com/tinkerpop/gremlin/structure/Graph.Features.html)"
