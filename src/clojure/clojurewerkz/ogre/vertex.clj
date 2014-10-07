@@ -26,7 +26,7 @@
 (defn refresh
   "Gets a vertex back from the database and refreshes it to be usable again."
   [g vertex]
-  (.v g (.id vertex))
+  (.v g (.id vertex)))
 
 ;;
 ;; Removal methods
