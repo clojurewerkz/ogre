@@ -60,7 +60,7 @@
   "Given a key and a value, returns the set of all vertices that
    sastify the pair."
   [g k v]
-  (set (filter #(= (.value % (name k)) v) (.V g))))
+  (set (-> g (.V) (.has (name k) v))))
 
 (defn get-all-vertices
   "Returns all vertices."
@@ -70,42 +70,50 @@
 (defn edges-of
   "Returns edges that this vertex is part of with direction and with given labels"
   [^Vertex v direction & labels]
-  (.getEdges v (to-edge-direction direction) (keywords-to-str-array labels)))
+  (let [dir (to-edge-direction direction)]
+    (case dir
+      Direction/IN (incoming-edges-of v labels)
+      Direction/OUT (outgoing-edges-of v labels)
+      Direction/BOTH (all-edges-of v labels))))
 
 (defn all-edges-of
   "Returns edges that this vertex is part of, with given labels"
   [^Vertex v & labels]
-  (.getEdges v Direction/BOTH (keywords-to-str-array labels)))
+  (.bothE v (keywords-to-str-array labels)))
 
 (defn outgoing-edges-of
   "Returns outgoing (outbound) edges that this vertex is part of, with given labels"
   [^Vertex v & labels]
-  (.getEdges v Direction/OUT (keywords-to-str-array labels)))
+  (.outE v (keywords-to-str-array labels)))
 
 (defn incoming-edges-of
   "Returns incoming (inbound) edges that this vertex is part of, with given labels"
   [^Vertex v & labels]
-  (.getEdges v Direction/IN (keywords-to-str-array labels)))
+  (.inE v (keywords-to-str-array labels)))
 
 (defn connected-vertices-of
   "Returns vertices connected to this vertex with a certain direction by the given labels"
   [^Vertex v direction & labels]
-  (.getVertices v (to-edge-direction direction) (keywords-to-str-array labels)))
+  (let [dir (to-edge-direction direction)]
+    (case dir
+      Direction/IN (connected-in-vertices v labels)
+      Direction/OUT (connected-out-vertices v labels)
+      Direction/BOTH (all-connected-vertices v labels))))
 
 (defn connected-out-vertices
   "Returns vertices connected to this vertex by an outbound edge with the given labels"
   [^Vertex v & labels]
-  (.getVertices v Direction/OUT (keywords-to-str-array labels)))
+  (.out v (keywords-to-str-array labels)))
 
 (defn connected-in-vertices
   "Returns vertices connected to this vertex by an inbound edge with the given labels"
   [^Vertex v & labels]
-  (.getVertices v Direction/IN (keywords-to-str-array labels)))
+  (.in v (keywords-to-str-array labels)))
 
 (defn all-connected-vertices
   "Returns vertices connected to this vertex with the given labels"
   [^Vertex v & labels]
-  (.getVertices v Direction/BOTH (keywords-to-str-array labels)))
+  (.both v (keywords-to-str-array labels)))
 
 ;;
 ;; Creation methods
