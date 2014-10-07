@@ -47,16 +47,6 @@
       (has-n-vertices graph2 2)
       (has-n-edges graph2 1))))
 
-(deftest test-loading-and-saving-graphs-gml
-  (let [graph (make-test-graph)
-        tmp (File/createTempFile "my-test-graph" ".gml")]
-    (io/write-graph-gml graph tmp)
-    ;; Open new graph and read it
-    (let [graph2 (g/clean-tinkergraph)]
-      (io/load-graph-gml graph2 tmp)
-      (has-n-vertices graph2 2)
-      (has-n-edges graph2 1))))
-
 (deftest test-loading-and-saving-graphs-graphson
   (testing "Without type information"
     (let [graph (make-test-graph)
