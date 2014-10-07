@@ -50,10 +50,10 @@
   [g]
   (.. g tx commit))
 
-(defn shutdown
-  "Shutdown the graph."
+(defn close
+  "Close the graph."
   [g]
-  (.shutdown g))
+  (.close g))
 
 (defn rollback
   "Stops the current transaction and rolls back any changes made."
