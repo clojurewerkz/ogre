@@ -2,7 +2,7 @@
   (:import [com.tinkerpop.gremlin.structure Direction Compare]))
 
 (defprotocol EdgeDirectionConversion
-  (to-edge-direction [input] "Converts input to a Blueprints edge direction"))
+  (to-edge-direction [input] "Converts input to a Gremlin Structure edge direction"))
 
 (extend-protocol EdgeDirectionConversion
   clojure.lang.Named
