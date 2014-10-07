@@ -13,7 +13,7 @@
   [f]
   (let [tmp (sio/create-temp-dir)]
     (try
-      (binding [*graph* (new Neo4jGraph (.getPath tmp))]
+      (binding [*graph* (new Neo4jGraph (str (.getPath tmp) "/neo4j"))]
         (try
           (f)
           (finally
@@ -51,24 +51,6 @@
       (is (= (count (v/get-all-vertices tx)) 1)))
     (is (empty? (v/get-all-vertices *graph*)))))
 
-;(deftest test-threaded-transaction-rollback-on-exception
-;  (testing "Uncaught exception reverts added vertex"
-;    (try
-;      (g/with-transaction [tx *graph* :threaded? true]
-;        (v/create! tx {:name "Mallory"})
-;        (is (= (count (v/get-all-vertices tx)) 1))
-;        (throw (Exception. "Died")))
-;      (catch Exception e
-;        (is (= (.getMessage e) "Died"))))
-;    (is (empty? (v/get-all-vertices *graph*)))))
-
-;(deftest test-threaded-transaction-explicit-rollback
-;  (testing "Setting :rollback? option reverts added vertex (threaded=true)"
-;    (g/with-transaction [tx *graph* :threaded? true :rollback? true]
-;      (v/create! tx {:name "Mallory"})
-;      (is (= (count (v/get-all-vertices tx)) 1)))
-;    (is (empty? (v/get-all-vertices *graph*)))))
-
 (def num-attempts (atom 0))
 
 (deftest test-transaction-retry
@@ -86,9 +68,3 @@
     (g/with-transaction [tx *graph*]
       (v/create! tx [:name "Bob"]))
     (is (= (count (v/get-all-vertices *graph*)) 1))))
-
-;(deftest test-threaded-transaction-commit
-;  (testing "Commit edit to graph (threaded=true)"
-;    (g/with-transaction [tx *graph* :threaded? true]
-;      (v/create! tx [:name "Bob"]))
-;    (is (= (count (v/get-all-vertices *graph*)) 1))))

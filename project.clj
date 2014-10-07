@@ -10,7 +10,7 @@
                  [com.tinkerpop/neo4j-gremlin "3.0.0.M3"]]
   :source-paths ["src/clojure"]
   :profiles {:dev    { :global-vars {*assert* true}
-                       :dependencies [[com.tinkerpop.blueprints/blueprints-neo4j-graph  "2.5.0"]
+                       :dependencies [[com.tinkerpop.blueprints/blueprints-neo4j-graph "2.5.0"]
                                      [org.slf4j/slf4j-nop "1.7.5"]
                                      [clojurewerkz/support "1.0.0" :exclusions [org.clojure/clojure]]
                                      [commons-io/commons-io "2.4"]]}
