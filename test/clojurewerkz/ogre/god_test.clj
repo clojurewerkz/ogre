@@ -3,12 +3,13 @@
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.edge :as e]
-            [clojurewerkz.ogre.graph :as g]))
+            [clojurewerkz.ogre.graph :as g]
+            [clojurewerkz.ogre.test-util :as u]))
 
 ;;Adapted from
 ;;https://github.com/clojurewerkz/titanium/blob/master/test/clojurewerkz/titanium/integration_test.clj
 (deftest test-graph-of-gods
-  (let [g (g/new-tinkergraph)
+  (let [g (u/new-tinkergraph)
         saturn   (v/create! g {:name "Saturn"   :type "titan"})
         jupiter  (v/create! g {:name "Jupiter"  :type "god"})
         hercules (v/create! g {:name "Hercules" :type "demigod"})

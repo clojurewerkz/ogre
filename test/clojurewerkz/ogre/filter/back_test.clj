@@ -7,16 +7,16 @@
 
 (deftest test-transform-step
   (testing "test_g_v1_out_backX1X"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           vs (q/query (v/find-by-id g 1)
                       q/-->
                       (q/back 1)
                       q/into-vec!)]
       (is (= #{"marko"} (u/get-names-set vs)))
       (is (= 1 (count vs)))))
-  
+
   (testing "test_g_v1_asXhereX_out_backXhereX()"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           vs (q/query (v/find-by-id g 1)
                       (q/as "here")
                       q/-->
@@ -26,7 +26,7 @@
       (is (= 1 (count vs)))))
 
   (testing "test_g_v4_out_filterXlang_eq_javaX_backX1X"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           vs (q/query (v/find-by-id g 4)
                       q/-->
                       (q/filter #(= "java" (v/get % :lang)))
@@ -36,7 +36,7 @@
       (is (= 2 (count vs)))))
 
   (testing "test_g_v4_out_asXhereX_filterXlang_eq_javaX_backXhereX()"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           vs (q/query (v/find-by-id g 4)
                       q/-->
                       (q/as "here")
@@ -47,7 +47,7 @@
       (is (= 2 (count vs)))))
 
   (testing "test_g_v4_out_asXhereX_filterXlang_eq_javaX_backXhereX_propertyXnameX"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           names (q/query (v/find-by-id g 4)
                          q/-->
                          (q/as "here")

@@ -7,13 +7,13 @@
 
 (deftest test-group-count-step
   (testing "test_g_V_outXcreatedX_groupCountXm__nameX"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           group (q/query (v/get-all-vertices g)
-                         (q/--> [:created])                         
+                         (q/--> [:created])
                          (q/get-group-count! #(v/get % :name)))]
-      (is (= group {"lop" 3 "ripple" 1}))))  
+      (is (= group {"lop" 3 "ripple" 1}))))
   (testing "test_g_V_outXcreatedX_groupCountXm__name__plus_2X"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           group (q/query (v/get-all-vertices g)
                          (q/--> [:created])
                          (q/get-group-count! #(v/get % :name)

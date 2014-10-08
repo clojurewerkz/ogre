@@ -1,11 +1,11 @@
 (ns clojurewerkz.ogre.element-test
   (:use [clojure.test :only [deftest is]])
-  (:require [clojurewerkz.ogre.graph :refer (clean-tinkergraph)]
-            [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.edge :as e]))
+  (:require [clojurewerkz.ogre.vertex :as v]
+            [clojurewerkz.ogre.edge :as e]
+            [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-get-keys
-  (let [g (clean-tinkergraph)
+  (let [g (u/new-tinkergraph)
         a (v/create-with-id!  g 100 {:name "v1" :a 1 :b 1})
         b (v/create-with-id!  g 101 {:name "v2" :a 1 :b 1})
         c (e/connect-with-id! g 102 a :label b {:name "e1" :a 1 :b 1})
@@ -16,7 +16,7 @@
     (is (= clojure.lang.PersistentHashSet (type coll-a)))))
 
 (deftest test-get-id
-  (let [g (clean-tinkergraph)
+  (let [g (u/new-tinkergraph)
         a (v/create-with-id!  g 100)
         b (v/create-with-id!  g 101)
         c (e/connect-with-id! g 102 a :label b )]
@@ -24,7 +24,7 @@
     (is (= java.lang.String (type (e/id-of c))))))
 
 (deftest test-remove-property!
-  (let [g (clean-tinkergraph)
+  (let [g (u/new-tinkergraph)
         a (v/create-with-id!  g 100 {:a 1})
         b (v/create-with-id!  g 101)
         c (e/connect-with-id! g 102 a :label b {:a 1})]
@@ -35,7 +35,7 @@
 
 
 (deftest test-clear!
-  (let [g (clean-tinkergraph)
+  (let [g (u/new-tinkergraph)
         a (v/create-with-id!  g 100 {:a 1})
         b (v/create-with-id!  g 101)
         c (e/connect-with-id! g 102 a :label b {:a 1})]
@@ -46,7 +46,7 @@
 
 
 (deftest test-update!
-  (let [g (clean-tinkergraph)
+  (let [g (u/new-tinkergraph)
         a (v/create-with-id!  g 100 {:a 1})
         b (v/create-with-id!  g 101)
         c (e/connect-with-id! g 102 a :label b {:a 1})]

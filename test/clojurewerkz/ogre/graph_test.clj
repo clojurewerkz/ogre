@@ -2,7 +2,8 @@
   (:use [clojure.test :only (use-fixtures deftest testing is)])
   (:require [clojurewerkz.ogre.graph :as g]
             [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.support.io :as sio])
+            [clojurewerkz.support.io :as sio]
+            [clojurewerkz.ogre.test-util :as u])
   (:import  [com.tinkerpop.blueprints.impls.tg TinkerGraphFactory TinkerGraph]
             [com.tinkerpop.blueprints.impls.neo4j Neo4jGraph]
             [org.apache.commons.io FileUtils]))
@@ -25,13 +26,13 @@
 
 (deftest test-opening-a-graph-in-memory
   (testing "Graph in memory"
-    (is (= (type (g/clean-tinkergraph))
+    (is (= (type (u/new-tinkergraph))
            TinkerGraph))))
 
 (deftest test-tinkergraph-does-not-support-transactions
   (testing "We cannot perform a transaction on a Tinkergraph"
     (is (thrown? java.lang.AssertionError
-                 (g/with-transaction [g (g/clean-tinkergraph)] nil)))))
+                 (g/with-transaction [g (u/new-tinkergraph)] nil)))))
 
 (deftest test-transaction-rollback-on-exception
   (testing "Uncaught exception reverts added vertex"

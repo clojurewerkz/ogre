@@ -2,11 +2,12 @@
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.graph :as g]))
+            [clojurewerkz.ogre.graph :as g]
+            [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-select-step
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select()"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
            selection (q/query (v/find-by-id g 1)
                              (q/as "a")
                              (q/--> [:knows])
@@ -19,7 +20,7 @@
       (is (= 2 (count selection)))
       (is (= 2 (count (first selection))))))
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select()"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           selection (q/query (v/find-by-id g 1)
                              (q/as "a")
                              (q/--> [:knows])
@@ -31,7 +32,7 @@
       (is (= 2 (count selection)))
       (is (= 2 (count (first selection))))))
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select([a])"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           selection (q/query (v/find-by-id g 1)
                              (q/as "a")
                              (q/--> [:knows])
@@ -42,7 +43,7 @@
       (is (= 1 (count (first selection))))
       (is (= #{"1"} (set (map (comp v/id-of first) selection))))))
   (testing "test_g_v1_asXaX_outXknowsX_asXbX_select([a],name)"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           selection (q/query (v/find-by-id g 1)
                              (q/as "a")
                              (q/--> [:knows])

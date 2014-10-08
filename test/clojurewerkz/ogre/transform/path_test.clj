@@ -2,11 +2,12 @@
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.graph :as g]))
+            [clojurewerkz.ogre.graph :as g]
+            [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-path-step
   (testing "g.getVertex(1).property('name').path"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           path (q/query (v/find-by-id g 1)
                         (q/property :name)
                         q/path
@@ -15,7 +16,7 @@
       (is (= "marko" (second path)))))
 
   (testing "g.getVertex(1).out.path{it.age}{it.name}"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           path (q/query (v/find-by-id g 1)
                         q/-->
                         (q/path
@@ -25,7 +26,7 @@
       (is (= (sort path) (sort [[29 "vadas"] [29 "josh"] [29 "lop"]])))))
 
   (testing "g.V.out.loop(1,loops_lt_3)X_path{it.name,it.lang}"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           path (q/query (v/get-all-vertices g)
                         q/-->
                         (q/loop 1 (fn [i o p] (< i 3)))

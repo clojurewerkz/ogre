@@ -1,12 +1,13 @@
 (ns clojurewerkz.ogre.query-test
   (:require [clojurewerkz.ogre.graph  :as g]
             [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.edge   :as e])
+            [clojurewerkz.ogre.edge   :as e]
+            [clojurewerkz.ogre.test-util :as u])
   (:use [clojure.test :only (deftest is)]))
 
 
 (deftest test-basic-vertices-query
-  (let [graph (g/clean-tinkergraph)
+  (let [graph (u/new-tinkergraph)
         a     (v/create-with-id!  graph 100 {:name "Steven" :age 30})
         b     (v/create-with-id!  graph 101 {:name "Alonso" :age 32})
         c     (v/create-with-id!  graph 102 {:name "Thomas" :age 38})
@@ -19,7 +20,7 @@
     (is (= #{b c} (set vs)))))
 
 (deftest test-edge-count
-  (let [graph (g/clean-tinkergraph)
+  (let [graph (u/new-tinkergraph)
         a     (v/create-with-id!  graph 100 {:name "Steven" :age 30})
         b     (v/create-with-id!  graph 101 {:name "Alonso" :age 32})
         c     (v/create-with-id!  graph 102 {:name "Thomas" :age 38})
@@ -33,7 +34,7 @@
     (is (= 3 n))))
 
 (deftest test-edge-count-with-default-comparator
-  (let [graph (g/clean-tinkergraph)
+  (let [graph (u/new-tinkergraph)
         a     (v/create-with-id!  graph 100 {:name "Steven" :age 30})
         b     (v/create-with-id!  graph 101 {:name "Alonso" :age 32})
         c     (v/create-with-id!  graph 102 {:name "Thomas" :age 38})
@@ -56,7 +57,7 @@
     (is (= n3 0))))
 
 (deftest test-edge-count-with-gte-comparator
-  (let [graph (g/clean-tinkergraph)
+  (let [graph (u/new-tinkergraph)
         a     (v/create-with-id!  graph 100 {:name "Steven" :age 30})
         b     (v/create-with-id!  graph 101 {:name "Alonso" :age 32})
         c     (v/create-with-id!  graph 102 {:name "Thomas" :age 38})
@@ -79,7 +80,7 @@
     (is (= n3 0))))
 
 (deftest test-edge-count-with-lte-comparator
-  (let [graph (g/clean-tinkergraph)
+  (let [graph (u/new-tinkergraph)
         a     (v/create-with-id!  graph 100 {:name "Steven" :age 30})
         b     (v/create-with-id!  graph 101 {:name "Alonso" :age 32})
         c     (v/create-with-id!  graph 102 {:name "Thomas" :age 38})
@@ -102,7 +103,7 @@
     (is (= n3 0))))
 
 (deftest test-has-propetry-key
-  (let [graph (g/clean-tinkergraph)
+  (let [graph (u/new-tinkergraph)
         a     (v/create-with-id!  graph 100 {:name "Steven" :age 30})
         b     (v/create-with-id!  graph 101 {:name "Alonso" :age 32})
         c     (v/create-with-id!  graph 102 {:name "Thomas" :age 38})

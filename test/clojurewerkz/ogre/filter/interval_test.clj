@@ -7,7 +7,7 @@
 
 (deftest test-interval-step
   (testing "test_g_v1_outE_intervalXweight_0_06X_inV"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           vs (q/query (v/find-by-id g 1)
                       (q/-E>)
                       (q/interval :weight 0 0.6)

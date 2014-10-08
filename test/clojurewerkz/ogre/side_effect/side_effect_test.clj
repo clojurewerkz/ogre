@@ -8,7 +8,7 @@
 (deftest test-side-effect-step
   (testing "test_g_v1_sideEffectXstore_aX_propertyXnameX"
     (let [lst (atom [])
-          g (g/new-tinkergraph)
+          g (u/classic-tinkergraph)
           elem (v/find-by-id g 1)
           names (q/query elem
                       (q/side-effect (partial swap! lst conj))
@@ -19,7 +19,7 @@
 
   (testing "test_g_v1_out_sideEffectXincr_cX_propertyXnameX"
     (let [lst (atom [])
-          g (g/new-tinkergraph)
+          g (u/classic-tinkergraph)
           elem (v/find-by-id g 1)
           names (q/query elem
                       q/-->

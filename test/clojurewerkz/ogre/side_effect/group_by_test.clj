@@ -7,7 +7,7 @@
 
 (deftest test-group-count-step
   (testing "test_g_V_groupByXlang_nameX"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           grouped (q/query (v/get-all-vertices g)
                            (q/get-grouped-by! #(v/get % :lang)
                                              #(v/get % :name)))]

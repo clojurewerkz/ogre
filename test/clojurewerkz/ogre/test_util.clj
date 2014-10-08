@@ -1,5 +1,6 @@
 (ns clojurewerkz.ogre.test-util
-  (:require [clojurewerkz.ogre.element :as el]))
+  (:require [clojurewerkz.ogre.element :as el])
+  (:import (com.tinkerpop.gremlin.tinkergraph.structure TinkerFactory TinkerGraph)))
 
 (defn prop-pred [key pred value v]
   (pred value (el/get v key)))
@@ -15,3 +16,11 @@
 
 (defn get-ages-set [vs]
   (set (get-ages vs)))
+
+(defn new-tinkergraph
+  []
+  (TinkerGraph/open))
+
+(defn classic-tinkergraph
+  []
+  (TinkerFactory/createClassic))

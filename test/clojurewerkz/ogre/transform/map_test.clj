@@ -2,11 +2,12 @@
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.graph :as g]))
+            [clojurewerkz.ogre.graph :as g]
+            [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-map-step
   (testing "g(v1).map"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           m (q/query (v/find-by-id g 1)
                      q/map
                      q/first-into-map!)]
@@ -14,7 +15,7 @@
       (is (= 29 (:age m)))
       (is (= 2 (count m)))))
   (testing "g(v1).map('name' 'id')"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           m (q/query (v/find-by-id g 1)
                      (q/map :name :id)
                      q/first-into-map!)]
@@ -22,7 +23,7 @@
       (is (= nil (:age m)))
       (is (= 2 (count m)))))
   (testing "g(v1).out('knows').map()"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           ms (q/query (v/find-by-id g 1)
                       (q/--> [:knows])
                       q/map

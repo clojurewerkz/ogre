@@ -7,7 +7,7 @@
 
 (deftest test-tree-step
   (testing "test_g_v1_out_out_treeXnameX_cap"
-    (let [g (g/new-tinkergraph)
+    (let [g (g/classic-tinkergraph)
           tree (q/query (v/find-by-id g 1)
                          q/-->
                          q/-->

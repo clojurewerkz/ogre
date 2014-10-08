@@ -2,11 +2,12 @@
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.graph :as g]))
+            [clojurewerkz.ogre.graph :as g]
+            [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-split-merge-test-step
   (testing "test_g_v1_out_copySplitXpropertyXnameX__propertyXageXX_fairMerge"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           props (q/query (v/find-by-id g 1)
                          q/-->
                          (q/copy-split
@@ -19,7 +20,7 @@
                   props))))
 
   (testing "test_g_v1_outXknowsX_copySplitXpropertyXnameX__propertyXageXX_exhaustMerge"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           props (q/query (v/find-by-id g 1)
                          (q/--> [:knows])
                          (q/copy-split
@@ -31,7 +32,7 @@
       (is (= #{27 32} (set (drop 2 props))))))
 
     (testing "test_g_v1_outXknowsX_copySplitXpropertyXnameX__propertyXageXX_exhaustMerge_path"
-    (let [g (g/new-tinkergraph)
+    (let [g (u/classic-tinkergraph)
           props (q/query (v/find-by-id g 1)
                          (q/--> [:knows])
                          (q/copy-split
@@ -45,7 +46,7 @@
       (is (= 2 (count names)))
       (is (= 3 (count (first names))))
       (is (= 2 (count ages)))
-      (is (= 3 (count (first ages))))      
+      (is (= 3 (count (first ages))))
 
       (is (= "1" (v/id-of (nth (nth names 0) 0))))
       (is (= "1" (v/id-of (nth (nth ages  0) 0))))
@@ -60,4 +61,4 @@
       (is (= "vadas" (nth (nth names 0) 2)))
       (is (= 27      (nth (nth ages  0) 2)))
       (is (= "josh"  (nth (nth names 1) 2)))
-      (is (= 32      (nth (nth ages  1) 2))))))                        
+      (is (= 32      (nth (nth ages  1) 2))))))
