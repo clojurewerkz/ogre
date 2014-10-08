@@ -44,7 +44,7 @@
     (io/write-graph-graphml graph tmp)
     ;; Open new graph and read it
     (let [graph2 (u/new-tinkergraph)]
-      (io/load-graph-graphml graph2 tmp)
+      (io/read-graph-graphml graph2 tmp)
       (has-n-vertices graph2 2)
       (has-n-edges graph2 1))))
 
@@ -55,7 +55,7 @@
       (io/write-graph-graphson graph tmp)
       ;; Open new graph and read it
       (let [graph2 (u/new-tinkergraph)]
-        (io/load-graph-graphson graph2 tmp)
+        (io/read-graph-graphson graph2 tmp)
         (has-n-vertices graph2 2)
         (has-n-edges graph2 1))))
 
@@ -67,11 +67,11 @@
       (io/write-graph-graphson graph tmp-untyped false)
       (testing "Loading a graphson with type infomation"
         (let [graph2 (u/new-tinkergraph)]
-          (io/load-graph-graphson graph2 tmp-typed)
+          (io/read-graph-graphson graph2 tmp-typed)
           (has-n-vertices graph2 2)
           (has-n-edges graph2 1)))
       (testing "Loading a graphson without type infomation"
         (let [graph2 (u/new-tinkergraph)]
-          (io/load-graph-graphson graph2 tmp-untyped)
+          (io/read-graph-graphson graph2 tmp-untyped)
           (has-n-vertices graph2 2)
           (has-n-edges graph2 1))))))
