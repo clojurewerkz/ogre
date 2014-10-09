@@ -1,15 +1,16 @@
 (ns clojurewerkz.ogre.core
-  (:import (com.tinkerpop.gremlin.java GremlinPipeline))
+  (:import (com.tinkerpop.gremlin.process.graph GraphTraversal))
   (:refer-clojure :exclude [filter and or range count memoize iterate next map loop reverse])
   (:require [potemkin :as po]
-            [clojurewerkz.ogre.util        :as util :refer 
-             [keywords-to-strings f-to-pipef fs-to-pipef-array]]
-            [clojurewerkz.ogre.branch      :as branch]
-            [clojurewerkz.ogre.filter      :as filter]
-            [clojurewerkz.ogre.map         :as map]
+            [clojurewerkz.ogre.util        :as util :refer
+             [keywords-to-strings]]
+             ;[keywords-to-strings f-to-pipef fs-to-pipef-array]]
+            ;[clojurewerkz.ogre.branch      :as branch]
+            ;[clojurewerkz.ogre.filter      :as filter]
+            ;[clojurewerkz.ogre.map         :as map]
             [clojurewerkz.ogre.pipe        :as pipe]
-            [clojurewerkz.ogre.reduce      :as reduce]
-            [clojurewerkz.ogre.side-effect :as side-effect]
+            ;[clojurewerkz.ogre.reduce      :as reduce]
+            ;[clojurewerkz.ogre.side-effect :as side-effect]
             [clojure.string   :as stur]))
 
 ;;Define functions for the simple methods.  
@@ -104,18 +105,18 @@
         (clojure.core/map (fn [sym]
                             (condp = (:tag (meta sym))
                               clojure.lang.Keyword `(name ~sym)
-                              clojure.lang.IFn `(f-to-pipef ~sym)
-                              clojure.lang.ArraySeq `(fs-to-pipef-array ~sym)
+                              ;clojure.lang.IFn `(f-to-pipef ~sym)
+                              ;clojure.lang.ArraySeq `(fs-to-pipef-array ~sym)
                               sym))
                           arguments)
         p (gensym "pipeline")]
-    `(defn ~fcall ~doc 
-       ([~p ~@pre-args] (conj ~p (fn [parg#] (~method ^GremlinPipeline parg# ~@transformed-args)))))))
+    `(defn ~fcall ~doc
+       ([~p ~@pre-args] (conj ~p (fn [parg#] (~method ^GraphTraversal parg# ~@transformed-args)))))))
 
 (doseq [s simple-methods] 
   (eval (function-template s)))
 
-;;Define the travesal methods
+;;Define the traversal methods
 (doseq [[direction short shortE name1] '((both <-> <E> both-vertices)
                                          (in   <-- <E- in-vertex)
                                          (out  --> -E> out-vertex))]
@@ -130,40 +131,40 @@
                ;;       " direction and returns the vertices.")
                ([p#] (~direction p# []))
                ([p# labels#]
-                  (conj p# (fn [parg#] (~j1 ^GremlinPipeline parg# (keywords-to-strings labels#))))))
+                  (conj p# (fn [parg#] (~j1 ^GraphTraversal parg# (keywords-to-strings labels#))))))
              (defn ~short
                [& args#]
                (apply ~direction args#))
              (defn ~f1
                ([p#] (~f1 p# []))
                ([p# labels#] 
-                  (conj p# (fn [^GremlinPipeline parg#] (~j2 parg# (keywords-to-strings labels#))))))
+                  (conj p# (fn [^GraphTraversal parg#] (~j2 parg# (keywords-to-strings labels#))))))
              (defn ~shortE
                [& args#]
                (apply ~f1 args#))
              (defn ~name1 [p#]
-               (conj p# (fn [parg#] (~j3 ^GremlinPipeline parg#))))))))
+               (conj p# (fn [parg#] (~j3 ^GraphTraversal parg#))))))))
 
 ;; clojurewerkz.ogre.util
 (po/import-macro util/query)
 (po/import-macro util/subquery)
-(po/import-macro util/bare-pipe)
+;(po/import-macro util/bare-pipe)
 
 ;; clojurewerkz.ogre.branch
-(po/import-fn branch/copy-split)
-(po/import-fn branch/loop)
-(po/import-fn branch/loop-to)
+;(po/import-fn branch/copy-split)
+;(po/import-fn branch/loop)
+;(po/import-fn branch/loop-to)
 
 ;; clojurewerkz.ogre.filter
-(po/import-fn filter/dedup)
-(po/import-macro filter/has)
-(po/import-macro filter/has-not)
-(po/import-fn filter/interval)
+;(po/import-fn filter/dedup)
+;(po/import-macro filter/has)
+;(po/import-macro filter/has-not)
+;(po/import-fn filter/interval)
 
 ;; clojurewerkz.ogre.map
-(po/import-fn map/map)
-(po/import-fn map/select)
-(po/import-fn map/select-only)
+;(po/import-fn map/map)
+;(po/import-fn map/select)
+;(po/import-fn map/select-only)
 
 ;; clojurewerkz.ogre.pipe
 ;; TODO break this into pipe and executors
@@ -186,15 +187,15 @@
 (po/import-fn pipe/count!)
 
 ;; clojurewerkz.ogre.reduce
-(po/import-fn reduce/gather)
-(po/import-fn reduce/order)
-(po/import-fn reduce/reverse)
+;(po/import-fn reduce/gather)
+;(po/import-fn reduce/order)
+;(po/import-fn reduce/reverse)
 
 ;; clojurewerkz.ogre.side-effect
-(po/import-fn side-effect/get-table!)
-(po/import-fn side-effect/get-tree!)
-(po/import-fn side-effect/get-grouped-by!)
-(po/import-fn side-effect/get-group-count!)
+;(po/import-fn side-effect/get-table!)
+;(po/import-fn side-effect/get-tree!)
+;(po/import-fn side-effect/get-grouped-by!)
+;(po/import-fn side-effect/get-group-count!)
 
 ;; GremlinPipeline<S,com.tinkerpop.blueprints.Edge>	idEdge(com.tinkerpop.blueprints.Graph graph) 
 ;; Add an IdEdgePipe to the end of the Pipeline.

@@ -14,11 +14,11 @@
   [f]
   (let [tmp (sio/create-temp-dir)]
     (try
-      (binding [*graph* (new Neo4jGraph (str (.getPath tmp) "/neo4j"))]
+      (binding [*graph* (.open Neo4jGraph (str (.getPath tmp) "/neo4j"))]
         (try
           (f)
           (finally
-            (.shutdown *graph*))))
+            (.close *graph*))))
       (finally
         (FileUtils/deleteQuietly tmp)))))
 

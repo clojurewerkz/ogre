@@ -1,21 +1,22 @@
 (ns clojurewerkz.ogre.pipe
   (:refer-clojure :exclude [iterate])
-  (:import (com.tinkerpop.gremlin.java GremlinPipeline)
+  (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
            (com.tinkerpop.gremlin.structure Vertex)
-           (com.tinkerpop.pipes.util.structures Row))
+           ;(com.tinkerpop.pipes.util.structures Row)
+           )
   (:use clojurewerkz.ogre.util))
 
 (defn back-to 
   [p ^String s]
-  (conj p #(.back ^GremlinPipeline % s)))
+  (conj p #(.back ^GraphTraversal % s)))
 
 (defn iterate!
   [p]
-  (.iterate ^GremlinPipeline (compile-query p)))
+  (.iterate ^GraphTraversal (compile-query p)))
 
 (defn next!
   [p i]
-  (.next ^GremlinPipeline (compile-query p) i))
+  (.next ^GraphTraversal (compile-query p) i))
 
 ;; (defn step [^GremlinPipeline p e]
 ;;   (.step p e))
@@ -23,7 +24,8 @@
 (defmacro ^{:private true}
   to-java-list! 
   [p]
-  `(.toList ^GremlinPipeline (compile-query ~p)))
+  (println "p: " p)
+  `(.toList ^GraphTraversal (compile-query ~p)))
 
 (defn into-vec! 
   [p]
@@ -51,10 +53,10 @@
   [m]
   (into {} (for [[k v] m] [(keyword k) v])))
 
-(defmethod convert-to-map Row
-  [^Row m]
-  (into {} (for [^String k (.getColumnNames m)] 
-             [(keyword k) (.getColumn m k)])))
+;(defmethod convert-to-map Row
+;  [^Row m]
+;  (into {} (for [^String k (.getColumnNames m)]
+;             [(keyword k) (.getColumn m k)])))
 
 (defn first-of! 
   [p]
@@ -86,10 +88,10 @@
 
 (defn count! 
   [p]
-  (.count ^GremlinPipeline (compile-query p)))
+  (.count ^GraphTraversal (compile-query p)))
 ;; Reversed property accessors
 
 (defn prop 
   [k]
   (fn [^Vertex v]
-    (.getProperty v (name k))))
+    (.property v (name k))))
