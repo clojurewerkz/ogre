@@ -62,3 +62,11 @@
 
 (defn keywords-to-str-array [strs]
   (into-array String (map name strs)))
+
+(defn prop-map-to-array [m]
+  (into-array Object
+    (into []
+      (flatten
+        (map #(let [key (first %)
+                    value (second %)]
+            (vector (if (keyword? key) (name key) key) value)) m)))))

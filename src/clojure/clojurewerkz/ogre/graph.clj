@@ -17,9 +17,9 @@
 
 (defn get-features
   "Get a map of features for a graph.
-  (http://www.tinkerpop.com/javadocs/3.0.0.M2/com/tinkerpop/gremlin/structure/Graph.Features.html)"
+  (http://www.tinkerpop.com/javadocs/3.0.0.M3/com/tinkerpop/gremlin/structure/Graph.Features.html)"
   [g]
-  (.. g features toMap))
+  (.. ^Graph g features toMap))
 
 (defn get-feature
   "Gets the value of the feature for a graph."
@@ -37,17 +37,17 @@
 (defn commit
   "Commit all changes to the graph."
   [g]
-  (.. g tx commit))
+  (.. ^Graph g tx commit))
 
 (defn close
   "Close the graph."
   [g]
-  (.close g))
+  (.close ^Graph g))
 
 (defn rollback
   "Stops the current transaction and rolls back any changes made."
   [g]
-  (.. g tx rollback))
+  (.. ^Graph g tx rollback))
 
 (defn with-transaction*
   [graph f & {:keys [threaded? rollback?]}]

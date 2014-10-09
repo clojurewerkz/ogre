@@ -1,13 +1,20 @@
 (ns clojurewerkz.ogre.element
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import com.tinkerpop.gremlin.structure.Element))
+  (:import com.tinkerpop.gremlin.structure.Element)
+  (:require [clojurewerkz.ogre.util :refer (keywords-to-str-array)]))
+
+(defn get-multiple
+  ([^Element elem key]
+    (get-multiple elem key nil))
+  ([^Element elem key not-found]
+    (let [properties (-> elem (.iterators) (.properties (keywords-to-str-array [key])))]
+      (if (.hasNext properties) (map #(.value %) (iterator-seq properties)) (list not-found)))))
 
 (defn get
   ([^Element elem key]
-     (get elem key nil))
+    (first (get-multiple elem key nil)))
   ([^Element elem key not-found]
-     (let [value (.property elem (name key))]
-       (if (nil? value) not-found value))))
+    (first (get-multiple elem key not-found))))
 
 (defn keys
   [^Element elem]
@@ -40,12 +47,6 @@
   [^Element elem & keys]
   (doseq [key keys] (.remove (.property elem (name key))))
   elem)
-
-(defn update!
-  [^Element elem key f & args]
-  (let [curr-val (get elem key)
-        new-val  (apply f (cons curr-val args))]
-    (assoc! elem key new-val)))
 
 (defn clear!
   [^Element elem]

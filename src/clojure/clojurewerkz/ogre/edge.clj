@@ -7,8 +7,10 @@
             [clojurewerkz.ogre.graph :refer (*element-id-key* *edge-label-key*)]
             [clojurewerkz.ogre.conversion :refer (to-edge-direction)]
             [clojurewerkz.ogre.element :as ele]
+            [clojurewerkz.ogre.util :refer (prop-map-to-array)]
             [potemkin :as po]))
 
+(po/import-fn ele/get-multiple)
 (po/import-fn ele/get)
 (po/import-fn ele/keys)
 (po/import-fn ele/vals)
@@ -16,7 +18,6 @@
 (po/import-fn ele/assoc!)
 (po/import-fn ele/merge!)
 (po/import-fn ele/dissoc!)
-(po/import-fn ele/update!)
 (po/import-fn ele/clear!)
 
 ;;
@@ -124,16 +125,14 @@
   ([^Vertex v1 label ^Vertex v2]
      (connect! v1 label v2 {}))
   ([^Vertex v1 label ^Vertex v2 data]
-     (let [new-edge (.addEdge v1 ^String (name label) v2)]
-       (merge! new-edge data))))
+     (.addEdge v1 ^String (name label) v2 (prop-map-to-array data))))
 
 (defn connect-with-id!
   "Connects two vertices with the given label, and, optionally, with the given properties."
   ([id ^Vertex v1 label ^Vertex v2]
      (connect-with-id! id v1 label v2 {}))
   ([id ^Vertex v1 label ^Vertex v2 data]
-     (let [new-edge (.addEdge v1 ^String (name label) v2 {T/id id})]
-       (merge! new-edge data))))
+     (.addEdge v1 ^String (name label) v2 (prop-map-to-array (assoc data T/id id)))))
 
 (comment "TODO: sort this out once we have GraphTraversal going"
   (defn upconnect!
