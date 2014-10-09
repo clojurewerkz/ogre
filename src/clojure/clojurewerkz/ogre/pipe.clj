@@ -93,4 +93,4 @@
 (defn prop 
   [k]
   (fn [^Vertex v]
-    (.value (.property v (name k)))))
+    (-> v (.property (name k)) (.value))))
