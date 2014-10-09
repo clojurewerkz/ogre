@@ -16,7 +16,7 @@
 ;  `(def ~name (blank-pipe ~@body)))
 
 (defmacro query [xs & body]
-  `(-> [~xs] ~@body))
+  `(-> ~xs ~@body))
 
 (defmacro subquery
   ""
@@ -58,7 +58,7 @@
 (defn compile-query
   ^GraphTraversal
   [[xs & fs]]
-  (reduce #(%2 %1) (GraphTraversal. xs) fs))
+  (reduce #(%2 %1) xs fs))
 
 (defn keywords-to-str-array [strs]
   (into-array String (map name strs)))

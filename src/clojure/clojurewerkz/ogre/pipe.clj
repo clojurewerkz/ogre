@@ -24,8 +24,7 @@
 (defmacro ^{:private true}
   to-java-list! 
   [p]
-  (println "p: " p)
-  `(.toList ^GraphTraversal (compile-query ~p)))
+  `(.toList ~p))
 
 (defn into-vec! 
   [p]
@@ -94,4 +93,4 @@
 (defn prop 
   [k]
   (fn [^Vertex v]
-    (.property v (name k))))
+    (.value (.property v (name k)))))

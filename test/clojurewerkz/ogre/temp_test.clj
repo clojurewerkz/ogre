@@ -11,8 +11,9 @@
 
   (testing "test_g_v1_out()"
     (let [g (u/classic-tinkergraph)
-          vs (-> (v/find-by-id g (int 1)) v/connected-out-vertices (.toList))
-          ;vs (q/query (v/find-by-id g (int 1)) v/connected-out-vertices q/into-vec!)
+          vs1 (q/query (v/find-by-id g (int 1)) v/connected-out-vertices q/into-vec!)
+          vs2 (q/query (v/find-by-id g (int 1)) (v/connected-out-vertices "knows") q/into-vec! first ((q/prop :name)))
           ]
-      (println vs)
+      (println vs1)
+      (println vs2)
       (is true))))
