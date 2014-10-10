@@ -10,13 +10,12 @@
             [clojurewerkz.ogre.util :refer (prop-map-to-array)]
             [potemkin :as po]))
 
-(po/import-fn ele/get-multiple)
+(po/import-fn ele/mget)
 (po/import-fn ele/get)
 (po/import-fn ele/keys)
 (po/import-fn ele/vals)
 (po/import-fn ele/id-of)
 (po/import-fn ele/assoc!)
-(po/import-fn ele/merge!)
 (po/import-fn ele/dissoc!)
 (po/import-fn ele/clear!)
 

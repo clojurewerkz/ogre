@@ -27,7 +27,7 @@
         v1 (v/create-with-id! g 100 {:name "v1"})
         v2 (v/create-with-id! g 101 {:name "v2"})
         edge (e/connect-with-id! g 102 v1 :test v2 {:a 1})]
-    (e/assoc! edge :b 2)
+    (e/assoc! edge {:b 2})
     (e/dissoc! edge :a)
     (is (= 2   (e/get edge :b)))
     (is (= nil (e/get edge :a)))))

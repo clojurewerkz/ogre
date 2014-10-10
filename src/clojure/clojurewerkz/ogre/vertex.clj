@@ -9,13 +9,12 @@
             [clojurewerkz.ogre.element :as ele]
             [potemkin :as po]))
 
-(po/import-fn ele/get-multiple)
+(po/import-fn ele/mget)
 (po/import-fn ele/get)
 (po/import-fn ele/keys)
 (po/import-fn ele/vals)
 (po/import-fn ele/id-of)
 (po/import-fn ele/assoc!)
-(po/import-fn ele/merge!)
 (po/import-fn ele/dissoc!)
 (po/import-fn ele/clear!)
 
@@ -130,13 +129,13 @@
   "Given a key and a property map, upsert! either creates a new node
    with that property map or updates all nodes with the given key
    value pair to have the new properties specifiied by the map. Always
-   returns the set of vertices that were just update or created."
+   returns the set of vertices that were just updated or created."
   [g k m]
   (let [vertices (find-by-kv g (name k) (k m))]
     (if (empty? vertices)
       (set [(create! g m)])
       (do
-        (doseq [vertex vertices] (merge! vertex m))
+        (doseq [vertex vertices] (assoc! vertex m))
         vertices))))
 
 (defn unique-upsert!
@@ -155,13 +154,13 @@
   "Given a key and a property map, upsert! either creates a new node
    with that property map or updates all nodes with the given key
    value pair to have the new properties specifiied by the map. Always
-   returns the set of vertices that were just update or created."
+   returns the set of vertices that were just updated or created."
   [g id k m]
   (let [vertices (find-by-kv g (name k) (k m))]
     (if (empty? vertices)
       (set [(create-with-id! g id m)])
       (do
-        (doseq [vertex vertices] (merge! vertex m))
+        (doseq [vertex vertices] (assoc! vertex m))
         vertices))))
 
 (defn unique-upsert-with-id!

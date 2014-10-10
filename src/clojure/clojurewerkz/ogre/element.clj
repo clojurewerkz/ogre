@@ -3,18 +3,20 @@
   (:import com.tinkerpop.gremlin.structure.Element)
   (:require [clojurewerkz.ogre.util :refer (keywords-to-str-array)]))
 
-(defn get-multiple
+(defn mget
+  "Returns all properties of a vertex with the given key."
   ([^Element elem key]
-    (get-multiple elem key nil))
+    (mget elem key nil))
   ([^Element elem key not-found]
     (let [properties (-> elem (.iterators) (.properties (keywords-to-str-array [key])))]
       (if (.hasNext properties) (map #(.value %) (iterator-seq properties)) (list not-found)))))
 
 (defn get
+  "Returns the first property of a vertex with the given key."
   ([^Element elem key]
-    (first (get-multiple elem key nil)))
+    (first (mget elem key nil)))
   ([^Element elem key not-found]
-    (first (get-multiple elem key not-found))))
+    (first (mget elem key not-found))))
 
 (defn keys
   [^Element elem]
@@ -22,25 +24,16 @@
 
 (defn vals
   [^Element elem]
-  (set (map #(.property elem %) (.keys elem))))
+  (set (map #(-> elem (.property %) (.value)) (.keys elem))))
 
 (defn id-of
   [^Element elem]
   (.id elem))
 
 (defn assoc!
-  [^Element elem & kvs]
-  ;;Avoids changing keys that shouldn't be changed.
-  ;;Important when using types. You aren't ever going to change a
-  ;;user's id for example.
-  (doseq [[key value] (partition 2 kvs)]
-      (.property elem (name key) value))
-  elem)
-
-(defn merge!
-  [^Element elem & maps]
-  (doseq [d maps]
-    (apply assoc! (cons elem (flatten (into [] d)))))
+  [^Element elem map]
+  (doseq [kv map]
+    (.property elem (name (key kv)) (val kv)))
   elem)
 
 (defn dissoc!

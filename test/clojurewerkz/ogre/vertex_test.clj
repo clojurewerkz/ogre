@@ -18,22 +18,22 @@
     (is (=  nil (v/find-by-id graph 100)))
     (is (empty? (v/find-by-kv graph :name "v1")))))
 
-;(deftest test-simple-property-mutation
-;  (let [graph (u/new-tinkergraph)
-;        u (v/create-with-id! graph 100 {:name "v1" :a 1 :b 1})]
-;    (v/assoc! u :b 2)
-;    (v/dissoc! u :a)
-;    (is (= 2 (v/get u :b)))
-;    (is (= nil (v/get u :a)))
-;    (is (= 10 (v/get u :a 10)))))
+(deftest test-simple-property-mutation
+  (let [graph (u/new-tinkergraph)
+        u (v/create-with-id! graph 100 {:name "v1" :a 1 :b 1})]
+    (v/assoc! u {:b 2})
+    (v/dissoc! u :a)
+    (is (= (list 1 2) (v/mget u :b)))
+    (is (= nil (v/get u :a)))
+    (is (= 10 (v/get u :a 10)))))
 
-;(deftest test-multiple-property-mutation
-;  (let [graph (u/new-tinkergraph)
-;        u (v/create-with-id! graph 100 {:name "v1" :a 0 :b 2})]
-;    (v/merge! u {:a 1 :b 2 :c 3})
-;    (is (= 1 (v/get u :a)))
-;    (is (= 2 (v/get u :b)))
-;    (is (= 3 (v/get u :c)))))
+(deftest test-multiple-property-mutation
+  (let [graph (u/new-tinkergraph)
+        u (v/create-with-id! graph 100 {:name "v1" :a 0 :b 2})]
+    (v/assoc! u {:a 1 :b 2 :c 3})
+    (is (= (list 0 1) (v/mget u :a)))
+    (is (= (list 2 2) (v/mget u :b)))
+    (is (= (list 3) (v/mget u :c)))))
 
 (deftest test-to-map
   (let [graph (u/new-tinkergraph)
@@ -127,36 +127,41 @@
     ;(is (= (p/into-set! (v/connected-vertices-of v1 :both :a :b :d)) #{v2}))
     (is (= (p/into-set! (v/all-connected-vertices v1 :a :b :d)) #{v2}))))
 
-;(deftest test-upsert!
-;  (testing "upsert! with id"
-;    (let [graph (u/new-tinkergraph)
-;          v1-a (v/upsert-with-id! graph 100 :first-name {:first-name "Zack" :last-name "Maril" :age 21})
-;          v1-b (v/upsert-with-id! graph 101 :first-name {:first-name "Zack" :last-name "Maril" :age 22})
-;          v2 (v/upsert-with-id! graph 102 :first-name {:first-name "Brooke" :last-name "Maril" :age 19})]
-;      (is (= 22
-;            (v/get (first v1-a) :age)
-;            (v/get (first v1-b) :age)))
-;      (v/upsert-with-id! graph 103 :last-name {:last-name "Maril"
-;                                               :heritage "Some German Folks"})
-;      (is (= "Some German Folks"
-;            (v/get (first v1-a) :heritage)
-;            (v/get (first v1-b) :heritage)
-;            (v/get (first v2) :heritage)))))
-;
-;  (testing "upsert! without id"
-;    (let [graph (u/new-tinkergraph)
-;          v1-a (v/upsert! graph :first-name {:first-name "Zack" :last-name "Maril" :age 21})
-;          v1-b (v/upsert! graph :first-name {:first-name "Zack" :last-name "Maril" :age 22})
-;          v2 (v/upsert! graph :first-name {:first-name "Brooke" :last-name "Maril" :age 19})]
-;      (is (= 22
-;            (v/get (first v1-a) :age)
-;            (v/get (first v1-b) :age)))
-;      (v/upsert! graph :last-name {:last-name "Maril"
-;                                   :heritage "Some German Folks"})
-;      (is (= "Some German Folks"
-;            (v/get (first v1-a) :heritage)
-;            (v/get (first v1-b) :heritage)
-;            (v/get (first v2) :heritage))))))
+(deftest test-upsert!
+  (testing "upsert! with id"
+    (let [graph (u/new-tinkergraph)
+          v1-a (v/upsert-with-id! graph 100 :first-name {:first-name "Zack" :last-name "Maril" :age 21})
+          v1-b (v/upsert-with-id! graph 101 :first-name {:first-name "Zack" :last-name "Maril" :age 22})
+          v2 (v/upsert-with-id! graph 102 :first-name {:first-name "Brooke" :last-name "Maril" :age 19})]
+      (is (= 22
+            (last (v/mget (first v1-a) :age))
+            (last (v/mget (first v1-b) :age))))
+
+      (v/upsert-with-id! graph 103 :last-name {:last-name "Maril"
+                                               :heritage "Some German Folks"})
+
+      (is (= "Some German Folks"
+            (v/get (first v1-a) :heritage)
+            (v/get (first v1-b) :heritage)
+            (v/get (first v2) :heritage)))))
+
+  (testing "upsert! without id"
+    (let [graph (u/new-tinkergraph)
+          v1-a (v/upsert! graph :first-name {:first-name "Zack" :last-name "Maril" :age 21})
+          v1-b (v/upsert! graph :first-name {:first-name "Zack" :last-name "Maril" :age 22})
+          v2 (v/upsert! graph :first-name {:first-name "Brooke" :last-name "Maril" :age 19})]
+
+      (is (= 22
+            (last (v/mget (first v1-a) :age))
+            (last (v/mget (first v1-b) :age))))
+
+      (v/upsert! graph :last-name {:last-name "Maril"
+                                   :heritage "Some German Folks"})
+
+      (is (= "Some German Folks"
+            (v/get (first v1-a) :heritage)
+            (v/get (first v1-b) :heritage)
+            (v/get (first v2) :heritage))))))
 
 (deftest test-get-false-val
   (let [graph (u/new-tinkergraph)
