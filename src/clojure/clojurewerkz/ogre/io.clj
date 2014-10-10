@@ -54,7 +54,7 @@
       (set-if-present embed-types (memfn embedTypes))
       (set-if-present batch-size (memfn batchSize))
       (.create))))
-(def read-graph-graphson (partial read-graph-with-reader #(.readGraph (make-graphml-reader) %1 %2)))
+(def read-graph-graphson (partial read-graph-with-reader #(.readGraph (make-graphson-reader) %1 %2)))
 
 ;; GraphSON Writer
 (defn make-graphson-writer [& {:keys [custom-module load-custom-modules embed-types normalize]}]
@@ -65,4 +65,4 @@
       (set-if-present load-custom-modules (memfn loadCustomModule))
       (set-if-present embed-types (memfn embedTypes))
       (.create)))
-(def write-graph-graphson (partial write-graph-with-writer #(.writeGraph (make-graphml-writer) %1 %2))))
+(def write-graph-graphson (partial write-graph-with-writer #(.writeGraph (make-graphson-writer) %1 %2))))
