@@ -4,5 +4,5 @@
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)))
 
 (defn fold
-  ([t] (conj t #(.fold ^GraphTraversal %))))
+  ([t] #(.fold ^GraphTraversal t)))
 
