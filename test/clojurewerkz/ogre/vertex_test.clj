@@ -9,14 +9,14 @@
 (deftest test-create
   (let [graph (u/new-tinkergraph)
         u (v/create! graph)]
-    (is (= 1 (count (v/get-all-vertices graph))))))
+    (is (= 1 (count (p/into-set! (v/get-all-vertices graph)))))))
 
 (deftest test-delete
   (let [graph (u/new-tinkergraph)
         u (v/create-with-id! graph 100 {:name "v1"})]
     (v/remove! u)
     (is (=  nil (v/find-by-id graph 100)))
-    (is (empty? (v/find-by-kv graph :name "v1")))))
+    (is (empty? (p/into-set! (v/find-by-kv graph :name "v1"))))))
 
 (deftest test-simple-property-mutation
   (let [graph (u/new-tinkergraph)
@@ -78,16 +78,16 @@
         v2 (v/create-with-id! graph 101 {:age 2 :name "B"})
         v3 (v/create-with-id! graph 102 {:age 2 :name "C"})]
     (is (= #{"A"}
-           (set (map #(v/get % :name) (v/find-by-kv graph :age 1)))))
+           (set (map #(v/get % :name) (p/into-set! (v/find-by-kv graph :age 1))))))
     (is (= #{"B" "C"}
-           (set (map #(v/get % :name) (v/find-by-kv graph :age 2)))))))
+           (set (map #(v/get % :name) (p/into-set! (v/find-by-kv graph :age 2))))))))
 
 (deftest test-get-all-vertices
   (let [graph (u/new-tinkergraph)
         v1 (v/create-with-id! graph 100 {:age 1 :name "A"})
         v2 (v/create-with-id! graph 101 {:age 2 :name "B"})
         v3 (v/create-with-id! graph 102 {:age 2 :name "C"})]
-    (is (= #{v1 v2 v3} (v/get-all-vertices graph)))))
+    (is (= #{v1 v2 v3} (p/into-set! (v/get-all-vertices graph))))))
 
 (deftest test-adjacent-object-retrieval
   (let [graph (u/new-tinkergraph)

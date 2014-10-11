@@ -7,6 +7,7 @@
             [clojurewerkz.ogre.util :refer (keywords-to-str-array prop-map-to-array)]
             [clojurewerkz.ogre.conversion :refer (to-edge-direction)]
             [clojurewerkz.ogre.element :as ele]
+            [clojurewerkz.ogre.pipe :as p]
             [potemkin :as po]))
 
 (po/import-fn ele/mget)
@@ -60,12 +61,12 @@
   "Given a key and a value, returns the set of all vertices that
    sastify the pair."
   [g k v]
-  (-> g (.V) (.has (name k) v) (.toSet)))
+  (-> g (.V) (.has (name k) v)))
 
 (defn get-all-vertices
   "Returns all vertices."
   [g]
-  (-> g (.V) (.toSet)))
+  (.V g))
 
 ;(defn edges-of
 ;  "Returns edges that this vertex is part of with direction and with given labels"
@@ -131,7 +132,7 @@
    value pair to have the new properties specifiied by the map. Always
    returns the set of vertices that were just updated or created."
   [g k m]
-  (let [vertices (find-by-kv g (name k) (k m))]
+  (let [vertices (p/into-set! (find-by-kv g (name k) (k m)))]
     (if (empty? vertices)
       (set [(create! g m)])
       (do
@@ -156,7 +157,7 @@
    value pair to have the new properties specifiied by the map. Always
    returns the set of vertices that were just updated or created."
   [g id k m]
-  (let [vertices (find-by-kv g (name k) (k m))]
+  (let [vertices (p/into-set! (find-by-kv g (name k) (k m)))]
     (if (empty? vertices)
       (set [(create-with-id! g id m)])
       (do

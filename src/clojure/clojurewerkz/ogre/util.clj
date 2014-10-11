@@ -2,9 +2,7 @@
   (:require [clojure.reflect :as r])
   (:use [clojure.pprint :only (pprint)])
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
-           ;         (com.tinkerpop.pipes PipeFunction Pipe)
-           ;         (com.tinkerpop.gremlin Tokens$T))
-           ))
+           (com.tinkerpop.gremlin.structure Compare)))
 
 ;;TODO bring over the one test from the lazy branch
 (defmacro bare-pipe
@@ -25,14 +23,14 @@
      (-> p#
        ~@body)))
 
-;(defn ^"com.tinkerpop.gremlin.Tokens$T" convert-symbol-to-compare [s]
-;  (case s
-;    =    Tokens$T/eq
-;    not= Tokens$T/neq
-;    >=   Tokens$T/gte
-;    >    Tokens$T/gt
-;    <=   Tokens$T/lte
-;    <    Tokens$T/lt))
+(defn ^Compare convert-symbol-to-compare [s]
+  (case s
+    =    Compare/eq
+    not= Compare/neq
+    >=   Compare/gte
+    >    Compare/gt
+    <=   Compare/lte
+    <    Compare/lt))
 
 (defn ^"[Ljava.lang.String;" str-array [strs]
   (into-array String strs))

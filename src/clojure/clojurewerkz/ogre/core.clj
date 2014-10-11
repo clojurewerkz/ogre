@@ -2,16 +2,14 @@
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal))
   (:refer-clojure :exclude [filter and or range count memoize iterate next map loop reverse])
   (:require [potemkin :as po]
-            [clojurewerkz.ogre.util        :as util :refer
-             [keywords-to-strings]]
-             ;[keywords-to-strings f-to-pipef fs-to-pipef-array]]
-            ;[clojurewerkz.ogre.branch      :as branch]
-            ;[clojurewerkz.ogre.filter      :as filter]
-            ;[clojurewerkz.ogre.map         :as map]
-            [clojurewerkz.ogre.pipe        :as pipe]
-            ;[clojurewerkz.ogre.reduce      :as reduce]
+            [clojurewerkz.ogre.util :as util :refer [keywords-to-strings]]
+            ;[clojurewerkz.ogre.branch :as branch]
+            [clojurewerkz.ogre.filter :as filter]
+            ;[clojurewerkz.ogre.map :as map]
+            [clojurewerkz.ogre.pipe :as pipe]
+            ;[clojurewerkz.ogre.reduce :as reduce]
             ;[clojurewerkz.ogre.side-effect :as side-effect]
-            [clojure.string   :as stur]))
+            [clojure.string :as string]))
 
 ;;Define functions for the simple methods.  
 
@@ -19,16 +17,33 @@
 ;;looks like whenever the args aren't all clojure types reflection
 ;;fails. No idea why. 
 (def simple-methods 
-  [["exhaustMerge" "TODO: Write doc string"] 
-   ["fairMerge" "TODO: Write doc string"] 
-   ["_" "TODO: Write doc string"]
-   ["id" "Returns the unique identifier of the given element."]
-   ["label" "Returns the label of the given edge."] 
-   ["scatter" "TODO: Write doc string"] 
-   ["simplePath" "TODO: Write doc string"]
-   ["enablePath" "TODO: Write doc string"] 
-   ["cap" "TODO: Write doc string"]
-   ["path" "TODO:Write doc string"
+  [;["exhaustMerge" "TODO: Write doc string"]
+
+   ;["fairMerge" "TODO: Write doc string"]
+
+   ["identity"
+    "Turns an arbitrary object into a traversal."]
+
+   ["id"
+    "Returns the unique identifier of the given element."]
+
+   ["label"
+    "Returns the label of the given edge."]
+
+   ;["scatter" "TODO: Write doc string"]
+
+   ["simplePath"
+    "Emits the object only if the current path has no repeated elements."]
+
+   ;["enablePath" "TODO: Write doc string"]
+
+   ["cap"
+    "Gets the side-effect of the prior traversal. In other words, it emits the value of the
+     previous step and not the values that flow through it."]
+
+   ["path"
+    "Gets the path through the pipeline up to this point, where closures are post-processing
+     for each object in the path."
     clojure.lang.ArraySeq]
 
    ["range" 
@@ -41,26 +56,26 @@
     but not necessarily changing the pipeline elements."
     clojure.lang.IFn]
 
-   ["ifThenElse" 
-    "Given three functions, if the first function is true, the result
-    of the second function is returned, otherwise the result of the
-    third function is returned."  
-    clojure.lang.IFn clojure.lang.IFn clojure.lang.IFn]
+   ;["ifThenElse"
+   ; "Given three functions, if the first function is true, the result
+   ; of the second function is returned, otherwise the result of the
+   ; third function is returned."
+   ; clojure.lang.IFn clojure.lang.IFn clojure.lang.IFn]
 
    ["filter" 
     "Filters out elements in the pipeline according to the given
     predicate function." 
     clojure.lang.IFn]
 
-   ["transform" 
-    "Maps the given function over the elements in the pipeline and
-    returns the results." 
-    clojure.lang.IFn]
+   ;["transform"
+   ; "Maps the given function over the elements in the pipeline and
+   ; returns the results."
+   ; clojure.lang.IFn]
 
-   ["property"
-    "Given a keyword or string, returns the corresponding property for
-    each element in the pipeline."  
-    clojure.lang.Keyword]
+   ;["property"
+   ; "Given a keyword or string, returns the corresponding property for
+   ; each element in the pipeline."
+   ; clojure.lang.Keyword]
 
    ["except"
     "Filters out all of elements that are in the given collection." 
@@ -84,14 +99,15 @@
     "Return to the results of the given step." ;;HERE
     Integer]
 
-   ["optional" 
-    "Returns the results of the current step and the given named step." 
-    String]])
+   ;"optional"
+   ; "Returns the results of the current step and the given named step."
+   ; String]
+   ])
 
 (defn function-template [[f doc & args]]
   (let [method (symbol (str "." f))
-        fcall  (symbol (stur/replace f #"[A-Z]" 
-                                     #(str "-" (stur/lower-case %1))))
+        fcall  (symbol (string/replace f #"[A-Z]"
+                                     #(str "-" (string/lower-case %1))))
         arguments 
         (map-indexed #(vary-meta (symbol (str "arg" %1)) assoc :tag %2) args)
 
@@ -105,13 +121,13 @@
         (clojure.core/map (fn [sym]
                             (condp = (:tag (meta sym))
                               clojure.lang.Keyword `(name ~sym)
-                              ;clojure.lang.IFn `(f-to-pipef ~sym)
-                              ;clojure.lang.ArraySeq `(fs-to-pipef-array ~sym)
+                              clojure.lang.IFn `(~sym)
+                              clojure.lang.ArraySeq `(into-array ~sym)
                               sym))
                           arguments)
         p (gensym "pipeline")]
     `(defn ~fcall ~doc
-       ([~p ~@pre-args] (conj ~p (fn [parg#] (~method ^GraphTraversal parg# ~@transformed-args)))))))
+       ([~p ~@pre-args] (~method ^GraphTraversal ~p ~@transformed-args)))))
 
 (doseq [s simple-methods] 
   (eval (function-template s)))
@@ -125,25 +141,25 @@
         j2 (symbol (str "." direction "E"))
         j3 (symbol (str "." direction "V"))]
     (eval `(do
-             (defn ~direction 
+             (defn ~direction
                ;; ~(str "Traverses edges along the "
-               ;;       direction 
+               ;;       direction
                ;;       " direction and returns the vertices.")
                ([p#] (~direction p# []))
                ([p# labels#]
-                  (conj p# (fn [parg#] (~j1 ^GraphTraversal parg# (keywords-to-strings labels#))))))
+                 (-> p# (~j1 (keywords-to-strings labels#)))))
              (defn ~short
                [& args#]
                (apply ~direction args#))
              (defn ~f1
                ([p#] (~f1 p# []))
                ([p# labels#] 
-                  (conj p# (fn [^GraphTraversal parg#] (~j2 parg# (keywords-to-strings labels#))))))
+                  (-> p# (~j2 (keywords-to-strings labels#)))))
              (defn ~shortE
                [& args#]
                (apply ~f1 args#))
              (defn ~name1 [p#]
-               (conj p# (fn [parg#] (~j3 ^GraphTraversal parg#))))))))
+               (-> p# (~j3)))))))
 
 ;; clojurewerkz.ogre.util
 (po/import-macro util/query)
@@ -156,10 +172,10 @@
 ;(po/import-fn branch/loop-to)
 
 ;; clojurewerkz.ogre.filter
-;(po/import-fn filter/dedup)
-;(po/import-macro filter/has)
-;(po/import-macro filter/has-not)
-;(po/import-fn filter/interval)
+(po/import-fn filter/dedup)
+(po/import-macro filter/has)
+(po/import-macro filter/has-not)
+(po/import-fn filter/interval)
 
 ;; clojurewerkz.ogre.map
 ;(po/import-fn map/map)
@@ -196,9 +212,3 @@
 ;(po/import-fn side-effect/get-tree!)
 ;(po/import-fn side-effect/get-grouped-by!)
 ;(po/import-fn side-effect/get-group-count!)
-
-;; GremlinPipeline<S,com.tinkerpop.blueprints.Edge>	idEdge(com.tinkerpop.blueprints.Graph graph) 
-;; Add an IdEdgePipe to the end of the Pipeline.
-
-;; GremlinPipeline<S,com.tinkerpop.blueprints.Vertex>	idVertex(com.tinkerpop.blueprints.Graph graph) 
-;; Add an IdVertexPipe to the end of the Pipeline.

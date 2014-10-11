@@ -19,7 +19,7 @@
   (let [graph (u/new-tinkergraph)
         vertex-1 (v/create-with-id! graph 100)
         vertex-2 (v/create-with-id! graph 101)
-        edge (e/connect-with-id! graph 102 vertex-1 :edge vertex-2)]
+        edge (e/connect-with-id! 102 vertex-1 :edge vertex-2)]
     graph))
 
 (defn- make-test-graph-with-types
@@ -35,7 +35,7 @@
                                                :my-float (float 30)
                                                :my-double (double 40)
                                                :my-boolean false})
-        edge (e/connect-with-id! graph 102 vertex-1 :edge vertex-2)]
+        edge (e/connect-with-id! 102 vertex-1 :edge vertex-2)]
     graph))
 
 (deftest test-loading-and-saving-graphs-graphml
