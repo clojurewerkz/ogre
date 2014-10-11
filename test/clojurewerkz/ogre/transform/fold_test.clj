@@ -12,4 +12,11 @@
                     q/-->
                     q/id
                     q/fold
-                    q/first-into-set!)))))
+                    q/first-into-set!))))
+  (testing "g(v1).out.fold"
+    (is (= 1
+           (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
+                    q/-->
+                    q/id
+                    q/fold
+                    q/count!)))))

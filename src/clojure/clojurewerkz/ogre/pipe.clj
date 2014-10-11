@@ -89,7 +89,7 @@
 
 (defn count!
   [p]
-  (.count ^GraphTraversal (compile-query p)))
+  (next! (.count ^GraphTraversal p)))
 ;; Reversed property accessors
 
 (defn prop
