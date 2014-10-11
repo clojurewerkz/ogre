@@ -6,7 +6,7 @@
            )
   (:use clojurewerkz.ogre.util))
 
-(defn back-to 
+(defn back-to
   [p ^String s]
   (conj p #(.back ^GraphTraversal % s)))
 
@@ -15,26 +15,28 @@
   (.iterate ^GraphTraversal (compile-query p)))
 
 (defn next!
-  [p i]
-  (.next ^GraphTraversal (compile-query p) i))
+  ([p]
+   (.next ^GraphTraversal p))
+  ([p i]
+   (.next ^GraphTraversal (compile-query p) i)))
 
 ;; (defn step [^GremlinPipeline p e]
 ;;   (.step p e))
 
 (defmacro ^{:private true}
-  to-java-list! 
+  to-java-list!
   [p]
   `(.toList ~p))
 
-(defn into-vec! 
+(defn into-vec!
   [p]
   (into [] (to-java-list! p)))
 
-(defn into-set! 
+(defn into-set!
   [p]
   (into #{} (to-java-list! p)))
 
-(defn into-list! 
+(defn into-list!
   [p]
   (into '() (to-java-list! p)))
 
@@ -57,40 +59,40 @@
 ;  (into {} (for [^String k (.getColumnNames m)]
 ;             [(keyword k) (.getColumn m k)])))
 
-(defn first-of! 
+(defn first-of!
   [p]
-  (-> p (next! 1) first))
+  (next! p))
 
-(defn first-into-vec! 
+(defn first-into-vec!
   [p]
   (vec (first-of! p)))
 
-(defn first-into-set! 
+(defn first-into-set!
   [p]
   (set (first-of! p)))
 
-(defn first-into-map! 
+(defn first-into-map!
   [p]
   (convert-to-map (first-of! p)))
 
-(defn all-into-vecs! 
+(defn all-into-vecs!
   [p]
   (map vec (into-vec! p)))
 
-(defn all-into-sets! 
+(defn all-into-sets!
   [p]
   (map set (into-vec! p)))
 
-(defn all-into-maps! 
+(defn all-into-maps!
   [p]
   (map convert-to-map (into-vec! p)))
 
-(defn count! 
+(defn count!
   [p]
   (.count ^GraphTraversal (compile-query p)))
 ;; Reversed property accessors
 
-(defn prop 
+(defn prop
   [k]
   (fn [^Vertex v]
     (-> v (.property (name k)) (.value))))

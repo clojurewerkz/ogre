@@ -7,8 +7,8 @@
 
 (deftest test-fold-step
   (testing "g(v1).out.fold"
-    (is (= #{"2" "3" "4"}
-           (q/query (v/find-by-id (u/classic-tinkergraph)1)
+    (is (= #{2 3 4}
+           (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                     q/-->
                     q/id
                     q/fold
