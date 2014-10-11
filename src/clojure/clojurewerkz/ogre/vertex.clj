@@ -68,10 +68,10 @@
   [g]
   (.V g))
 
-;(defn edges-of
-;  "Returns edges that this vertex is part of with direction and with given labels"
-;  [^Vertex v direction & labels]
-;  (iterator-seq (-> v (.iterators) (.edges (to-edge-direction direction) 100 (keywords-to-str-array labels)))))
+(defn edges-of
+  "Returns edges that this vertex is part of with direction and with given labels"
+  [^Vertex v direction & labels]
+  (.toE v (to-edge-direction direction) (keywords-to-str-array labels)))
 
 (defn all-edges-of
   "Returns edges that this vertex is part of, with given labels"
@@ -88,10 +88,10 @@
   [^Vertex v & labels]
   (.inE v (keywords-to-str-array labels)))
 
-;(defn connected-vertices-of
-;  "Returns vertices connected to this vertex with a certain direction by the given labels"
-;  [^Vertex v direction & labels]
-;  (iterator-seq (-> v (.iterators) (.vertices (to-edge-direction direction) 100 (keywords-to-str-array labels)))))
+(defn connected-vertices-of
+  "Returns vertices connected to this vertex with a certain direction by the given labels"
+  [^Vertex v direction & labels]
+  (.to v (to-edge-direction direction) (keywords-to-str-array labels)))
 
 (defn connected-out-vertices
   "Returns vertices connected to this vertex by an outbound edge with the given labels"
