@@ -97,34 +97,34 @@
         e1 (e/connect-with-id! 103 v1 :a v2)
         e2 (e/connect-with-id! 104 v2 :b v1)
         e3 (e/connect-with-id! 105 v1 :c v3)]
-    ;(is (= (p/into-set! (v/edges-of v1 :in)) #{e2}))
+    (is (= (p/into-set! (v/edges-of v1 :in)) #{e2}))
     (is (= (p/into-set! (v/incoming-edges-of v1)) #{e2}))
-    ;(is (= (p/into-set! (v/connected-vertices-of v1 :in)) #{v2}))
+    (is (= (p/into-set! (v/connected-vertices-of v1 :in)) #{v2}))
     (is (= (p/into-set! (v/connected-in-vertices v1)) #{v2}))
 
-    ;(is (= (p/into-set! (v/edges-of v1 :out)) #{e1 e3}))
+    (is (= (p/into-set! (v/edges-of v1 :out)) #{e1 e3}))
     (is (= (p/into-set! (v/outgoing-edges-of v1)) #{e1 e3}))
-    ;(is (= (p/into-set! (v/connected-vertices-of v1 :out)) #{v2 v3}))
+    (is (= (p/into-set! (v/connected-vertices-of v1 :out)) #{v2 v3}))
     (is (= (p/into-set! (v/connected-out-vertices v1)) #{v2 v3}))
 
-    ;(is (= (p/into-set! (v/edges-of v1 :both)) #{e1 e2 e3}))
+    (is (= (p/into-set! (v/edges-of v1 :both)) #{e1 e2 e3}))
     (is (= (p/into-set! (v/all-edges-of v1)) #{e1 e2 e3}))
-    ;(is (= (p/into-set! (v/connected-vertices-of v1 :both)) #{v2 v3}))
+    (is (= (p/into-set! (v/connected-vertices-of v1 :both)) #{v2 v3}))
     (is (= (p/into-set! (v/all-connected-vertices v1)) #{v2 v3}))
 
-    ;(is (= (p/into-set! (v/edges-of v1 :both :a)) #{e1}))
+    (is (= (p/into-set! (v/edges-of v1 :both :a)) #{e1}))
     (is (= (p/into-set! (v/all-edges-of v1 :a)) #{e1}))
-    ;(is (= (p/into-set! (v/connected-vertices-of v1 :both :a)) #{v2}))
+    (is (= (p/into-set! (v/connected-vertices-of v1 :both :a)) #{v2}))
     (is (= (p/into-set! (v/all-connected-vertices v1 :a)) #{v2}))
 
-    ;(is (= (p/into-set! (v/edges-of v1 :both :a :b)) #{e1 e2}))
+    (is (= (p/into-set! (v/edges-of v1 :both :a :b)) #{e1 e2}))
     (is (= (p/into-set! (v/all-edges-of v1 :a :b)) #{e1 e2}))
-    ;(is (= (p/into-set! (v/connected-vertices-of v1 :both :a :b)) #{v2}))
+    (is (= (p/into-set! (v/connected-vertices-of v1 :both :a :b)) #{v2}))
     (is (= (p/into-set! (v/all-connected-vertices v1 :a :b)) #{v2}))
 
-    ;(is (= (p/into-set! (v/edges-of v1 :both :a :b :d)) #{e1 e2}))
+    (is (= (p/into-set! (v/edges-of v1 :both :a :b :d)) #{e1 e2}))
     (is (= (p/into-set! (v/all-edges-of v1 :a :b :d)) #{e1 e2}))
-    ;(is (= (p/into-set! (v/connected-vertices-of v1 :both :a :b :d)) #{v2}))
+    (is (= (p/into-set! (v/connected-vertices-of v1 :both :a :b :d)) #{v2}))
     (is (= (p/into-set! (v/all-connected-vertices v1 :a :b :d)) #{v2}))))
 
 (deftest test-upsert!
