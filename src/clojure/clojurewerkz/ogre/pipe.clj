@@ -7,43 +7,43 @@
   (:use clojurewerkz.ogre.util))
 
 (defn back-to
-  [p ^String s]
-  (conj p #(.back ^GraphTraversal % s)))
+  [t ^String s]
+  (conj t #(.back ^GraphTraversal % s)))
 
 (defn iterate!
-  [p]
-  (.iterate ^GraphTraversal (compile-query p)))
+  [t]
+  (.iterate ^GraphTraversal (compile-query t)))
 
 (defn next!
-  ([p]
-   (.next ^GraphTraversal p))
-  ([p i]
-   (.next ^GraphTraversal (compile-query p) i)))
+  ([t]
+   (.next ^GraphTraversal t))
+  ([t i]
+   (.next ^GraphTraversal (compile-query t) i)))
 
 ;; (defn step [^GremlinPipeline p e]
 ;;   (.step p e))
 
 (defmacro ^{:private true}
   to-java-list!
-  [p]
-  `(.toList ~p))
+  [t]
+  `(.toList ~t))
 
 (defn into-vec!
-  [p]
-  (into [] (to-java-list! p)))
+  [t]
+  (into [] (to-java-list! t)))
 
 (defn into-set!
-  [p]
-  (into #{} (to-java-list! p)))
+  [t]
+  (into #{} (to-java-list! t)))
 
 (defn into-list!
-  [p]
-  (into '() (to-java-list! p)))
+  [t]
+  (into '() (to-java-list! t)))
 
 (defn into-lazy-seq!
-  [p]
-  (let [pipe (compile-query p)
-        f (fn [_] (first (.next pipe 1)))]
+  [t]
+  (let [traversal (compile-query t)
+        f (fn [_] (first (.next traversal 1)))]
     (clojure.core/iterate f (f nil))))
 
 ;;Inspiried by gather, these take the first element in the object
@@ -60,36 +60,36 @@
 ;             [(keyword k) (.getColumn m k)])))
 
 (defn first-of!
-  [p]
-  (next! p))
+  [t]
+  (next! t))
 
 (defn first-into-vec!
-  [p]
-  (vec (first-of! p)))
+  [t]
+  (vec (first-of! t)))
 
 (defn first-into-set!
-  [p]
-  (set (first-of! p)))
+  [t]
+  (set (first-of! t)))
 
 (defn first-into-map!
-  [p]
-  (convert-to-map (first-of! p)))
+  [t]
+  (convert-to-map (first-of! t)))
 
 (defn all-into-vecs!
-  [p]
-  (map vec (into-vec! p)))
+  [t]
+  (map vec (into-vec! t)))
 
 (defn all-into-sets!
-  [p]
-  (map set (into-vec! p)))
+  [t]
+  (map set (into-vec! t)))
 
 (defn all-into-maps!
-  [p]
-  (map convert-to-map (into-vec! p)))
+  [t]
+  (map convert-to-map (into-vec! t)))
 
 (defn count!
-  [p]
-  (next! (.count ^GraphTraversal p)))
+  [t]
+  (next! (.count ^GraphTraversal t)))
 ;; Reversed property accessors
 
 (defn prop
