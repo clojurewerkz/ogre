@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [potemkin "0.3.3"]
                  [com.tinkerpop/gremlin-core "3.0.0.M3"]
+                 [com.tinkerpop/gremlin-test "3.0.0.M3"]
                  [com.tinkerpop/tinkergraph-gremlin "3.0.0.M3"]
                  [com.tinkerpop/neo4j-gremlin "3.0.0.M3"]]
   :source-paths ["src/clojure"]

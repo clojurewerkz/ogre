@@ -7,16 +7,16 @@
             [clojurewerkz.ogre.filter :as filter]
             ;[clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.pipe :as pipe]
-            ;[clojurewerkz.ogre.reduce :as reduce]
+            [clojurewerkz.ogre.reduce :as reduce]
             ;[clojurewerkz.ogre.side-effect :as side-effect]
             [clojure.string :as string]))
 
-;;Define functions for the simple methods.  
+;;Define functions for the simple methods.
 
 ;;TODO: Wherever there is a HERE, that function fails to reflect.  It
 ;;looks like whenever the args aren't all clojure types reflection
-;;fails. No idea why. 
-(def simple-methods 
+;;fails. No idea why.
+(def simple-methods
   [;["exhaustMerge" "TODO: Write doc string"]
 
    ;["fairMerge" "TODO: Write doc string"]
@@ -30,7 +30,7 @@
    ["label"
     "Returns the label of the given edge."]
 
-   ;["scatter" "TODO: Write doc string"]
+   ["unfold" "Unrolls or flattens contents of the previous step"]
 
    ["simplePath"
     "Emits the object only if the current path has no repeated elements."]
@@ -46,12 +46,12 @@
      for each object in the path."
     clojure.lang.ArraySeq]
 
-   ["range" 
+   ["range"
     "Returns the objects from within the given range (inclusive) of
-    indices for the pipeline."  
+    indices for the pipeline."
     Integer Integer] ;;;HERE
 
-   ["sideEffect" 
+   ["sideEffect"
     "Maps a function across each element in the pipeline,
     but not necessarily changing the pipeline elements."
     clojure.lang.IFn]
@@ -62,9 +62,9 @@
    ; third function is returned."
    ; clojure.lang.IFn clojure.lang.IFn clojure.lang.IFn]
 
-   ["filter" 
+   ["filter"
     "Filters out elements in the pipeline according to the given
-    predicate function." 
+    predicate function."
     clojure.lang.IFn]
 
    ;["transform"
@@ -78,24 +78,24 @@
    ; clojure.lang.Keyword]
 
    ["except"
-    "Filters out all of elements that are in the given collection." 
+    "Filters out all of elements that are in the given collection."
     java.util.Collection] ;;Here
 
-   ["random" 
-    "Each element is sampled according to the given probability."     
+   ["random"
+    "Each element is sampled according to the given probability."
     Double] ;;HERE
 
-   ["retain" 
+   ["retain"
     "Given a collection, only retains elements from the given
     collection. Given a string corresponding to a named step, retains
     all elements that were present at the named step."
     java.util.Collection] ;; HERE
-   
-   ["as" 
+
+   ["as"
     "Names the previous step in the pipeline the given string." ;;HERE
     String]
 
-   ["back" 
+   ["back"
     "Return to the results of the given step." ;;HERE
     Integer]
 
@@ -108,7 +108,7 @@
   (let [method (symbol (str "." f))
         fcall  (symbol (string/replace f #"[A-Z]"
                                      #(str "-" (string/lower-case %1))))
-        arguments 
+        arguments
         (map-indexed #(vary-meta (symbol (str "arg" %1)) assoc :tag %2) args)
 
         pre-args (flatten (clojure.core/map (fn [sym]
@@ -129,7 +129,7 @@
     `(defn ~fcall ~doc
        ([~p ~@pre-args] (~method ^GraphTraversal ~p ~@transformed-args)))))
 
-(doseq [s simple-methods] 
+(doseq [s simple-methods]
   (eval (function-template s)))
 
 ;;Define the traversal methods
@@ -153,7 +153,7 @@
                (apply ~direction args#))
              (defn ~f1
                ([p#] (~f1 p# []))
-               ([p# labels#] 
+               ([p# labels#]
                   (-> p# (~j2 (keywords-to-strings labels#)))))
              (defn ~shortE
                [& args#]
@@ -203,7 +203,7 @@
 (po/import-fn pipe/count!)
 
 ;; clojurewerkz.ogre.reduce
-;(po/import-fn reduce/gather)
+(po/import-fn reduce/fold)
 ;(po/import-fn reduce/order)
 ;(po/import-fn reduce/reverse)
 

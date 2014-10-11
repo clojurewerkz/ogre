@@ -1,21 +1,8 @@
 (ns clojurewerkz.ogre.reduce
-  (:refer-clojure :exclude [count reverse])
+  (:refer-clojure :exclude [fold])
   (:use clojurewerkz.ogre.util)
-  (:import (com.tinkerpop.gremlin.java GremlinPipeline)
-           (com.tinkerpop.pipes.transform TransformPipe$Order)
-           (com.tinkerpop.pipes.util.structures Pair)))
+  (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)))
 
-(defn gather
-  ([p] (conj p #(.gather ^GremlinPipeline %)))
-  ([p f]
-     (conj p #(.gather ^GremlinPipeline % (f-to-pipef f)))))
+(defn fold
+  ([t] (conj t #(.fold ^GraphTraversal %))))
 
-(defn order
-  ([p] (conj p #(.order ^GremlinPipeline %)))
-  ([p compare]
-     (conj p #(.order ^GremlinPipeline % (f-to-pipef (fn [^Pair pair]       
-                                                       (compare (.getA pair)
-                                                                (.getB pair))))) )))
-(defn reverse
-  [p] 
-  (conj p #(.order ^GremlinPipeline % TransformPipe$Order/DECR)))
