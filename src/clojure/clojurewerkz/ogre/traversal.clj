@@ -39,8 +39,7 @@
 
 (defn into-lazy-seq!
   [t]
-  (let [traversal (compile-query t)
-        f (fn [_] (first (.next traversal 1)))]
+  (let [f (fn [_] (first (.next t 1)))]
     (clojure.core/iterate f (f nil))))
 
 ;;Inspired by gather, these take the first element in the object

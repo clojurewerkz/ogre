@@ -3,20 +3,20 @@
   (:require [clojurewerkz.ogre.graph :as g]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.edge :as e]
-            [clojurewerkz.ogre.pipe :as p]
+            [clojurewerkz.ogre.traversal :as t]
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-create
   (let [graph (u/new-tinkergraph)
         u (v/create! graph)]
-    (is (= 1 (count (p/into-set! (v/get-all-vertices graph)))))))
+    (is (= 1 (count (t/into-set! (v/get-all-vertices graph)))))))
 
 (deftest test-delete
   (let [graph (u/new-tinkergraph)
         u (v/create-with-id! graph 100 {:name "v1"})]
     (v/remove! u)
     (is (=  nil (v/find-by-id graph 100)))
-    (is (empty? (p/into-set! (v/find-by-kv graph :name "v1"))))))
+    (is (empty? (t/into-set! (v/find-by-kv graph :name "v1"))))))
 
 (deftest test-simple-property-mutation
   (let [graph (u/new-tinkergraph)
@@ -78,16 +78,16 @@
         v2 (v/create-with-id! graph 101 {:age 2 :name "B"})
         v3 (v/create-with-id! graph 102 {:age 2 :name "C"})]
     (is (= #{"A"}
-           (set (map #(v/get % :name) (p/into-set! (v/find-by-kv graph :age 1))))))
+           (set (map #(v/get % :name) (t/into-set! (v/find-by-kv graph :age 1))))))
     (is (= #{"B" "C"}
-           (set (map #(v/get % :name) (p/into-set! (v/find-by-kv graph :age 2))))))))
+           (set (map #(v/get % :name) (t/into-set! (v/find-by-kv graph :age 2))))))))
 
 (deftest test-get-all-vertices
   (let [graph (u/new-tinkergraph)
         v1 (v/create-with-id! graph 100 {:age 1 :name "A"})
         v2 (v/create-with-id! graph 101 {:age 2 :name "B"})
         v3 (v/create-with-id! graph 102 {:age 2 :name "C"})]
-    (is (= #{v1 v2 v3} (p/into-set! (v/get-all-vertices graph))))))
+    (is (= #{v1 v2 v3} (t/into-set! (v/get-all-vertices graph))))))
 
 (deftest test-adjacent-object-retrieval
   (let [graph (u/new-tinkergraph)
@@ -97,35 +97,35 @@
         e1 (e/connect-with-id! 103 v1 :a v2)
         e2 (e/connect-with-id! 104 v2 :b v1)
         e3 (e/connect-with-id! 105 v1 :c v3)]
-    (is (= (p/into-set! (v/edges-of v1 :in)) #{e2}))
-    (is (= (p/into-set! (v/incoming-edges-of v1)) #{e2}))
-    (is (= (p/into-set! (v/connected-vertices-of v1 :in)) #{v2}))
-    (is (= (p/into-set! (v/connected-in-vertices v1)) #{v2}))
+    (is (= (t/into-set! (v/edges-of v1 :in)) #{e2}))
+    (is (= (t/into-set! (v/incoming-edges-of v1)) #{e2}))
+    (is (= (t/into-set! (v/connected-vertices-of v1 :in)) #{v2}))
+    (is (= (t/into-set! (v/connected-in-vertices v1)) #{v2}))
 
-    (is (= (p/into-set! (v/edges-of v1 :out)) #{e1 e3}))
-    (is (= (p/into-set! (v/outgoing-edges-of v1)) #{e1 e3}))
-    (is (= (p/into-set! (v/connected-vertices-of v1 :out)) #{v2 v3}))
-    (is (= (p/into-set! (v/connected-out-vertices v1)) #{v2 v3}))
+    (is (= (t/into-set! (v/edges-of v1 :out)) #{e1 e3}))
+    (is (= (t/into-set! (v/outgoing-edges-of v1)) #{e1 e3}))
+    (is (= (t/into-set! (v/connected-vertices-of v1 :out)) #{v2 v3}))
+    (is (= (t/into-set! (v/connected-out-vertices v1)) #{v2 v3}))
 
-    (is (= (p/into-set! (v/edges-of v1 :both)) #{e1 e2 e3}))
-    (is (= (p/into-set! (v/all-edges-of v1)) #{e1 e2 e3}))
-    (is (= (p/into-set! (v/connected-vertices-of v1 :both)) #{v2 v3}))
-    (is (= (p/into-set! (v/all-connected-vertices v1)) #{v2 v3}))
+    (is (= (t/into-set! (v/edges-of v1 :both)) #{e1 e2 e3}))
+    (is (= (t/into-set! (v/all-edges-of v1)) #{e1 e2 e3}))
+    (is (= (t/into-set! (v/connected-vertices-of v1 :both)) #{v2 v3}))
+    (is (= (t/into-set! (v/all-connected-vertices v1)) #{v2 v3}))
 
-    (is (= (p/into-set! (v/edges-of v1 :both :a)) #{e1}))
-    (is (= (p/into-set! (v/all-edges-of v1 :a)) #{e1}))
-    (is (= (p/into-set! (v/connected-vertices-of v1 :both :a)) #{v2}))
-    (is (= (p/into-set! (v/all-connected-vertices v1 :a)) #{v2}))
+    (is (= (t/into-set! (v/edges-of v1 :both :a)) #{e1}))
+    (is (= (t/into-set! (v/all-edges-of v1 :a)) #{e1}))
+    (is (= (t/into-set! (v/connected-vertices-of v1 :both :a)) #{v2}))
+    (is (= (t/into-set! (v/all-connected-vertices v1 :a)) #{v2}))
 
-    (is (= (p/into-set! (v/edges-of v1 :both :a :b)) #{e1 e2}))
-    (is (= (p/into-set! (v/all-edges-of v1 :a :b)) #{e1 e2}))
-    (is (= (p/into-set! (v/connected-vertices-of v1 :both :a :b)) #{v2}))
-    (is (= (p/into-set! (v/all-connected-vertices v1 :a :b)) #{v2}))
+    (is (= (t/into-set! (v/edges-of v1 :both :a :b)) #{e1 e2}))
+    (is (= (t/into-set! (v/all-edges-of v1 :a :b)) #{e1 e2}))
+    (is (= (t/into-set! (v/connected-vertices-of v1 :both :a :b)) #{v2}))
+    (is (= (t/into-set! (v/all-connected-vertices v1 :a :b)) #{v2}))
 
-    (is (= (p/into-set! (v/edges-of v1 :both :a :b :d)) #{e1 e2}))
-    (is (= (p/into-set! (v/all-edges-of v1 :a :b :d)) #{e1 e2}))
-    (is (= (p/into-set! (v/connected-vertices-of v1 :both :a :b :d)) #{v2}))
-    (is (= (p/into-set! (v/all-connected-vertices v1 :a :b :d)) #{v2}))))
+    (is (= (t/into-set! (v/edges-of v1 :both :a :b :d)) #{e1 e2}))
+    (is (= (t/into-set! (v/all-edges-of v1 :a :b :d)) #{e1 e2}))
+    (is (= (t/into-set! (v/connected-vertices-of v1 :both :a :b :d)) #{v2}))
+    (is (= (t/into-set! (v/all-connected-vertices v1 :a :b :d)) #{v2}))))
 
 (deftest test-upsert!
   (testing "upsert! with id"
