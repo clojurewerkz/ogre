@@ -6,7 +6,7 @@
             ;[clojurewerkz.ogre.branch :as branch]
             [clojurewerkz.ogre.filter :as filter]
             ;[clojurewerkz.ogre.map :as map]
-            [clojurewerkz.ogre.pipe :as pipe]
+            [clojurewerkz.ogre.traversal :as traversal]
             [clojurewerkz.ogre.reduce :as reduce]
             ;[clojurewerkz.ogre.side-effect :as side-effect]
             [clojure.string :as string]))
@@ -42,18 +42,18 @@
      previous step and not the values that flow through it."]
 
    ["path"
-    "Gets the path through the pipeline up to this point, where closures are post-processing
+    "Gets the path through the traversal up to this point, where closures are post-processing
      for each object in the path."
     clojure.lang.ArraySeq]
 
    ["range"
     "Returns the objects from within the given range (inclusive) of
-    indices for the pipeline."
+    indices for the traversal."
     Integer Integer] ;;;HERE
 
    ["sideEffect"
-    "Maps a function across each element in the pipeline,
-    but not necessarily changing the pipeline elements."
+    "Maps a function across each element in the traversal,
+    but not necessarily changing the traversal elements."
     clojure.lang.IFn]
 
    ;["ifThenElse"
@@ -63,18 +63,18 @@
    ; clojure.lang.IFn clojure.lang.IFn clojure.lang.IFn]
 
    ["filter"
-    "Filters out elements in the pipeline according to the given
+    "Filters out elements in the traversal according to the given
     predicate function."
     clojure.lang.IFn]
 
    ;["transform"
-   ; "Maps the given function over the elements in the pipeline and
+   ; "Maps the given function over the elements in the traversal and
    ; returns the results."
    ; clojure.lang.IFn]
 
    ;["property"
    ; "Given a keyword or string, returns the corresponding property for
-   ; each element in the pipeline."
+   ; each element in the traversal."
    ; clojure.lang.Keyword]
 
    ["except"
@@ -92,7 +92,7 @@
     java.util.Collection] ;; HERE
 
    ["as"
-    "Names the previous step in the pipeline the given string." ;;HERE
+    "Names the previous step in the traversal the given string." ;;HERE
     String]
 
    ["back"
@@ -125,9 +125,9 @@
                               clojure.lang.ArraySeq `(into-array ~sym)
                               sym))
                           arguments)
-        p (gensym "pipeline")]
+        p (gensym "traversal")]
     `(defn ~fcall ~doc
-       ([~p ~@pre-args] (~method ^GraphTraversal ~p ~@transformed-args)))))
+       ([~t ~@pre-args] (~method ^GraphTraversal ~t ~@transformed-args)))))
 
 (doseq [s simple-methods]
   (eval (function-template s)))
@@ -145,26 +145,25 @@
                ;; ~(str "Traverses edges along the "
                ;;       direction
                ;;       " direction and returns the vertices.")
-               ([p#] (~direction p# []))
-               ([p# labels#]
-                 (-> p# (~j1 (keywords-to-strings labels#)))))
+               ([t#] (~direction t# []))
+               ([t# labels#]
+                 (-> t# (~j1 (keywords-to-strings labels#)))))
              (defn ~short
                [& args#]
                (apply ~direction args#))
              (defn ~f1
-               ([p#] (~f1 p# []))
-               ([p# labels#]
-                  (-> p# (~j2 (keywords-to-strings labels#)))))
+               ([t#] (~f1 t# []))
+               ([t# labels#]
+                  (-> t# (~j2 (keywords-to-strings labels#)))))
              (defn ~shortE
                [& args#]
                (apply ~f1 args#))
-             (defn ~name1 [p#]
-               (-> p# (~j3)))))))
+             (defn ~name1 [t#]
+               (-> t# (~j3)))))))
 
 ;; clojurewerkz.ogre.util
 (po/import-macro util/query)
 (po/import-macro util/subquery)
-;(po/import-macro util/bare-pipe)
 
 ;; clojurewerkz.ogre.branch
 ;(po/import-fn branch/copy-split)
@@ -182,25 +181,25 @@
 ;(po/import-fn map/select)
 ;(po/import-fn map/select-only)
 
-;; clojurewerkz.ogre.pipe
-;; TODO break this into pipe and executors
-(po/import-fn pipe/back-to)
-(po/import-fn pipe/next!)
-(po/import-fn pipe/iterate!)
-(po/import-fn pipe/prop)
+;; clojurewerkz.ogre.traversal
+;; TODO break this into traversal and executors
+(po/import-fn traversal/back-to)
+(po/import-fn traversal/next!)
+(po/import-fn traversal/iterate!)
+(po/import-fn traversal/prop)
 
-(po/import-fn pipe/into-lazy-seq!)
-(po/import-fn pipe/into-list!)
-(po/import-fn pipe/into-vec!)
-(po/import-fn pipe/into-set!)
-(po/import-fn pipe/first-of!)
-(po/import-fn pipe/first-into-vec!)
-(po/import-fn pipe/first-into-set!)
-(po/import-fn pipe/first-into-map!)
-(po/import-fn pipe/all-into-vecs!)
-(po/import-fn pipe/all-into-sets!)
-(po/import-fn pipe/all-into-maps!)
-(po/import-fn pipe/count!)
+(po/import-fn traversal/into-lazy-seq!)
+(po/import-fn traversal/into-list!)
+(po/import-fn traversal/into-vec!)
+(po/import-fn traversal/into-set!)
+(po/import-fn traversal/first-of!)
+(po/import-fn traversal/first-into-vec!)
+(po/import-fn traversal/first-into-set!)
+(po/import-fn traversal/first-into-map!)
+(po/import-fn traversal/all-into-vecs!)
+(po/import-fn traversal/all-into-sets!)
+(po/import-fn traversal/all-into-maps!)
+(po/import-fn traversal/count!)
 
 ;; clojurewerkz.ogre.reduce
 (po/import-fn reduce/fold)

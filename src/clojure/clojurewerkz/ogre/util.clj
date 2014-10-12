@@ -4,14 +4,6 @@
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
            (com.tinkerpop.gremlin.structure Compare)))
 
-;;TODO bring over the one test from the lazy branch
-(defmacro bare-pipe
-  [& body]
-  `(reduce #(%2 %1) (GraphTraversal.) (-> [] ~@body)))
-
-
-;(defmacro defpipe [name & body]
-;  `(def ~name (blank-pipe ~@body)))
 
 (defmacro query [xs & body]
   `(-> ~xs ~@body))
@@ -19,9 +11,7 @@
 (defmacro subquery
   ""
   [& body]
-  `(fn [p#]
-     (-> p#
-       ~@body)))
+  `(-> ~@body))
 
 (defn ^Compare convert-symbol-to-compare [s]
   (case s
@@ -40,23 +30,6 @@
     (filter identity)
     (map name)
     str-array))
-
-;(defn ^PipeFunction f-to-pipef [f]
-;  (reify PipeFunction
-;    (compute [this arg] (f arg))))
-
-;(defn ^"[Lcom.tinkerpop.pipes.Pipe;" pipe-array
-;  [ps]
-;  (into-array Pipe ps))
-
-;(defn ^"[Lcom.tinkerpop.pipes.PipeFunction;" fs-to-pipef-array
-;  [fs]
-;  (into-array PipeFunction (map f-to-pipef fs)))
-
-(defn compile-query
-  ^GraphTraversal
-  [[xs & fs]]
-  (reduce #(%2 %1) xs fs))
 
 (defn keywords-to-str-array [strs]
   (into-array String (map name strs)))

@@ -4,23 +4,23 @@
   (:require [clojurewerkz.ogre.util :refer (convert-symbol-to-compare)]))
 
 (defn dedup
-  ([p]
-    (.dedup p))
-  ([p f]
-    (.dedup p f)))
+  ([t]
+    (.dedup t))
+  ([t f]
+    (.dedup t f)))
 
 (defmacro has
-  ([p k]
-    `(.has ~p ~(name k)))
-  ([p k v]
-    `(.has ~p ~(name k) ~v))
-  ([p k c v]
-    `(.has ~p ~(name k) (convert-symbol-to-compare '~c) ~v)))
+  ([t k]
+    `(.has ~t ~(name k)))
+  ([t k v]
+    `(.has ~t ~(name k) ~v))
+  ([t k c v]
+    `(.has ~t ~(name k) (convert-symbol-to-compare '~c) ~v)))
 
 (defmacro has-not
-  ([p k]
-    `(.hasNot ~p ~(name k))))
+  ([t k]
+    `(.hasNot ~t ~(name k))))
 
 (defn interval
-  [p key start end]
-  (.interval ^GraphTraversal p ^String (name key) ^Float (float start) ^Float (float end)))
+  [t key start end]
+  (.interval ^GraphTraversal t ^String (name key) ^Float (float start) ^Float (float end)))

@@ -1,4 +1,4 @@
-(ns clojurewerkz.ogre.pipe
+(ns clojurewerkz.ogre.traversal
   (:refer-clojure :exclude [iterate])
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
            (com.tinkerpop.gremlin.structure Vertex)
@@ -12,16 +12,13 @@
 
 (defn iterate!
   [t]
-  (.iterate ^GraphTraversal (compile-query t)))
+  (.iterate ^GraphTraversal t))
 
 (defn next!
   ([t]
    (.next ^GraphTraversal t))
   ([t i]
-   (.next ^GraphTraversal (compile-query t) i)))
-
-;; (defn step [^GremlinPipeline p e]
-;;   (.step p e))
+   (.next ^GraphTraversal t i)))
 
 (defmacro ^{:private true}
   to-java-list!
@@ -46,7 +43,7 @@
         f (fn [_] (first (.next traversal 1)))]
     (clojure.core/iterate f (f nil))))
 
-;;Inspiried by gather, these take the first element in the object
+;;Inspired by gather, these take the first element in the object
 ;;returned and convert it to something useful for clojure.
 (defmulti convert-to-map class)
 
@@ -90,6 +87,7 @@
 (defn count!
   [t]
   (next! (.count ^GraphTraversal t)))
+
 ;; Reversed property accessors
 
 (defn prop

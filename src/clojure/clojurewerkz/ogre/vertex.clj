@@ -6,18 +6,18 @@
   (:require [clojurewerkz.ogre.graph :refer (*element-id-key*)]
             [clojurewerkz.ogre.util :refer (keywords-to-str-array prop-map-to-array)]
             [clojurewerkz.ogre.conversion :refer (to-edge-direction)]
-            [clojurewerkz.ogre.element :as ele]
-            [clojurewerkz.ogre.pipe :as p]
+            [clojurewerkz.ogre.element :as elem]
+            [clojurewerkz.ogre.traversal :as t]
             [potemkin :as po]))
 
-(po/import-fn ele/mget)
-(po/import-fn ele/get)
-(po/import-fn ele/keys)
-(po/import-fn ele/vals)
-(po/import-fn ele/id-of)
-(po/import-fn ele/assoc!)
-(po/import-fn ele/dissoc!)
-(po/import-fn ele/clear!)
+(po/import-fn elem/mget)
+(po/import-fn elem/get)
+(po/import-fn elem/keys)
+(po/import-fn elem/vals)
+(po/import-fn elem/id-of)
+(po/import-fn elem/assoc!)
+(po/import-fn elem/dissoc!)
+(po/import-fn elem/clear!)
 
 
 ;;
@@ -132,7 +132,7 @@
    value pair to have the new properties specifiied by the map. Always
    returns the set of vertices that were just updated or created."
   [g k m]
-  (let [vertices (p/into-set! (find-by-kv g (name k) (k m)))]
+  (let [vertices (t/into-set! (find-by-kv g (name k) (k m)))]
     (if (empty? vertices)
       (set [(create! g m)])
       (do
@@ -157,7 +157,7 @@
    value pair to have the new properties specifiied by the map. Always
    returns the set of vertices that were just updated or created."
   [g id k m]
-  (let [vertices (p/into-set! (find-by-kv g (name k) (k m)))]
+  (let [vertices (t/into-set! (find-by-kv g (name k) (k m)))]
     (if (empty? vertices)
       (set [(create-with-id! g id m)])
       (do
