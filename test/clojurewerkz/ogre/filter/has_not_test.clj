@@ -9,22 +9,7 @@
   (testing "test_g_V_hasNotXname_markoX"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
-                      (q/has-not :name "marko")
+                      (q/has-not :age)
                       (q/into-vec!))]
-      (is (= 5 (count vs)))
-      (is (not (#{"marko"} (u/get-names vs))))))
-
-  (testing "test_g_V_hasNotXname_blahX"
-    (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
-                      (q/has-not :name "blah")
-                      (q/into-vec!))]
-      (is (= 6 (count vs)))
-      (is (not (#{"blah"} (u/get-names vs))))))
-
-  (testing "test_g_V_hasNotXblah_nullX"
-    (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
-                      (q/has-not :blah nil)
-                      (q/into-vec!))]
-      (is (= 0 (count vs))))))
+      (is (= 2 (count vs)))
+      (is (= (#{"lop" "ripple"} (u/get-names vs)))))))
