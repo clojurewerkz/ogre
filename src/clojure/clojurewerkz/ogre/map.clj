@@ -18,7 +18,3 @@
     (select-only t cols identity))
   ([t ^java.util.Collection cols & fs]
     (.select ^GraphTraversal t cols (into-array fs))))
-
-;; (defn memoize
-;;   ([is] (.memoize is))
-;;   ([is m] (.memoize is m)))
