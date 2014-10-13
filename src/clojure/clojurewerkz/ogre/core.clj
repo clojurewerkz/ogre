@@ -3,7 +3,6 @@
   (:refer-clojure :exclude [filter and or range count memoize iterate next map loop reverse])
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util :refer [keywords-to-strings]]
-            ;[clojurewerkz.ogre.branch :as branch]
             [clojurewerkz.ogre.filter :as filter]
             ;[clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.traversal :as traversal]
@@ -17,11 +16,7 @@
 ;;looks like whenever the args aren't all clojure types reflection
 ;;fails. No idea why.
 (def simple-methods
-  [;["exhaustMerge" "TODO: Write doc string"]
-
-   ;["fairMerge" "TODO: Write doc string"]
-
-   ["identity"
+  [["identity"
     "Turns an arbitrary object into a traversal."]
 
    ["id"
@@ -158,11 +153,6 @@
 ;; clojurewerkz.ogre.util
 (po/import-macro util/query)
 (po/import-macro util/subquery)
-
-;; clojurewerkz.ogre.branch
-;(po/import-fn branch/copy-split)
-;(po/import-fn branch/loop)
-;(po/import-fn branch/loop-to)
 
 ;; clojurewerkz.ogre.filter
 (po/import-fn filter/dedup)
