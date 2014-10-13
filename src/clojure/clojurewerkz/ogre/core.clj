@@ -125,7 +125,7 @@
                               clojure.lang.ArraySeq `(into-array ~sym)
                               sym))
                           arguments)
-        p (gensym "traversal")]
+        t (gensym "traversal")]
     `(defn ~fcall ~doc
        ([~t ~@pre-args] (~method ^GraphTraversal ~t ~@transformed-args)))))
 
