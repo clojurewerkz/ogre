@@ -6,7 +6,7 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-has-not-step
-  (testing "test_g_V_hasNotXname_markoX"
+  (testing "test_g_V_hasNotXageX"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/has-not :age)

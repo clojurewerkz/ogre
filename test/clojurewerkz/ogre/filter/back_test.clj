@@ -8,7 +8,7 @@
 (deftest test-transform-step
   (testing "test_g_v1_out_backX1X"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g 1)
+          vs (q/query (v/find-by-id g (int 1))
                       q/-->
                       (q/back 1)
                       q/into-vec!)]
@@ -17,7 +17,7 @@
 
   (testing "test_g_v1_asXhereX_out_backXhereX()"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g 1)
+          vs (q/query (v/find-by-id g (int 1))
                       (q/as "here")
                       q/-->
                       (q/back-to "here")
@@ -27,7 +27,7 @@
 
   (testing "test_g_v4_out_filterXlang_eq_javaX_backX1X"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g 4)
+          vs (q/query (v/find-by-id g (int 4))
                       q/-->
                       (q/filter #(= "java" (v/get % :lang)))
                       (q/back 1)
@@ -37,7 +37,7 @@
 
   (testing "test_g_v4_out_asXhereX_filterXlang_eq_javaX_backXhereX()"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g 4)
+          vs (q/query (v/find-by-id g (int 4))
                       q/-->
                       (q/as "here")
                       (q/filter #(= "java" (v/get % :lang)))
@@ -48,7 +48,7 @@
 
   (testing "test_g_v4_out_asXhereX_filterXlang_eq_javaX_backXhereX_propertyXnameX"
     (let [g (u/classic-tinkergraph)
-          names (q/query (v/find-by-id g 4)
+          names (q/query (v/find-by-id g (int 4))
                          q/-->
                          (q/as "here")
                          (q/filter #(= "java" (v/get % :lang)))
