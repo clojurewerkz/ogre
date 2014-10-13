@@ -17,9 +17,9 @@
   ([t k c v]
     `(.has ~t ~(name k) (convert-symbol-to-compare '~c) ~v)))
 
-(defmacro has-not
+(defn has-not
   ([t k]
-    `(.hasNot ~t ~(name k))))
+    (.hasNot t (name k))))
 
 (defn interval
   [t key start end]

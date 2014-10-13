@@ -152,7 +152,7 @@
 ;; clojurewerkz.ogre.filter
 (po/import-fn filter/dedup)
 (po/import-macro filter/has)
-(po/import-macro filter/has-not)
+(po/import-fn filter/has-not)
 (po/import-fn filter/interval)
 
 ;; clojurewerkz.ogre.map
