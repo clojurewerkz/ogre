@@ -22,6 +22,6 @@
                          (q/--> [:created])
                          (q/<-- [:created])
                          (q/except [(v/find-by-id g 1)])
-                         (q/property :name)
+                         (q/values :name)
                          (q/into-set!))]
       (is (= #{"peter" "josh"} names)))))

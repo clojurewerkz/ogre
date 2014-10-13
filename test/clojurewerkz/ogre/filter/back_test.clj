@@ -53,7 +53,7 @@
                          (q/as "here")
                          (q/filter #(= "java" (v/get % :lang)))
                          (q/back-to "here")
-                         (q/property :name)
+                         (q/values :name)
                          q/into-set!)]
       (is (= #{"ripple" "lop"} names))
       (is (= 2 (count names))))))

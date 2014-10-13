@@ -12,7 +12,7 @@
           table (q/query elem
                          (q/as "a")
                          q/-->
-                         (q/property :name)
+                         (q/values :name)
                          (q/as "b")
                          q/get-table!)]
       (is (= #{{:a elem :b "josh"}
@@ -39,7 +39,7 @@
           table (q/query elem
                          (q/as "a")
                          q/-->
-                         (q/property :name)
+                         (q/values :name)
                          (q/as "b")
                          (q/get-table! #(v/get % :name)
                                       count))]

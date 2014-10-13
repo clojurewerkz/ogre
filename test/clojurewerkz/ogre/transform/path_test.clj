@@ -9,7 +9,7 @@
   (testing "g.getVertex(1).property('name').path"
     (let [g (u/classic-tinkergraph)
           path (q/query (v/find-by-id g 1)
-                        (q/property :name)
+                        (q/values :name)
                         q/path
                         q/first-into-vec!)]
       (is (= "marko" (v/get (first path) :name)))

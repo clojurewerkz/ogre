@@ -12,7 +12,7 @@
           vs (q/query (v/find-by-id g 1)
                       q/-->
                       (q/side-effect (fn [_] (swap! state conj nil)))
-                      (q/property :name)
+                      (q/values :name)
                       q/into-lazy-seq!)]
       (is (= 1 (count @state)))
       (do (first vs))
@@ -31,8 +31,8 @@
                       q/-->
                       (q/side-effect (fn [v]
                                        (swap! state conj
-                                              (.getProperty v "name"))))
-                      (q/property :name))
+                                              (.value v "name"))))
+                      (q/values :name))
           v1 (q/into-lazy-seq! vs)
           v2 (q/into-lazy-seq! vs)]
       ;;The following tests show that somehow the lazy lists are

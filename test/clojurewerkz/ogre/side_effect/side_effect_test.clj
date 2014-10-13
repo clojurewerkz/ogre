@@ -12,7 +12,7 @@
           elem (v/find-by-id g 1)
           names (q/query elem
                       (q/side-effect (partial swap! lst conj))
-                      (q/property :name)
+                      (q/values :name)
                       q/into-vec!)]
       (is (= elem (first @lst)))
       (is (= "marko" (first names)))))
@@ -24,7 +24,7 @@
           names (q/query elem
                       q/-->
                       (q/side-effect (partial swap! lst conj))
-                      (q/property :name)
+                      (q/values :name)
                       q/into-vec!)]
       (is (= 3 (count @lst)))
       (is (= #{"josh" "lop" "vadas"} (set names))))))

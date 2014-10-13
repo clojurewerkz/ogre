@@ -11,7 +11,7 @@
           names (q/query (v/get-all-vertices g)
                          q/<->
                          q/dedup
-                         (q/property :name)
+                         (q/values :name)
                          (q/into-vec!))]
       (is (= (sort ["marko" "josh" "peter" "vadas" "lop" "ripple"]) (sort names)))))
 
@@ -20,7 +20,7 @@
           names (q/query (v/get-all-vertices g)
                          q/<->
                          (q/dedup #(v/get % :lang))
-                         (q/property :name)
+                         (q/values :name)
                          (q/into-vec!))]
       (is (= 2 (count names)))
       (is (some #{"marko" "josh" "peter" "vadas"} names))
