@@ -89,7 +89,7 @@
 
 ;; Reversed property accessors
 
-(defn prop
+(defn property
   [k]
   (fn [^Vertex v]
     (-> v (.property (name k)) (.value))))
