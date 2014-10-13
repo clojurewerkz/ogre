@@ -56,12 +56,6 @@
     but not necessarily changing the traversal elements."
     clojure.lang.IFn]
 
-   ;["ifThenElse"
-   ; "Given three functions, if the first function is true, the result
-   ; of the second function is returned, otherwise the result of the
-   ; third function is returned."
-   ; clojure.lang.IFn clojure.lang.IFn clojure.lang.IFn]
-
    ["filter"
     "Filters out elements in the traversal according to the given
     predicate function."
