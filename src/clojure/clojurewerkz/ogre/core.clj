@@ -170,7 +170,7 @@
 (po/import-fn traversal/back-to)
 (po/import-fn traversal/next!)
 (po/import-fn traversal/iterate!)
-(po/import-fn traversal/prop)
+(po/import-fn traversal/property)
 
 (po/import-fn traversal/into-lazy-seq!)
 (po/import-fn traversal/into-list!)
