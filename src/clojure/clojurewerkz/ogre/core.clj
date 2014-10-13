@@ -4,7 +4,7 @@
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util :refer [keywords-to-strings]]
             [clojurewerkz.ogre.filter :as filter]
-            ;[clojurewerkz.ogre.map :as map]
+            [clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.traversal :as traversal]
             [clojurewerkz.ogre.reduce :as reduce]
             ;[clojurewerkz.ogre.side-effect :as side-effect]
@@ -60,11 +60,6 @@
    ; "Maps the given function over the elements in the traversal and
    ; returns the results."
    ; clojure.lang.IFn]
-
-   ;["property"
-   ; "Given a keyword or string, returns the corresponding property for
-   ; each element in the traversal."
-   ; clojure.lang.Keyword]
 
    ["except"
     "Filters out all of elements that are in the given collection."
@@ -161,16 +156,17 @@
 (po/import-fn filter/interval)
 
 ;; clojurewerkz.ogre.map
-;(po/import-fn map/map)
-;(po/import-fn map/select)
-;(po/import-fn map/select-only)
+(po/import-fn map/map)
+(po/import-fn map/select)
+(po/import-fn map/select-only)
+(po/import-fn map/properties)
+(po/import-fn map/values)
 
 ;; clojurewerkz.ogre.traversal
 ;; TODO break this into traversal and executors
 (po/import-fn traversal/back-to)
 (po/import-fn traversal/next!)
 (po/import-fn traversal/iterate!)
-(po/import-fn traversal/property)
 
 (po/import-fn traversal/into-lazy-seq!)
 (po/import-fn traversal/into-list!)

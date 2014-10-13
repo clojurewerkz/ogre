@@ -49,13 +49,13 @@
                       first)
           r2 (q/query hercules
                       (q/--> [:father :mother])
-                      (q/property :name)
+                      (q/values :name)
                       (q/into-set!))
           r3 (q/query hercules
                       (q/-E> [:battled])
                       (q/has  :times > 1)
                       (q/in-vertex)
-                      (q/property :name)
+                      (q/values :name)
                       (q/into-set!))
           c3 (q/query hercules
                       (q/-E> [:battled])
@@ -66,21 +66,11 @@
                       (q/--> [:lives])
                       (q/<-- [:lives])
                       (q/except [pluto])
-                      (q/property :name)
-                      (q/into-set!))
-          r5 (q/query pluto
-                      (q/--> [:brother])
-                      (q/as  "god")
-                      (q/--> [:lives])
-                      (q/as  "place")
-                      (q/select #(v/get % :name))
-                      (q/all-into-maps!))]
+                      (q/values :name)
+                      (q/into-set!))]
       (is (= r0 1))
       (is (= r1 hercules))
       (is (= r2 #{"Alcmene" "Jupiter"}))
       (is (= r3 #{"Cerberus" "Hydra"}))
       (is (= c3 2))
-      (is (= r4 #{"Cerberus"}))
-      (is (= (sort-by :god r5)
-             (sort-by :god '({:god "Neptune" :place "Sea"}
-                     {:god "Jupiter" :place "Sky"})))))))
+      (is (= r4 #{"Cerberus"})))))

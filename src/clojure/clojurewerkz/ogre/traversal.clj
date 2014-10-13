@@ -86,10 +86,3 @@
 (defn count!
   [t]
   (next! (.count ^GraphTraversal t)))
-
-;; Reversed property accessors
-
-(defn property
-  [k]
-  (fn [^Vertex v]
-    (-> v (.property (name k)) (.value))))
