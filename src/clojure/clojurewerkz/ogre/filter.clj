@@ -22,5 +22,5 @@
     (.hasNot t (name k))))
 
 (defn interval
-  [t key start end]
-  (.interval ^GraphTraversal t ^String (name key) ^Float (float start) ^Float (float end)))
+  [t key ^Comparable start ^Comparable end]
+  (.interval ^GraphTraversal t ^String (name key) start end))
