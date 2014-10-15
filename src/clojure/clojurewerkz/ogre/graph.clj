@@ -15,16 +15,15 @@
   [new-id]
   (alter-var-root (var *edge-label-key*) (constantly new-id)))
 
-(defn get-features
-  "Get a map of features for a graph.
-  (http://www.tinkerpop.com/javadocs/3.0.0.M3/com/tinkerpop/gremlin/structure/Graph.Features.html)"
+(defn get-graph-features
+  "Get a map of graph features for the given graph."
   [g]
-  (.. ^Graph g features toMap))
+  (-> g (.features) (.graph)))
 
-(defn get-feature
-  "Gets the value of the feature for a graph."
-  [g s]
-  (get ^java.util.Map (get-features g) s))
+(defn supports-transactions
+  "Returns a value indicating if transactions are supported for the given graph."
+  [g]
+  (.supportsTransactions (get-graph-features g)))
 
 ;;TODO Transactions need to be much more fine grain in terms of
 ;;control. And expections as well. new-transaction will only work on a
@@ -37,21 +36,21 @@
 (defn commit
   "Commit all changes to the graph."
   [g]
-  (.. ^Graph g tx commit))
+  (-> g (.tx) (.commit)))
 
 (defn close
   "Close the graph."
   [g]
-  (.close ^Graph g))
+  (.close g))
 
 (defn rollback
   "Stops the current transaction and rolls back any changes made."
   [g]
-  (.. ^Graph g tx rollback))
+  (-> g (.tx) (.rollback)))
 
 (defn with-transaction*
   [graph f & {:keys [threaded? rollback?]}]
-  {:pre [(get-feature graph "supportsTransactions")]}
+  {:pre [(supports-transactions graph)]}
   (let [tx (if threaded? (new-transaction graph) graph)]
     (try
       (let [result (f tx)]
