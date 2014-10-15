@@ -6,30 +6,27 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-map-step
-  (testing "g(v1).map"
-    (let [g (u/classic-tinkergraph)
-          m (q/query (v/find-by-id g 1)
-                     q/map
-                     q/first-into-map!)]
-      (is (= "marko" (:name m)))
-      (is (= 29 (:age m)))
-      (is (= 2 (count m)))))
-  (testing "g(v1).map('name' 'id')"
-    (let [g (u/classic-tinkergraph)
-          m (q/query (v/find-by-id g 1)
-                     (q/map :name :id)
-                     q/first-into-map!)]
-      (is (= "marko" (:name m)))
-      (is (= nil (:age m)))
-      (is (= 2 (count m)))))
-  (testing "g(v1).out('knows').map()"
-    (let [g (u/classic-tinkergraph)
-          ms (q/query (v/find-by-id g 1)
-                      (q/--> [:knows])
-                      q/map
-                      q/all-into-maps!)
-          vadas (first (filter #(= "vadas" (:name %)) ms))
-          josh  (first (filter #(= "josh" (:name %)) ms))]
-      (is (= 27 (:age vadas)))
-      (is (= 32 (:age josh)))
-      (is (= 2 (count ms))))))
+  (testing "test_g_v1_mapXnameX()"
+    (let [name (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
+                        (q/map #(v/get (.get %) :name))
+                        q/first-of!)]
+      (is (= "marko" name))))
+  (testing "test_g_v1_outE_label_mapXlengthX()"
+    (let [names (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
+                         q/-E>
+                         q/label
+                         (q/map #(count (.get %)))
+                         q/into-vec!)]
+      (is (= (set (map count ["knows" "created"]))
+             (set names)))
+      (is (= 3 (count names)))))
+
+  (testing "test_g_v1_outE_label_mapXlengthX()"
+    (let [names (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
+                         q/-->
+                         (q/map #(v/get (.get %) :name))
+                         (q/map #(count (.get %)))
+                         q/into-vec!)]
+      (is (= (set (map count ["josh" "vadas" "lop"]))
+             (set names)))
+      (is (= 3 (count names))))))

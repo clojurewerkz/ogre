@@ -4,12 +4,12 @@
   (:use clojurewerkz.ogre.util))
 
 (defn map
-  ([t & keys]
-    (.map ^GraphTraversal t (keywords-to-strings keys))))
+  ([t f]
+    (.map t (f-to-function f))))
 
 (defn select
   ([t]
-    (.select ^GraphTraversal t))
+    (.select t))
   ([t & labels]
     (.select t (java.util.ArrayList. labels) (into-array []))))
 
@@ -21,8 +21,8 @@
 
 (defn properties
   ([t & keys]
-    (.properties ^GraphTraversal t (keywords-to-strings keys))))
+    (.properties t (keywords-to-strings keys))))
 
 (defn values
   ([t & keys]
-    (.values ^GraphTraversal t (keywords-to-strings keys))))
+    (.values t (keywords-to-strings keys))))
