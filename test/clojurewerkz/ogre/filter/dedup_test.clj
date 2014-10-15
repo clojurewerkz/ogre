@@ -19,7 +19,7 @@
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
                          q/<->
-                         (q/dedup #(v/get % :lang))
+                         (q/dedup #(v/get (.get %) :lang))
                          (q/values :name)
                          (q/into-vec!))]
       (is (= 2 (count names)))

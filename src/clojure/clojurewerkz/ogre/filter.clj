@@ -1,13 +1,13 @@
 (ns clojurewerkz.ogre.filter
   (:refer-clojure :exclude [filter and or range])
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal))
-  (:require [clojurewerkz.ogre.util :refer (convert-symbol-to-compare)]))
+  (:require [clojurewerkz.ogre.util :refer (convert-symbol-to-compare f-to-function)]))
 
 (defn dedup
   ([t]
     (.dedup t))
   ([t f]
-    (.dedup t f)))
+    (.dedup t (f-to-function f))))
 
 (defmacro has
   ([t k]
@@ -23,4 +23,4 @@
 
 (defn interval
   [t key ^Comparable start ^Comparable end]
-  (.interval ^GraphTraversal t ^String (name key) start end))
+  (.interval t (name key) start end))
