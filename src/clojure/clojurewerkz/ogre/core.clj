@@ -2,7 +2,7 @@
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal))
   (:refer-clojure :exclude [filter and or range count iterate next map loop reverse])
   (:require [potemkin :as po]
-            [clojurewerkz.ogre.util :as util :refer [keywords-to-strings]]
+            [clojurewerkz.ogre.util :as util :refer [keywords-to-strings f-to-function]]
             [clojurewerkz.ogre.filter :as filter]
             [clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.traversal :as traversal]
@@ -45,11 +45,6 @@
     "Returns the objects from within the given range (inclusive) of
     indices for the traversal."
     Integer Integer] ;;;HERE
-
-   ["sideEffect"
-    "Maps a function across each element in the traversal,
-    but not necessarily changing the traversal elements."
-    clojure.lang.IFn]
 
    ["filter"
     "Filters out elements in the traversal according to the given
@@ -100,7 +95,7 @@
         (clojure.core/map (fn [sym]
                             (condp = (:tag (meta sym))
                               clojure.lang.Keyword `(name ~sym)
-                              clojure.lang.IFn `(~sym)
+                              clojure.lang.IFn `(f-to-function ~sym)
                               clojure.lang.ArraySeq `(into-array ~sym)
                               sym))
                           arguments)
@@ -181,5 +176,6 @@
 (po/import-fn reduce/order)
 
 ;; clojurewerkz.ogre.side-effect
+(po/import-fn side-effect/side-effect)
 (po/import-fn side-effect/get-grouped-by!)
 (po/import-fn side-effect/get-group-count!)

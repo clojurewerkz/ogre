@@ -3,7 +3,7 @@
   (:use [clojure.pprint :only (pprint)])
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
            (com.tinkerpop.gremlin.structure Compare)
-           (java.util.function Function)))
+           (java.util.function Function Consumer)))
 
 
 (defmacro query [xs & body]
@@ -46,3 +46,7 @@
 (defn ^Function f-to-function [f]
   (reify Function
     (apply [this arg] (f arg))))
+
+(defn ^Consumer f-to-consumer [f]
+  (reify Consumer
+    (accept [this arg] (f arg))))

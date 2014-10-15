@@ -1,9 +1,7 @@
 (ns clojurewerkz.ogre.traversal
   (:refer-clojure :exclude [iterate])
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
-           (com.tinkerpop.gremlin.structure Vertex)
-           ;(com.tinkerpop.pipes.util.structures Row)
-           )
+           (com.tinkerpop.gremlin.structure Vertex))
   (:use clojurewerkz.ogre.util))
 
 (defn back-to
@@ -49,11 +47,6 @@
 (defmethod convert-to-map java.util.HashMap
   [m]
   (into {} (for [[k v] m] [(keyword k) v])))
-
-;(defmethod convert-to-map Row
-;  [^Row m]
-;  (into {} (for [^String k (.getColumnNames m)]
-;             [(keyword k) (.getColumn m k)])))
 
 (defn first-of!
   [t]
