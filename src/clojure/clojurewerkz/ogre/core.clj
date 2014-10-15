@@ -7,7 +7,7 @@
             [clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.traversal :as traversal]
             [clojurewerkz.ogre.reduce :as reduce]
-            ;[clojurewerkz.ogre.side-effect :as side-effect]
+            [clojurewerkz.ogre.side-effect :as side-effect]
             [clojure.string :as string]))
 
 ;;Define functions for the simple methods.
@@ -184,5 +184,5 @@
 ;; clojurewerkz.ogre.side-effect
 ;(po/import-fn side-effect/get-table!)
 ;(po/import-fn side-effect/get-tree!)
-;(po/import-fn side-effect/get-grouped-by!)
-;(po/import-fn side-effect/get-group-count!)
+(po/import-fn side-effect/get-grouped-by!)
+(po/import-fn side-effect/get-group-count!)

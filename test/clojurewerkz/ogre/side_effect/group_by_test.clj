@@ -9,8 +9,8 @@
   (testing "test_g_V_groupByXlang_nameX"
     (let [g (u/classic-tinkergraph)
           grouped (q/query (v/get-all-vertices g)
-                           (q/get-grouped-by! #(v/get % :lang)
-                                             #(v/get % :name)))]
+                           (q/get-grouped-by! (fn [traverser] (v/get (.get traverser) :lang))
+                                              (fn [traverser] (v/get (.get traverser) :name))))]
       (is (= (set (grouped nil))
              (set ["vadas" "marko" "peter" "josh"])))
       (is (= (set (grouped "java"))

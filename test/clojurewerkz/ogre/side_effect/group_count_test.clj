@@ -10,12 +10,5 @@
     (let [g (u/classic-tinkergraph)
           group (q/query (v/get-all-vertices g)
                          (q/--> [:created])
-                         (q/get-group-count! #(v/get % :name)))]
-      (is (= group {"lop" 3 "ripple" 1}))))
-  (testing "test_g_V_outXcreatedX_groupCountXm__name__plus_2X"
-    (let [g (u/classic-tinkergraph)
-          group (q/query (v/get-all-vertices g)
-                         (q/--> [:created])
-                         (q/get-group-count! #(v/get % :name)
-                                            (fn [a b] (+ 2 b))))]
-      (is (= group {"lop" 6 "ripple" 2})))))
+                         (q/get-group-count! #(v/get (.get %) :name)))]
+      (is (= group {"lop" 3 "ripple" 1})))))
