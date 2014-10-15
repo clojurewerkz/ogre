@@ -178,11 +178,8 @@
 
 ;; clojurewerkz.ogre.reduce
 (po/import-fn reduce/fold)
-;(po/import-fn reduce/order)
-;(po/import-fn reduce/reverse)
+(po/import-fn reduce/order)
 
 ;; clojurewerkz.ogre.side-effect
-;(po/import-fn side-effect/get-table!)
-;(po/import-fn side-effect/get-tree!)
 (po/import-fn side-effect/get-grouped-by!)
 (po/import-fn side-effect/get-group-count!)

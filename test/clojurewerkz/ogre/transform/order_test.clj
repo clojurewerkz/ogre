@@ -1,5 +1,6 @@
 (ns clojurewerkz.ogre.transform.order-test
   (:use [clojure.test])
+  (:import (com.tinkerpop.gremlin.structure Order))
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.graph :as g]
@@ -25,8 +26,8 @@
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
                          (q/order (fn [a b]
-                                    (compare (v/get a :name)
-                                             (v/get b :name))))
+                                    (compare (v/get (.get a) :name)
+                                             (v/get (.get b) :name))))
                          (q/values :name)
                          q/into-vec!)]
       (is (= (sort ["vadas" "ripple" "peter" "marko" "lop" "josh"]) (sort names)))))
@@ -35,6 +36,6 @@
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
                          (q/values :name)
-                         q/reverse
+                         (q/order Order/decr)
                          q/into-vec!)]
       (is (= ["vadas""ripple""peter" "marko" "lop" "josh"] names)))))
