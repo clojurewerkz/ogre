@@ -30,8 +30,6 @@
    ["simplePath"
     "Emits the object only if the current path has no repeated elements."]
 
-   ;["enablePath" "TODO: Write doc string"]
-
    ["cap"
     "Gets the side-effect of the prior traversal. In other words, it emits the value of the
      previous step and not the values that flow through it."]
@@ -72,10 +70,6 @@
    ["back"
     "Return to the results of the given step." ;;HERE
     Integer]
-
-   ;"optional"
-   ; "Returns the results of the current step and the given named step."
-   ; String]
    ])
 
 (defn function-template [[f doc & args]]

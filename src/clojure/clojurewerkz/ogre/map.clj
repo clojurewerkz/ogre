@@ -9,15 +9,15 @@
 
 (defn select
   ([t]
-    (.select t))
-  ([t & labels]
-    (.select t (java.util.ArrayList. labels) (into-array []))))
+    (select t [#(identity %)]))
+  ([t f]
+    (.select t (fs-to-function-array f))))
 
 (defn select-only
   ([t cols]
     (select-only t cols identity))
   ([t ^java.util.Collection cols & fs]
-    (.select ^GraphTraversal t cols (into-array fs))))
+    (.select t cols (fs-to-function-array fs))))
 
 (defn properties
   ([t & keys]

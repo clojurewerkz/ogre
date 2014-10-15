@@ -47,6 +47,10 @@
   (reify Function
     (apply [this arg] (f arg))))
 
+(defn ^"[Ljava.util.function.Function;" fs-to-function-array
+  [fs]
+  (into-array ^Function (map f-to-function fs)))
+
 (defn ^Consumer f-to-consumer [f]
   (reify Consumer
     (accept [this arg] (f arg))))
