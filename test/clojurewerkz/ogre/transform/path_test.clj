@@ -23,18 +23,4 @@
                          #(v/get % :age)
                          #(v/get % :name))
                         q/all-into-vecs!)]
-      (is (= (sort path) (sort [[29 "vadas"] [29 "josh"] [29 "lop"]])))))
-
-  (testing "g.V.out.loop(1,loops_lt_3)X_path{it.name,it.lang}"
-    (let [g (u/classic-tinkergraph)
-          path (q/query (v/get-all-vertices g)
-                        q/-->
-                        (q/loop 1 (fn [i o p] (< i 3)))
-                        (q/path identity
-                                #(v/get % :name)
-                                #(v/get % :lang))
-                        q/all-into-vecs!)
-          age  (map first path)
-          names  (map second path)]
-      (is (= 3 (count (first path))))
-      (is (= (rest (first path)) '("josh" "java"))))))
+      (is (= (sort path) (sort [[29 "vadas"] [29 "josh"] [29 "lop"]]))))))
