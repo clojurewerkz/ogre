@@ -56,11 +56,6 @@
     predicate function."
     clojure.lang.IFn]
 
-   ;["transform"
-   ; "Maps the given function over the elements in the traversal and
-   ; returns the results."
-   ; clojure.lang.IFn]
-
    ["except"
     "Filters out all of elements that are in the given collection."
     java.util.Collection] ;;Here
