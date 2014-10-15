@@ -2,7 +2,8 @@
   (:require [clojure.reflect :as r])
   (:use [clojure.pprint :only (pprint)])
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
-           (com.tinkerpop.gremlin.structure Compare)))
+           (com.tinkerpop.gremlin.structure Compare)
+           (java.util.function Function)))
 
 
 (defmacro query [xs & body]
@@ -41,3 +42,7 @@
         (map #(let [key (first %)
                     value (second %)]
             (vector (if (keyword? key) (name key) key) value)) m)))))
+
+(defn ^Function f-to-function [f]
+  (reify Function
+    (apply [this arg] (f arg))))
