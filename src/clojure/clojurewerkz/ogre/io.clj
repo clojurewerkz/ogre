@@ -7,12 +7,12 @@
 (defn- read-graph-with-reader
   [reader g string-or-file]
   (let [in-stream (io/input-stream string-or-file)]
-    (reader g in-stream)))
+    (reader in-stream g)))
 
 (defn- write-graph-with-writer
   [writer g string-or-file]
   (let [out-stream (io/output-stream string-or-file)]
-    (writer g out-stream)))
+    (writer out-stream g)))
 
 (defn- set-if-present
   [builder arg setter]
@@ -64,5 +64,5 @@
       (set-if-present custom-module (memfn customModule))
       (set-if-present load-custom-modules (memfn loadCustomModule))
       (set-if-present embed-types (memfn embedTypes))
-      (.create)))
-(def write-graph-graphson (partial write-graph-with-writer #(.writeGraph (make-graphson-writer) %1 %2))))
+      (.create))))
+(def write-graph-graphson (partial write-graph-with-writer #(.writeGraph (make-graphson-writer) %1 %2)))

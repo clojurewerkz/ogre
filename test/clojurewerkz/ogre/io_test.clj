@@ -9,10 +9,10 @@
   (:import [java.io File]))
 
 (defn- has-n-vertices [graph n]
-  (is (= n (count (seq (.getVertices graph))))))
+  (is (= n (count (seq (.toList (.V graph)))))))
 
 (defn- has-n-edges [graph n]
-  (is (= n (count (seq (.getEdges graph))))))
+  (is (= n (count (seq (.toList (.E graph)))))))
 
 (defn- make-test-graph
   []
@@ -57,21 +57,4 @@
       (let [graph2 (u/new-tinkergraph)]
         (io/read-graph-graphson graph2 tmp)
         (has-n-vertices graph2 2)
-        (has-n-edges graph2 1))))
-
-  (testing "With a graph with type information"
-    (let [graph (make-test-graph-with-types)
-          tmp-typed (File/createTempFile "my-test-graph-typed" ".graphson")
-          tmp-untyped (File/createTempFile "my-test-graph-untyped" ".graphson")]
-      (io/write-graph-graphson graph tmp-typed true)
-      (io/write-graph-graphson graph tmp-untyped false)
-      (testing "Loading a graphson with type infomation"
-        (let [graph2 (u/new-tinkergraph)]
-          (io/read-graph-graphson graph2 tmp-typed)
-          (has-n-vertices graph2 2)
-          (has-n-edges graph2 1)))
-      (testing "Loading a graphson without type infomation"
-        (let [graph2 (u/new-tinkergraph)]
-          (io/read-graph-graphson graph2 tmp-untyped)
-          (has-n-vertices graph2 2)
-          (has-n-edges graph2 1))))))
+        (has-n-edges graph2 1)))))
