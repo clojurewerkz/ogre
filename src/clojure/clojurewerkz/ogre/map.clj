@@ -9,8 +9,8 @@
 
 (defn select
   ([t]
-    (select t [#(identity %)]))
-  ([t f]
+    (select t #(identity %)))
+  ([t & f]
     (.select t (fs-to-function-array f))))
 
 (defn select-only

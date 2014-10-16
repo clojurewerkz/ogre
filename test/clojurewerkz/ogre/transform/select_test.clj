@@ -26,7 +26,7 @@
                              (q/as "a")
                              (q/--> [:knows])
                              (q/as "b")
-                             (q/select [#(v/get % :name)])
+                             (q/select #(v/get % :name))
                              q/all-into-vecs!)]
       (is (= #{"marko"} (set (map val (map first selection)))))
       (is (= #{"josh" "vadas"} (set (map val (map second selection)))))
