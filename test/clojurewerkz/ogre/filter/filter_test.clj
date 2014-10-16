@@ -30,10 +30,10 @@
 
   (testing "test_g_v1_out_filterXage_gt_30X"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g 1)
+          vs (q/query (v/find-by-id g (int 1))
                       (q/-->)
                       (q/filter (fn [v]
-                                  (let [age (v/get v :age)]
+                                  (let [age (v/get (.get v) :age)]
                                     (and (not (nil? age)) (> age 30)))))
                       (q/into-vec!))]
       (is (= 1 (count vs)))
@@ -43,7 +43,7 @@
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/filter #(->> %
-                                    (v/get % :name)
+                                    (v/get (.get %) :name)
                                     first
                                     #{\m \p}
                                     boolean))

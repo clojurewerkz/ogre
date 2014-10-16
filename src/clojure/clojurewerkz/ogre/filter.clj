@@ -1,7 +1,10 @@
 (ns clojurewerkz.ogre.filter
   (:refer-clojure :exclude [filter and or range])
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal))
-  (:require [clojurewerkz.ogre.util :refer (convert-symbol-to-compare f-to-function)]))
+  (:require [clojurewerkz.ogre.util :refer (convert-symbol-to-compare f-to-function f-to-predicate)]))
+
+(defn filter
+  [t f] (.filter t (f-to-predicate f)))
 
 (defn dedup
   ([t]

@@ -44,11 +44,6 @@
     indices for the traversal."
     Integer Integer] ;;;HERE
 
-   ["filter"
-    "Filters out elements in the traversal according to the given
-    predicate function."
-    clojure.lang.IFn]
-
    ["except"
     "Filters out all of elements that are in the given collection."
     java.util.Collection] ;;Here
@@ -138,6 +133,7 @@
 (po/import-macro filter/has)
 (po/import-fn filter/has-not)
 (po/import-fn filter/interval)
+(po/import-fn filter/filter)
 
 ;; clojurewerkz.ogre.map
 (po/import-fn map/map)
