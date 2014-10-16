@@ -34,11 +34,6 @@
     "Gets the side-effect of the prior traversal. In other words, it emits the value of the
      previous step and not the values that flow through it."]
 
-   ["path"
-    "Gets the path through the traversal up to this point, where closures are post-processing
-     for each object in the path."
-    clojure.lang.ArraySeq]
-
    ["range"
     "Returns the objects from within the given range (inclusive) of
     indices for the traversal."
@@ -159,6 +154,7 @@
 (po/import-fn traversal/all-into-sets!)
 (po/import-fn traversal/all-into-maps!)
 (po/import-fn traversal/count!)
+(po/import-fn traversal/path)
 
 ;; clojurewerkz.ogre.reduce
 (po/import-fn reduce/fold)

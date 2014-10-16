@@ -1,7 +1,8 @@
 (ns clojurewerkz.ogre.traversal
   (:refer-clojure :exclude [iterate])
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
-           (com.tinkerpop.gremlin.structure Vertex))
+           (com.tinkerpop.gremlin.structure Vertex)
+           (java.util.function Function))
   (:use clojurewerkz.ogre.util))
 
 (defn iterate!
@@ -10,9 +11,9 @@
 
 (defn next!
   ([t]
-   (.next ^GraphTraversal t))
+   (.next t))
   ([t i]
-   (.next ^GraphTraversal t i)))
+   (.next t i)))
 
 (defmacro ^{:private true}
   to-java-list!
@@ -75,3 +76,7 @@
 (defn count!
   [t]
   (next! (.count ^GraphTraversal t)))
+
+(defn path
+  [t & fns]
+    (.path t (into-array Function (map f-to-function fns))))
