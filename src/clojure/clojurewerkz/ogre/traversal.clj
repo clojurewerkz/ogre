@@ -79,4 +79,5 @@
 
 (defn path
   [t & fns]
-    (.path t (into-array Function (map f-to-function fns))))
+    (.path t (fs-to-function-array fns)))
+
