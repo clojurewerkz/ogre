@@ -8,18 +8,16 @@
 (deftest test-range-step
   (testing "test_g_v1_out_retainXg_v2X"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g 1)
+          vs (q/query (v/find-by-id g (int 1))
                       (q/-->)
-                      (q/retain [(v/find-by-id g 2)])
+                      (q/retain [(v/find-by-id g (int 2))])
                       (q/into-vec!))]
       (is (= 1 (count vs)))
       (is (= "vadas" (v/get (first vs) :name)))))
 
   (testing "test_g_v1_out_aggregateXxX_out_retainXxX"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g 1)
+          vs (q/query (v/find-by-id g (int 1))
                       (q/-->)
-                      (q/retain [(v/find-by-id g 2)])
-                      (q/into-vec!))]
-      ;;TODO finish this once aggregrate is finished
-)))
+                      (q/retain [(v/find-by-id g (int 2))])
+                      (q/into-vec!))])))
