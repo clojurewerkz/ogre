@@ -8,8 +8,8 @@
 (deftest test-laziness
   (testing "Laziness!"
     (let [state (atom [])
-          g (u/new-tinkergraph)
-          vs (q/query (v/find-by-id g 1)
+          g (u/classic-tinkergraph)
+          vs (q/query (v/find-by-id g (int 1))
                       q/-->
                       (q/side-effect (fn [_] (swap! state conj nil)))
                       (q/values :name)
@@ -26,12 +26,12 @@
 
   (testing "Laziness and mutatibility!"
     (let [state (atom #{})
-          g (u/new-tinkergraph)
-          vs (q/query (v/find-by-id g 1)
+          g (u/classic-tinkergraph)
+          vs (q/query (v/find-by-id g (int 1))
                       q/-->
                       (q/side-effect (fn [v]
                                        (swap! state conj
-                                              (.value v "name"))))
+                                              (.value (.get v) "name"))))
                       (q/values :name))
           v1 (q/into-lazy-seq! vs)
           v2 (q/into-lazy-seq! vs)]
