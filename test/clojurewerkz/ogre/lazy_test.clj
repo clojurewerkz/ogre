@@ -1,4 +1,4 @@
-(ns clojurewerkz.ogre.lazy
+(ns clojurewerkz.ogre.lazy-test
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.graph :as g]
