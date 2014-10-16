@@ -4,10 +4,6 @@
            (com.tinkerpop.gremlin.structure Vertex))
   (:use clojurewerkz.ogre.util))
 
-(defn back-to
-  [t ^String s]
-  (conj t #(.back ^GraphTraversal % s)))
-
 (defn iterate!
   [t]
   (.iterate ^GraphTraversal t))

@@ -64,7 +64,7 @@
 
    ["back"
     "Return to the results of the given step." ;;HERE
-    Integer]
+    String]
    ])
 
 (defn function-template [[f doc & args]]
@@ -144,7 +144,6 @@
 
 ;; clojurewerkz.ogre.traversal
 ;; TODO break this into traversal and executors
-(po/import-fn traversal/back-to)
 (po/import-fn traversal/next!)
 (po/import-fn traversal/iterate!)
 
