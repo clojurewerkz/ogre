@@ -1,11 +1,19 @@
 (ns clojurewerkz.ogre.map
   (:refer-clojure :exclude [map])
-  (:import (com.tinkerpop.gremlin.process.graph GraphTraversal))
+  (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
+           (com.tinkerpop.gremlin.structure Order))
   (:use clojurewerkz.ogre.util))
 
 (defn map
   ([t f]
     (.map t (f-to-function f))))
+
+(defn fold
+  ([t] (.fold ^GraphTraversal t)))
+
+(defn order
+  ([t] (order t Order/incr))
+  ([t c] (.order ^GraphTraversal t c)))
 
 (defn select
   ([t]

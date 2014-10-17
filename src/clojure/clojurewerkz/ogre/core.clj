@@ -6,7 +6,6 @@
             [clojurewerkz.ogre.filter :as filter]
             [clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.traversal :as traversal]
-            [clojurewerkz.ogre.reduce :as reduce]
             [clojurewerkz.ogre.side-effect :as side-effect]
             [clojure.string :as string]))
 
@@ -136,6 +135,8 @@
 (po/import-fn map/select-only)
 (po/import-fn map/properties)
 (po/import-fn map/values)
+(po/import-fn map/fold)
+(po/import-fn map/order)
 
 ;; clojurewerkz.ogre.traversal
 ;; TODO break this into traversal and executors
@@ -155,10 +156,6 @@
 (po/import-fn traversal/all-into-maps!)
 (po/import-fn traversal/count!)
 (po/import-fn traversal/path)
-
-;; clojurewerkz.ogre.reduce
-(po/import-fn reduce/fold)
-(po/import-fn reduce/order)
 
 ;; clojurewerkz.ogre.side-effect
 (po/import-fn side-effect/side-effect)
