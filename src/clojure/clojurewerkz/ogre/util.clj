@@ -2,7 +2,7 @@
   (:require [clojure.reflect :as r])
   (:use [clojure.pprint :only (pprint)])
   (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
-           (com.tinkerpop.gremlin.structure Compare)
+           (com.tinkerpop.gremlin.structure Compare Direction)
            (java.util.function Function Consumer Predicate)))
 
 
@@ -58,3 +58,22 @@
 (defn ^Predicate f-to-predicate [f]
   (reify Predicate
     (test [this arg] (f arg))))
+
+(defprotocol EdgeDirectionConversion
+  (to-edge-direction [input] "Converts input to a Gremlin Structure edge direction"))
+
+(extend-protocol EdgeDirectionConversion
+  clojure.lang.Named
+  (to-edge-direction [input]
+    (to-edge-direction (name input)))
+
+  String
+  (to-edge-direction [input]
+    (case (.toLowerCase input)
+      "in"    Direction/IN
+      "out"   Direction/OUT
+      "both"  Direction/BOTH))
+
+  Direction
+  (to-edge-direction [input]
+    input))
