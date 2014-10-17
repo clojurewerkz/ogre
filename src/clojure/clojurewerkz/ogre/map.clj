@@ -34,3 +34,7 @@
 (defn values
   ([t & keys]
     (.values t (keywords-to-strings keys))))
+
+(defn path
+  [t & fns]
+    (.path t (fs-to-function-array fns)))

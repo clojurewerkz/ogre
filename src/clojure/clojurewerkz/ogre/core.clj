@@ -137,6 +137,7 @@
 (po/import-fn map/values)
 (po/import-fn map/fold)
 (po/import-fn map/order)
+(po/import-fn map/path)
 
 ;; clojurewerkz.ogre.traversal
 ;; TODO break this into traversal and executors
@@ -155,7 +156,6 @@
 (po/import-fn traversal/all-into-sets!)
 (po/import-fn traversal/all-into-maps!)
 (po/import-fn traversal/count!)
-(po/import-fn traversal/path)
 
 ;; clojurewerkz.ogre.side-effect
 (po/import-fn side-effect/side-effect)

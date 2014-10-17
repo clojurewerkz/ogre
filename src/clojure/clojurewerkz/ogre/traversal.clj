@@ -77,7 +77,3 @@
   [t]
   (next! (.count ^GraphTraversal t)))
 
-(defn path
-  [t & fns]
-    (.path t (fs-to-function-array fns)))
-
