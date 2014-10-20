@@ -1,8 +1,7 @@
 (ns clojurewerkz.ogre.core
-  (:import (com.tinkerpop.gremlin.process.graph GraphTraversal))
   (:refer-clojure :exclude [filter and or range count iterate next map loop reverse])
   (:require [potemkin :as po]
-            [clojurewerkz.ogre.util :as util :refer [keywords-to-strings f-to-function]]
+            [clojurewerkz.ogre.util :as util :refer [keywords-to-strings]]
             [clojurewerkz.ogre.filter :as filter]
             [clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.traversal :as traversal]

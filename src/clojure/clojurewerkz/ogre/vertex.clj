@@ -1,11 +1,9 @@
 (ns clojurewerkz.ogre.vertex
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import (com.tinkerpop.gremlin.structure Vertex Direction Graph)
-           (com.tinkerpop.gremlin.process T)
-           (com.tinkerpop.gremlin.tinkergraph.structure TinkerGraph))
+  (:import (com.tinkerpop.gremlin.structure Vertex Graph)
+           (com.tinkerpop.gremlin.process T))
   (:require [clojurewerkz.ogre.graph :refer (*element-id-key*)]
-            [clojurewerkz.ogre.util :refer (keywords-to-str-array prop-map-to-array)]
-            [clojurewerkz.ogre.conversion :refer (to-edge-direction)]
+            [clojurewerkz.ogre.util :refer (to-edge-direction keywords-to-str-array prop-map-to-array)]
             [clojurewerkz.ogre.element :as elem]
             [clojurewerkz.ogre.traversal :as t]
             [potemkin :as po]))
@@ -19,9 +17,8 @@
 (po/import-fn elem/dissoc!)
 (po/import-fn elem/clear!)
 
-
 ;;
-;; Transaction management
+;;Transaction management
 ;;
 
 (defn refresh
@@ -38,10 +35,10 @@
   [vertex]
   (.remove vertex))
 
+;;
+;; Information getters
+;;
 
-;;
-;;Information getters
-;;
 (defn to-map
   "Returns a persistent map representing the vertex."
   [vertex]
@@ -49,7 +46,6 @@
        (map #(vector (keyword %) (get vertex %)))
        (into { *element-id-key* (id-of vertex)})))
 
-;;Finders
 (defn find-by-id
   "Retrieves nodes by id from the given graph."
   [g & ids]

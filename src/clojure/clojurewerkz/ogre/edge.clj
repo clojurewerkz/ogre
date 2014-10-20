@@ -1,14 +1,12 @@
 (ns clojurewerkz.ogre.edge
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import (com.tinkerpop.gremlin.structure Vertex Edge Direction Graph)
-           (com.tinkerpop.gremlin.process T)
-           (com.tinkerpop.gremlin.tinkergraph.structure TinkerGraph))
+  (:import (com.tinkerpop.gremlin.structure Vertex Edge Graph)
+           (com.tinkerpop.gremlin.process T))
   (:require [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.graph :refer (*element-id-key* *edge-label-key*)]
-            [clojurewerkz.ogre.conversion :refer (to-edge-direction)]
+            [clojurewerkz.ogre.util :refer (to-edge-direction prop-map-to-array)]
             [clojurewerkz.ogre.element :as elem]
             [clojurewerkz.ogre.traversal :as t]
-            [clojurewerkz.ogre.util :refer (prop-map-to-array)]
             [potemkin :as po]))
 
 (po/import-fn elem/mget)
