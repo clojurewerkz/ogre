@@ -20,12 +20,6 @@
    ["simplePath"
     "Emits the object only if the current path has no repeated elements."]
 
-   ["retain"
-    "Given a collection, only retains elements from the given
-    collection. Given a string corresponding to a named step, retains
-    all elements that were present at the named step."
-    java.util.Collection] ;; HERE
-
    ["as"
     "Names the previous step in the traversal the given string." ;;HERE
     String]])
@@ -99,6 +93,7 @@
 (po/import-fn filter/has-not)
 (po/import-fn filter/interval)
 (po/import-fn filter/range)
+(po/import-fn filter/retain)
 
 ;; clojurewerkz.ogre.map
 (po/import-fn map/back)
