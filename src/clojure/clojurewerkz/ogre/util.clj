@@ -1,10 +1,12 @@
 (ns clojurewerkz.ogre.util
   (:require [clojure.reflect :as r])
   (:use [clojure.pprint :only (pprint)])
-  (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
+  (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.structure Compare Direction)
            (java.util.function Function Consumer Predicate)))
 
+(defn as
+  [^Traversal t label] (.as t label))
 
 (defmacro query [xs & body]
   `(-> ~xs ~@body))

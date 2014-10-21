@@ -18,11 +18,7 @@
     "Turns an arbitrary object into a traversal."]
 
    ["simplePath"
-    "Emits the object only if the current path has no repeated elements."]
-
-   ["as"
-    "Names the previous step in the traversal the given string." ;;HERE
-    String]])
+    "Emits the object only if the current path has no repeated elements."]])
 
 (defn function-template [[f doc & args]]
   (let [method (symbol (str "." f))
@@ -82,10 +78,11 @@
                (-> t# (~j3)))))))
 
 ;; clojurewerkz.ogre.util
+(po/import-fn util/as)
 (po/import-macro util/query)
 (po/import-macro util/subquery)
 
-;; clojurewerkz.ogre.filter
+;; clojurewerkz.ogre.filter steps
 (po/import-fn filter/dedup)
 (po/import-fn filter/except)
 (po/import-fn filter/filter)
@@ -95,7 +92,7 @@
 (po/import-fn filter/range)
 (po/import-fn filter/retain)
 
-;; clojurewerkz.ogre.map
+;; clojurewerkz.ogre.map steps
 (po/import-fn map/back)
 (po/import-fn map/id)
 (po/import-fn map/fold)
@@ -109,25 +106,23 @@
 (po/import-fn map/unfold)
 (po/import-fn map/values)
 
-;; clojurewerkz.ogre.traversal
-;; TODO break this into traversal and executors
-(po/import-fn traversal/next!)
-(po/import-fn traversal/iterate!)
-
-(po/import-fn traversal/into-lazy-seq!)
-(po/import-fn traversal/into-list!)
-(po/import-fn traversal/into-vec!)
-(po/import-fn traversal/into-set!)
-(po/import-fn traversal/first-of!)
-(po/import-fn traversal/first-into-vec!)
-(po/import-fn traversal/first-into-set!)
-(po/import-fn traversal/first-into-map!)
+;; clojurewerkz.ogre.traversal steps
 (po/import-fn traversal/all-into-vecs!)
 (po/import-fn traversal/all-into-sets!)
 (po/import-fn traversal/all-into-maps!)
 (po/import-fn traversal/count!)
+(po/import-fn traversal/first-of!)
+(po/import-fn traversal/first-into-vec!)
+(po/import-fn traversal/first-into-set!)
+(po/import-fn traversal/first-into-map!)
+(po/import-fn traversal/into-lazy-seq!)
+(po/import-fn traversal/into-list!)
+(po/import-fn traversal/into-vec!)
+(po/import-fn traversal/into-set!)
+(po/import-fn traversal/iterate!)
+(po/import-fn traversal/next!)
 
-;; clojurewerkz.ogre.side-effect
+;; clojurewerkz.ogre.side-effect steps
 (po/import-fn side-effect/cap)
 (po/import-fn side-effect/side-effect)
 (po/import-fn side-effect/get-capped!)
