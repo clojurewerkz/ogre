@@ -49,8 +49,8 @@
         c (e/connect-with-id! 102 a :label b {:a 1})]
     (v/assoc! a {:a 10})
     (e/assoc! c {:a 10})
-    (is (= (list 1 10) (v/mget a :a)))
-    (is (= (list 10) (v/mget c :a)))))
+    (is (= (list 1 10) (v/get a :a)))
+    (is (= 10 (v/get c :a)))))
 
 (deftest test-dissoc!
   (let [g (u/new-tinkergraph)

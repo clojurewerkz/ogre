@@ -3,20 +3,14 @@
   (:import com.tinkerpop.gremlin.structure.Element)
   (:require [clojurewerkz.ogre.util :refer (keywords-to-str-array)]))
 
-(defn mget
-  "Returns all properties of a vertex with the given key."
-  ([^Element elem key]
-    (mget elem key nil))
-  ([^Element elem key not-found]
-    (let [properties (-> elem (.iterators) (.properties (keywords-to-str-array [key])))]
-      (if (.hasNext properties) (map #(.value %) (iterator-seq properties)) (list not-found)))))
-
 (defn get
-  "Returns the first property of a vertex with the given key."
+  "Returns properties of a vertex with the given key."
   ([^Element elem key]
-    (first (mget elem key nil)))
+    (get elem key nil))
   ([^Element elem key not-found]
-    (first (mget elem key not-found))))
+    (let [prop-iter (-> elem (.iterators) (.properties (keywords-to-str-array [key])))
+          prop (if (.hasNext prop-iter) (map #(.value %) (iterator-seq prop-iter)) (list not-found))]
+      (if (= (count prop) 1) (first prop) prop))))
 
 (defn keys
   [^Element elem]
