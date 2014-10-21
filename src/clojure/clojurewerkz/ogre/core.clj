@@ -24,10 +24,6 @@
     "Filters out all of elements that are in the given collection."
     java.util.Collection] ;;Here
 
-   ["random"
-    "Each element is sampled according to the given probability."
-    Double] ;;HERE
-
    ["retain"
     "Given a collection, only retains elements from the given
     collection. Given a string corresponding to a named step, retains

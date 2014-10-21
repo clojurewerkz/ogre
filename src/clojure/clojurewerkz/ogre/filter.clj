@@ -28,5 +28,8 @@
   [^Traversal t key ^Comparable start ^Comparable end]
   (.interval t (name key) start end))
 
+(defn random
+  [^Traversal t probability] (.random t probability))
+
 (defn range
   [^Traversal t low high] (.range t low high))
