@@ -1,6 +1,15 @@
 (ns clojurewerkz.ogre.side-effect
   (:import (com.tinkerpop.gremlin.process Traversal))
+  (:require [clojurewerkz.ogre.traversal :as t])
   (:use clojurewerkz.ogre.util))
+
+(defn cap
+  ([^Traversal t] (.cap t))
+  ([^Traversal t k] (.cap t k)))
+
+(defn get-capped!
+  ([^Traversal t] (t/next! (cap t)))
+  ([^Traversal t k] (t/next! (cap t k))))
 
 (defn side-effect
   [^Traversal t f]

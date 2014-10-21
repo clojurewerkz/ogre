@@ -20,10 +20,6 @@
    ["simplePath"
     "Emits the object only if the current path has no repeated elements."]
 
-   ["cap"
-    "Gets the side-effect of the prior traversal. In other words, it emits the value of the
-     previous step and not the values that flow through it."]
-
    ["range"
     "Returns the objects from within the given range (inclusive) of
     indices for the traversal."
@@ -152,6 +148,8 @@
 (po/import-fn traversal/count!)
 
 ;; clojurewerkz.ogre.side-effect
+(po/import-fn side-effect/cap)
 (po/import-fn side-effect/side-effect)
+(po/import-fn side-effect/get-capped!)
 (po/import-fn side-effect/get-grouped-by!)
 (po/import-fn side-effect/get-group-count!)
