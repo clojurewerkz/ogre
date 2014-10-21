@@ -23,7 +23,7 @@
         u (v/create-with-id! graph 100 {:name "v1" :a 1 :b 1})]
     (v/assoc! u {:b 2})
     (v/dissoc! u :a)
-    (is (= (list 1 2) (v/mget u :b)))
+    (is (= (list 1 2) (v/get u :b)))
     (is (= nil (v/get u :a)))
     (is (= 10 (v/get u :a 10)))))
 
@@ -31,9 +31,9 @@
   (let [graph (u/new-tinkergraph)
         u (v/create-with-id! graph 100 {:name "v1" :a 0 :b 2})]
     (v/assoc! u {:a 1 :b 2 :c 3})
-    (is (= (list 0 1) (v/mget u :a)))
-    (is (= (list 2 2) (v/mget u :b)))
-    (is (= (list 3) (v/mget u :c)))))
+    (is (= (list 0 1) (v/get u :a)))
+    (is (= (list 2 2) (v/get u :b)))
+    (is (= 3 (v/get u :c)))))
 
 (deftest test-to-map
   (let [graph (u/new-tinkergraph)
@@ -134,8 +134,8 @@
           v1-b (v/upsert-with-id! graph 101 :first-name {:first-name "Zack" :last-name "Maril" :age 22})
           v2 (v/upsert-with-id! graph 102 :first-name {:first-name "Brooke" :last-name "Maril" :age 19})]
       (is (= 22
-            (last (v/mget (first v1-a) :age))
-            (last (v/mget (first v1-b) :age))))
+            (last (v/get (first v1-a) :age))
+            (last (v/get (first v1-b) :age))))
 
       (v/upsert-with-id! graph 103 :last-name {:last-name "Maril"
                                                :heritage "Some German Folks"})
@@ -152,8 +152,8 @@
           v2 (v/upsert! graph :first-name {:first-name "Brooke" :last-name "Maril" :age 19})]
 
       (is (= 22
-            (last (v/mget (first v1-a) :age))
-            (last (v/mget (first v1-b) :age))))
+            (last (v/get (first v1-a) :age))
+            (last (v/get (first v1-b) :age))))
 
       (v/upsert! graph :last-name {:last-name "Maril"
                                    :heritage "Some German Folks"})

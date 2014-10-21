@@ -9,7 +9,6 @@
             [clojurewerkz.ogre.traversal :as t]
             [potemkin :as po]))
 
-(po/import-fn elem/mget)
 (po/import-fn elem/get)
 (po/import-fn elem/keys)
 (po/import-fn elem/vals)
