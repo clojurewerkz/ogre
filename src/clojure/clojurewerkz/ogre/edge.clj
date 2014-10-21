@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.edge
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import (com.tinkerpop.gremlin.structure Vertex Edge Graph)
+  (:import (com.tinkerpop.gremlin.structure Vertex Edge)
            (com.tinkerpop.gremlin.process T))
   (:require [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.graph :refer (*element-id-key* *edge-label-key*)]
@@ -31,7 +31,7 @@
 ;;
 
 (defn remove!
-  "Remove an edge."
+  "Removes an edge."
   [^Edge edge]
   (.remove edge))
 
@@ -40,7 +40,7 @@
 ;;
 
 (defn label-of
-  "Get the label of the edge"
+  "Returns the label of the edge."
   [^Edge edge]
   (keyword (.label edge)))
 
@@ -84,7 +84,7 @@
   [(tail-vertex edge) (head-vertex edge)])
 
 (defn edges-between
-  "Returns a set of the edges between two vertices, direction considered."
+  "Returns a set of the edges between two vertices, optionally with the given label."
   ([^Vertex v1 ^Vertex v2]
     (edges-between v1 nil v2))
   ([^Vertex v1 label ^Vertex v2]
@@ -97,8 +97,8 @@
         edge-set))))
 
 (defn connected?
-  "Returns whether or not two vertices are connected. Optional third
-   arguement specifying the label of the edge."
+  "Returns whether or not two vertices are connected with an optional third
+   argument specifying the label of the edge."
   ([^Vertex v1 ^Vertex v2]
     (connected? v1 nil v2))
   ([^Vertex v1 label ^Vertex v2]
@@ -109,24 +109,24 @@
 ;;
 
 (defn connect!
-  "Connects two vertices with the given label, and, optionally, with the given properties."
+  "Connects two vertices with the given label, optionally with the given properties."
   ([^Vertex v1 label ^Vertex v2]
     (connect! v1 label v2 {}))
   ([^Vertex v1 label ^Vertex v2 data]
     (.addEdge v1 ^String (name label) v2 (prop-map-to-array data))))
 
 (defn connect-with-id!
-  "Connects two vertices with the given label, and, optionally, with the given properties."
+  "Connects two vertices with the given id and label, optionally with the given properties."
   ([id ^Vertex v1 label ^Vertex v2]
     (connect-with-id! id v1 label v2 {}))
   ([id ^Vertex v1 label ^Vertex v2 data]
     (.addEdge v1 ^String (name label) v2 (prop-map-to-array (assoc data T/id id)))))
 
 (defn upconnect!
-  "Upconnect takes all the edges between the given vertices with the
-   given label and, if the data is provided, merges the data with the
-   current properties of the edge. If no such edge exists, then an
-   edge is created with the given data."
+  "Takes all the edges between the given vertices with the given label
+   and, if the data is provided, merges the data with the current
+   properties of the edge. If no such edge exists, then an edge is
+   created with the given data."
   ([^Vertex v1 label ^Vertex v2]
     (upconnect! v1 label v2 {}))
   ([^Vertex v1 label ^Vertex v2 data]
@@ -148,10 +148,10 @@
                  "The arguments were: " args "\n"))))))
 
 (defn upconnect-with-id!
-  "Upconnect takes all the edges between the given vertices with the
-   given label and, if the data is provided, merges the data with the
-   current properties of the edge. If no such edge exists, then an
-   edge is created with the given data."
+  "Takes all the edges between the given vertices with the given id and label
+   and, if the data is provided, merges the data with the current properties
+   of the edge. If no such edge exists, then an edge is created with the
+   given data."
   ([id ^Vertex v1 label ^Vertex v2]
     (upconnect-with-id! id v1 label v2 {}))
   ([id ^Vertex v1 label ^Vertex v2 data]
@@ -161,7 +161,7 @@
        #{(connect-with-id! id v1 label v2 data)})))
 
 (defn unique-upconnect-with-id!
-  "Like upconnect!, but throws an error when more than element is returned."
+  "Like upconnect-with-id!, but throws an error when more than element is returned."
   [& args]
   (let [upconnected (apply upconnect-with-id! args)]
     (if (= 1 (count upconnected))
