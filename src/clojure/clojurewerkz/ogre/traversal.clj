@@ -1,39 +1,39 @@
 (ns clojurewerkz.ogre.traversal
   (:refer-clojure :exclude [iterate])
-  (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
+  (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.structure Vertex)
            (java.util.function Function))
   (:use clojurewerkz.ogre.util))
 
 (defn iterate!
-  [t]
-  (.iterate ^GraphTraversal t))
+  [^Traversal t]
+  (.iterate t))
 
 (defn next!
-  ([t]
+  ([^Traversal t]
    (.next t))
-  ([t i]
+  ([^Traversal t i]
    (.next t i)))
 
 (defmacro ^{:private true}
   to-java-list!
-  [t]
+  [^Traversal t]
   `(.toList ~t))
 
 (defn into-vec!
-  [t]
+  [^Traversal t]
   (into [] (to-java-list! t)))
 
 (defn into-set!
-  [t]
+  [^Traversal t]
   (into #{} (to-java-list! t)))
 
 (defn into-list!
-  [t]
+  [^Traversal t]
   (into '() (to-java-list! t)))
 
 (defn into-lazy-seq!
-  [t]
+  [^Traversal t]
   (let [f (fn [_] (first (.next t 1)))]
     (clojure.core/iterate f (f nil))))
 
@@ -46,34 +46,34 @@
   (into {} (for [[k v] m] [(keyword k) v])))
 
 (defn first-of!
-  [t]
+  [^Traversal t]
   (next! t))
 
 (defn first-into-vec!
-  [t]
+  [^Traversal t]
   (vec (first-of! t)))
 
 (defn first-into-set!
-  [t]
+  [^Traversal t]
   (set (first-of! t)))
 
 (defn first-into-map!
-  [t]
+  [^Traversal t]
   (convert-to-map (first-of! t)))
 
 (defn all-into-vecs!
-  [t]
+  [^Traversal t]
   (map vec (into-vec! t)))
 
 (defn all-into-sets!
-  [t]
+  [^Traversal t]
   (map set (into-vec! t)))
 
 (defn all-into-maps!
-  [t]
+  [^Traversal t]
   (map convert-to-map (into-vec! t)))
 
 (defn count!
-  [t]
-  (next! (.count ^GraphTraversal t)))
+  [^Traversal t]
+  (next! (.count t)))
 

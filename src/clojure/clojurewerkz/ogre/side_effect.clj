@@ -1,13 +1,13 @@
 (ns clojurewerkz.ogre.side-effect
-  (:import (com.tinkerpop.gremlin.process.graph GraphTraversal))
+  (:import (com.tinkerpop.gremlin.process Traversal))
   (:use clojurewerkz.ogre.util))
 
 (defn side-effect
-  [t f]
+  [^Traversal t f]
   (.sideEffect t (f-to-consumer f)))
 
 (defn get-grouped-by!
-  [t key-func value-func]
+  [^Traversal t key-func value-func]
     (let [results  (-> (.groupBy t (f-to-function key-func) (f-to-function value-func))
                        (.cap)
                        (.toList)
@@ -19,7 +19,7 @@
         (into {}))))
 
 (defn get-group-count!
-  [t key-func]
+  [^Traversal t key-func]
     (-> (.groupCount t (f-to-function key-func))
         (.cap)
         (.toList)
