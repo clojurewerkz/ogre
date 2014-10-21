@@ -41,6 +41,9 @@
   ([^Traversal t ^java.util.Collection cols & fs]
     (.select t cols (fs-to-function-array fs))))
 
+(defn unfold
+  ([^Traversal t] (.unfold t)))
+
 (defn values
   ([^Traversal t & keys]
     (.values t (keywords-to-strings keys))))

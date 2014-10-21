@@ -17,8 +17,6 @@
   [["identity"
     "Turns an arbitrary object into a traversal."]
 
-   ["unfold" "Unrolls or flattens contents of the previous step"]
-
    ["simplePath"
     "Emits the object only if the current path has no repeated elements."]
 
@@ -132,6 +130,7 @@
 (po/import-fn map/order)
 (po/import-fn map/select)
 (po/import-fn map/select-only)
+(po/import-fn map/unfold)
 (po/import-fn map/values)
 
 ;; clojurewerkz.ogre.traversal
