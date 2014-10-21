@@ -3,14 +3,14 @@
   (:import (com.tinkerpop.gremlin.process Traversal))
   (:require [clojurewerkz.ogre.util :refer (convert-symbol-to-compare f-to-function f-to-predicate)]))
 
-(defn filter
-  [^Traversal t f] (.filter t (f-to-predicate f)))
-
 (defn dedup
   ([^Traversal t]
     (.dedup t))
   ([^Traversal t f]
     (.dedup t (f-to-function f))))
+
+(defn filter
+  [^Traversal t f] (.filter t (f-to-predicate f)))
 
 (defmacro has
   ([^Traversal t k]
@@ -27,3 +27,6 @@
 (defn interval
   [^Traversal t key ^Comparable start ^Comparable end]
   (.interval t (name key) start end))
+
+(defn range
+  [^Traversal t low high] (.range t low high))

@@ -20,11 +20,6 @@
    ["simplePath"
     "Emits the object only if the current path has no repeated elements."]
 
-   ["range"
-    "Returns the objects from within the given range (inclusive) of
-    indices for the traversal."
-    Integer Integer] ;;;HERE
-
    ["except"
     "Filters out all of elements that are in the given collection."
     java.util.Collection] ;;Here
@@ -111,10 +106,11 @@
 
 ;; clojurewerkz.ogre.filter
 (po/import-fn filter/dedup)
+(po/import-fn filter/filter)
 (po/import-macro filter/has)
 (po/import-fn filter/has-not)
 (po/import-fn filter/interval)
-(po/import-fn filter/filter)
+(po/import-fn filter/range)
 
 ;; clojurewerkz.ogre.map
 (po/import-fn map/id)
