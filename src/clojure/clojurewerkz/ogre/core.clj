@@ -20,10 +20,6 @@
    ["simplePath"
     "Emits the object only if the current path has no repeated elements."]
 
-   ["except"
-    "Filters out all of elements that are in the given collection."
-    java.util.Collection] ;;Here
-
    ["retain"
     "Given a collection, only retains elements from the given
     collection. Given a string corresponding to a named step, retains
@@ -97,6 +93,7 @@
 
 ;; clojurewerkz.ogre.filter
 (po/import-fn filter/dedup)
+(po/import-fn filter/except)
 (po/import-fn filter/filter)
 (po/import-macro filter/has)
 (po/import-fn filter/has-not)

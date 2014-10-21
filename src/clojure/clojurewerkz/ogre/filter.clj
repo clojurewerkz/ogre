@@ -9,6 +9,9 @@
   ([^Traversal t f]
     (.dedup t (f-to-function f))))
 
+(defn except
+  [^Traversal t exception-object] (.except t exception-object))
+
 (defn filter
   [^Traversal t f] (.filter t (f-to-predicate f)))
 
