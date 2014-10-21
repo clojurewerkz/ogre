@@ -1,4 +1,4 @@
-(ns clojurewerkz.ogre.transform.order-test
+(ns clojurewerkz.ogre.map.order-test
   (:use [clojure.test])
   (:import (com.tinkerpop.gremlin.structure Order))
   (:require [clojurewerkz.ogre.core :as q]

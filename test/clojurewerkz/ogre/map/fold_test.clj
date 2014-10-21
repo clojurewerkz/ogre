@@ -1,4 +1,4 @@
-(ns clojurewerkz.ogre.transform.fold-test
+(ns clojurewerkz.ogre.map.fold-test
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]

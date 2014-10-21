@@ -1,4 +1,4 @@
-(ns clojurewerkz.ogre.transform.select-test
+(ns clojurewerkz.ogre.map.select-test
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]

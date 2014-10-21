@@ -1,4 +1,4 @@
-(ns clojurewerkz.ogre.transform.path-test
+(ns clojurewerkz.ogre.map.path-test
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
