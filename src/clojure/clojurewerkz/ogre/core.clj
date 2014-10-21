@@ -36,12 +36,7 @@
 
    ["as"
     "Names the previous step in the traversal the given string." ;;HERE
-    String]
-
-   ["back"
-    "Return to the results of the given step." ;;HERE
-    String]
-   ])
+    String]])
 
 (defn function-template [[f doc & args]]
   (let [method (symbol (str "." f))
@@ -113,6 +108,7 @@
 (po/import-fn filter/range)
 
 ;; clojurewerkz.ogre.map
+(po/import-fn map/back)
 (po/import-fn map/id)
 (po/import-fn map/fold)
 (po/import-fn map/label)

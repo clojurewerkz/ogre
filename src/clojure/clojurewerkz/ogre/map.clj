@@ -4,6 +4,9 @@
            (com.tinkerpop.gremlin.structure Order))
   (:use clojurewerkz.ogre.util))
 
+(defn back
+  ([^Traversal t step-label] (.back t step-label)))
+
 (defn id
   ([^Traversal t] (.id t)))
 
