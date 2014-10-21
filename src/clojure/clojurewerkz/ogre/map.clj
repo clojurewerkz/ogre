@@ -1,40 +1,43 @@
 (ns clojurewerkz.ogre.map
   (:refer-clojure :exclude [map])
-  (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
+  (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.structure Order))
   (:use clojurewerkz.ogre.util))
 
-(defn map
-  ([t f]
-    (.map t (f-to-function f))))
+(defn id
+  ([^Traversal t] (.id t)))
 
 (defn fold
-  ([t] (.fold ^GraphTraversal t)))
+  ([^Traversal t] (.fold t)))
+
+(defn map
+  ([^Traversal t f]
+    (.map t (f-to-function f))))
 
 (defn order
-  ([t] (order t Order/incr))
-  ([t c] (.order ^GraphTraversal t c)))
+  ([^Traversal t] (order t Order/incr))
+  ([^Traversal t c] (.order ^Traversal t c)))
+
+(defn path
+  [^Traversal t & fns]
+    (.path t (fs-to-function-array fns)))
+
+(defn properties
+  ([^Traversal t & keys]
+    (.properties t (keywords-to-strings keys))))
 
 (defn select
-  ([t]
+  ([^Traversal t]
     (select t #(identity %)))
-  ([t & f]
+  ([^Traversal t & f]
     (.select t (fs-to-function-array f))))
 
 (defn select-only
-  ([t cols]
+  ([^Traversal t cols]
     (select-only t cols identity))
-  ([t ^java.util.Collection cols & fs]
+  ([^Traversal t ^java.util.Collection cols & fs]
     (.select t cols (fs-to-function-array fs))))
 
-(defn properties
-  ([t & keys]
-    (.properties t (keywords-to-strings keys))))
-
 (defn values
-  ([t & keys]
+  ([^Traversal t & keys]
     (.values t (keywords-to-strings keys))))
-
-(defn path
-  [t & fns]
-    (.path t (fs-to-function-array fns)))

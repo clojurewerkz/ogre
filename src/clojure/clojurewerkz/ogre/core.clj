@@ -17,9 +17,6 @@
   [["identity"
     "Turns an arbitrary object into a traversal."]
 
-   ["id"
-    "Returns the unique identifier of the given element."]
-
    ["label"
     "Returns the label of the given edge."]
 
@@ -129,14 +126,15 @@
 (po/import-fn filter/filter)
 
 ;; clojurewerkz.ogre.map
+(po/import-fn map/id)
+(po/import-fn map/fold)
 (po/import-fn map/map)
+(po/import-fn map/path)
+(po/import-fn map/properties)
+(po/import-fn map/order)
 (po/import-fn map/select)
 (po/import-fn map/select-only)
-(po/import-fn map/properties)
 (po/import-fn map/values)
-(po/import-fn map/fold)
-(po/import-fn map/order)
-(po/import-fn map/path)
 
 ;; clojurewerkz.ogre.traversal
 ;; TODO break this into traversal and executors
