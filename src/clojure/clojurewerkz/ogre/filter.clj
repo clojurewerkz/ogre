@@ -39,3 +39,6 @@
 
 (defn range
   [^Traversal t low high] (.range t low high))
+
+(defn simple-path
+  [^Traversal t] (.simple-path t))

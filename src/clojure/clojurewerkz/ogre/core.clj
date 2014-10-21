@@ -15,10 +15,7 @@
 ;;fails. No idea why.
 (def simple-methods
   [["identity"
-    "Turns an arbitrary object into a traversal."]
-
-   ["simplePath"
-    "Emits the object only if the current path has no repeated elements."]])
+    "Turns an arbitrary object into a traversal."]])
 
 (defn function-template [[f doc & args]]
   (let [method (symbol (str "." f))
@@ -91,6 +88,7 @@
 (po/import-fn filter/interval)
 (po/import-fn filter/range)
 (po/import-fn filter/retain)
+(po/import-fn filter/simple-path)
 
 ;; clojurewerkz.ogre.map steps
 (po/import-fn map/back)
