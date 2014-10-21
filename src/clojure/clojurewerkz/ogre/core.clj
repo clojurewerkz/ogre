@@ -8,43 +8,6 @@
             [clojurewerkz.ogre.side-effect :as side-effect]
             [clojure.string :as string]))
 
-;;Define functions for the simple methods.
-
-;;TODO: Wherever there is a HERE, that function fails to reflect.  It
-;;looks like whenever the args aren't all clojure types reflection
-;;fails. No idea why.
-(def simple-methods
-  [["identity"
-    "Turns an arbitrary object into a traversal."]])
-
-(defn function-template [[f doc & args]]
-  (let [method (symbol (str "." f))
-        fcall  (symbol (string/replace f #"[A-Z]"
-                                     #(str "-" (string/lower-case %1))))
-        arguments
-        (map-indexed #(vary-meta (symbol (str "arg" %1)) assoc :tag %2) args)
-
-        pre-args (flatten (clojure.core/map (fn [sym]
-                                              (if (= clojure.lang.ArraySeq (:tag (meta sym)))
-                                                `(& ~sym)
-                                                sym))
-                                            arguments))
-
-        transformed-args
-        (clojure.core/map (fn [sym]
-                            (condp = (:tag (meta sym))
-                              clojure.lang.Keyword `(name ~sym)
-                              clojure.lang.IFn `(f-to-function ~sym)
-                              clojure.lang.ArraySeq `(into-array ~sym)
-                              sym))
-                          arguments)
-        t (gensym "traversal")]
-    `(defn ~fcall ~doc
-       ([~t ~@pre-args] (~method ^GraphTraversal ~t ~@transformed-args)))))
-
-(doseq [s simple-methods]
-  (eval (function-template s)))
-
 ;;Define the traversal methods
 (doseq [[direction short shortE name1] '((both <-> <E> both-vertices)
                                          (in   <-- <E- in-vertex)
