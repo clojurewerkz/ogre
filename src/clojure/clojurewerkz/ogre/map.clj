@@ -10,6 +10,9 @@
 (defn fold
   ([^Traversal t] (.fold t)))
 
+(defn label
+  ([^Traversal t] (.label t)))
+
 (defn map
   ([^Traversal t f]
     (.map t (f-to-function f))))

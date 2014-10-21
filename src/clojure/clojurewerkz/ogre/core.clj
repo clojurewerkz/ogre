@@ -17,9 +17,6 @@
   [["identity"
     "Turns an arbitrary object into a traversal."]
 
-   ["label"
-    "Returns the label of the given edge."]
-
    ["unfold" "Unrolls or flattens contents of the previous step"]
 
    ["simplePath"
@@ -128,6 +125,7 @@
 ;; clojurewerkz.ogre.map
 (po/import-fn map/id)
 (po/import-fn map/fold)
+(po/import-fn map/label)
 (po/import-fn map/map)
 (po/import-fn map/path)
 (po/import-fn map/properties)
