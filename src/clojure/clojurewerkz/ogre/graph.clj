@@ -2,18 +2,6 @@
   (:import (com.tinkerpop.gremlin.structure Element Graph)
            (com.tinkerpop.gremlin.tinkergraph.structure TinkerFactory TinkerGraph)))
 
-(def ^{:dynamic true} *element-id-key* :__id__)
-
-(def ^{:dynamic true} *edge-label-key* :__label__)
-
-(defn set-element-id-key!
-  [new-id]
-  (alter-var-root (var *element-id-key*) (constantly new-id)))
-
-(defn set-edge-label-key!
-  [new-id]
-  (alter-var-root (var *edge-label-key*) (constantly new-id)))
-
 (defn get-graph-features
   "Get a map of graph features for the given graph."
   [^Graph g]

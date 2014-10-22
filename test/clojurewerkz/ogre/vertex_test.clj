@@ -15,7 +15,7 @@
   (let [g (u/new-tinkergraph)
         u (v/create-with-id! g 100 {:name "v1"})]
     (v/remove! u)
-    (is (=  nil (v/find-by-id g 100)))
+    (is (= nil (v/find-by-id g 100)))
     (is (empty? (t/into-set! (v/find-by-kv g :name "v1"))))))
 
 (deftest test-simple-property-mutation
@@ -42,20 +42,6 @@
     (is (= 1 (props :a)))
     (is (= 2 (props :b)))
     (is (= 3 (props :c)))))
-
-(deftest test-to-map-id
-  (let [id :ID]
-    (try
-      (g/set-element-id-key! id)
-      (let [g (u/new-tinkergraph)
-            v1 (v/create-with-id! g 100 {:name "v1" :a 1 :b 2 :c 3})
-            props (v/to-map v1)]
-        (is (= 100 (props id)))
-        (is (= 1 (props :a)))
-        (is (= 2 (props :b)))
-        (is (= 3 (props :c))))
-      (finally
-        (g/set-element-id-key! :__id__)))))
 
 (deftest test-find-by-id-single
   (let [g (u/new-tinkergraph)
@@ -165,7 +151,7 @@
 
 (deftest test-get-false-val
   (let [g (u/new-tinkergraph)
-        v     (v/create-with-id! g 100 {:foo false})]
+        v (v/create-with-id! g 100 {:foo false})]
     (is (= (v/get v :foo) false))
     (is (= (v/get v :foo 1) false))
     (is (nil? (v/get v :bar)))

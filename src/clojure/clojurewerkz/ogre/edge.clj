@@ -3,7 +3,6 @@
   (:import (com.tinkerpop.gremlin.structure Vertex Edge)
            (com.tinkerpop.gremlin.process T))
   (:require [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.graph :refer (*element-id-key* *edge-label-key*)]
             [clojurewerkz.ogre.util :refer (to-edge-direction prop-map-to-array)]
             [clojurewerkz.ogre.element :as el]
             [clojurewerkz.ogre.traversal :as t]
@@ -49,7 +48,7 @@
   [^Edge edge]
   (->> (keys edge)
        (map #(vector (keyword %) (get edge %)))
-       (into {*element-id-key* (id-of edge) *edge-label-key* (label-of edge)})))
+       (into {T/id (id-of edge) T/label (label-of edge)})))
 
 (defn find-by-id
   "Retrieves edges by id from the graph."

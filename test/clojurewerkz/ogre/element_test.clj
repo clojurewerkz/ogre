@@ -6,16 +6,16 @@
 
 (deftest test-get
   (let [g (u/new-tinkergraph)
-        a (v/create-with-id!  g 100 {:a 1})
-        b (v/create-with-id!  g 101)
+        a (v/create-with-id! g 100 {:a 1})
+        b (v/create-with-id! g 101)
         c (e/connect-with-id! 102 a :label b {:a 1})]
     (is (= 1 (v/get a :a)))
     (is (= 1 (v/get c :a)))))
 
 (deftest test-keys
   (let [g (u/new-tinkergraph)
-        a (v/create-with-id!  g 100 {:name "v1" :a 1 :b 1})
-        b (v/create-with-id!  g 101 {:name "v2" :a 1 :b 1})
+        a (v/create-with-id! g 100 {:name "v1" :a 1 :b 1})
+        b (v/create-with-id! g 101 {:name "v2" :a 1 :b 1})
         c (e/connect-with-id! 102 a :label b {:name "e1" :a 1 :b 1})
         coll-a (v/keys a)
         coll-b (v/keys b)
@@ -25,8 +25,8 @@
 
 (deftest test-vals
   (let [g (u/new-tinkergraph)
-        a (v/create-with-id!  g 100 {:a 1 :b 2})
-        b (v/create-with-id!  g 101 {:a 1 :b 2})
+        a (v/create-with-id! g 100 {:a 1 :b 2})
+        b (v/create-with-id! g 101 {:a 1 :b 2})
         c (e/connect-with-id! 102 a :label b {:a 1 :b 2})
         coll-a (v/vals a)
         coll-b (v/vals b)
@@ -36,16 +36,16 @@
 
 (deftest test-id-of
   (let [g (u/new-tinkergraph)
-        a (v/create-with-id!  g 100)
-        b (v/create-with-id!  g 101)
+        a (v/create-with-id! g 100)
+        b (v/create-with-id! g 101)
         c (e/connect-with-id! 102 a :label b )]
     (is (= java.lang.Long (type (v/id-of a))))
     (is (= java.lang.Long (type (e/id-of c))))))
 
 (deftest test-assoc!
   (let [g (u/new-tinkergraph)
-        a (v/create-with-id!  g 100 {:a 1})
-        b (v/create-with-id!  g 101)
+        a (v/create-with-id! g 100 {:a 1})
+        b (v/create-with-id! g 101)
         c (e/connect-with-id! 102 a :label b {:a 1})]
     (v/assoc! a {:a 10})
     (e/assoc! c {:a 10})
@@ -54,8 +54,8 @@
 
 (deftest test-dissoc!
   (let [g (u/new-tinkergraph)
-        a (v/create-with-id!  g 100 {:a 1})
-        b (v/create-with-id!  g 101)
+        a (v/create-with-id! g 100 {:a 1})
+        b (v/create-with-id! g 101)
         c (e/connect-with-id! 102 a :label b {:a 1})]
     (v/dissoc! a :a)
     (e/dissoc! c :a)
@@ -64,8 +64,8 @@
 
 (deftest test-clear!
   (let [g (u/new-tinkergraph)
-        a (v/create-with-id!  g 100 {:a 1})
-        b (v/create-with-id!  g 101)
+        a (v/create-with-id! g 100 {:a 1})
+        b (v/create-with-id! g 101)
         c (e/connect-with-id! 102 a :label b {:a 1})]
     (v/clear! a)
     (e/clear! c)

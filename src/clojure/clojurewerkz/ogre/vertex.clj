@@ -2,8 +2,7 @@
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
   (:import (com.tinkerpop.gremlin.structure Vertex Graph)
            (com.tinkerpop.gremlin.process T))
-  (:require [clojurewerkz.ogre.graph :refer (*element-id-key*)]
-            [clojurewerkz.ogre.util :refer (to-edge-direction keywords-to-str-array prop-map-to-array)]
+  (:require [clojurewerkz.ogre.util :refer (to-edge-direction keywords-to-str-array prop-map-to-array)]
             [clojurewerkz.ogre.element :as el]
             [clojurewerkz.ogre.traversal :as t]
             [potemkin :as po]))
@@ -43,7 +42,7 @@
   [vertex]
   (->> (keys vertex)
        (map #(vector (keyword %) (get vertex %)))
-       (into { *element-id-key* (id-of vertex)})))
+       (into {T/id (id-of vertex)})))
 
 (defn find-by-id
   "Retrieves nodes by id from the given graph."
