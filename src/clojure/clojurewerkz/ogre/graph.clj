@@ -6,7 +6,6 @@
 
 (def ^{:dynamic true} *edge-label-key* :__label__)
 
-
 (defn set-element-id-key!
   [new-id]
   (alter-var-root (var *element-id-key*) (constantly new-id)))
@@ -17,12 +16,12 @@
 
 (defn get-graph-features
   "Get a map of graph features for the given graph."
-  [g]
+  [^Graph g]
   (-> g (.features) (.graph)))
 
 (defn supports-transactions
   "Returns a value indicating if transactions are supported for the given graph."
-  [g]
+  [^Graph g]
   (.supportsTransactions (get-graph-features g)))
 
 ;;TODO Transactions need to be much more fine grain in terms of
@@ -30,22 +29,22 @@
 ;;ThreadedTransactionalGraph.
 (defn new-transaction
   "Creates a new transaction based on the given graph object."
-  [g]
+  [^Graph g]
   (.newTransaction g))
 
 (defn commit
   "Commit all changes to the graph."
-  [g]
+  [^Graph g]
   (-> g (.tx) (.commit)))
 
 (defn close
   "Close the graph."
-  [g]
+  [^Graph g]
   (.close g))
 
 (defn rollback
   "Stops the current transaction and rolls back any changes made."
-  [g]
+  [^Graph g]
   (-> g (.tx) (.rollback)))
 
 (defn with-transaction*
