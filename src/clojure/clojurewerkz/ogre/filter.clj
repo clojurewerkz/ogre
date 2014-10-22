@@ -12,9 +12,6 @@
 (defn except
   [^Traversal t exception-object] (.except t exception-object))
 
-(defn retain
-  [^Traversal t retain-object] (.retain t retain-object))
-
 (defn filter
   [^Traversal t f] (.filter t (f-to-predicate f)))
 
@@ -39,6 +36,9 @@
 
 (defn range
   [^Traversal t low high] (.range t low high))
+
+(defn retain
+  [^Traversal t retain-object] (.retain t retain-object))
 
 (defn simple-path
   [^Traversal t] (.simple-path t))

@@ -49,6 +49,7 @@
 (po/import-macro filter/has)
 (po/import-fn filter/has-not)
 (po/import-fn filter/interval)
+(po/import-fn filter/random)
 (po/import-fn filter/range)
 (po/import-fn filter/retain)
 (po/import-fn filter/simple-path)

@@ -4,7 +4,7 @@
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.test-util :as u]))
 
-(deftest test-range-step
+(deftest test-retain-step
   (testing "test_g_v1_out_retainXg_v2X"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/find-by-id g (int 1))

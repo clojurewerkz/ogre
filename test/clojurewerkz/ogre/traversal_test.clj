@@ -1,12 +1,11 @@
-(ns clojurewerkz.ogre.map.traversal-test
+(ns clojurewerkz.ogre.traversal-test
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.edge :as e]
             [clojurewerkz.ogre.test-util :as u]))
 
-(deftest test-transform-step
-
+(deftest test-traversal
   (testing "test_g_V()"
     "Nothing for Ogre to do here")
 

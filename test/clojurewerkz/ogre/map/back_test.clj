@@ -1,4 +1,4 @@
-(ns clojurewerkz.ogre.filter.back-test
+(ns clojurewerkz.ogre.map.back-test
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
