@@ -8,7 +8,7 @@
             [clojurewerkz.ogre.side-effect :as side-effect]
             [clojure.string :as string]))
 
-;;Define the traversal methods
+;; Define the traversal methods
 (doseq [[direction short shortE name1] '((both <-> <E> both-vertices)
                                          (in   <-- <E- in-vertex)
                                          (out  --> -E> out-vertex))]
