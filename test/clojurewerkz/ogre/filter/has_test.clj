@@ -2,9 +2,8 @@
   (:use [clojure.test])
   (:import (com.tinkerpop.gremlin.process T))
   (:require [clojurewerkz.ogre.core :as q]
-            [clojurewerkz.ogre.test-util :as u]
             [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.graph :as g]))
+            [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-has-step
   (testing "test_g_V_hasXname_markoX"
@@ -30,6 +29,7 @@
      (is (= 6 (count vs)))
       (is (not (#{"blah"} (u/get-names vs))))))
 
+; Not able to use has with T/id, probably because of type issue
 ;  (testing "test_g_v1_out_hasXid_2X"
 ;    (let [g (u/classic-tinkergraph)
 ;          vs (q/query (v/get-all-vertices g)

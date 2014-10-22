@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.side-effect
   (:import (com.tinkerpop.gremlin.process Traversal))
-  (:require [clojurewerkz.ogre.traversal :as t])
-  (:use clojurewerkz.ogre.util))
+  (:require [clojurewerkz.ogre.traversal :as t]
+            [clojurewerkz.ogre.util :refer (f-to-function f-to-consumer)]))
 
 (defn cap
   ([^Traversal t] (.cap t))

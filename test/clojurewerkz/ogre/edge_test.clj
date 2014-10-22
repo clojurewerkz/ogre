@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.edge-test
   (:use [clojure.test :only [deftest testing is]])
-  (:require [clojurewerkz.ogre.graph :as gr]
+  (:require [clojurewerkz.ogre.graph :as g]
             [clojurewerkz.ogre.edge :as e]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.traversal :as t]
@@ -63,8 +63,8 @@
 (deftest test-to-map-id
   (let [id :ID label :LABEL]
     (try
-      (gr/set-element-id-key! id)
-      (gr/set-edge-label-key! label)
+      (g/set-element-id-key! id)
+      (g/set-edge-label-key! label)
       (let [g (u/new-tinkergraph)
             v1 (v/create-with-id! g 100 {:name "v1"})
             v2 (v/create-with-id! g 101 {:name "v2"})
@@ -72,8 +72,8 @@
             prop-map (e/to-map edge)]
       (is (= {:a 1 :b 2 :c 3 id 102 label :test}  prop-map)))
       (finally
-        (gr/set-element-id-key! :__id__)
-        (gr/set-edge-label-key! :__label__)))))
+        (g/set-element-id-key! :__id__)
+        (g/set-edge-label-key! :__label__)))))
 
 (deftest test-endpoints
   (let [g (u/new-tinkergraph)

@@ -1,6 +1,4 @@
 (ns clojurewerkz.ogre.util
-  (:require [clojure.reflect :as r])
-  (:use [clojure.pprint :only (pprint)])
   (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.structure Compare Direction)
            (java.util.function Function Consumer Predicate)))

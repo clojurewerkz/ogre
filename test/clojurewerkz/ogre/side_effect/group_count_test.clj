@@ -1,7 +1,6 @@
 (ns clojurewerkz.ogre.side-effect.group-count-test
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
-            [clojurewerkz.ogre.graph :as g]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.test-util :as u]))
 

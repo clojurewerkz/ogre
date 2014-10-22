@@ -4,17 +4,17 @@
            (com.tinkerpop.gremlin.process T))
   (:require [clojurewerkz.ogre.graph :refer (*element-id-key*)]
             [clojurewerkz.ogre.util :refer (to-edge-direction keywords-to-str-array prop-map-to-array)]
-            [clojurewerkz.ogre.element :as elem]
+            [clojurewerkz.ogre.element :as el]
             [clojurewerkz.ogre.traversal :as t]
             [potemkin :as po]))
 
-(po/import-fn elem/get)
-(po/import-fn elem/keys)
-(po/import-fn elem/vals)
-(po/import-fn elem/id-of)
-(po/import-fn elem/assoc!)
-(po/import-fn elem/dissoc!)
-(po/import-fn elem/clear!)
+(po/import-fn el/get)
+(po/import-fn el/keys)
+(po/import-fn el/vals)
+(po/import-fn el/id-of)
+(po/import-fn el/assoc!)
+(po/import-fn el/dissoc!)
+(po/import-fn el/clear!)
 
 ;;
 ;;Transaction management

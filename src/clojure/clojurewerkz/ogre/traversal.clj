@@ -1,9 +1,6 @@
 (ns clojurewerkz.ogre.traversal
   (:refer-clojure :exclude [iterate])
-  (:import (com.tinkerpop.gremlin.process Traversal)
-           (com.tinkerpop.gremlin.structure Vertex)
-           (java.util.function Function))
-  (:use clojurewerkz.ogre.util))
+  (:import (com.tinkerpop.gremlin.process Traversal)))
 
 (defn iterate!
   [^Traversal t]

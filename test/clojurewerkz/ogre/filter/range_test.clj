@@ -1,9 +1,8 @@
 (ns clojurewerkz.ogre.filter.range-test
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
-            [clojurewerkz.ogre.test-util :as u]
             [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.graph :as g]))
+            [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-range-step
   (testing "test_g_v1_out_rangeX0_1X"

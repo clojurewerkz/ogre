@@ -3,7 +3,6 @@
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.edge :as e]
-            [clojurewerkz.ogre.graph :as g]
             [clojurewerkz.ogre.test-util :as u]))
 
 ;;Adapted from

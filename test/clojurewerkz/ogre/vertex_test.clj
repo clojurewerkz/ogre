@@ -7,20 +7,20 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-create
-  (let [graph (u/new-tinkergraph)
-        u (v/create! graph)]
-    (is (= 1 (count (t/into-set! (v/get-all-vertices graph)))))))
+  (let [g (u/new-tinkergraph)
+        u (v/create! g)]
+    (is (= 1 (count (t/into-set! (v/get-all-vertices g)))))))
 
 (deftest test-delete
-  (let [graph (u/new-tinkergraph)
-        u (v/create-with-id! graph 100 {:name "v1"})]
+  (let [g (u/new-tinkergraph)
+        u (v/create-with-id! g 100 {:name "v1"})]
     (v/remove! u)
-    (is (=  nil (v/find-by-id graph 100)))
-    (is (empty? (t/into-set! (v/find-by-kv graph :name "v1"))))))
+    (is (=  nil (v/find-by-id g 100)))
+    (is (empty? (t/into-set! (v/find-by-kv g :name "v1"))))))
 
 (deftest test-simple-property-mutation
-  (let [graph (u/new-tinkergraph)
-        u (v/create-with-id! graph 100 {:name "v1" :a 1 :b 1})]
+  (let [g (u/new-tinkergraph)
+        u (v/create-with-id! g 100 {:name "v1" :a 1 :b 1})]
     (v/assoc! u {:b 2})
     (v/dissoc! u :a)
     (is (= (list 1 2) (v/get u :b)))
@@ -28,16 +28,16 @@
     (is (= 10 (v/get u :a 10)))))
 
 (deftest test-multiple-property-mutation
-  (let [graph (u/new-tinkergraph)
-        u (v/create-with-id! graph 100 {:name "v1" :a 0 :b 2})]
+  (let [g (u/new-tinkergraph)
+        u (v/create-with-id! g 100 {:name "v1" :a 0 :b 2})]
     (v/assoc! u {:a 1 :b 2 :c 3})
     (is (= (list 0 1) (v/get u :a)))
     (is (= (list 2 2) (v/get u :b)))
     (is (= 3 (v/get u :c)))))
 
 (deftest test-to-map
-  (let [graph (u/new-tinkergraph)
-        v1 (v/create-with-id! graph 100 {:name "v1" :a 1 :b 2 :c 3})
+  (let [g (u/new-tinkergraph)
+        v1 (v/create-with-id! g 100 {:name "v1" :a 1 :b 2 :c 3})
         props (v/to-map v1)]
     (is (= 1 (props :a)))
     (is (= 2 (props :b)))
@@ -47,8 +47,8 @@
   (let [id :ID]
     (try
       (g/set-element-id-key! id)
-      (let [graph (u/new-tinkergraph)
-            v1 (v/create-with-id! graph 100 {:name "v1" :a 1 :b 2 :c 3})
+      (let [g (u/new-tinkergraph)
+            v1 (v/create-with-id! g 100 {:name "v1" :a 1 :b 2 :c 3})
             props (v/to-map v1)]
         (is (= 100 (props id)))
         (is (= 1 (props :a)))
@@ -58,42 +58,42 @@
         (g/set-element-id-key! :__id__)))))
 
 (deftest test-find-by-id-single
-  (let [graph (u/new-tinkergraph)
-        v1 (v/create-with-id! graph 100 {:prop 1})
-        v1-maybe (v/find-by-id graph 100)]
+  (let [g (u/new-tinkergraph)
+        v1 (v/create-with-id! g 100 {:prop 1})
+        v1-maybe (v/find-by-id g 100)]
     (is (= 1 (v/get v1-maybe :prop)))))
 
 (deftest test-find-by-id-multiple
-  (let [graph (u/new-tinkergraph)
-        v1 (v/create-with-id! graph 100 {:prop 1})
-        v2 (v/create-with-id! graph 101 {:prop 2})
-        v3 (v/create-with-id! graph 102 {:prop 3})
+  (let [g (u/new-tinkergraph)
+        v1 (v/create-with-id! g 100 {:prop 1})
+        v2 (v/create-with-id! g 101 {:prop 2})
+        v3 (v/create-with-id! g 102 {:prop 3})
         ids (map v/id-of [v1 v2 v3])
-        v-maybes (apply v/find-by-id graph ids)]
+        v-maybes (apply v/find-by-id g ids)]
     (is (= (range 1 4) (map #(v/get % :prop) v-maybes)))))
 
 (deftest test-find-by-kv
-  (let [graph (u/new-tinkergraph)
-        v1 (v/create-with-id! graph 100 {:age 1 :name "A"})
-        v2 (v/create-with-id! graph 101 {:age 2 :name "B"})
-        v3 (v/create-with-id! graph 102 {:age 2 :name "C"})]
+  (let [g (u/new-tinkergraph)
+        v1 (v/create-with-id! g 100 {:age 1 :name "A"})
+        v2 (v/create-with-id! g 101 {:age 2 :name "B"})
+        v3 (v/create-with-id! g 102 {:age 2 :name "C"})]
     (is (= #{"A"}
-           (set (map #(v/get % :name) (t/into-set! (v/find-by-kv graph :age 1))))))
+           (set (map #(v/get % :name) (t/into-set! (v/find-by-kv g :age 1))))))
     (is (= #{"B" "C"}
-           (set (map #(v/get % :name) (t/into-set! (v/find-by-kv graph :age 2))))))))
+           (set (map #(v/get % :name) (t/into-set! (v/find-by-kv g :age 2))))))))
 
 (deftest test-get-all-vertices
-  (let [graph (u/new-tinkergraph)
-        v1 (v/create-with-id! graph 100 {:age 1 :name "A"})
-        v2 (v/create-with-id! graph 101 {:age 2 :name "B"})
-        v3 (v/create-with-id! graph 102 {:age 2 :name "C"})]
-    (is (= #{v1 v2 v3} (t/into-set! (v/get-all-vertices graph))))))
+  (let [g (u/new-tinkergraph)
+        v1 (v/create-with-id! g 100 {:age 1 :name "A"})
+        v2 (v/create-with-id! g 101 {:age 2 :name "B"})
+        v3 (v/create-with-id! g 102 {:age 2 :name "C"})]
+    (is (= #{v1 v2 v3} (t/into-set! (v/get-all-vertices g))))))
 
 (deftest test-adjacent-object-retrieval
-  (let [graph (u/new-tinkergraph)
-        v1 (v/create-with-id! graph 100 {:age 1 :name "A"})
-        v2 (v/create-with-id! graph 101 {:age 2 :name "B"})
-        v3 (v/create-with-id! graph 102 {:age 2 :name "C"})
+  (let [g (u/new-tinkergraph)
+        v1 (v/create-with-id! g 100 {:age 1 :name "A"})
+        v2 (v/create-with-id! g 101 {:age 2 :name "B"})
+        v3 (v/create-with-id! g 102 {:age 2 :name "C"})
         e1 (e/connect-with-id! 103 v1 :a v2)
         e2 (e/connect-with-id! 104 v2 :b v1)
         e3 (e/connect-with-id! 105 v1 :c v3)]
@@ -129,16 +129,16 @@
 
 (deftest test-upsert!
   (testing "upsert! with id"
-    (let [graph (u/new-tinkergraph)
-          v1-a (v/upsert-with-id! graph 100 :first-name {:first-name "Zack" :last-name "Maril" :age 21})
-          v1-b (v/upsert-with-id! graph 101 :first-name {:first-name "Zack" :last-name "Maril" :age 22})
-          v2 (v/upsert-with-id! graph 102 :first-name {:first-name "Brooke" :last-name "Maril" :age 19})]
+    (let [g (u/new-tinkergraph)
+          v1-a (v/upsert-with-id! g 100 :first-name {:first-name "Zack" :last-name "Maril" :age 21})
+          v1-b (v/upsert-with-id! g 101 :first-name {:first-name "Zack" :last-name "Maril" :age 22})
+          v2 (v/upsert-with-id! g 102 :first-name {:first-name "Brooke" :last-name "Maril" :age 19})]
       (is (= 22
             (last (v/get (first v1-a) :age))
             (last (v/get (first v1-b) :age))))
 
-      (v/upsert-with-id! graph 103 :last-name {:last-name "Maril"
-                                               :heritage "Some German Folks"})
+      (v/upsert-with-id! g 103 :last-name {:last-name "Maril"
+                                           :heritage "Some German Folks"})
 
       (is (= "Some German Folks"
             (v/get (first v1-a) :heritage)
@@ -146,17 +146,17 @@
             (v/get (first v2) :heritage)))))
 
   (testing "upsert! without id"
-    (let [graph (u/new-tinkergraph)
-          v1-a (v/upsert! graph :first-name {:first-name "Zack" :last-name "Maril" :age 21})
-          v1-b (v/upsert! graph :first-name {:first-name "Zack" :last-name "Maril" :age 22})
-          v2 (v/upsert! graph :first-name {:first-name "Brooke" :last-name "Maril" :age 19})]
+    (let [g (u/new-tinkergraph)
+          v1-a (v/upsert! g :first-name {:first-name "Zack" :last-name "Maril" :age 21})
+          v1-b (v/upsert! g :first-name {:first-name "Zack" :last-name "Maril" :age 22})
+          v2 (v/upsert! g :first-name {:first-name "Brooke" :last-name "Maril" :age 19})]
 
       (is (= 22
             (last (v/get (first v1-a) :age))
             (last (v/get (first v1-b) :age))))
 
-      (v/upsert! graph :last-name {:last-name "Maril"
-                                   :heritage "Some German Folks"})
+      (v/upsert! g :last-name {:last-name "Maril"
+                               :heritage "Some German Folks"})
 
       (is (= "Some German Folks"
             (v/get (first v1-a) :heritage)
@@ -164,8 +164,8 @@
             (v/get (first v2) :heritage))))))
 
 (deftest test-get-false-val
-  (let [graph (u/new-tinkergraph)
-        v     (v/create-with-id! graph 100 {:foo false})]
+  (let [g (u/new-tinkergraph)
+        v     (v/create-with-id! g 100 {:foo false})]
     (is (= (v/get v :foo) false))
     (is (= (v/get v :foo 1) false))
     (is (nil? (v/get v :bar)))

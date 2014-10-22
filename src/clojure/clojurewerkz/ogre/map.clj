@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [map])
   (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.structure Order))
-  (:use clojurewerkz.ogre.util))
+  (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-strings)]))
 
 (defn back
   ([^Traversal t step-label] (.back t step-label)))

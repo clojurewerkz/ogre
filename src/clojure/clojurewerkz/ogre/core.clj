@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.core
   (:refer-clojure :exclude [filter and or range count iterate next map loop reverse])
   (:require [potemkin :as po]
-            [clojurewerkz.ogre.util :as util :refer [keywords-to-strings]]
+            [clojurewerkz.ogre.util :as util :refer (keywords-to-strings)]
             [clojurewerkz.ogre.filter :as filter]
             [clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.traversal :as traversal]
