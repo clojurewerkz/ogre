@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.core
   (:refer-clojure :exclude [filter and or range count iterate next map loop reverse])
   (:require [potemkin :as po]
-            [clojurewerkz.ogre.util :as util :refer (keywords-to-strings)]
+            [clojurewerkz.ogre.util :as util :refer (keywords-to-str-array)]
             [clojurewerkz.ogre.filter :as filter]
             [clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.traversal :as traversal]
@@ -23,14 +23,14 @@
                ;;       " direction and returns the vertices.")
                ([t#] (~direction t# []))
                ([t# labels#]
-                 (-> t# (~j1 (keywords-to-strings labels#)))))
+                 (-> t# (~j1 (keywords-to-str-array labels#)))))
              (defn ~short
                [& args#]
                (apply ~direction args#))
              (defn ~f1
                ([t#] (~f1 t# []))
                ([t# labels#]
-                  (-> t# (~j2 (keywords-to-strings labels#)))))
+                  (-> t# (~j2 (keywords-to-str-array labels#)))))
              (defn ~shortE
                [& args#]
                (apply ~f1 args#))

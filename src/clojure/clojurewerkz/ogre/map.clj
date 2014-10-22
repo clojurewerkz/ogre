@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [map])
   (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.structure Order))
-  (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-strings)]))
+  (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array)]))
 
 (defn back
   ([^Traversal t step-label] (.back t step-label)))
@@ -30,7 +30,7 @@
 
 (defn properties
   ([^Traversal t & keys]
-    (.properties t (keywords-to-strings keys))))
+    (.properties t (keywords-to-str-array keys))))
 
 (defn select
   ([^Traversal t]
@@ -49,4 +49,4 @@
 
 (defn values
   ([^Traversal t & keys]
-    (.values t (keywords-to-strings keys))))
+    (.values t (keywords-to-str-array keys))))
