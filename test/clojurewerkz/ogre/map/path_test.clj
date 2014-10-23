@@ -7,7 +7,7 @@
   (deftest test-path-step
   (testing "g.getVertex(1).property('name').path"
     (let [g (u/classic-tinkergraph)
-          path (.getObjects (q/query (v/find-by-id g (int 1))
+          path (.objects (q/query (v/find-by-id g (int 1))
                         (q/values :name)
                         q/path
                         q/next!))]

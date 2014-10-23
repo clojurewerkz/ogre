@@ -5,10 +5,10 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [potemkin "0.3.3"]
-                 [com.tinkerpop/gremlin-core "3.0.0.M3"]
-                 [com.tinkerpop/gremlin-test "3.0.0.M3"]
-                 [com.tinkerpop/tinkergraph-gremlin "3.0.0.M3"]
-                 [com.tinkerpop/neo4j-gremlin "3.0.0.M3"]]
+                 [com.tinkerpop/gremlin-core "3.0.0.M4"]
+                 [com.tinkerpop/gremlin-test "3.0.0.M4"  :scope "test"]
+                 [com.tinkerpop/tinkergraph-gremlin "3.0.0.M4"  :scope "test"]
+                 [com.tinkerpop/neo4j-gremlin "3.0.0.M4" :scope "test"]]
   :source-paths ["src/clojure"]
   :profiles {:dev    { :global-vars {*assert* true}
                        :dependencies [[com.tinkerpop.blueprints/blueprints-neo4j-graph "2.5.0"]
