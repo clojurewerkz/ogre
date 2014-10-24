@@ -26,8 +26,8 @@
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
                          (q/order (fn [a b]
-                                    (compare (v/get (.get a) :name)
-                                             (v/get (.get b) :name))))
+                                    (compare (v/get a :name)
+                                             (v/get b :name))))
                          (q/values :name)
                          q/into-vec!)]
       (is (= (sort ["vadas" "ripple" "peter" "marko" "lop" "josh"]) (sort names)))))

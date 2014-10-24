@@ -9,6 +9,6 @@
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/has-not :age)
-                      (q/into-vec!))]
+                      q/into-vec!)]
       (is (= 2 (count vs)))
       (is (= (#{"lop" "ripple"} (u/get-names vs)))))))

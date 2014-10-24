@@ -49,24 +49,24 @@
           r2 (q/query hercules
                       (q/--> [:father :mother])
                       (q/values :name)
-                      (q/into-set!))
+                      q/into-set!)
           r3 (q/query hercules
                       (q/-E> [:battled])
                       (q/has  :times > 1)
-                      (q/in-vertex)
+                      q/in-vertex
                       (q/values :name)
-                      (q/into-set!))
+                      q/into-set!)
           c3 (q/query hercules
                       (q/-E> [:battled])
                       (q/has :times > 1)
-                      (q/in-vertex)
-                      (q/count!))
+                      q/in-vertex
+                      q/count!)
           r4 (q/query pluto
                       (q/--> [:lives])
                       (q/<-- [:lives])
                       (q/except [pluto])
                       (q/values :name)
-                      (q/into-set!))]
+                      q/into-set!)]
       (is (= r0 1))
       (is (= r1 hercules))
       (is (= r2 #{"Alcmene" "Jupiter"}))

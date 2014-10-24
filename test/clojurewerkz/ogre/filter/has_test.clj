@@ -10,7 +10,7 @@
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/has :name "marko")
-                      (q/into-vec!))]
+                      q/into-vec!)]
       (is (= 1 (count vs)))
       (is (= #{"marko"} (u/get-names-set vs)))))
 
@@ -18,14 +18,14 @@
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/has :name "blah")
-                      (q/into-vec!))]
+                      q/into-vec!)]
       (is (= 0 (count vs)))))
 
   (testing "g.V().has('name')"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/has :name)
-                      (q/into-vec!))]
+                      q/into-vec!)]
      (is (= 6 (count vs)))
       (is (not (#{"blah"} (u/get-names vs))))))
 
@@ -34,7 +34,7 @@
 ;    (let [g (u/classic-tinkergraph)
 ;          vs (q/query (v/get-all-vertices g)
 ;                      (q/has T/id 2)
-;                      (q/into-vec!))]
+;                      q/into-vec!)]
 ;      (is (= 1 (count vs)))
 ;      (is (every? (partial >= 32) (u/get-ages vs)))))
 
@@ -42,6 +42,6 @@
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/has :age > (int 30))
-                      (q/into-vec!))]
+                      q/into-vec!)]
       (is (= 2 (count vs)))
       (is (every? (partial < 30) (u/get-ages vs))))))

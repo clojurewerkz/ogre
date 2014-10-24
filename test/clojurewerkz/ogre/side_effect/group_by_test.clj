@@ -8,7 +8,7 @@
   (testing "g.V().groupBy{it.get().value('lang','')}{it.get().value('name','')}"
     (let [g (u/classic-tinkergraph)
           grouped (q/query (v/get-all-vertices g)
-                           (q/get-grouped-by! #(v/get (.get %) :lang) #(v/get (.get %) :name)))]
+                           (q/get-grouped-by! #(v/get % :lang) #(v/get % :name)))]
       (is (= (set (grouped nil))
              (set ["vadas" "marko" "peter" "josh"])))
       (is (= (set (grouped "java"))

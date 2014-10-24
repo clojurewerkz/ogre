@@ -20,7 +20,7 @@
           vs (q/query (v/find-by-id g (int 4))
                       q/-->
                       (q/as "here")
-                      (q/filter #(= "java" (v/get (.get %) :lang)))
+                      (q/filter #(= "java" (v/get % :lang)))
                       (q/back "here")
                       q/into-vec!)]
       (is (= #{"ripple" "lop"} (u/get-names-set vs)))
@@ -31,7 +31,7 @@
           names (q/query (v/find-by-id g (int 4))
                          q/-->
                          (q/as "here")
-                         (q/filter #(= "java" (v/get (.get %) :lang)))
+                         (q/filter #(= "java" (v/get % :lang)))
                          (q/back "here")
                          (q/values :name)
                          q/into-set!)]

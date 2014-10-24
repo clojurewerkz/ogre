@@ -9,5 +9,5 @@
     (let [g (u/classic-tinkergraph)
           group (q/query (v/get-all-vertices g)
                          (q/--> [:created])
-                         (q/get-group-count! #(v/get (.get %) :name)))]
+                         (q/get-group-count! #(v/get % :name)))]
       (is (= group {"lop" 3 "ripple" 1})))))

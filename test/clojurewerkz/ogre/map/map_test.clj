@@ -7,7 +7,7 @@
 (deftest test-map-step
   (testing "g.v(1).map{it.get().value('name')}.next()"
     (let [name (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
-                        (q/map #(v/get (.get %) :name))
+                        (q/map #(v/get % :name))
                         q/first-of!)]
       (is (= "marko" name))))
 
@@ -24,7 +24,7 @@
   (testing "g.v(1).out().map{it.get().value('name')}.map{it.get().length()}"
     (let [names (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                          q/-->
-                         (q/map #(v/get (.get %) :name))
+                         (q/map #(v/get % :name))
                          (q/map #(count (.get %)))
                          q/into-vec!)]
       (is (= (set (map count ["josh" "vadas" "lop"]))

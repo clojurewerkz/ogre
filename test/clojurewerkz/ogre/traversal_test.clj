@@ -132,7 +132,7 @@
         _     (e/connect-with-id! 104 a :friend c)
         vs    (q/query a
                  (q/--> [:friend])
-                 (q/into-set!))]
+                 q/into-set!)]
     (is (= 2 (count vs)))
     (is (= #{b c} vs))))
 
@@ -147,7 +147,7 @@
         _     (e/connect-with-id! 106 c :remembers a)
         n     (q/query a
                  (q/--> [:friend :remembers])
-                 (q/count!))]
+                 q/count!)]
     (is (= 3 n))))
 
 (deftest test-edge-count-with-default-comparator
@@ -160,15 +160,15 @@
         n1    (q/query a
                  (q/--> [:friend])
                  (q/has :age 38)
-                 (q/count!))
+                 q/count!)
         n2    (q/query a
                  (q/-->  [:friend])
                  (q/has :age 29)
-                 (q/count!))
+                 q/count!)
         n3    (q/query a
                  (q/--> [:hates])
                  (q/has :age 28)
-                 (q/count!))]
+                 q/count!)]
     (is (= n1 1))
     (is (= n2 0))
     (is (= n3 0))))
@@ -183,15 +183,15 @@
         n1    (q/query a
                  (q/--> [:friend])
                  (q/has :age >= 28)
-                 (q/count!))
+                 q/count!)
         n2    (q/query a
                  (q/--> [:friend])
                  (q/has :age >= 33)
-                 (q/count!))
+                 q/count!)
         n3    (q/query a
                  (q/--> [:hates])
                  (q/has :age >= 28)
-                 (q/count!))]
+                 q/count!)]
     (is (= n1 2))
     (is (= n2 1))
     (is (= n3 0))))
@@ -206,15 +206,15 @@
         n1    (q/query a
                  (q/--> [:friend])
                  (q/has :age <= 40)
-                 (q/count!))
+                 q/count!)
         n2    (q/query a
                  (q/--> [:friend])
                  (q/has :age <= 37)
-                 (q/count!))
+                 q/count!)
         n3    (q/query a
                  (q/--> [:hates])
                  (q/has :age <= 28)
-                 (q/count!))]
+                 q/count!)]
     (is (= n1 2))
     (is (= n2 1))
     (is (= n3 0))))
@@ -230,11 +230,11 @@
         _     (e/connect-with-id! 106 a :friend d)
         n1    (q/query a
                  (q/--> [:friend])
-                 (q/count!))
+                 q/count!)
         n2    (q/query a
                  (q/--> [:friend])
                  (q/has :age)
-                 (q/count!))]
+                 q/count!)]
     (is (= n1 3))
     (is (= n2 2))))
 
