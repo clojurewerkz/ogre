@@ -22,7 +22,7 @@
   (testing "g.V().filter{it.get().value('lang','') == 'java'}"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
-                      (q/filter (partial u/prop-pred :lang = "java"))
+                      (q/filter (partial v/prop-pred :lang = "java"))
                       (q/into-vec!))]
       (is (= 2 (count vs)))
       (is (= #{"lop" "ripple"} (u/get-names-set vs)))))

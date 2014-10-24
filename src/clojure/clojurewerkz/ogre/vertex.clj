@@ -8,6 +8,7 @@
             [potemkin :as po]))
 
 (po/import-fn el/get)
+(po/import-fn el/prop-pred)
 (po/import-fn el/keys)
 (po/import-fn el/vals)
 (po/import-fn el/id-of)

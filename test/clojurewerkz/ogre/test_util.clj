@@ -2,9 +2,6 @@
   (:require [clojurewerkz.ogre.element :as el])
   (:import (com.tinkerpop.gremlin.tinkergraph.structure TinkerFactory TinkerGraph)))
 
-(defn prop-pred [key pred value v]
-  (pred value (el/get (.get v) key)))
-
 (defn get-names [vs]
   (map #(el/get % :name) vs))
 
