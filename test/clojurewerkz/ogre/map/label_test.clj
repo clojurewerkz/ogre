@@ -5,7 +5,7 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-label-step
-  (testing "test_g_v1_outE_labelX()"
+  (testing "g.v(1).outE().label()"
     (let [names (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                          q/-E>
                          q/label

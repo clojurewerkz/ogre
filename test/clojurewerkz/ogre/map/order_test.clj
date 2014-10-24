@@ -6,7 +6,7 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-order-step
-  (testing "g(g.getVertices).property('name').order"
+  (testing "g.V().values('name').order()"
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
                          (q/values :name)
@@ -14,15 +14,15 @@
                          q/into-vec!)]
       (is (= ["josh" "lop" "marko""peter" "ripple" "vadas"] names))))
 
-  (testing "g(g.getVertices).property('name').order(ab)"
+  (testing "g.V().values('name').order{a,b -> b.compareTo(a)}"
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
                          (q/values :name)
                          (q/order #(compare %2 %1))
                          q/into-vec!)]
-      (is (= ["vadas""ripple""peter" "marko" "lop" "josh"] names))))
+      (is (= ["vadas" "ripple" "peter" "marko" "lop" "josh"] names))))
 
-  (testing "g(g.getVertices).order(a.name>b.name).property('name')"
+  (testing "g.V().order{a,b -> a.get().value('name').compareTo(b.get().value('name'))}.values('name')"
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
                          (q/order (fn [a b]
@@ -32,10 +32,10 @@
                          q/into-vec!)]
       (is (= (sort ["vadas" "ripple" "peter" "marko" "lop" "josh"]) (sort names)))))
 
-  (testing "g(g.getVertices).property('name').order(decr)"
+  (testing "g.V().values('name').order(Order.decr)"
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
                          (q/values :name)
                          (q/order Order/decr)
                          q/into-vec!)]
-      (is (= ["vadas""ripple""peter" "marko" "lop" "josh"] names)))))
+      (is (= ["vadas" "ripple" "peter" "marko" "lop" "josh"] names)))))

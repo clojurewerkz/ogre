@@ -5,7 +5,7 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-back-step
-  (testing "test_g_v1_asXhereX_out_backXhereX()"
+  (testing "g.v(1).as('here').out().back('here')"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/find-by-id g (int 1))
                       (q/as "here")
@@ -15,7 +15,7 @@
       (is (= #{"marko"} (u/get-names-set vs)))
       (is (= 3 (count vs)))))
 
-  (testing "test_g_v4_out_asXhereX_filterXlang_eq_javaX_backXhereX()"
+  (testing "g.v(4).out().as('here').filter{it.get().value('lang') == 'java'}.back('here')"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/find-by-id g (int 4))
                       q/-->
@@ -26,7 +26,7 @@
       (is (= #{"ripple" "lop"} (u/get-names-set vs)))
       (is (= 2 (count vs)))))
 
-  (testing "test_g_v4_out_asXhereX_filterXlang_eq_javaX_backXhereX_propertyXnameX"
+  (testing "g.v(4).out().as('here').filter{it.get().value('lang') == 'java'}.back('here').values('name')"
     (let [g (u/classic-tinkergraph)
           names (q/query (v/find-by-id g (int 4))
                          q/-->
