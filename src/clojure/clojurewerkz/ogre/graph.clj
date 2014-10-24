@@ -7,8 +7,23 @@
   [^Graph g]
   (-> g (.features) (.graph)))
 
+(defn supports-computer
+  "Determines if the graph supports GraphComputer-based processing."
+  [^Graph g]
+  (.supportsComputer (get-graph-features g)))
+
+(defn supports-persistence
+  "Determines if the graph supports persisting its contents natively to disk."
+  [^Graph g]
+  (.supportsPersistence (get-graph-features g)))
+
+(defn supports-threaded-transactions
+  "Determines if the graph supports threaded transactions."
+  [^Graph g]
+  (.supportsThreadedTransactions (get-graph-features g)))
+
 (defn supports-transactions
-  "Returns a value indicating if transactions are supported for the given graph."
+  "Determines if the graph supports transactions."
   [^Graph g]
   (.supportsTransactions (get-graph-features g)))
 
@@ -21,12 +36,12 @@
   (.newTransaction g))
 
 (defn commit
-  "Commit all changes to the graph."
+  "Commits all changes to the graph."
   [^Graph g]
   (-> g (.tx) (.commit)))
 
 (defn close
-  "Close the graph."
+  "Closes the graph."
   [^Graph g]
   (.close g))
 

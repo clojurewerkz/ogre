@@ -43,6 +43,12 @@
                     value (second %)]
             (vector (if (keyword? key) (name key) key) value)) m)))))
 
+(defmulti convert-to-map "Converts objects to a map." class)
+
+(defmethod convert-to-map java.util.HashMap
+  [m]
+  (into {} (for [[k v] m] [(keyword k) v])))
+
 (defn ^Function f-to-function [f]
   "Converts a function to java.util.function.Function."
   (reify Function

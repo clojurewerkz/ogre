@@ -13,6 +13,7 @@
                          q/order
                          q/into-vec!)]
       (is (= ["josh" "lop" "marko""peter" "ripple" "vadas"] names))))
+
   (testing "g(g.getVertices).property('name').order(ab)"
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)

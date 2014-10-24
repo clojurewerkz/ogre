@@ -10,6 +10,7 @@
                         (q/map #(v/get (.get %) :name))
                         q/first-of!)]
       (is (= "marko" name))))
+
   (testing "test_g_v1_outE_label_mapXlengthX()"
     (let [names (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                          q/-E>

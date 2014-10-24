@@ -7,16 +7,19 @@
 ;; aggregate
 
 (defn cap
+  "Emits the value of the previous step and not the values that flow through it."
   ([^Traversal t] (.cap t))
   ([^Traversal t k] (.cap t k)))
 
 ;; count
 
 (defn get-capped!
+  "Returns the value of the previous step."
   ([^Traversal t] (t/next! (cap t)))
   ([^Traversal t k] (t/next! (cap t k))))
 
 (defn side-effect
+  "Executes a side effect."
   [^Traversal t f]
   (.sideEffect t (f-to-consumer f)))
 
@@ -24,6 +27,8 @@
 ;; groupCount
 
 (defn get-grouped-by!
+  "Takes in a key function and processing function. Returns all of the processed objects
+  grouped by the value of the key function."
   [^Traversal t key-func value-func]
     (let [results  (-> (.groupBy t (f-to-function key-func) (f-to-function value-func))
                        (.cap)
@@ -36,6 +41,8 @@
         (into {}))))
 
 (defn get-group-count!
+  "Takes in a key function, and optionally, a counting function. Returns the count of the
+  objects grouped by the key function."
   [^Traversal t key-func]
     (-> (.groupCount t (f-to-function key-func))
         (.cap)
