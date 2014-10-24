@@ -6,7 +6,7 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-has-step
-  (testing "test_g_V_hasXname_markoX"
+  (testing "g.V().has('name','marko')"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/has :name "marko")
@@ -14,14 +14,14 @@
       (is (= 1 (count vs)))
       (is (= #{"marko"} (u/get-names-set vs)))))
 
-  (testing "test_g_V_hasXname_blahX"
+  (testing "g.V().has('name','blah')"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/has :name "blah")
                       (q/into-vec!))]
       (is (= 0 (count vs)))))
 
-  (testing "test_g_V_hasXnameX"
+  (testing "g.V().has('name')"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/has :name)
@@ -30,7 +30,7 @@
       (is (not (#{"blah"} (u/get-names vs))))))
 
 ; Not able to use has with T/id, probably because of type issue
-;  (testing "test_g_v1_out_hasXid_2X"
+;  (testing "g.V().has(T.id,2)"
 ;    (let [g (u/classic-tinkergraph)
 ;          vs (q/query (v/get-all-vertices g)
 ;                      (q/has T/id 2)
@@ -38,7 +38,7 @@
 ;      (is (= 1 (count vs)))
 ;      (is (every? (partial >= 32) (u/get-ages vs)))))
 
-  (testing "test_g_V_hasXage_gt_32X"
+  (testing "g.V().has('age',Compare.gte,30)"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/has :age > (int 30))

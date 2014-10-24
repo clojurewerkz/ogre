@@ -6,34 +6,38 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-traversal
-  (testing "test_g_V()"
-    "Nothing for Ogre to do here")
+  (testing "g.V()"
+    (let [vs (q/query (v/get-all-vertices (u/classic-tinkergraph))
+                      q/into-vec!)]
+      (is (= 6 (count vs)))))
 
-  (testing "test_g_v1_out()"
+  (testing "g.v(1).out()"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                       q/-->
                       q/into-vec!)]
       (is (= #{"vadas" "josh" "lop"}
              (u/get-names-set vs)))))
 
-  (testing "test_g_v2_in()"
+  (testing "g.v(2).in()"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 2))
                       q/<--
                       q/into-vec!)]
       (is (= #{"marko"}
              (u/get-names-set vs)))))
 
-  (testing "test_g_v4_both()"
+  (testing "g.v(4).both()"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 4))
                       q/<->
                       q/into-vec!)]
       (is (= #{"marko" "ripple" "lop"}
              (u/get-names-set vs)))))
 
-  (testing "test_g_E"
-    "Nothign to see here")
+  (testing "g.E()"
+    (let [vs (q/query (e/get-all-edges (u/classic-tinkergraph))
+               q/into-vec!)]
+      (is (= 6 (count vs)))))
 
-  (testing "test_g_v1_outE()"
+  (testing "g.v(1).outE()"
     (let [es (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                       q/-E>
                       q/into-vec!)]
@@ -41,7 +45,7 @@
       (is (= #{:created :knows}
              (set (map e/label-of es))))))
 
-  (testing "test_g_v2_outE()"
+  (testing "g.v(2).inE()"
     (let [es (q/query (v/find-by-id (u/classic-tinkergraph) (int 2))
                       q/<E-
                       q/into-vec!)]
@@ -49,7 +53,7 @@
       (is (= #{:knows}
              (set (map e/label-of es))))))
 
-  (testing "test_g_v4_bothE()"
+  (testing "g.v(4).bothE()"
     (let [es (q/query (v/find-by-id (u/classic-tinkergraph) (int 4))
                       q/<E>
                       q/into-vec!)]
@@ -57,7 +61,7 @@
       (is (= #{:knows :created}
              (set (map e/label-of es))))))
 
-  (testing "test_g_v1_outE_inV"
+  (testing "g.v(1).outE().inV()"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                       q/-E>
                       q/in-vertex
@@ -65,7 +69,7 @@
       (is (= #{"vadas" "josh" "lop"}
              (u/get-names-set vs)))))
 
-  (testing "test_g_v2_inE_outV"
+  (testing "g.v(2).inE().outV()"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 2))
                       q/<E-
                       q/out-vertex
@@ -73,21 +77,21 @@
       (is (= #{"marko"}
              (u/get-names-set vs)))))
 
-  (testing "test_g_v1_out(knows)"
+  (testing "g.v(1).out('knows')"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                       (q/--> [:knows])
                       q/into-vec!)]
       (is (= #{"vadas" "josh"}
              (u/get-names-set vs)))))
 
-  (testing "test_g_v1_out(knows created)"
+  (testing "g.v(1).out('knows','created')"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                       (q/--> [:knows :created])
                       q/into-vec!)]
       (is (= #{"vadas" "josh" "lop"}
              (u/get-names-set vs)))))
 
-  (testing "test_g_v1_outE(knows)_inV"
+  (testing "g.v(1).outE('knows').inV()"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                       (q/-E> [:knows])
                       q/in-vertex
@@ -95,7 +99,7 @@
       (is (= #{"vadas" "josh"}
              (u/get-names-set vs)))))
 
-  (testing "test_g_v1_outE(knows created)_inE"
+  (testing "g.v(1).outE('knows','created').inE()"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                       (q/-E> [:knows :created])
                       q/in-vertex
@@ -103,7 +107,7 @@
       (is (= #{"vadas" "josh" "lop"}
              (u/get-names-set vs)))))
 
-  (testing "test_g_v1_out_out"
+  (testing "g.v(1).out().out()"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                       q/-->
                       q/-->
@@ -111,7 +115,7 @@
       (is (= #{"ripple" "lop"}
              (u/get-names-set vs)))))
 
-  (testing "test_g_v1_out_out_out"
+  (testing "g.v(1).out().out().out()"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                       q/-->
                       q/-->

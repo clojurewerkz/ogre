@@ -5,7 +5,7 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-dedup-step
-  (testing "test_g_V_both_dedup_name()"
+  (testing "g.V().both().dedup().values('name')"
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
                          q/<->
@@ -14,7 +14,7 @@
                          (q/into-vec!))]
       (is (= (sort ["marko" "josh" "peter" "vadas" "lop" "ripple"]) (sort names)))))
 
-  (testing "test_g_V_both_dedup_name()"
+  (testing "g.V().both().dedup{it.get().value('lang','')}.values('name')"
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
                          q/<->

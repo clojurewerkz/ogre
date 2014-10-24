@@ -5,7 +5,7 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-interval-step
-  (testing "test_g_v1_outE_intervalXweight_0_06X_inV"
+  (testing "g.v(1).outE().interval('weight',0f,0.6f).inV()"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/find-by-id g (int 1))
                       (q/-E>)

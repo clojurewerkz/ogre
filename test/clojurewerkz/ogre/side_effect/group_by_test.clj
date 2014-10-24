@@ -5,7 +5,7 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-group-count-step
-  (testing "test_g_V_groupByXlang_nameX"
+  (testing "g.V().groupBy{it.get().value('lang','')}{it.get().value('name','')}"
     (let [g (u/classic-tinkergraph)
           grouped (q/query (v/get-all-vertices g)
                            (q/get-grouped-by! #(v/get (.get %) :lang) #(v/get (.get %) :name)))]

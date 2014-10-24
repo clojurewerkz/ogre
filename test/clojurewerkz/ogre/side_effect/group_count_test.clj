@@ -5,7 +5,7 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-group-count-step
-  (testing "test_g_V_outXcreatedX_groupCountXm__nameX"
+  (testing "g.V().out('created').groupCount{it.get().value('name')}"
     (let [g (u/classic-tinkergraph)
           group (q/query (v/get-all-vertices g)
                          (q/--> [:created])

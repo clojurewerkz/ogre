@@ -5,7 +5,7 @@
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-random-step
-  (testing "test_g_v1_out_random0X"
+  (testing "g.v(1).out().random(0)"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/find-by-id g (int 1))
                       (q/-->)
@@ -13,7 +13,7 @@
                       (q/into-vec!))]
       (is (= 0 (count vs)))))
 
-  (testing "test_g_v1_out_random1X"
+  (testing "g.v(1).out().random(1)"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/find-by-id g (int 1))
                (q/-->)
@@ -21,7 +21,7 @@
                (q/into-vec!))]
       (is (= 3 (count vs)))))
 
-  (testing "test_g_v1_out_random0.5X"
+  (testing "g.v(1).out().random(0.5)"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/find-by-id g (int 1))
                (q/-->)
