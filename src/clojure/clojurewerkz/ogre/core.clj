@@ -5,8 +5,7 @@
             [clojurewerkz.ogre.filter :as filter]
             [clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.traversal :as traversal]
-            [clojurewerkz.ogre.side-effect :as side-effect]
-            [clojure.string :as string]))
+            [clojurewerkz.ogre.side-effect :as side-effect]))
 
 ;; Define the traversal methods
 (doseq [[direction short shortE name1] '((both <-> <E> both-vertices)
