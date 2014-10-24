@@ -7,11 +7,21 @@
 (defn back
   ([^Traversal t step-label] (.back t step-label)))
 
-(defn id
-  ([^Traversal t] (.id t)))
+;; flatMap
+;; fold(BiFunction)
 
 (defn fold
   ([^Traversal t] (.fold t)))
+
+(defn id
+  ([^Traversal t] (.id t)))
+
+;; hiddens
+;; hiddenmMap
+;; hiddenValue
+;; hiddenValueMap
+;; identity
+;; key
 
 (defn label
   ([^Traversal t] (.label t)))
@@ -20,9 +30,14 @@
   ([^Traversal t f]
     (.map t (f-to-function f))))
 
+;; match
+
 (defn order
   ([^Traversal t] (order t Order/incr))
   ([^Traversal t c] (.order ^Traversal t c)))
+
+;; orderBy
+;; otherV
 
 (defn path
   [^Traversal t & fns]
@@ -31,6 +46,8 @@
 (defn properties
   ([^Traversal t & keys]
     (.properties t (keywords-to-str-array keys))))
+
+;; propertyMap
 
 (defn select
   ([^Traversal t]
@@ -44,8 +61,14 @@
   ([^Traversal t ^java.util.Collection cols & fs]
     (.select t cols (fs-to-function-array fs))))
 
+;; shuffle
+;; to
+
 (defn unfold
   ([^Traversal t] (.unfold t)))
+
+;; value
+;; valueMap
 
 (defn values
   ([^Traversal t & keys]

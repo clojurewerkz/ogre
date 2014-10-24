@@ -3,6 +3,8 @@
   (:import (com.tinkerpop.gremlin.process Traversal))
   (:require [clojurewerkz.ogre.util :refer (convert-symbol-to-compare f-to-function f-to-predicate)]))
 
+;; cyclic path
+
 (defn dedup
   "Filters out repeated objects. A function can be supplied that provides the
   values that the traversal will consider when filtering."
@@ -10,6 +12,8 @@
     (.dedup t))
   ([^Traversal t f]
     (.dedup t (f-to-function f))))
+
+;; except overloads
 
 (defn except
   "Filters out the given objects."
@@ -34,6 +38,8 @@
   ([^Traversal t k]
     (.hasNot t (name k))))
 
+;; inject
+
 (defn interval
   "Allows elements to pass that have their property in the given start and end interval."
   [^Traversal t key ^Comparable start ^Comparable end]
@@ -47,6 +53,8 @@
   "Allows elements to pass that are within the given range."
   [^Traversal t low high] (.range t low high))
 
+;; retain overloads
+
 (defn retain
   "Only allows the given objects to pass."
   [^Traversal t retain-object] (.retain t retain-object))
@@ -54,3 +62,5 @@
 (defn simple-path
   "Allows an element if the current path has no repeated elements."
   [^Traversal t] (.simple-path t))
+
+;; where

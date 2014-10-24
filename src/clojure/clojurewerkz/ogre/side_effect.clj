@@ -3,9 +3,14 @@
   (:require [clojurewerkz.ogre.traversal :as t]
             [clojurewerkz.ogre.util :refer (f-to-function f-to-consumer)]))
 
+;; addIn/Out*E
+;; aggregate
+
 (defn cap
   ([^Traversal t] (.cap t))
   ([^Traversal t k] (.cap t k)))
+
+;; count
 
 (defn get-capped!
   ([^Traversal t] (t/next! (cap t)))
@@ -14,6 +19,9 @@
 (defn side-effect
   [^Traversal t f]
   (.sideEffect t (f-to-consumer f)))
+
+;; groupBy
+;; groupCount
 
 (defn get-grouped-by!
   [^Traversal t key-func value-func]
@@ -35,3 +43,8 @@
         seq
         first
         (#(into {} %))))
+
+;; store
+;; subgraph
+;; timelimit
+;; tree
