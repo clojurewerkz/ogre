@@ -3,12 +3,12 @@
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.edge :as e]
-            [clojurewerkz.ogre.graph :as g]))
+            [clojurewerkz.ogre.test-util :as u]))
 
 ;;Adapted from
 ;;https://github.com/clojurewerkz/titanium/blob/master/test/clojurewerkz/titanium/integration_test.clj
 (deftest test-graph-of-gods
-  (let [g (g/new-tinkergraph)
+  (let [g (u/new-tinkergraph)
         saturn   (v/create! g {:name "Saturn"   :type "titan"})
         jupiter  (v/create! g {:name "Jupiter"  :type "god"})
         hercules (v/create! g {:name "Hercules" :type "demigod"})
@@ -21,23 +21,23 @@
         nemean   (v/create! g {:name "Nemean"   :type "monster"})
         hydra    (v/create! g {:name "Hydra"    :type "monster"})
         cerberus (v/create! g {:name "Cerberus" :type "monster"})]
-    (e/connect! g neptune :lives sea)
-    (e/connect! g jupiter :lives sky)
-    (e/connect! g pluto   :lives tartarus)
-    (e/connect! g jupiter :father saturn)
-    (e/connect! g hercules :father jupiter)
-    (e/connect! g hercules :mother alcmene)
-    (e/connect! g jupiter :brother pluto)
-    (e/connect! g pluto :brother jupiter)
-    (e/connect! g neptune :brother pluto)
-    (e/connect! g pluto :brother neptune)
-    (e/connect! g jupiter :brother neptune)
-    (e/connect! g neptune :brother jupiter)
-    (e/connect! g cerberus :lives tartarus)
-    (e/connect! g pluto :pet cerberus)
-    (e/connect! g hercules :battled nemean {:times 1})
-    (e/connect! g hercules :battled hydra {:times 2})
-    (e/connect! g hercules :battled cerberus {:times 12})
+    (e/connect! neptune :lives sea)
+    (e/connect! jupiter :lives sky)
+    (e/connect! pluto   :lives tartarus)
+    (e/connect! jupiter :father saturn)
+    (e/connect! hercules :father jupiter)
+    (e/connect! hercules :mother alcmene)
+    (e/connect! jupiter :brother pluto)
+    (e/connect! pluto :brother jupiter)
+    (e/connect! neptune :brother pluto)
+    (e/connect! pluto :brother neptune)
+    (e/connect! jupiter :brother neptune)
+    (e/connect! neptune :brother jupiter)
+    (e/connect! cerberus :lives tartarus)
+    (e/connect! pluto :pet cerberus)
+    (e/connect! hercules :battled nemean {:times 1})
+    (e/connect! hercules :battled hydra {:times 2})
+    (e/connect! hercules :battled cerberus {:times 12})
     (let [r0 (q/query (v/get-all-vertices g)
                       (q/has :type "human")
                       q/count!)
@@ -48,38 +48,28 @@
                       first)
           r2 (q/query hercules
                       (q/--> [:father :mother])
-                      (q/property :name)
-                      (q/into-set!))
+                      (q/values :name)
+                      q/into-set!)
           r3 (q/query hercules
                       (q/-E> [:battled])
                       (q/has  :times > 1)
-                      (q/in-vertex)
-                      (q/property :name)
-                      (q/into-set!))
+                      q/in-vertex
+                      (q/values :name)
+                      q/into-set!)
           c3 (q/query hercules
                       (q/-E> [:battled])
                       (q/has :times > 1)
-                      (q/in-vertex)
-                      (q/count!))
+                      q/in-vertex
+                      q/count!)
           r4 (q/query pluto
                       (q/--> [:lives])
                       (q/<-- [:lives])
                       (q/except [pluto])
-                      (q/property :name)
-                      (q/into-set!))
-          r5 (q/query pluto
-                      (q/--> [:brother])
-                      (q/as  "god")
-                      (q/--> [:lives])
-                      (q/as  "place")
-                      (q/select #(v/get % :name))
-                      (q/all-into-maps!))]
+                      (q/values :name)
+                      q/into-set!)]
       (is (= r0 1))
       (is (= r1 hercules))
       (is (= r2 #{"Alcmene" "Jupiter"}))
       (is (= r3 #{"Cerberus" "Hydra"}))
       (is (= c3 2))
-      (is (= r4 #{"Cerberus"}))
-      (is (= (sort-by :god r5)
-             (sort-by :god '({:god "Neptune" :place "Sea"}
-                     {:god "Jupiter" :place "Sky"})))))))
+      (is (= r4 #{"Cerberus"})))))

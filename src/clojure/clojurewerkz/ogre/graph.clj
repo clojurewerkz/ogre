@@ -1,70 +1,58 @@
 (ns clojurewerkz.ogre.graph
-  (:import (com.tinkerpop.blueprints Element Graph TransactionalGraph
-                                     ThreadedTransactionalGraph
-                                     TransactionalGraph$Conclusion)
-           (com.tinkerpop.blueprints.impls.tg TinkerGraphFactory)))
+  (:import (com.tinkerpop.gremlin.structure Element Graph)
+           (com.tinkerpop.gremlin.tinkergraph.structure TinkerFactory TinkerGraph)))
 
-(def ^{:dynamic true} *element-id-key* :__id__)
+(defn get-graph-features
+  "Get a map of graph features for the given graph."
+  [^Graph g]
+  (-> g (.features) (.graph)))
 
-(def ^{:dynamic true} *edge-label-key* :__label__)
+(defn supports-computer
+  "Determines if the graph supports GraphComputer-based processing."
+  [^Graph g]
+  (.supportsComputer (get-graph-features g)))
 
+(defn supports-persistence
+  "Determines if the graph supports persisting its contents natively to disk."
+  [^Graph g]
+  (.supportsPersistence (get-graph-features g)))
 
-(defn set-element-id-key!
-  [new-id]
-  (alter-var-root (var *element-id-key*) (constantly new-id)))
+(defn supports-threaded-transactions
+  "Determines if the graph supports threaded transactions."
+  [^Graph g]
+  (.supportsThreadedTransactions (get-graph-features g)))
 
-(defn set-edge-label-key!
-  [new-id]
-  (alter-var-root (var *edge-label-key*) (constantly new-id)))
-
-(defn new-tinkergraph
-  []
-  (TinkerGraphFactory/createTinkerGraph))
-
-(defn clean-tinkergraph
-  []
-  (let [g (new-tinkergraph)]
-  (doseq [e (seq (.getEdges g))] (.removeEdge g e))
-  (doseq [v (seq (.getVertices g))] (.removeVertex g v))
-  g))
-
-(defn get-features
-  "Get a map of features for a graph.
-  (http://tinkerpop.com/docs/javadocs/blueprints/2.1.0/com/tinkerpop/blueprints/Features.html)"
-  [g]
-  (.. g getFeatures toMap))
-
-(defn get-feature
-  "Gets the value of the feature for a graph."
-  [g s]
-  (get ^java.util.Map (get-features g) s))
+(defn supports-transactions
+  "Determines if the graph supports transactions."
+  [^Graph g]
+  (.supportsTransactions (get-graph-features g)))
 
 ;;TODO Transactions need to be much more fine grain in terms of
 ;;control. And expections as well. new-transaction will only work on a
 ;;ThreadedTransactionalGraph.
 (defn new-transaction
   "Creates a new transaction based on the given graph object."
-  [g]
+  [^Graph g]
   (.newTransaction g))
 
 (defn commit
-  "Commit all changes to the graph."
-  [g]
-  (.commit g))
+  "Commits all changes to the graph."
+  [^Graph g]
+  (-> g (.tx) (.commit)))
 
-(defn shutdown
-  "Shutdown the graph."
-  [g]
-  (.shutdown g))
+(defn close
+  "Closes the graph."
+  [^Graph g]
+  (.close g))
 
 (defn rollback
   "Stops the current transaction and rolls back any changes made."
-  [g]
-  (.rollback g))
+  [^Graph g]
+  (-> g (.tx) (.rollback)))
 
 (defn with-transaction*
   [graph f & {:keys [threaded? rollback?]}]
-  {:pre [(get-feature graph "supportsTransactions")]}
+  {:pre [(supports-transactions graph)]}
   (let [tx (if threaded? (new-transaction graph) graph)]
     (try
       (let [result (f tx)]

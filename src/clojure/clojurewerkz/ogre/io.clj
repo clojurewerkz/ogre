@@ -1,41 +1,68 @@
 (ns clojurewerkz.ogre.io
   (:require [clojure.java.io :as io]
             [clojurewerkz.ogre.graph :as g])
-  (:import [com.tinkerpop.blueprints.util.io.graphml GraphMLWriter GraphMLReader]
-           [com.tinkerpop.blueprints.util.io.gml GMLWriter GMLReader]
-           [com.tinkerpop.blueprints.util.io.graphson GraphSONWriter GraphSONReader GraphSONMode]))
+  (:import [com.tinkerpop.gremlin.structure.io.graphml GraphMLWriter GraphMLReader]
+           [com.tinkerpop.gremlin.structure.io.graphson GraphSONWriter GraphSONReader]))
 
-(defn- load-graph-with-reader
+(defn- read-graph-with-reader
   [reader g string-or-file]
   (let [in-stream (io/input-stream string-or-file)]
-    (reader g in-stream)))
+    (reader in-stream g)))
 
 (defn- write-graph-with-writer
   [writer g string-or-file]
-  (if (not (g/get-feature g "supportsVertexIteration"))
-    (throw (Exception. "Cannot write a graph that does not support vertex iteration.")))
   (let [out-stream (io/output-stream string-or-file)]
-    (writer g out-stream)))
+    (writer out-stream g)))
 
-;; GML
-(def load-graph-gml (partial load-graph-with-reader #(GMLReader/inputGraph %1 %2)))
-(def write-graph-gml (partial write-graph-with-writer #(GMLWriter/outputGraph %1 %2)))
+(defn- set-if-present
+  [builder arg setter]
+  (if-not (nil? arg) (setter builder arg) builder))
 
-;; GraphML
-(def load-graph-graphml (partial load-graph-with-reader #(GraphMLReader/inputGraph %1 %2)))
-(def write-graph-graphml (partial write-graph-with-writer #(GraphMLWriter/outputGraph %1 %2)))
+;; GraphML Reader
+(defn make-graphml-reader [& {:keys [vertex-id-key edge-id-key edge-label-key vertex-label-key batch-size]}]
+  (let [builder (GraphMLReader/build)]
+    (-> builder
+      (set-if-present vertex-id-key (memfn vertexIdKey))
+      (set-if-present edge-id-key (memfn edgeIdKey))
+      (set-if-present vertex-label-key (memfn vertexLabelKey))
+      (set-if-present edge-label-key (memfn edgeLabelKey))
+      (set-if-present batch-size (memfn batchSize))
+      (.create))))
+(def read-graph-graphml (partial read-graph-with-reader #(.readGraph (make-graphml-reader) %1 %2)))
 
-;; GraphSON
-(def load-graph-graphson (partial load-graph-with-reader #(GraphSONReader/inputGraph %1 %2)))
+;; GraphML Writer
+(defn make-graphml-writer [& {:keys [normalize vertex-key-types edge-key-types edge-label-key vertex-label-key xml-schema-location]}]
+  (let [builder (GraphMLWriter/build)]
+    (-> builder
+      (set-if-present normalize (memfn normalize))
+      (set-if-present vertex-key-types (memfn vertexKeyTypes))
+      (set-if-present edge-key-types (memfn edgeKeyTypes))
+      (set-if-present vertex-label-key (memfn vertexLabelKey))
+      (set-if-present edge-label-key (memfn edgeLabelKey))
+      (set-if-present xml-schema-location (memfn xmlSchemaLocation))
+      (.create))))
+(def write-graph-graphml (partial write-graph-with-writer #(.writeGraph (make-graphml-writer) %1 %2)))
 
-;; write-graph-graphson can take an optional 2nd argument:
-;; show-types - determines if types are written explicitly to the JSON
-;; Note that for Titan Graphs with types, you will want show-types=true.
-;; See https://github.com/tinkerpop/blueprints/wiki/GraphSON-Reader-and-Writer-Library
-(defn write-graph-graphson
-  [g string-or-file & [ show-types ]]
-  (let [graphSON-mode (if show-types GraphSONMode/EXTENDED GraphSONMode/NORMAL)]
-    (write-graph-with-writer
-     #(GraphSONWriter/outputGraph %1 %2 graphSON-mode)
-     g
-     string-or-file)))
+;; GraphSON Reader
+(defn make-graphson-reader [& {:keys [vertex-id-key edge-id-key custom-module load-custom-modules embed-types batch-size]}]
+  (let [builder (GraphSONReader/build)]
+    (-> builder
+      (set-if-present vertex-id-key (memfn vertexIdKey))
+      (set-if-present edge-id-key (memfn edgeIdKey))
+      (set-if-present custom-module (memfn customModule))
+      (set-if-present load-custom-modules (memfn loadCustomModule))
+      (set-if-present embed-types (memfn embedTypes))
+      (set-if-present batch-size (memfn batchSize))
+      (.create))))
+(def read-graph-graphson (partial read-graph-with-reader #(.readGraph (make-graphson-reader) %1 %2)))
+
+;; GraphSON Writer
+(defn make-graphson-writer [& {:keys [custom-module load-custom-modules embed-types normalize]}]
+  (let [builder (GraphSONWriter/build)]
+    (-> builder
+      (set-if-present normalize (memfn normalize))
+      (set-if-present custom-module (memfn customModule))
+      (set-if-present load-custom-modules (memfn loadCustomModule))
+      (set-if-present embed-types (memfn embedTypes))
+      (.create))))
+(def write-graph-graphson (partial write-graph-with-writer #(.writeGraph (make-graphson-writer) %1 %2)))

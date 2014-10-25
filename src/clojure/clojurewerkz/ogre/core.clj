@@ -1,121 +1,13 @@
 (ns clojurewerkz.ogre.core
-  (:import (com.tinkerpop.gremlin.java GremlinPipeline))
-  (:refer-clojure :exclude [filter and or range count memoize iterate next map loop reverse])
+  (:refer-clojure :exclude [filter and or range count iterate next map loop reverse])
   (:require [potemkin :as po]
-            [clojurewerkz.ogre.util        :as util :refer 
-             [keywords-to-strings f-to-pipef fs-to-pipef-array]]
-            [clojurewerkz.ogre.branch      :as branch]
-            [clojurewerkz.ogre.filter      :as filter]
-            [clojurewerkz.ogre.map         :as map]
-            [clojurewerkz.ogre.pipe        :as pipe]
-            [clojurewerkz.ogre.reduce      :as reduce]
-            [clojurewerkz.ogre.side-effect :as side-effect]
-            [clojure.string   :as stur]))
+            [clojurewerkz.ogre.util :as util :refer (keywords-to-str-array)]
+            [clojurewerkz.ogre.filter :as filter]
+            [clojurewerkz.ogre.map :as map]
+            [clojurewerkz.ogre.traversal :as traversal]
+            [clojurewerkz.ogre.side-effect :as side-effect]))
 
-;;Define functions for the simple methods.  
-
-;;TODO: Wherever there is a HERE, that function fails to reflect.  It
-;;looks like whenever the args aren't all clojure types reflection
-;;fails. No idea why. 
-(def simple-methods 
-  [["exhaustMerge" "TODO: Write doc string"] 
-   ["fairMerge" "TODO: Write doc string"] 
-   ["_" "TODO: Write doc string"]
-   ["id" "Returns the unique identifier of the given element."]
-   ["label" "Returns the label of the given edge."] 
-   ["scatter" "TODO: Write doc string"] 
-   ["simplePath" "TODO: Write doc string"]
-   ["enablePath" "TODO: Write doc string"] 
-   ["cap" "TODO: Write doc string"]
-   ["path" "TODO:Write doc string"
-    clojure.lang.ArraySeq]
-
-   ["range" 
-    "Returns the objects from within the given range (inclusive) of
-    indices for the pipeline."  
-    Integer Integer] ;;;HERE
-
-   ["sideEffect" 
-    "Maps a function across each element in the pipeline,
-    but not necessarily changing the pipeline elements."
-    clojure.lang.IFn]
-
-   ["ifThenElse" 
-    "Given three functions, if the first function is true, the result
-    of the second function is returned, otherwise the result of the
-    third function is returned."  
-    clojure.lang.IFn clojure.lang.IFn clojure.lang.IFn]
-
-   ["filter" 
-    "Filters out elements in the pipeline according to the given
-    predicate function." 
-    clojure.lang.IFn]
-
-   ["transform" 
-    "Maps the given function over the elements in the pipeline and
-    returns the results." 
-    clojure.lang.IFn]
-
-   ["property"
-    "Given a keyword or string, returns the corresponding property for
-    each element in the pipeline."  
-    clojure.lang.Keyword]
-
-   ["except"
-    "Filters out all of elements that are in the given collection." 
-    java.util.Collection] ;;Here
-
-   ["random" 
-    "Each element is sampled according to the given probability."     
-    Double] ;;HERE
-
-   ["retain" 
-    "Given a collection, only retains elements from the given
-    collection. Given a string corresponding to a named step, retains
-    all elements that were present at the named step."
-    java.util.Collection] ;; HERE
-   
-   ["as" 
-    "Names the previous step in the pipeline the given string." ;;HERE
-    String]
-
-   ["back" 
-    "Return to the results of the given step." ;;HERE
-    Integer]
-
-   ["optional" 
-    "Returns the results of the current step and the given named step." 
-    String]])
-
-(defn function-template [[f doc & args]]
-  (let [method (symbol (str "." f))
-        fcall  (symbol (stur/replace f #"[A-Z]" 
-                                     #(str "-" (stur/lower-case %1))))
-        arguments 
-        (map-indexed #(vary-meta (symbol (str "arg" %1)) assoc :tag %2) args)
-
-        pre-args (flatten (clojure.core/map (fn [sym]
-                                              (if (= clojure.lang.ArraySeq (:tag (meta sym)))
-                                                `(& ~sym)
-                                                sym))
-                                            arguments))
-
-        transformed-args
-        (clojure.core/map (fn [sym]
-                            (condp = (:tag (meta sym))
-                              clojure.lang.Keyword `(name ~sym)
-                              clojure.lang.IFn `(f-to-pipef ~sym)
-                              clojure.lang.ArraySeq `(fs-to-pipef-array ~sym)
-                              sym))
-                          arguments)
-        p (gensym "pipeline")]
-    `(defn ~fcall ~doc 
-       ([~p ~@pre-args] (conj ~p (fn [parg#] (~method ^GremlinPipeline parg# ~@transformed-args)))))))
-
-(doseq [s simple-methods] 
-  (eval (function-template s)))
-
-;;Define the travesal methods
+;; Define the traversal methods
 (doseq [[direction short shortE name1] '((both <-> <E> both-vertices)
                                          (in   <-- <E- in-vertex)
                                          (out  --> -E> out-vertex))]
@@ -124,80 +16,76 @@
         j2 (symbol (str "." direction "E"))
         j3 (symbol (str "." direction "V"))]
     (eval `(do
-             (defn ~direction 
+             (defn ~direction
                ;; ~(str "Traverses edges along the "
-               ;;       direction 
+               ;;       direction
                ;;       " direction and returns the vertices.")
-               ([p#] (~direction p# []))
-               ([p# labels#]
-                  (conj p# (fn [parg#] (~j1 ^GremlinPipeline parg# (keywords-to-strings labels#))))))
+               ([t#] (~direction t# []))
+               ([t# labels#]
+                 (-> t# (~j1 (keywords-to-str-array labels#)))))
              (defn ~short
                [& args#]
                (apply ~direction args#))
              (defn ~f1
-               ([p#] (~f1 p# []))
-               ([p# labels#] 
-                  (conj p# (fn [^GremlinPipeline parg#] (~j2 parg# (keywords-to-strings labels#))))))
+               ([t#] (~f1 t# []))
+               ([t# labels#]
+                  (-> t# (~j2 (keywords-to-str-array labels#)))))
              (defn ~shortE
                [& args#]
                (apply ~f1 args#))
-             (defn ~name1 [p#]
-               (conj p# (fn [parg#] (~j3 ^GremlinPipeline parg#))))))))
+             (defn ~name1 [t#]
+               (-> t# (~j3)))))))
 
 ;; clojurewerkz.ogre.util
+(po/import-fn util/as)
 (po/import-macro util/query)
 (po/import-macro util/subquery)
-(po/import-macro util/bare-pipe)
 
-;; clojurewerkz.ogre.branch
-(po/import-fn branch/copy-split)
-(po/import-fn branch/loop)
-(po/import-fn branch/loop-to)
-
-;; clojurewerkz.ogre.filter
+;; clojurewerkz.ogre.filter steps
 (po/import-fn filter/dedup)
+(po/import-fn filter/except)
+(po/import-fn filter/filter)
 (po/import-macro filter/has)
-(po/import-macro filter/has-not)
+(po/import-fn filter/has-not)
 (po/import-fn filter/interval)
+(po/import-fn filter/random)
+(po/import-fn filter/range)
+(po/import-fn filter/retain)
+(po/import-fn filter/simple-path)
 
-;; clojurewerkz.ogre.map
+;; clojurewerkz.ogre.map steps
+(po/import-fn map/back)
+(po/import-fn map/id)
+(po/import-fn map/fold)
+(po/import-fn map/label)
 (po/import-fn map/map)
+(po/import-fn map/path)
+(po/import-fn map/properties)
+(po/import-fn map/order)
 (po/import-fn map/select)
 (po/import-fn map/select-only)
+(po/import-fn map/unfold)
+(po/import-fn map/values)
 
-;; clojurewerkz.ogre.pipe
-;; TODO break this into pipe and executors
-(po/import-fn pipe/back-to)
-(po/import-fn pipe/next!)
-(po/import-fn pipe/iterate!)
-(po/import-fn pipe/prop)
+;; clojurewerkz.ogre.traversal steps
+(po/import-fn traversal/all-into-vecs!)
+(po/import-fn traversal/all-into-sets!)
+(po/import-fn traversal/all-into-maps!)
+(po/import-fn traversal/count!)
+(po/import-fn traversal/first-of!)
+(po/import-fn traversal/first-into-vec!)
+(po/import-fn traversal/first-into-set!)
+(po/import-fn traversal/first-into-map!)
+(po/import-fn traversal/into-lazy-seq!)
+(po/import-fn traversal/into-list!)
+(po/import-fn traversal/into-vec!)
+(po/import-fn traversal/into-set!)
+(po/import-fn traversal/iterate!)
+(po/import-fn traversal/next!)
 
-(po/import-fn pipe/into-lazy-seq!)
-(po/import-fn pipe/into-list!)
-(po/import-fn pipe/into-vec!)
-(po/import-fn pipe/into-set!)
-(po/import-fn pipe/first-of!)
-(po/import-fn pipe/first-into-vec!)
-(po/import-fn pipe/first-into-set!)
-(po/import-fn pipe/first-into-map!)
-(po/import-fn pipe/all-into-vecs!)
-(po/import-fn pipe/all-into-sets!)
-(po/import-fn pipe/all-into-maps!)
-(po/import-fn pipe/count!)
-
-;; clojurewerkz.ogre.reduce
-(po/import-fn reduce/gather)
-(po/import-fn reduce/order)
-(po/import-fn reduce/reverse)
-
-;; clojurewerkz.ogre.side-effect
-(po/import-fn side-effect/get-table!)
-(po/import-fn side-effect/get-tree!)
+;; clojurewerkz.ogre.side-effect steps
+(po/import-fn side-effect/cap)
+(po/import-fn side-effect/side-effect)
+(po/import-fn side-effect/get-capped!)
 (po/import-fn side-effect/get-grouped-by!)
 (po/import-fn side-effect/get-group-count!)
-
-;; GremlinPipeline<S,com.tinkerpop.blueprints.Edge>	idEdge(com.tinkerpop.blueprints.Graph graph) 
-;; Add an IdEdgePipe to the end of the Pipeline.
-
-;; GremlinPipeline<S,com.tinkerpop.blueprints.Vertex>	idVertex(com.tinkerpop.blueprints.Graph graph) 
-;; Add an IdVertexPipe to the end of the Pipeline.
