@@ -1,3 +1,7 @@
+## Changes in Ogre 3.0.0
+
+* Support TinkerPop3 - represents major breaking changes to the API.
+
 ## Changes in Ogre 2.5.0.0
 
  * Bump to support of TinkerPop 2.5.0.
@@ -10,7 +14,7 @@
 * `--E>`\`<E--` have become `-E>`\`<E-`. This enforces all shortened
   traversal methods to only be three characters long.
 * `reverse` has been added. This function reverses the order of the
-  elements in the pipeline. 
+  elements in the pipeline.
 
 ## Changes in Ogre 2.3.0.1
 
@@ -18,12 +22,12 @@
 * Ogre is now a Clojurewerkz project.
 * Traversals now take in a list of labels.
 
-## Changes in Ogre 2.3.0.0 
+## Changes in Ogre 2.3.0.0
 
 Update Gremlin version to 2.3.0. `count` is now `count!` because it
 executes the pipeline and returns all the objects. Type hinting has mostly
 been added in.
 
-## Changes in Ogre 2.2.0.0 
+## Changes in Ogre 2.2.0.0
 
-First release. Covers most of the library. 
+First release. Covers most of the library.
