@@ -56,3 +56,13 @@
         (io/read-graph-graphson g-read tmp)
         (has-n-vertices g-read 2)
         (has-n-edges g-read 1)))))
+
+(deftest test-loading-and-saving-graphs-kryo
+  (let [g-write (make-test-graph)
+        tmp (File/createTempFile "my-test-graph" ".gio")]
+    (io/write-graph-kryo g-write tmp)
+    ;; Open new graph and read it
+    (let [g-read (u/new-tinkergraph)]
+      (io/read-graph-kryo g-read tmp)
+      (has-n-vertices g-read 2)
+      (has-n-edges g-read 1))))

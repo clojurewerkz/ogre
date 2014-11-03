@@ -2,17 +2,21 @@
   (:require [clojure.java.io :as io]
             [clojurewerkz.ogre.graph :as g])
   (:import [com.tinkerpop.gremlin.structure.io.graphml GraphMLWriter GraphMLReader]
-           [com.tinkerpop.gremlin.structure.io.graphson GraphSONWriter GraphSONReader]))
+           [com.tinkerpop.gremlin.structure.io.graphson GraphSONWriter GraphSONReader]
+           [com.tinkerpop.gremlin.structure.io.kryo KryoWriter KryoReader]))
 
 (defn- read-graph-with-reader
   [reader g string-or-file]
   (let [in-stream (io/input-stream string-or-file)]
-    (reader in-stream g)))
+    (reader in-stream g)
+    (.close in-stream)))
 
 (defn- write-graph-with-writer
   [writer g string-or-file]
   (let [out-stream (io/output-stream string-or-file)]
-    (writer out-stream g)))
+    (writer out-stream g)
+    (.flush out-stream)
+    (.close out-stream)))
 
 (defn- set-if-present
   [builder arg setter]
@@ -66,3 +70,23 @@
       (set-if-present embed-types (memfn embedTypes))
       (.create))))
 (def write-graph-graphson (partial write-graph-with-writer #(.writeGraph (make-graphson-writer) %1 %2)))
+
+;; Kryo Reader
+(defn make-kryo-reader [& {:keys [vertex-id-key edge-id-key working-directory custom batch-size]}]
+  (let [builder (KryoReader/build)]
+    (-> builder
+      (set-if-present vertex-id-key (memfn vertexIdKey))
+      (set-if-present edge-id-key (memfn edgeIdKey))
+      (set-if-present custom (memfn custom))
+      (set-if-present working-directory (memfn setWorkingDirectory))
+      (set-if-present batch-size (memfn batchSize))
+      (.create))))
+(def read-graph-kryo (partial read-graph-with-reader #(.readGraph (make-kryo-reader) %1 %2)))
+
+;; Kryo Writer
+(defn make-kryo-writer [& {:keys [custom]}]
+  (let [builder (KryoWriter/build)]
+    (-> builder
+      (set-if-present custom (memfn custom))
+      (.create))))
+(def write-graph-kryo (partial write-graph-with-writer #(.writeGraph (make-kryo-writer) %1 %2)))
