@@ -17,8 +17,6 @@
   ([^Traversal t f]
     (.dedup t (f-to-function f))))
 
-;; except overloads
-
 (defn except
   "Filters out the given objects."
   [^Traversal t exception-object] (.except t exception-object))
