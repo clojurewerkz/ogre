@@ -85,6 +85,7 @@
 (po/import-fn traversal/next!)
 
 ;; clojurewerkz.ogre.side-effect steps
+(po/import-fn side-effect/aggregate)
 (po/import-fn side-effect/cap)
 (po/import-fn side-effect/side-effect)
 (po/import-fn side-effect/get-capped!)

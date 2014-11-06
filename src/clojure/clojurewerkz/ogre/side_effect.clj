@@ -4,7 +4,11 @@
             [clojurewerkz.ogre.util :refer (f-to-function f-to-consumer)]))
 
 ;; addIn/Out*E
-;; aggregate
+
+(defn aggregate
+  "The aggregate step is used to aggregate all the objects at a particular point of traversal into a Collection. "
+  ([^Traversal t ^String side-effect-key]
+   (.aggregate t side-effect-key)))
 
 (defn cap
   "Emits the value of the previous step and not the values that flow through it."
