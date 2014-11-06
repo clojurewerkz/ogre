@@ -3,7 +3,11 @@
   (:import (com.tinkerpop.gremlin.process Traversal))
   (:require [clojurewerkz.ogre.util :refer (convert-symbol-to-compare f-to-function f-to-predicate)]))
 
-;; cyclic path
+(defn cyclic-path
+  "The step analyzes the path of the traverser thus far and if there are any repeats, the traverser
+  is filtered out over the traversal computation."
+  [^Traversal t]
+    (.cyclicPath t))
 
 (defn dedup
   "Filters out repeated objects. A function can be supplied that provides the

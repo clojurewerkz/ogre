@@ -42,6 +42,7 @@
 (po/import-macro util/subquery)
 
 ;; clojurewerkz.ogre.filter steps
+(po/import-fn filter/cyclic-path)
 (po/import-fn filter/dedup)
 (po/import-fn filter/except)
 (po/import-fn filter/filter)

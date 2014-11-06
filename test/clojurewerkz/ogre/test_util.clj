@@ -25,3 +25,11 @@
 (defn classic-tinkergraph []
   "Returns a new TinkerGraph with classic data."
   (TinkerFactory/createClassic))
+
+(defn modern-tinkergraph []
+  "Returns a new TinkerGraph with modern data."
+  (TinkerFactory/createModern))
+
+(defn crew-tinkergraph []
+  "Returns a new TinkerGraph with 'The Crew' data."
+  (TinkerFactory/createTheCrew))
