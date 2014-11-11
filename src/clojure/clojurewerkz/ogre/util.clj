@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.util
   (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.structure Compare Direction)
-           (java.util.function Function Consumer Predicate)))
+           (java.util.function Function Consumer Predicate BiFunction)))
 
 (defn as
   "Assigns a name to the previous step in a traversal."
@@ -53,6 +53,11 @@
   "Converts a function to java.util.function.Function."
   (reify Function
     (apply [this arg] (f arg))))
+
+(defn ^BiFunction f-to-bifunction [f]
+  "Converts a function to java.util.function.BiFunction."
+  (reify BiFunction
+    (apply [this arg1 arg2] (f arg1 arg2))))
 
 (defn ^"[Ljava.util.function.Function;" fs-to-function-array
   "Converts a collection of functions to a java.util.function.Function array."

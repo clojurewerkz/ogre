@@ -78,7 +78,7 @@
       (set-if-present vertex-id-key (memfn vertexIdKey))
       (set-if-present edge-id-key (memfn edgeIdKey))
       (set-if-present custom (memfn custom))
-      (set-if-present working-directory (memfn setWorkingDirectory))
+      (set-if-present working-directory (memfn workingDirectory))
       (set-if-present batch-size (memfn batchSize))
       (.create))))
 (def read-graph-kryo (partial read-graph-with-reader #(.readGraph (make-kryo-reader) %1 %2)))

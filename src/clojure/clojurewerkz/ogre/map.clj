@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [map])
   (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.structure Order))
-  (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array)]))
+  (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array f-to-bifunction)]))
 
 (defn back
   "Goes back to the results of a named step."
@@ -37,11 +37,12 @@
 
 ;; match
 
+;; todo: how best to resolve varargs overload to order
 (defn order
   "Orders the items in the traversal according to the specified comparator
   or the default order if not specified."
-  ([^Traversal t] (order t Order/incr))
-  ([^Traversal t c] (.order ^Traversal t c)))
+  ([^Traversal t] (order t #(compare %1 %2)))
+  ([^Traversal t c] (.order t (into-array [c]))))
 
 ;; orderBy
 ;; otherV
