@@ -51,6 +51,7 @@
 (po/import-fn filter/interval)
 (po/import-fn filter/limit)
 (po/import-fn filter/local-limit)
+(po/import-fn filter/local-range)
 (po/import-fn filter/random)
 (po/import-fn filter/range)
 (po/import-fn filter/retain)
