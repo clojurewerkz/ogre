@@ -47,6 +47,14 @@
   [^Traversal t key ^Comparable start ^Comparable end]
   (.interval t (name key) start end))
 
+(defn limit
+  "Limit the number of elements to pass through Traversal."
+  [^Traversal t l] (.limit t l))
+
+(defn local-limit
+  "Limit the number of elements to pass through Traversal."
+  [^Traversal t l] (.localLimit t l))
+
 (defn random
   "Allows elements to pass with the given probability."
   [^Traversal t probability] (.random t probability))
