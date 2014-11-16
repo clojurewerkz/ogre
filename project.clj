@@ -3,7 +3,7 @@
   :url "https://github.com/clojurewerkz/ogre"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.5.1"]
+  :dependencies [[org.clojure/clojure "1.6.0"]
                  [potemkin "0.3.3"]
                  [com.tinkerpop/gremlin-core "3.0.0.M5"]
                  [com.tinkerpop/gremlin-test "3.0.0.M5"  :scope "test" :exclusions [org.slf4j/slf4j-api]]
