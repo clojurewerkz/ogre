@@ -11,7 +11,7 @@
                  [com.tinkerpop/neo4j-gremlin "3.0.0.M5" :scope "test" :exclusions [org.slf4j/slf4j-api ch.qos.logback/logback-classic]]]
   :source-paths ["src/clojure"]
   :profiles {:dev    { :global-vars {*assert* true}
-                       :dependencies [[clojurewerkz/support "1.0.0" :exclusions [org.clojure/clojure]]
+                       :dependencies [[clojurewerkz/support "1.1.0" :exclusions [org.clojure/clojure]]
                                       [commons-io/commons-io "2.4"]]}
              :1.5    {:dependencies [[org.clojure/clojure "1.5.1"]]}
              :1.7    {:dependencies [[org.clojure/clojure "1.7.0-alpha4"]]}
