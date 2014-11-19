@@ -1,11 +1,11 @@
 (ns clojurewerkz.ogre.util
-  (:import (com.tinkerpop.gremlin.process Traversal)
+  (:import (com.tinkerpop.gremlin.process.graph GraphTraversal)
            (com.tinkerpop.gremlin.structure Compare Direction)
            (java.util.function Function Consumer Predicate BiFunction)))
 
 (defn as
   "Assigns a name to the previous step in a traversal."
-  [^Traversal t ^String label] (.as t label))
+  [^GraphTraversal t ^String label] (.as t label))
 
 (defmacro query [xs & body]
   "Starts a query."
