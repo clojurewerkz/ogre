@@ -3,7 +3,7 @@
   :url "https://github.com/clojurewerkz/ogre"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.5.1"]
+  :dependencies [[org.clojure/clojure "1.6.0"]
                  [potemkin "0.3.3"]
                  [com.tinkerpop/gremlin-core "3.0.0.M5"]
                  [com.tinkerpop/gremlin-test "3.0.0.M5"  :scope "test" :exclusions [org.slf4j/slf4j-api]]
@@ -11,12 +11,12 @@
                  [com.tinkerpop/neo4j-gremlin "3.0.0.M5" :scope "test" :exclusions [org.slf4j/slf4j-api ch.qos.logback/logback-classic]]]
   :source-paths ["src/clojure"]
   :profiles {:dev    { :global-vars {*assert* true}
-                       :dependencies [[clojurewerkz/support "1.0.0" :exclusions [org.clojure/clojure]]
+                       :dependencies [[clojurewerkz/support "1.1.0" :exclusions [org.clojure/clojure]]
                                       [commons-io/commons-io "2.4"]]}
-             :1.4    {:dependencies [[org.clojure/clojure "1.4.0"]]}
-             :1.6    {:dependencies [[org.clojure/clojure "1.6.0"]]}
+             :1.5    {:dependencies [[org.clojure/clojure "1.5.1"]]}
+             :1.7    {:dependencies [[org.clojure/clojure "1.7.0-alpha4"]]}
              :master {:dependencies [[org.clojure/clojure "1.7.0-master-SNAPSHOT"]]}}
-  :aliases {"all" ["with-profile" "dev:dev,1.4:dev,1.6"]}
+  :aliases {"all" ["with-profile" "dev:dev,1.5:dev,1.7"]}
   :repositories {"sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
                              :snapshots false
                              :releases {:checksum :fail :update :always}}
