@@ -5,7 +5,7 @@
 
 (defn as
   "Assigns a name to the previous step in a traversal."
-  [^Traversal t label] (.as t label))
+  [^Traversal t ^String label] (.as t label))
 
 (defmacro query [xs & body]
   "Starts a query."
