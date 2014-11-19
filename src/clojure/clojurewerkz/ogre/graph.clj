@@ -28,13 +28,10 @@
   [^Graph g]
   (.supportsTransactions (get-graph-features g)))
 
-;;TODO Transactions need to be much more fine grain in terms of
-;;control. And expections as well. new-transaction will only work on a
-;;ThreadedTransactionalGraph.
 (defn new-transaction
   "Creates a new transaction based on the given graph object."
   [^Graph g]
-  (.newTransaction g))
+  (-> g (.tx) (.create)))
 
 (defn commit
   "Commits all changes to the graph."
