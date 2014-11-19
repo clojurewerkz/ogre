@@ -1,9 +1,10 @@
 (ns clojurewerkz.ogre.graph
-  (:import (com.tinkerpop.gremlin.structure Element Graph)
+  (:import (com.tinkerpop.gremlin.structure Element Graph Graph$Features$GraphFeatures)
            (com.tinkerpop.gremlin.tinkergraph.structure TinkerFactory TinkerGraph)))
 
 (defn get-graph-features
   "Get a map of graph features for the given graph."
+  ^Graph$Features$GraphFeatures
   [^Graph g]
   (-> g (.features) (.graph)))
 
