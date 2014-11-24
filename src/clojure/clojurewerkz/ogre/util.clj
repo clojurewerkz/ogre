@@ -4,13 +4,21 @@
            (com.tinkerpop.gremlin.structure Compare Direction)
            (java.util.function Function Consumer Predicate BiFunction)))
 
+(defmacro typed-traversal
+  [method ^Traversal t & args]
+  (let [;method (symbol method-name)
+        graph-traversal-t (vary-meta t assoc :tag `GraphTraversal)
+        vertex-traversal-t (vary-meta t assoc :tag `VertexTraversal)
+        edge-traversal-t (vary-meta t assoc :tag `EdgeTraversal)]
+    `(cond
+       (instance? GraphTraversal ~t) (~method ~graph-traversal-t ~@args)
+       (instance? VertexTraversal ~t) (~method ~vertex-traversal-t ~@args)
+       (instance? EdgeTraversal ~t) (~method ~edge-traversal-t ~@args))))
+
 (defn as
   "Assigns a name to the previous step in a traversal."
   [^Traversal t ^String label]
-    (cond
-      (instance? GraphTraversal t) (.as ^GraphTraversal t label)
-      (instance? VertexTraversal t) (.as ^VertexTraversal t label)
-      (instance? EdgeTraversal t) (.as ^EdgeTraversal t label)))
+  (typed-traversal .as t label))
 
 (defmacro query [xs & body]
   "Starts a query."
