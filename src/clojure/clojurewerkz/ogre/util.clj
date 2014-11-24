@@ -6,8 +6,7 @@
 
 (defmacro typed-traversal
   [method ^Traversal t & args]
-  (let [;method (symbol method-name)
-        graph-traversal-t (vary-meta t assoc :tag `GraphTraversal)
+  (let [graph-traversal-t (vary-meta t assoc :tag `GraphTraversal)
         vertex-traversal-t (vary-meta t assoc :tag `VertexTraversal)
         edge-traversal-t (vary-meta t assoc :tag `EdgeTraversal)]
     `(cond
