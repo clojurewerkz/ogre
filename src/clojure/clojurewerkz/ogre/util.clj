@@ -6,13 +6,10 @@
 
 (defmacro typed-traversal
   [method ^Traversal t & args]
-  (let [graph-traversal-t (vary-meta t assoc :tag `GraphTraversal)
-        vertex-traversal-t (vary-meta t assoc :tag `VertexTraversal)
-        edge-traversal-t (vary-meta t assoc :tag `EdgeTraversal)]
     `(cond
-       (instance? GraphTraversal ~t) (~method ~graph-traversal-t ~@args)
-       (instance? VertexTraversal ~t) (~method ~vertex-traversal-t ~@args)
-       (instance? EdgeTraversal ~t) (~method ~edge-traversal-t ~@args))))
+       (instance? GraphTraversal ~t) (~method ~(vary-meta t assoc :tag `GraphTraversal) ~@args)
+       (instance? VertexTraversal ~t) (~method ~(vary-meta t assoc :tag `VertexTraversal) ~@args)
+       (instance? EdgeTraversal ~t) (~method ~(vary-meta t assoc :tag `EdgeTraversal) ~@args)))
 
 (defn as
   "Assigns a name to the previous step in a traversal."
