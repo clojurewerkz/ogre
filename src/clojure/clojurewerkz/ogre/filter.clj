@@ -1,6 +1,7 @@
 (ns clojurewerkz.ogre.filter
   (:refer-clojure :exclude [filter and or range])
-  (:import (com.tinkerpop.gremlin.process Traversal))
+  (:import (com.tinkerpop.gremlin.process Traversal)
+           (java.util Collection))
   (:require [clojurewerkz.ogre.util :refer (convert-symbol-to-compare f-to-function f-to-predicate typed-traversal)]))
 
 (defn cyclic-path
@@ -19,7 +20,11 @@
 
 (defn except
   "Filters out the given objects."
-  [^Traversal t exception-object] (.except t exception-object))
+  [^Traversal t excepter]
+    (cond
+      (instance? String excepter) (typed-traversal .except t ^String excepter)
+      (instance? Collection excepter) (typed-traversal .except t ^Collection excepter)
+      :else (except t [excepter])))
 
 (defn filter
   "Filters using a predicate that determines whether an object should pass."
@@ -71,7 +76,11 @@
 
 (defn retain
   "Only allows the given objects to pass."
-  [^Traversal t retain-object] (.retain t retain-object))
+  [^Traversal t retainer]
+    (cond
+      (instance? String retainer) (typed-traversal .retain t ^String retainer)
+      (instance? Collection retainer) (typed-traversal .retain t ^Collection retainer)
+      :else (retain t [retainer])))
 
 (defn simple-path
   "Allows an element if the current path has no repeated elements."
