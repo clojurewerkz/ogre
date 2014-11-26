@@ -45,8 +45,6 @@
   ([^Traversal t k]
     (.hasNot t (name k))))
 
-;; inject
-
 (defn interval
   "Allows elements to pass that have their property in the given start and end interval."
   [^Traversal t key ^Comparable start ^Comparable end]
@@ -71,8 +69,6 @@
 (defn range
   "Allows elements to pass that are within the given range."
   [^Traversal t low high] (typed-traversal .range t low high))
-
-;; retain overloads
 
 (defn retain
   "Only allows the given objects to pass."
