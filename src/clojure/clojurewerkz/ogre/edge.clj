@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.edge
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import (com.tinkerpop.gremlin.structure Vertex Edge)
+  (:import (com.tinkerpop.gremlin.structure Vertex Edge Graph)
            (com.tinkerpop.gremlin.process T))
   (:require [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.util :refer (to-edge-direction prop-map-to-array)]
@@ -23,7 +23,7 @@
 
 (defn refresh
   "Goes and grabs the edge from the graph again. Useful for \"refreshing\" stale edges."
-  [g ^Edge edge]
+  [^Graph g ^Edge edge]
   (.e g (.id edge)))
 
 ;;
@@ -53,14 +53,14 @@
 
 (defn find-by-id
   "Retrieves edges by id from the graph."
-  [g & ids]
+  [^Graph g & ids]
   (if (= 1 (count ids))
     (.e g (first ids))
     (seq (for [id ids] (.e g id)))))
 
 (defn get-all-edges
   "Returns all edges."
-  [g]
+  [^Graph g]
   (.E g))
 
 (defn ^Vertex get-vertex
@@ -92,7 +92,7 @@
     ;; https://groups.google.com/forum/?fromgroups=#!topic/gremlin-users/R2RJxJc1BHI
     (let [^Edge edges (t/into-set! (if label (v/outgoing-edges-of v1 label) (v/outgoing-edges-of v1)))
           v2-id (.id v2)
-          edge-set (set (filter #(= v2-id (-> % head-vertex t/first-of! (.id))) edges))]
+          edge-set (set (filter #(= v2-id (.id ^Vertex (t/first-of! (head-vertex %)))) edges))]
       (when (not (empty? edge-set))
         edge-set))))
 

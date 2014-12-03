@@ -1,6 +1,7 @@
 (ns clojurewerkz.ogre.edge-test
   (:use [clojure.test :only [deftest testing is]])
-  (:import (com.tinkerpop.gremlin.process T))
+  (:import (com.tinkerpop.gremlin.structure Edge)
+           (com.tinkerpop.gremlin.process T))
   (:require [clojurewerkz.ogre.graph :as g]
             [clojurewerkz.ogre.edge :as e]
             [clojurewerkz.ogre.vertex :as v]
@@ -113,7 +114,7 @@
         edge (e/connect-with-id! 102 v1 :connection v2 )
         fresh-edge (e/refresh g edge)]
     (is fresh-edge)
-    (is (= (.id edge) (.id fresh-edge)))
+    (is (= (.id ^Edge edge) (.id ^Edge fresh-edge)))
     (is (= (e/to-map edge) (e/to-map fresh-edge)))))
 
 (deftest test-upconnect!
