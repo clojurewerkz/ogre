@@ -22,7 +22,7 @@
 
 (defn refresh
   "Gets a vertex back from the database and refreshes it to be usable again."
-  [g vertex]
+  [^Graph g ^Vertex vertex]
   (.v g (.id vertex)))
 
 ;;
@@ -31,7 +31,7 @@
 
 (defn remove!
   "Removes a vertex from the graph."
-  [vertex]
+  [^Vertex vertex]
   (.remove vertex))
 
 ;;
@@ -40,26 +40,26 @@
 
 (defn to-map
   "Returns a persistent map representing the vertex."
-  [vertex]
+  [^Vertex vertex]
   (->> (keys vertex)
        (map #(vector (keyword %) (get vertex %)))
        (into {T/id (id-of vertex)})))
 
 (defn find-by-id
   "Retrieves nodes by id from the given graph."
-  [g & ids]
+  [^Graph g & ids]
   (if (= 1 (count ids))
     (try (.v g (first ids)) (catch Exception e nil))
     (seq (for [id ids] (try (.v g id) (catch Exception e nil))))))
 
 (defn find-by-kv
   "Given a key and a value, returns the set of all vertices that satisfy the pair."
-  [g k v]
+  [^Graph g k ^Vertex v]
   (-> g (.V) (.has (name k) v)))
 
 (defn get-all-vertices
   "Returns all vertices."
-  [g]
+  [^Graph g]
   (.V g))
 
 (defn edges-of
@@ -111,14 +111,14 @@
   ([g]
     (create! g {}))
   ([g m]
-    (.addVertex ^Graph g (prop-map-to-array m))))
+    (.addVertex ^Graph g ^"[Ljava.lang.Object;" (prop-map-to-array m))))
 
 (defn create-with-id!
   "Create a vertex with id, optionally with the given property map."
   ([g id]
     (create-with-id! g id {}))
   ([g id m]
-    (.addVertex ^Graph g (prop-map-to-array (assoc m T/id id)))))
+    (.addVertex ^Graph g ^"[Ljava.lang.Object;" (prop-map-to-array (assoc m T/id id)))))
 
 (defn upsert!
   "Given a key and a property map, either creates a new node
