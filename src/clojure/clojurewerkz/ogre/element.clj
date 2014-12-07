@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.element
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import (com.tinkerpop.gremlin.structure Element)
+  (:import (com.tinkerpop.gremlin.structure Element Element$Iterators Property)
            (com.tinkerpop.gremlin.process Traverser))
   (:require [clojurewerkz.ogre.util :refer (keywords-to-str-array)]))
 
@@ -14,8 +14,8 @@
     ([item key]
       (get item key nil))
     ([item key not-found]
-      (let [prop-iter (-> item (.iterators) (.properties (keywords-to-str-array [key])))
-            prop (if (.hasNext prop-iter) (map #(.value %) (iterator-seq prop-iter)) (list not-found))]
+      (let [^java.util.Iterator prop-iter (-> item ^Element$Iterators (.iterators) (.propertyIterator (keywords-to-str-array [key])))
+            prop (if (.hasNext prop-iter) (map #(.value ^Property %) (iterator-seq prop-iter)) (list not-found))]
         (if (= (count prop) 1) (first prop) prop))))
 
   com.tinkerpop.gremlin.process.Traverser
