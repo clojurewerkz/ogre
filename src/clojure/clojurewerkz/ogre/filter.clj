@@ -43,7 +43,7 @@
 (defn has-not
   "Allows an element if it does not the given property."
   ([^Traversal t k]
-    (.hasNot t (name k))))
+    (typed-traversal .hasNot t (name k))))
 
 (defn interval
   "Allows elements to pass that have their property in the given start and end interval."
@@ -80,6 +80,6 @@
 
 (defn simple-path
   "Allows an element if the current path has no repeated elements."
-  [^Traversal t] (.simplePath t))
+  [^Traversal t] (typed-traversal .simplePath t))
 
 ;; where
