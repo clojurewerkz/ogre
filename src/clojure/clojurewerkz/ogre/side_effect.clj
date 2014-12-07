@@ -1,19 +1,19 @@
 (ns clojurewerkz.ogre.side-effect
   (:import (com.tinkerpop.gremlin.process Traversal))
   (:require [clojurewerkz.ogre.traversal :as t]
-            [clojurewerkz.ogre.util :refer (f-to-function f-to-consumer)]))
+            [clojurewerkz.ogre.util :refer (f-to-function f-to-consumer typed-traversal)]))
 
 ;; addIn/Out*E
 
 (defn aggregate
   "The aggregate step is used to aggregate all the objects at a particular point of traversal into a Collection. "
   ([^Traversal t ^String side-effect-key]
-   (.aggregate t side-effect-key)))
+   (typed-traversal .aggregate t side-effect-key)))
 
 (defn cap
   "Emits the value of the previous step and not the values that flow through it."
-  ([^Traversal t] (.cap t))
-  ([^Traversal t k] (.cap t k)))
+  ([^Traversal t] (typed-traversal .cap t))
+  ([^Traversal t k] (typed-traversal .cap t k)))
 
 ;; count
 
@@ -25,7 +25,7 @@
 (defn side-effect
   "Executes a side effect."
   [^Traversal t f]
-  (.sideEffect t (f-to-consumer f)))
+  (typed-traversal .sideEffect t (f-to-consumer f)))
 
 ;; groupBy
 ;; groupCount
@@ -34,7 +34,7 @@
   "Takes in a key function and processing function. Returns all of the processed objects
   grouped by the value of the key function."
   [^Traversal t key-func value-func]
-    (let [results  (-> (.groupBy t (f-to-function key-func) (f-to-function value-func))
+    (let [results  (-> (typed-traversal .groupBy t (f-to-function key-func) (f-to-function value-func))
                        (.cap)
                        (.toList)
                        seq
@@ -48,7 +48,7 @@
   "Takes in a key function, and optionally, a counting function. Returns the count of the
   objects grouped by the key function."
   [^Traversal t key-func]
-    (-> (.groupCount t (f-to-function key-func))
+    (-> (typed-traversal .groupCount t (f-to-function key-func))
         (.cap)
         (.toList)
         seq
