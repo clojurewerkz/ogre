@@ -62,7 +62,7 @@ Orge requires Clojure 1.4 and up. The most recent stable release is always recom
 
 Orge uses [Leiningen 2](https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md). Once installed and run tests against supported Clojure versions using:
 
-    lein2 all test
+    lein all test
 
 ## License
 
