@@ -1,4 +1,4 @@
-(ns clojurewerkz.ogre.side-effect.subgraph_test
+(ns clojurewerkz.ogre.side-effect.subgraph-test
   (:use [clojure.test])
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
