@@ -60,7 +60,10 @@
 
 (defn subgraph
   "Produce an edge-induced subgraph from a traversal."
-  ([^Traversal t edge-predicate] (typed-traversal .subgraph t (f-to-predicate edge-predicate))))
+  ([^Traversal t edge-predicate] (typed-traversal .subgraph t (f-to-predicate edge-predicate)))
+  ([^Traversal t side-effect-key edge-predicate] (typed-traversal .subgraph t side-effect-key (f-to-predicate edge-predicate)))
+  ([^Traversal t edge-holder vertex-map edge-predicate] (typed-traversal .subgraph t edge-holder vertex-map (f-to-predicate edge-predicate)))
+  ([^Traversal t side=effect-key edge-holder vertex-map edge-predicate] (typed-traversal .subgraph t side=effect-key edge-holder vertex-map (f-to-predicate edge-predicate))))
 
 ;; timelimit
 ;; tree
