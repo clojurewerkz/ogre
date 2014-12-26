@@ -45,6 +45,11 @@
   [^Element elem]
   (.id elem))
 
+(defn label-of
+  "Returns the label of the element."
+  [^Element elem]
+  (keyword (.label elem)))
+
 (defn assoc!
   "Adds properties with the specified keys and values to an element."
   [^Element elem map]
