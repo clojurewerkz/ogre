@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.side-effect
   (:import (com.tinkerpop.gremlin.process Traversal))
   (:require [clojurewerkz.ogre.traversal :as t]
-            [clojurewerkz.ogre.util :refer (f-to-function f-to-consumer typed-traversal)]))
+            [clojurewerkz.ogre.util :refer (f-to-function f-to-consumer f-to-predicate typed-traversal)]))
 
 ;; addIn/Out*E
 
@@ -57,6 +57,10 @@
 
 ;; inject
 ;; store
-;; subgraph
+
+(defn subgraph
+  "Produce an edge-induced subgraph from a traversal."
+  ([^Traversal t edge-predicate] (typed-traversal .subgraph t (f-to-predicate edge-predicate))))
+
 ;; timelimit
 ;; tree

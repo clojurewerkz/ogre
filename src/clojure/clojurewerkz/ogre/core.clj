@@ -91,6 +91,7 @@
 (po/import-fn side-effect/aggregate)
 (po/import-fn side-effect/cap)
 (po/import-fn side-effect/side-effect)
+(po/import-fn side-effect/subgraph)
 (po/import-fn side-effect/get-capped!)
 (po/import-fn side-effect/get-grouped-by!)
 (po/import-fn side-effect/get-group-count!)
