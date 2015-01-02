@@ -18,7 +18,7 @@ To subscribe for announcements of releases, important changes and so on, please 
 
 ## Project Maturity
 
-Orge is a young project that regained active development in 2014.
+Orge is a relatively young project that regained active development in 2014-2015.
 
 ## Artifacts
 
