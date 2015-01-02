@@ -52,7 +52,7 @@ With Maven:
 
 ## Supported Clojure Versions
 
-Orge requires Clojure 1.4 and up. The most recent stable release is always recommended.
+Orge requires Clojure 1.6+. The most recent stable release is always recommended.
 
 ## Continuous Integration
 
