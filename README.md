@@ -66,6 +66,6 @@ Orge uses [Leiningen 2](https://github.com/technomancy/leiningen/blob/master/doc
 
 ## License
 
-Copyright (C) 2014 Zack Maril
+Copyright (C) 2014-2015 Zack Maril, and the ClojureWerkz team.
 
 Licensed under the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html) (the same as Clojure).
