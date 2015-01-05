@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.util
   (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.process.graph GraphTraversal VertexTraversal EdgeTraversal)
-           (com.tinkerpop.gremlin.structure Compare Direction)
+           (com.tinkerpop.gremlin.structure Compare Direction Contains)
            (java.util.function Function Consumer Predicate BiFunction)))
 
 (defmacro typed-traversal
@@ -33,7 +33,8 @@
     >=   Compare/gte
     >    Compare/gt
     <=   Compare/lte
-    <    Compare/lt))
+    <    Compare/lt
+    contains? Contains/within))
 
 (defn ^"[Ljava.lang.String;" str-array [strs]
   "Converts a collection of strings to a java String array."

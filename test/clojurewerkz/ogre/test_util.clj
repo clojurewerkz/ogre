@@ -14,6 +14,10 @@
   "Returns a map of ages of the given vertices."
   (map #(el/get % :age) vs))
 
+(defn get-locations [vs]
+  "Returns a map of locations of the given vertices."
+  (map #(el/get % :location) vs))
+
 (defn get-ages-set [vs]
   "Returns a set of ages of the given vertices."
   (set (get-ages vs)))

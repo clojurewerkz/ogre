@@ -44,4 +44,12 @@
                       (q/has :age > (int 30))
                       q/into-vec!)]
       (is (= 2 (count vs)))
-      (is (every? (partial < 30) (u/get-ages vs))))))
+      (is (every? (partial < 30) (u/get-ages vs)))))
+
+  (testing "g.V().has('location',Contains.within,['aachen', 'san diego', 'brussels'])"
+    (let [g (u/crew-tinkergraph)
+          vs (q/query (v/get-all-vertices g)
+                      (q/has :location contains? ["aachen" "san diego" "brussels"])
+                      q/into-vec!)]
+      (is (= 2 (count vs)))
+      (is (every? (partial some #{"aachen" "san diego"}) (u/get-locations vs))))))
