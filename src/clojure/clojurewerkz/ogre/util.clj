@@ -86,14 +86,13 @@
     (test [this arg] (f arg))))
 
 (defn ^Predicate f-to-jump-predicate [f]
-  (when f
-    (f-to-predicate (fn [^Traverser t]
-                      (if (isa? t PathTraverser)
-                        (f (.loops t)
-                           (.get t)
-                           (.path t))
-                        (f (.loops t)
-                           (.get t)))))))
+  (f-to-predicate (fn [^Traverser t]
+                    (if (isa? t PathTraverser)
+                      (f (.loops t)
+                         (.get t)
+                         (.path t))
+                      (f (.loops t)
+                         (.get t))))))
 
 (defprotocol EdgeDirectionConversion
   (to-edge-direction [input] "Converts input to a Gremlin structure edge direction"))

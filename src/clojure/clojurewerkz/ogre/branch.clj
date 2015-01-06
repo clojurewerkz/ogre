@@ -19,7 +19,9 @@
 
 (defn until
   ([^Traversal t ^String break-label jump-predicate]
-   (until t break-label jump-predicate nil))
+   (if (integer? jump-predicate)
+     (typed-traversal .until t break-label ^Integer jump-predicate)
+     (typed-traversal .until t break-label (f-to-jump-predicate jump-predicate))))
   ([^Traversal t ^String break-label jump-predicate emit-predicate]
    (if (integer? jump-predicate)
      (typed-traversal .until t break-label ^Integer jump-predicate (f-to-jump-predicate emit-predicate))
