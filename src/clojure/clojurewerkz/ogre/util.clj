@@ -1,5 +1,6 @@
 (ns clojurewerkz.ogre.util
-  (:import (com.tinkerpop.gremlin.process Traversal)
+  (:import (com.tinkerpop.gremlin.process Traversal Traverser)
+           (com.tinkerpop.gremlin.process.traversers PathTraverser)
            (com.tinkerpop.gremlin.process.graph GraphTraversal VertexTraversal EdgeTraversal)
            (com.tinkerpop.gremlin.structure Compare Direction Contains)
            (java.util.function Function Consumer Predicate BiFunction)))
@@ -83,6 +84,16 @@
   "Converts a function to java.util.function.Predicate."
   (reify Predicate
     (test [this arg] (f arg))))
+
+(defn ^Predicate f-to-jump-predicate [f]
+  (when f
+    (f-to-predicate (fn [^Traverser t]
+                      (if (isa? t PathTraverser)
+                        (f (.loops t)
+                           (.get t)
+                           (.path t))
+                        (f (.loops t)
+                           (.get t)))))))
 
 (defprotocol EdgeDirectionConversion
   (to-edge-direction [input] "Converts input to a Gremlin structure edge direction"))
