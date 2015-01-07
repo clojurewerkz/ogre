@@ -2,7 +2,7 @@
   (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.process.graph GraphTraversal VertexTraversal EdgeTraversal)
            (com.tinkerpop.gremlin.structure Compare Direction Contains)
-           (java.util.function Function Consumer Predicate BiFunction)))
+           (java.util.function Function Consumer Predicate BiPredicate BiFunction)))
 
 (defmacro typed-traversal
   [method ^Traversal t & args]
@@ -24,17 +24,6 @@
   "Starts a subquery."
   [& body]
   `(-> ~@body))
-
-(defn ^Compare convert-symbol-to-compare [s]
-  "Converts a symbolic comparison operator to a Gremlin structure comparison enumeration."
-  (case s
-    =    Compare/eq
-    not= Compare/neq
-    >=   Compare/gte
-    >    Compare/gt
-    <=   Compare/lte
-    <    Compare/lt
-    contains? Contains/within))
 
 (defn ^"[Ljava.lang.String;" str-array [strs]
   "Converts a collection of strings to a java String array."
@@ -83,6 +72,11 @@
   "Converts a function to java.util.function.Predicate."
   (reify Predicate
     (test [this arg] (f arg))))
+
+(defn ^BiPredicate f-to-bipredicate [f]
+  "Converts a function to java.util.function.BiPredicate."
+  (reify BiPredicate
+    (test [this a b] (f a b))))
 
 (defprotocol EdgeDirectionConversion
   (to-edge-direction [input] "Converts input to a Gremlin structure edge direction"))

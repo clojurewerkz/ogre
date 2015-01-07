@@ -23,7 +23,7 @@
   (if-not (nil? arg) (setter builder arg) builder))
 
 ;; GraphML Reader
-(defn make-graphml-reader [& {:keys [vertex-id-key edge-id-key edge-label-key vertex-label-key batch-size]}]
+(defn ^GraphMLReader make-graphml-reader [& {:keys [vertex-id-key edge-id-key edge-label-key vertex-label-key batch-size]}]
   (let [builder (GraphMLReader/build)]
     (-> builder
       (set-if-present vertex-id-key (memfn vertexIdKey))
@@ -35,7 +35,7 @@
 (def read-graph-graphml (partial read-graph-with-reader #(.readGraph (make-graphml-reader) %1 %2)))
 
 ;; GraphML Writer
-(defn make-graphml-writer [& {:keys [normalize vertex-key-types edge-key-types edge-label-key vertex-label-key xml-schema-location]}]
+(defn ^GraphMLWriter make-graphml-writer [& {:keys [normalize vertex-key-types edge-key-types edge-label-key vertex-label-key xml-schema-location]}]
   (let [builder (GraphMLWriter/build)]
     (-> builder
       (set-if-present normalize (memfn normalize))
@@ -48,7 +48,7 @@
 (def write-graph-graphml (partial write-graph-with-writer #(.writeGraph (make-graphml-writer) %1 %2)))
 
 ;; GraphSON Reader
-(defn make-graphson-reader [& {:keys [vertex-id-key edge-id-key custom-module load-custom-modules embed-types batch-size]}]
+(defn ^GraphSONReader make-graphson-reader [& {:keys [vertex-id-key edge-id-key custom-module load-custom-modules embed-types batch-size]}]
   (let [builder (GraphSONReader/build)]
     (-> builder
       (set-if-present vertex-id-key (memfn vertexIdKey))
@@ -61,7 +61,7 @@
 (def read-graph-graphson (partial read-graph-with-reader #(.readGraph (make-graphson-reader) %1 %2)))
 
 ;; GraphSON Writer
-(defn make-graphson-writer [& {:keys [custom-module load-custom-modules embed-types normalize]}]
+(defn ^GraphSONWriter make-graphson-writer [& {:keys [custom-module load-custom-modules embed-types normalize]}]
   (let [builder (GraphSONWriter/build)]
     (-> builder
       (set-if-present normalize (memfn normalize))
@@ -72,7 +72,7 @@
 (def write-graph-graphson (partial write-graph-with-writer #(.writeGraph (make-graphson-writer) %1 %2)))
 
 ;; Kryo Reader
-(defn make-kryo-reader [& {:keys [vertex-id-key edge-id-key working-directory custom batch-size]}]
+(defn ^KryoReader make-kryo-reader [& {:keys [vertex-id-key edge-id-key working-directory custom batch-size]}]
   (let [builder (KryoReader/build)]
     (-> builder
       (set-if-present vertex-id-key (memfn vertexIdKey))
@@ -84,7 +84,7 @@
 (def read-graph-kryo (partial read-graph-with-reader #(.readGraph (make-kryo-reader) %1 %2)))
 
 ;; Kryo Writer
-(defn make-kryo-writer [& {:keys [custom]}]
+(defn ^KryoWriter make-kryo-writer [& {:keys [custom]}]
   (let [builder (KryoWriter/build)]
     (-> builder
       (set-if-present custom (memfn custom))

@@ -29,7 +29,7 @@
 
 (defn label
   "Gets the label of an element."
-  ([^Traversal t] (typed-traversal .label t)))
+  ([^GraphTraversal t] (.label t)))
 
 (defn map
   "Gets the property map of an element."

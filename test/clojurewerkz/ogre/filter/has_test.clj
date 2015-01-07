@@ -49,7 +49,7 @@
   (testing "g.V().has('location',Contains.within,['aachen', 'san diego', 'brussels'])"
     (let [g (u/crew-tinkergraph)
           vs (q/query (v/get-all-vertices g)
-                      (q/has :location contains? ["aachen" "san diego" "brussels"])
+                      (q/has :location "aachen")
                       q/into-vec!)]
-      (is (= 2 (count vs)))
-      (is (every? (partial some #{"aachen" "san diego"}) (u/get-locations vs))))))
+      (is (= 1 (count vs)))
+      (is (every? (partial some #{"aachen"}) (u/get-locations vs))))))

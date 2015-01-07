@@ -19,7 +19,7 @@
         (try
           (f)
           (finally
-            (.close *graph*))))
+            (.close ^Neo4jGraph *graph*))))
       (finally
         (FileUtils/deleteQuietly tmp)))))
 
