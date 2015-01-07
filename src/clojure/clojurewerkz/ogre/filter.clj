@@ -31,17 +31,16 @@
   [^Traversal t f] (typed-traversal .filter t (f-to-predicate f)))
 
 (defn has
-  "Allows an element if it has the given property. Supports the standard
-  clojure symbolic comparison operators."
+  "Allows an element if it has the given property or it satisfies given predicate."
   ([^Traversal t k]
     (typed-traversal .has t (name k)))
   ([^Traversal t k v]
     (typed-traversal .has t (name k) v))
-  ([^Traversal t k c v]
-    (typed-traversal .has t (name k) (f-to-bipredicate c) v)))
+  ([^Traversal t k pred v]
+    (typed-traversal .has t (name k) (f-to-bipredicate pred) v)))
 
 (defn has-not
-  "Allows an element if it does not the given property."
+  "Allows an element if it does not have the given property."
   ([^Traversal t k]
     (typed-traversal .hasNot t (name k))))
 
