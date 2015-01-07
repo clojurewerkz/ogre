@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.core
   (:refer-clojure :exclude [filter and or range count iterate next map loop reverse])
   (:require [potemkin :as po]
-            [clojurewerkz.ogre.util :as util :refer (keywords-to-str-array)]
+            [clojurewerkz.ogre.util :as util :refer (keywords-to-str-array typed-traversal)]
             [clojurewerkz.ogre.filter :as filter]
             [clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.traversal :as traversal]
@@ -22,19 +22,20 @@
                ;;       " direction and returns the vertices.")
                ([t#] (~direction t# []))
                ([t# labels#]
-                 (-> t# (~j1 (keywords-to-str-array labels#)))))
+                (typed-traversal ~j1 t# (keywords-to-str-array labels#))))
              (defn ~short
                [& args#]
                (apply ~direction args#))
              (defn ~f1
                ([t#] (~f1 t# []))
                ([t# labels#]
-                  (-> t# (~j2 (keywords-to-str-array labels#)))))
+                (typed-traversal ~j2 t# (keywords-to-str-array labels#))))
              (defn ~shortE
                [& args#]
                (apply ~f1 args#))
-             (defn ~name1 [t#]
-               (-> t# (~j3)))))))
+             (defn ~name1
+               [t#]
+               (typed-traversal ~j3 t#))))))
 
 ;; clojurewerkz.ogre.util
 (po/import-fn util/as)
@@ -46,7 +47,7 @@
 (po/import-fn filter/dedup)
 (po/import-fn filter/except)
 (po/import-fn filter/filter)
-(po/import-macro filter/has)
+(po/import-fn filter/has)
 (po/import-fn filter/has-not)
 (po/import-fn filter/interval)
 (po/import-fn filter/limit)

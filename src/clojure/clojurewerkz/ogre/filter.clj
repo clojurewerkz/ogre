@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [filter and or range])
   (:import (com.tinkerpop.gremlin.process Traversal)
            (java.util Collection))
-  (:require [clojurewerkz.ogre.util :refer (convert-symbol-to-compare f-to-function f-to-predicate typed-traversal)]))
+  (:require [clojurewerkz.ogre.util :refer (f-to-function f-to-predicate typed-traversal f-to-bipredicate)]))
 
 (defn cyclic-path
   "The step analyzes the path of the traverser thus far and if there are any repeats, the traverser
@@ -30,15 +30,15 @@
   "Filters using a predicate that determines whether an object should pass."
   [^Traversal t f] (typed-traversal .filter t (f-to-predicate f)))
 
-(defmacro has
+(defn has
   "Allows an element if it has the given property. Supports the standard
   clojure symbolic comparison operators."
   ([^Traversal t k]
-    `(.has ~t ~(name k)))
+    (typed-traversal .has t (name k)))
   ([^Traversal t k v]
-    `(.has ~t ~(name k) ~v))
+    (typed-traversal .has t (name k) v))
   ([^Traversal t k c v]
-    `(.has ~t ~(name k) (convert-symbol-to-compare '~c) ~v)))
+    (typed-traversal .has t (name k) (f-to-bipredicate c) v)))
 
 (defn has-not
   "Allows an element if it does not the given property."

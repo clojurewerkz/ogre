@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.traversal
   (:refer-clojure :exclude [iterate])
   (:import (com.tinkerpop.gremlin.process Traversal))
-  (:require [clojurewerkz.ogre.util :refer (convert-to-map)]))
+  (:require [clojurewerkz.ogre.util :refer (convert-to-map typed-traversal)]))
 
 (defn iterate!
   "Iterates the traversal."
@@ -80,5 +80,4 @@
 (defn count!
   "Returns the number of objects currently in the traversal."
   [^Traversal t]
-  (next! (.count t)))
-
+  (next! (typed-traversal .count t)))

@@ -1,5 +1,6 @@
 (ns clojurewerkz.ogre.side-effect.side-effect-test
   (:use [clojure.test])
+  (:import (com.tinkerpop.gremlin.process Traverser))
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.test-util :as u]))
@@ -13,7 +14,7 @@
                       (q/side-effect (partial swap! lst conj))
                       (q/values :name)
                       q/into-vec!)]
-      (is (= elem (.get (first @lst))))
+      (is (= elem (.get ^Traverser (first @lst))))
       (is (= "marko" (first names)))))
 
   (testing "g.v(1).out().sideEffect{lst.add(it)}.values('name')"
@@ -27,9 +28,3 @@
                       q/into-vec!)]
       (is (= 3 (count @lst)))
       (is (= #{"josh" "lop" "vadas"} (set names))))))
-
-
-
-
-
-

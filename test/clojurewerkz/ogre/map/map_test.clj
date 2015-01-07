@@ -1,5 +1,6 @@
 (ns clojurewerkz.ogre.map.map-test
   (:use [clojure.test])
+  (:import (com.tinkerpop.gremlin.process Traverser))
   (:require [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.test-util :as u]))
@@ -15,7 +16,7 @@
     (let [names (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                          q/-E>
                          q/label
-                         (q/map #(count (.get %)))
+                         (q/map #(count (.get ^Traverser %)))
                          q/into-vec!)]
       (is (= (set (map count ["knows" "created"]))
              (set names)))
@@ -25,7 +26,7 @@
     (let [names (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                          q/-->
                          (q/map #(v/get % :name))
-                         (q/map #(count (.get %)))
+                         (q/map #(count (.get ^Traverser %)))
                          q/into-vec!)]
       (is (= (set (map count ["josh" "vadas" "lop"]))
              (set names)))
