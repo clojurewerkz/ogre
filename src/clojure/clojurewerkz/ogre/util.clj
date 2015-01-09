@@ -2,6 +2,7 @@
   (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.process.graph GraphTraversal VertexTraversal EdgeTraversal)
            (com.tinkerpop.gremlin.structure Compare Direction Contains)
+           (com.tinkerpop.gremlin.process.graph.util DefaultGraphTraversal)
            (java.util.function Function Consumer Predicate BiPredicate BiFunction)))
 
 (defmacro typed-traversal
@@ -16,14 +17,19 @@
   [^Traversal t ^String label]
   (typed-traversal .as t label))
 
-(defmacro query [xs & body]
+(defmacro query
   "Starts a query."
+  [xs & body]
   `(-> ~xs ~@body))
 
 (defmacro subquery
   "Starts a subquery."
   [& body]
   `(-> ~@body))
+
+(defmacro fresh-traversal
+  [& body]
+  `(subquery (DefaultGraphTraversal.) ~@body))
 
 (defn ^"[Ljava.lang.String;" str-array [strs]
   "Converts a collection of strings to a java String array."
