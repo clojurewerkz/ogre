@@ -11,7 +11,7 @@
           vs (q/query (v/get-all-vertices g)
                       (q/has :age)
                       (q/choose #(count (v/get % :name))
-                                {5 q/in
+                                {5 (q/in)
                                  4 q/out})
                       (q/values :name)
                       q/into-vec!)]
@@ -20,7 +20,7 @@
 
   (testing "precomputed map as destination"
     (let [g (u/classic-tinkergraph)
-          m {5 (fresh-traversal q/in)
+          m {5 (fresh-traversal (q/in))
              4 (fresh-traversal q/out)}
           vs (q/query (v/get-all-vertices g)
                       (q/has :age)
@@ -35,7 +35,7 @@
           vs (q/query (v/get-all-vertices g)
                       (q/has :age)
                       (q/choose #(= 5 (count (v/get % :name)))
-                                q/in
+                                (q/in)
                                 q/out)
                       (q/values :name)
                       q/into-vec!)]
