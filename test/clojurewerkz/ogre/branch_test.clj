@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.branch-test
-  (:use [clojure.test])
-  (:require [clojurewerkz.ogre.core :as q]
+  (:require [clojure.test :refer [deftest testing is]]
+            [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.util :refer (fresh-traversal)]
             [clojurewerkz.ogre.test-util :as u]))
