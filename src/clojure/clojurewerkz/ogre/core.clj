@@ -5,6 +5,7 @@
             [clojurewerkz.ogre.filter :as filter]
             [clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.traversal :as traversal]
+            [clojurewerkz.ogre.branch :as branch]
             [clojurewerkz.ogre.side-effect :as side-effect]))
 
 ;; Define the traversal methods
@@ -96,3 +97,6 @@
 (po/import-fn side-effect/get-capped!)
 (po/import-fn side-effect/get-grouped-by!)
 (po/import-fn side-effect/get-group-count!)
+
+;; clojurewerkz.ogre.branch steps
+(po/import-macro branch/choose)

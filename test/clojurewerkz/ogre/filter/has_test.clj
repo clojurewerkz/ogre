@@ -46,10 +46,18 @@
       (is (= 2 (count vs)))
       (is (every? (partial < 30) (u/get-ages vs)))))
 
-  (testing "g.V().has('location',Contains.within,['aachen', 'san diego', 'brussels'])"
+  (testing "g.V().has('location','aachen') where location is a list"
     (let [g (u/crew-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/has :location "aachen")
                       q/into-vec!)]
       (is (= 1 (count vs)))
-      (is (every? (partial some #{"aachen"}) (u/get-locations vs))))))
+      (is (every? (partial some #{"aachen"}) (u/get-locations vs)))))
+
+  (testing "g.V().has('location',Contains.within,['aachen', 'san diego', 'brussels'])"
+    (let [g (u/crew-tinkergraph)
+          vs (q/query (v/get-all-vertices g)
+                      (q/has :location #(contains? %2 %1) #{"aachen", "san diego", "brussels"})
+                      q/into-vec!)]
+      (is (= 2 (count vs)))
+      (is (every? (partial some #{"aachen" "san diego"}) (u/get-locations vs))))))
