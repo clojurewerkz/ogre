@@ -3,11 +3,11 @@
   (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.process.graph GraphTraversal)
            (com.tinkerpop.gremlin.structure Order))
-  (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array f-to-bifunction typed-traversal)]))
+  (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array keywords-to-str-list f-to-bifunction typed-traversal)]))
 
 (defn back
   "Goes back to the results of a named step."
-  ([^Traversal t step-label] (typed-traversal .back t step-label)))
+  ([^Traversal t step-label] (typed-traversal .back t (name step-label))))
 
 ;; flatMap
 ;; fold(BiFunction)
@@ -73,9 +73,9 @@
 (defn select-only
   "Select the named steps to emit, with optional functions for post processing round robin style."
   ([^Traversal t cols]
-    (select-only t cols identity))
-  ([^Traversal t ^java.util.List cols & fs]
-    (typed-traversal .select t cols (fs-to-function-array fs))))
+   (select-only t cols identity))
+  ([^Traversal t cols & fs]
+   (typed-traversal .select t (keywords-to-str-list cols) (fs-to-function-array fs))))
 
 ;; shuffle
 ;; to

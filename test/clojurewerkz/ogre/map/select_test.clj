@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.map.select-test
-  (:use [clojure.test])
-  (:require [clojurewerkz.ogre.core :as q]
+  (:require [clojure.test :refer [deftest testing is]]
+            [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.test-util :as u]))
 
@@ -8,9 +8,9 @@
   (testing "g.v(1).as('a').out('knows').as('b').select()"
     (let [g (u/classic-tinkergraph)
            selection (q/query (v/find-by-id g (int 1))
-                             (q/as "a")
+                             (q/as :a)
                              (q/--> [:knows])
-                             (q/as "b")
+                             (q/as :b)
                              q/select
                              q/all-into-vecs!)]
       ;;TODO turn these into maps in core
@@ -22,9 +22,9 @@
   (testing "g.v(1).as('a').out('knows').as('b').select{it.value('name')}"
     (let [g (u/classic-tinkergraph)
           selection (q/query (v/find-by-id g (int 1))
-                             (q/as "a")
+                             (q/as :a)
                              (q/--> [:knows])
-                             (q/as "b")
+                             (q/as :b)
                              (q/select #(v/get % :name))
                              q/all-into-vecs!)]
       (is (= #{"marko"} (set (map val (map first selection)))))
@@ -35,10 +35,10 @@
   (testing "g.v(1).as('a').out('knows').as('b').select('a')"
     (let [g (u/classic-tinkergraph)
           selection (q/query (v/find-by-id g (int 1))
-                             (q/as "a")
+                             (q/as :a)
                              (q/--> [:knows])
-                             (q/as "b")
-                             (q/select-only ["a"])
+                             (q/as :b)
+                             (q/select-only [:a])
                              q/all-into-vecs!)]
       (is (= 2 (count selection)))
       (is (= 1 (count (first selection))))
@@ -47,10 +47,10 @@
   (testing "g.v(1).as('a').out('knows').as('b').select('a', {it.value('name')})"
     (let [g (u/classic-tinkergraph)
           selection (q/query (v/find-by-id g (int 1))
-                             (q/as "a")
+                             (q/as :a)
                              (q/--> [:knows])
-                             (q/as "b")
-                             (q/select-only ["a"] #(v/get % :name))
+                             (q/as :b)
+                             (q/select-only [:a] #(v/get % :name))
                              q/all-into-vecs!)]
       (is (= 2 (count selection)))
       (is (= 1 (count (first selection))))
