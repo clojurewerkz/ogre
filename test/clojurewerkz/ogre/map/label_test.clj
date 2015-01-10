@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.map.label-test
-  (:use [clojure.test])
-  (:require [clojurewerkz.ogre.core :as q]
+  (:require [clojure.test :refer [deftest testing is]]
+            [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.test-util :as u]))
 
@@ -10,4 +10,4 @@
                          q/-E>
                          q/label
                          q/into-vec!)]
-      (is (= ["created" "knows" "knows"] names)))))
+      (is (= [:created :knows :knows] names)))))

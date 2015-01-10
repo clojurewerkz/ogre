@@ -1,8 +1,9 @@
 (ns clojurewerkz.ogre.map
   (:refer-clojure :exclude [map])
-  (:import (com.tinkerpop.gremlin.process Traversal)
+  (:import (com.tinkerpop.gremlin.process Traversal Traverser)
            (com.tinkerpop.gremlin.process.graph GraphTraversal)
-           (com.tinkerpop.gremlin.structure Order))
+           (com.tinkerpop.gremlin.process.graph.step.map MapStep)
+           (com.tinkerpop.gremlin.structure Order Element))
   (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array keywords-to-str-list f-to-bifunction typed-traversal)]))
 
 (defn back
@@ -29,7 +30,12 @@
 
 (defn label
   "Gets the label of an element."
-  ([^GraphTraversal t] (.label t)))
+  ([^GraphTraversal t]
+   (let [step (doto (MapStep. t)
+                (.setFunction (f-to-function
+                               (fn [^Traverser t]
+                                 (keyword (.label ^Element (.get t)))))))]
+     (.addStep t step))))
 
 (defn map
   "Gets the property map of an element."
