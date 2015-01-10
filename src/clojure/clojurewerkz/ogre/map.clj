@@ -2,14 +2,9 @@
   (:refer-clojure :exclude [map])
   (:import (com.tinkerpop.gremlin.process Traversal Traverser)
            (com.tinkerpop.gremlin.process.graph GraphTraversal)
-<<<<<<< HEAD
            (com.tinkerpop.gremlin.process.graph.step.map MapStep)
            (com.tinkerpop.gremlin.structure Order Element))
-  (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array f-to-bifunction typed-traversal)]))
-=======
-           (com.tinkerpop.gremlin.structure Order))
   (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array keywords-to-str-list f-to-bifunction typed-traversal)]))
->>>>>>> 0a731e843c85f11e307da6563cecc3cdc807eabb
 
 (defn back
   "Goes back to the results of a named step."
