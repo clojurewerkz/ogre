@@ -22,7 +22,8 @@
                            q/into-vec!
                            first
                            (->> (into {})))]
-      grouped))
+      (is (= (count (grouped \a)) 2)
+          (= (v/id-of (first (grouped \e))) 6))))
 
   (testing "g.V().groupBy{it.get().value('name')[1]}{it.get().value('name')}"
     (let [g (u/classic-tinkergraph)

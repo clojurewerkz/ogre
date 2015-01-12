@@ -31,7 +31,7 @@
 (defn group-by
   "Group objects by key function. Optionally transform each objects by value function and aggregate resultes by reduce function."
   ([^Traversal t keyfn]
-   (group-by t keyfn identity identity))
+   (group-by t keyfn #(.get ^Traverser %) identity))
   ([^Traversal t keyfn valfn]
    (group-by t keyfn valfn identity))
   ([^Traversal t keyfn valfn reducefn]
