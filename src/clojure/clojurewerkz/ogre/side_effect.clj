@@ -1,5 +1,6 @@
 (ns clojurewerkz.ogre.side-effect
-  (:import (com.tinkerpop.gremlin.process Traversal))
+  (:refer-clojure :exclude [group-by])
+  (:import (com.tinkerpop.gremlin.process Traversal Traverser))
   (:require [clojurewerkz.ogre.traversal :as t]
             [clojurewerkz.ogre.util :refer (f-to-function f-to-consumer f-to-predicate typed-traversal)]))
 
@@ -13,7 +14,7 @@
 (defn cap
   "Emits the value of the previous step and not the values that flow through it."
   ([^Traversal t] (typed-traversal .cap t))
-  ([^Traversal t k] (typed-traversal .cap t k)))
+  ([^Traversal t k] (typed-traversal .cap t (name k))))
 
 ;; count
 
@@ -27,33 +28,44 @@
   [^Traversal t f]
   (typed-traversal .sideEffect t (f-to-consumer f)))
 
-;; groupBy
-;; groupCount
+(defn group-by
+  "Group objects by key function. Optionally transform each objects by value function and aggregate resultes by reduce function."
+  ([^Traversal t keyfn]
+   (group-by t keyfn #(.get ^Traverser %) identity))
+  ([^Traversal t keyfn valfn]
+   (group-by t keyfn valfn identity))
+  ([^Traversal t keyfn valfn reducefn]
+   (typed-traversal .groupBy t (f-to-function keyfn) (f-to-function valfn) (f-to-function reducefn))))
+
+(defn group-count
+  "Returns the count of the objects.
+Optionally grouped by key function or named by label."
+  ([^Traversal t]
+   (group-count t #(.get ^Traverser %)))
+  ([^Traversal t keyfn-or-label]
+   (if (ifn? keyfn-or-label)
+     (typed-traversal .groupCount t (f-to-function keyfn-or-label))
+     (typed-traversal .groupCount t (name keyfn-or-label))))
+  ([^Traversal t label keyfn]
+   (typed-traversal .groupCount t (name label) (f-to-function keyfn))))
 
 (defn get-grouped-by!
-  "Takes in a key function and processing function. Returns all of the processed objects
-  grouped by the value of the key function."
+  "Takes in a key function and processing function. Returns all of the processed objects grouped by the value of the key function."
   [^Traversal t key-func value-func]
-    (let [results  (-> (typed-traversal .groupBy t (f-to-function key-func) (f-to-function value-func))
-                       (.cap)
-                       (.toList)
-                       seq
-                       first)]
-      (->> results
-        (into {})
-        (map (fn [[a b]] [a (vec b)]))
-        (into {}))))
+  (->> (group-by t key-func value-func)
+    t/into-vec!
+    first
+    (into {})
+    (map (fn [[a b]] [a (vec b)]))
+    (into {})))
 
 (defn get-group-count!
-  "Takes in a key function, and optionally, a counting function. Returns the count of the
-  objects grouped by the key function."
+  "Returns the count of the objects grouped by the key function."
   [^Traversal t key-func]
-    (-> (typed-traversal .groupCount t (f-to-function key-func))
-        (.cap)
-        (.toList)
-        seq
-        first
-        (#(into {} %))))
+  (->> (group-count t key-func)
+    t/into-vec!
+    first
+    (into {})))
 
 ;; inject
 ;; store
