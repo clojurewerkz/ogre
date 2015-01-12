@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.core
-  (:refer-clojure :exclude [filter and or range count iterate next map loop reverse])
+  (:refer-clojure :exclude [filter and or range count iterate next map loop reverse group-by])
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util :refer (keywords-to-str-array typed-traversal)]
             [clojurewerkz.ogre.filter :as filter]
@@ -97,6 +97,8 @@
 (po/import-fn side-effect/get-capped!)
 (po/import-fn side-effect/get-grouped-by!)
 (po/import-fn side-effect/get-group-count!)
+(po/import-fn side-effect/group-by)
+(po/import-fn side-effect/group-count)
 
 ;; clojurewerkz.ogre.branch steps
 (po/import-macro branch/choose)
