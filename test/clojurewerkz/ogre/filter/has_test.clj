@@ -60,4 +60,20 @@
                       (q/has :location #(contains? %2 %1) #{"aachen", "san diego", "brussels"})
                       q/into-vec!)]
       (is (= 2 (count vs)))
-      (is (every? (partial some #{"aachen" "san diego"}) (u/get-locations vs))))))
+      (is (every? (partial some #{"aachen" "san diego"}) (u/get-locations vs)))))
+
+  (testing "has-not by value"
+    (let [g (u/classic-tinkergraph)
+          vs (q/query (v/get-all-vertices g)
+                      (q/has-not :age (int 29))
+                      q/into-vec!)]
+      (is (= 3 (count vs)))
+      (is (every? (partial not= 28) (u/get-ages vs)))))
+
+  (testing "has-not by predicate"
+    (let [g (u/classic-tinkergraph)
+          vs (q/query (v/get-all-vertices g)
+                      (q/has-not :age > (int 28))
+                      q/into-vec!)]
+      (is (= 1 (count vs)))
+      (is (every? (partial > 28) (u/get-ages vs))))))

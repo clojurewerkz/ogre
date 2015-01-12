@@ -42,7 +42,11 @@
 (defn has-not
   "Allows an element if it does not have the given property."
   ([^Traversal t k]
-    (typed-traversal .hasNot t (name k))))
+    (typed-traversal .hasNot t (name k)))
+  ([^Traversal t k v]
+   (has t k not= v))
+  ([^Traversal t k pred v]
+   (has t k (complement pred) v)))
 
 (defn interval
   "Allows elements to pass that have their property in the given start and end interval."
