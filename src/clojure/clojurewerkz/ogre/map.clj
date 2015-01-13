@@ -4,7 +4,7 @@
            (com.tinkerpop.gremlin.process.graph GraphTraversal)
            (com.tinkerpop.gremlin.process.graph.step.map MapStep)
            (com.tinkerpop.gremlin.structure Order Element))
-  (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array keywords-to-str-list f-to-bifunction typed-traversal)]))
+  (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array keywords-to-str-list f-to-bifunction typed-traversal fresh-traversal as)]))
 
 (defn back
   "Goes back to the results of a named step."
@@ -42,7 +42,15 @@
   ([^Traversal t f]
     (typed-traversal .map t (f-to-function f))))
 
-;; match
+(defmacro match
+  "Pattern match traversals from current step onwards. Can introduce new labels."
+  [^Traversal t start-label & matches]
+  `(typed-traversal .match ~t (name ~start-label)
+                    (into-array ~(vec (for [[label m] (partition 2 matches)]
+                                        `(-> (fresh-traversal ~t)
+                                           (as ~label)
+                                           ~m))))))
+
 
 ;; todo: how best to resolve varargs overload to order
 (defn order

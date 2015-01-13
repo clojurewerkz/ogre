@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [filter and or range])
   (:import (com.tinkerpop.gremlin.process Traversal)
            (java.util Collection))
-  (:require [clojurewerkz.ogre.util :refer (f-to-function f-to-predicate typed-traversal f-to-bipredicate)]))
+  (:require [clojurewerkz.ogre.util :refer (f-to-function f-to-predicate typed-traversal f-to-bipredicate fresh-traversal)]))
 
 (defn cyclic-path
   "The step analyzes the path of the traverser thus far and if there are any repeats, the traverser
@@ -85,4 +85,9 @@
   "Allows an element if the current path has no repeated elements."
   [^Traversal t] (typed-traversal .simplePath t))
 
-;; where
+(defmacro where
+  "Further constrain results from match with a binary predicate or traversal."
+  ([^Traversal t pred a b]
+   `(typed-traversal .where ~t (name ~a) (name ~b) (f-to-bipredicate ~pred)))
+  ([^Traversal t constraint]
+   `(typed-traversal .where ~t (-> (fresh-traversal ~t) ~constraint))))
