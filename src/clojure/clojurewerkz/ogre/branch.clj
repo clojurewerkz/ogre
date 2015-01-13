@@ -8,12 +8,12 @@
    `(typed-traversal .choose ~t (f-to-function ~k)
                      ~(if (map? m)
                         (into {} (for [[k v] m]
-                                   [k `(fresh-traversal ~v)]))
+                                   [k `(-> (fresh-traversal ~t) ~v)]))
                         m)))
   ([^Traversal t pred true-choice false-choice]
    `(typed-traversal .choose ~t (f-to-predicate ~pred)
-                     (fresh-traversal ~true-choice)
-                     (fresh-traversal ~false-choice))))
+                     (-> (fresh-traversal ~t) ~true-choice)
+                     (-> (fresh-traversal ~t) ~false-choice))))
 
 ;; jump
 ;; until

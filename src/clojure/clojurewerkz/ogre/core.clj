@@ -58,6 +58,7 @@
 (po/import-fn filter/range)
 (po/import-fn filter/retain)
 (po/import-fn filter/simple-path)
+(po/import-macro filter/where)
 
 ;; clojurewerkz.ogre.map steps
 (po/import-fn map/back)
@@ -72,6 +73,7 @@
 (po/import-fn map/select-only)
 (po/import-fn map/unfold)
 (po/import-fn map/values)
+(po/import-macro map/match)
 
 ;; clojurewerkz.ogre.traversal steps
 (po/import-fn traversal/all-into-vecs!)
