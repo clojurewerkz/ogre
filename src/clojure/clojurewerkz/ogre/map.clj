@@ -21,10 +21,6 @@
   "Gets the unique identifier of the element."
   ([^GraphTraversal t] (.id t)))
 
-;; hiddens
-;; hiddenmMap
-;; hiddenValue
-;; hiddenValueMap
 ;; identity
 ;; key
 
