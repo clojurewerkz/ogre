@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.graph-test
-  (:use [clojure.test :only (use-fixtures deftest testing is)])
-  (:require [clojurewerkz.ogre.graph :as g]
+  (:require [clojure.test :refer [deftest use-fixtures testing is]]
+            [clojurewerkz.ogre.graph :as g]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.traversal :as t]
             [clojurewerkz.support.io :as sio]

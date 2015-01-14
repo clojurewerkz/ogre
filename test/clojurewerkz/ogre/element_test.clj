@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.element-test
-  (:use [clojure.test :only [deftest is]])
-  (:require [clojurewerkz.ogre.vertex :as v]
+  (:require [clojure.test :refer [deftest testing is]]
+            [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.edge :as e]
             [clojurewerkz.ogre.test-util :as u]))
 

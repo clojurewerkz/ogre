@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.god-test
-  (:use [clojure.test])
-  (:require [clojurewerkz.ogre.core :as q]
+  (:require [clojure.test :refer [deftest testing is]]
+            [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.edge :as e]
             [clojurewerkz.ogre.test-util :as u]))

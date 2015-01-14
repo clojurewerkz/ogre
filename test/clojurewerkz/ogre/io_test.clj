@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.io-test
-  (:use [clojure.test :only (deftest testing is)])
-  (:require [clojurewerkz.ogre.io :as io]
+  (:require [clojure.test :refer [deftest testing is]]
+            [clojurewerkz.ogre.io :as io]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.edge :as e]
             [clojurewerkz.ogre.test-util :as u])

@@ -1,8 +1,8 @@
 (ns clojurewerkz.ogre.edge-test
-  (:use [clojure.test :only [deftest testing is]])
   (:import (com.tinkerpop.gremlin.structure Edge)
            (com.tinkerpop.gremlin.process T))
-  (:require [clojurewerkz.ogre.graph :as g]
+  (:require [clojure.test :refer [deftest testing is]]
+            [clojurewerkz.ogre.graph :as g]
             [clojurewerkz.ogre.edge :as e]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.traversal :as t]
