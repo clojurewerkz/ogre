@@ -34,8 +34,10 @@
   "Allows an element if it has the given property or it satisfies given predicate."
   ([^Traversal t k]
     (typed-traversal .has t (name k)))
-  ([^Traversal t k v]
-    (typed-traversal .has t (name k) v))
+  ([^Traversal t k v-or-pred]
+   (if (ifn? v-or-pred)
+     (has t k (fn [v _] (v-or-pred v)) "ignoreme")
+     (typed-traversal .has t (name k) v-or-pred)))
   ([^Traversal t k pred v]
     (typed-traversal .has t (name k) (f-to-bipredicate pred) v)))
 
@@ -43,8 +45,10 @@
   "Allows an element if it does not have the given property."
   ([^Traversal t k]
     (typed-traversal .hasNot t (name k)))
-  ([^Traversal t k v]
-   (has t k not= v))
+  ([^Traversal t k v-or-pred]
+   (if (ifn? v-or-pred)
+     (has t k (complement v-or-pred))
+     (has t k not= v-or-pred)))
   ([^Traversal t k pred v]
    (has t k (complement pred) v)))
 
