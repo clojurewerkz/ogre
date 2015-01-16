@@ -59,7 +59,10 @@
   ([^Traversal t c] (typed-traversal .order t (into-array [c]))))
 
 ;; orderBy
-;; otherV
+
+(defn other-v
+  "Gets the other vertex of an edge depending on which vertex a traversal started on."
+  ([^Traversal t] (typed-traversal .otherV t)))
 
 (defn path
   "Gets the path through the traversal up to the current step. If functions are provided

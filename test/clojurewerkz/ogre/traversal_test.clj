@@ -61,6 +61,15 @@
       (is (= #{:knows :created}
              (set (map e/label-of es))))))
 
+  (testing "g.v(1).bothE().otherV()"
+    (let [es (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
+                      q/<E>
+                      q/other-v
+                      q/into-vec!)]
+      (is (= 3 (count es)))
+      (is (= #{"lop" "vadas" "josh"}
+             (u/get-names-set es)))))
+
   (testing "g.v(1).outE().inV()"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
                       q/-E>
