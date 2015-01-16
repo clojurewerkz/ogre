@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.map
-  (:refer-clojure :exclude [map])
+  (:refer-clojure :exclude [map key])
   (:import (com.tinkerpop.gremlin.process Traversal Traverser)
            (com.tinkerpop.gremlin.process.graph GraphTraversal)
            (com.tinkerpop.gremlin.process.graph.step.map MapStep)
@@ -22,7 +22,10 @@
   ([^GraphTraversal t] (.id t)))
 
 ;; identity
-;; key
+
+(defn key
+  "Gets the key name of a Property."
+  ([^GraphTraversal t] (.key t)))
 
 (defn label
   "Gets the label of an element."
