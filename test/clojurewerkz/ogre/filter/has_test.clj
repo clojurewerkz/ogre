@@ -26,7 +26,7 @@
           vs (q/query (v/get-all-vertices g)
                       (q/has :name)
                       q/into-vec!)]
-     (is (= 6 (count vs)))
+      (is (= 6 (count vs)))
       (is (not (#{"blah"} (u/get-names vs))))))
 
 ; Not able to use has with T/id, probably because of type issue
@@ -70,7 +70,23 @@
       (is (= 3 (count vs)))
       (is (every? (partial not= 28) (u/get-ages vs)))))
 
-  (testing "has-not by predicate"
+  (testing "has by unary predicate"
+    (let [g (u/classic-tinkergraph)
+          vs (q/query (v/get-all-vertices g)
+                      (q/has :age odd?)
+                      q/into-vec!)]
+      (is (= 3 (count vs)))
+      (is (every? odd? (u/get-ages vs)))))
+
+  (testing "has-not by unary predicate"
+    (let [g (u/classic-tinkergraph)
+          vs (q/query (v/get-all-vertices g)
+                      (q/has-not :age odd?)
+                      q/into-vec!)]
+      (is (= 1 (count vs)))
+      (is (every? even? (u/get-ages vs)))))
+
+  (testing "has-not by binary predicate"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/has-not :age > (int 28))

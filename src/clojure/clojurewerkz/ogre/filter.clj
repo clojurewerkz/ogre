@@ -1,8 +1,9 @@
 (ns clojurewerkz.ogre.filter
   (:refer-clojure :exclude [filter and or range])
   (:import (com.tinkerpop.gremlin.process Traversal)
+           (com.tinkerpop.gremlin.structure Compare)
            (java.util Collection))
-  (:require [clojurewerkz.ogre.util :refer (f-to-function f-to-predicate typed-traversal f-to-bipredicate fresh-traversal)]))
+  (:require [clojurewerkz.ogre.util :refer (f-to-function f-to-predicate typed-traversal f-to-bipredicate fresh-traversal f-to-compare)]))
 
 (defn cyclic-path
   "The step analyzes the path of the traverser thus far and if there are any repeats, the traverser
@@ -34,17 +35,23 @@
   "Allows an element if it has the given property or it satisfies given predicate."
   ([^Traversal t k]
     (typed-traversal .has t (name k)))
-  ([^Traversal t k v]
-    (typed-traversal .has t (name k) v))
+  ([^Traversal t k v-or-pred]
+   (if (ifn? v-or-pred)
+     (has t k (fn [v _] (v-or-pred v)) :dummy)
+     (typed-traversal .has t (name k) v-or-pred)))
   ([^Traversal t k pred v]
-    (typed-traversal .has t (name k) (f-to-bipredicate pred) v)))
+   (if-let [c (f-to-compare pred)]
+     (typed-traversal .has t (name k) ^Compare c v)
+     (typed-traversal .has t (name k) (f-to-bipredicate pred) v))))
 
 (defn has-not
   "Allows an element if it does not have the given property."
   ([^Traversal t k]
     (typed-traversal .hasNot t (name k)))
-  ([^Traversal t k v]
-   (has t k not= v))
+  ([^Traversal t k v-or-pred]
+   (if (ifn? v-or-pred)
+     (has t k (complement v-or-pred))
+     (has t k not= v-or-pred)))
   ([^Traversal t k pred v]
    (has t k (complement pred) v)))
 
