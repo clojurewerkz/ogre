@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.map
-  (:refer-clojure :exclude [map key])
+  (:refer-clojure :exclude [map key shuffle])
   (:import (com.tinkerpop.gremlin.process Traversal Traverser)
            (com.tinkerpop.gremlin.process.graph GraphTraversal)
            (com.tinkerpop.gremlin.process.graph.step.map MapStep)
@@ -93,7 +93,10 @@
   ([^Traversal t cols & fs]
    (typed-traversal .select t (keywords-to-str-list cols) (fs-to-function-array fs))))
 
-;; shuffle
+(defn shuffle
+  "Collect all items in the traversal and randomize their order before emitting."
+  ([^Traversal t] (typed-traversal .shuffle t)))
+
 ;; to
 
 (defn unfold
