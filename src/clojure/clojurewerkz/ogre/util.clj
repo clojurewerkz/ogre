@@ -27,6 +27,14 @@
   [& body]
   `(-> ~@body))
 
+(def f-to-compare {=         Compare/eq
+                   not=      Compare/neq
+                   >=        Compare/gte
+                   >         Compare/gt
+                   <=        Compare/lte
+                   <         Compare/lt
+                   contains? Contains/within})
+
 (defn fresh-traversal
   [traversal-or-graph]
   (let [^Graph g (if (instance? Traversal traversal-or-graph)
