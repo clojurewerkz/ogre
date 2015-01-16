@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.map
-  (:refer-clojure :exclude [map])
+  (:refer-clojure :exclude [map key shuffle])
   (:import (com.tinkerpop.gremlin.process Traversal Traverser)
            (com.tinkerpop.gremlin.process.graph GraphTraversal)
            (com.tinkerpop.gremlin.process.graph.step.map MapStep)
@@ -22,7 +22,10 @@
   ([^GraphTraversal t] (.id t)))
 
 ;; identity
-;; key
+
+(defn key
+  "Gets the key name of a Property."
+  ([^GraphTraversal t] (.key t)))
 
 (defn label
   "Gets the label of an element."
@@ -56,7 +59,10 @@
   ([^Traversal t c] (typed-traversal .order t (into-array [c]))))
 
 ;; orderBy
-;; otherV
+
+(defn other-v
+  "Gets the other vertex of an edge depending on which vertex a traversal started on."
+  ([^Traversal t] (typed-traversal .otherV t)))
 
 (defn path
   "Gets the path through the traversal up to the current step. If functions are provided
@@ -87,7 +93,10 @@
   ([^Traversal t cols & fs]
    (typed-traversal .select t (keywords-to-str-list cols) (fs-to-function-array fs))))
 
-;; shuffle
+(defn shuffle
+  "Collect all items in the traversal and randomize their order before emitting."
+  ([^Traversal t] (typed-traversal .shuffle t)))
+
 ;; to
 
 (defn unfold

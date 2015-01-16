@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.core
-  (:refer-clojure :exclude [filter and or range count iterate next map loop reverse group-by])
+  (:refer-clojure :exclude [filter and or range count iterate next map loop reverse group-by key shuffle])
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util :refer (keywords-to-str-array typed-traversal)]
             [clojurewerkz.ogre.filter :as filter]
@@ -64,13 +64,16 @@
 (po/import-fn map/back)
 (po/import-fn map/id)
 (po/import-fn map/fold)
+(po/import-fn map/key)
 (po/import-fn map/label)
 (po/import-fn map/map)
+(po/import-fn map/other-v)
 (po/import-fn map/path)
 (po/import-fn map/properties)
 (po/import-fn map/order)
 (po/import-fn map/select)
 (po/import-fn map/select-only)
+(po/import-fn map/shuffle)
 (po/import-fn map/unfold)
 (po/import-fn map/values)
 (po/import-macro map/match)
