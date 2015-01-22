@@ -44,6 +44,7 @@
 (po/import-macro util/subquery)
 
 ;; clojurewerkz.ogre.filter steps
+(po/import-fn filter/coin)
 (po/import-fn filter/cyclic-path)
 (po/import-fn filter/dedup)
 (po/import-fn filter/except)
@@ -54,7 +55,6 @@
 (po/import-fn filter/limit)
 (po/import-fn filter/local-limit)
 (po/import-fn filter/local-range)
-(po/import-fn filter/random)
 (po/import-fn filter/range)
 (po/import-fn filter/retain)
 (po/import-fn filter/simple-path)

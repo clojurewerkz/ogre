@@ -72,9 +72,9 @@
   "Allows elements to pass that are within the given range."
   [^Traversal t low high] (typed-traversal .localRange t low high))
 
-(defn random
+(defn coin
   "Allows elements to pass with the given probability."
-  [^Traversal t probability] (typed-traversal .random t probability))
+  [^Traversal t probability] (typed-traversal .coin t probability))
 
 (defn range
   "Allows elements to pass that are within the given range."
