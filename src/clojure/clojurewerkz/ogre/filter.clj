@@ -58,7 +58,7 @@
 (defn interval
   "Allows elements to pass that have their property in the given start and end interval."
   [^Traversal t key ^Comparable start ^Comparable end]
-  (typed-traversal .interval t (name key) start end))
+  (typed-traversal .between t (name key) start end))
 
 (defn limit
   "Limit the number of elements to pass through Traversal."
