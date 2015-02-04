@@ -25,7 +25,7 @@
 (defn refresh
   "Goes and grabs the edge from the graph again. Useful for \"refreshing\" stale edges."
   [^Graph g ^Edge edge]
-  (.E g (.id edge)))
+  (.next (.E g (into-array [(.id edge)]))))
 
 ;;
 ;; Removal methods
