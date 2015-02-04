@@ -2,7 +2,7 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.util :refer (fresh-traversal)]
+            [clojurewerkz.ogre.util :refer (anon-traversal)]
             [clojurewerkz.ogre.test-util :as u]))
 
 (deftest test-choose
@@ -20,8 +20,8 @@
 
   (testing "precomputed map as destination"
     (let [g (u/classic-tinkergraph)
-          m {5 (-> (fresh-traversal g) (q/in))
-             4 (-> (fresh-traversal g) q/out)}
+          m {5 (-> (anon-traversal) (q/in))
+             4 (-> (anon-traversal) q/out)}
           vs (q/query (v/get-all-vertices g)
                       (q/has :age)
                       (q/choose #(count (v/get % :name)) m)

@@ -3,7 +3,7 @@
   (:import (com.tinkerpop.gremlin.process Traversal)
            (com.tinkerpop.gremlin.structure Compare)
            (java.util Collection))
-  (:require [clojurewerkz.ogre.util :refer (f-to-function f-to-predicate typed-traversal f-to-bipredicate fresh-traversal f-to-compare)]))
+  (:require [clojurewerkz.ogre.util :refer (f-to-function f-to-predicate typed-traversal f-to-bipredicate anon-traversal f-to-compare)]))
 
 (defn cyclic-path
   "The step analyzes the path of the traverser thus far and if there are any repeats, the traverser
@@ -97,4 +97,4 @@
   ([^Traversal t pred a b]
    `(typed-traversal .where ~t (name ~a) (name ~b) (f-to-bipredicate ~pred)))
   ([^Traversal t constraint]
-   `(typed-traversal .where ~t (-> (fresh-traversal ~t) ~constraint))))
+   `(typed-traversal .where ~t (-> (anon-traversal) ~constraint))))
