@@ -11,7 +11,7 @@
           vs (q/query (v/get-all-vertices g)
                       (q/has :age)
                       (q/choose #(count (v/get % :name))
-                                {5 (q/in)
+                                {5 q/in
                                  4 q/out})
                       (q/values :name)
                       q/into-vec!)]

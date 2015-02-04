@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.util
   (:import (com.tinkerpop.gremlin.process Traversal)
-           (com.tinkerpop.gremlin.process.graph GraphTraversal VertexTraversal EdgeTraversal AnonymousGraphTraversal$Tokens)
+           (com.tinkerpop.gremlin.process.graph GraphTraversal VertexTraversal EdgeTraversal AnonymousGraphTraversal$Tokens AnonymousGraphTraversal)
            (com.tinkerpop.gremlin.structure Compare Direction Contains Graph)
            (com.tinkerpop.gremlin.process.graph.util DefaultGraphTraversal)
            (java.util.function Function Consumer Predicate BiPredicate BiFunction)))
@@ -10,7 +10,8 @@
     `(cond
        (instance? GraphTraversal ~t) (~method ~(vary-meta t assoc :tag `GraphTraversal) ~@args)
        (instance? VertexTraversal ~t) (~method ~(vary-meta t assoc :tag `VertexTraversal) ~@args)
-       (instance? EdgeTraversal ~t) (~method ~(vary-meta t assoc :tag `EdgeTraversal) ~@args)))
+       (instance? EdgeTraversal ~t) (~method ~(vary-meta t assoc :tag `EdgeTraversal) ~@args)
+       (instance? AnonymousGraphTraversal ~t) (~method ~(vary-meta t assoc :tag `AnonymousGraphTraversal) ~@args)))
 
 (defn as
   "Assigns a name to the previous step in a traversal."
