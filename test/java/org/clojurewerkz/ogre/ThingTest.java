@@ -6,11 +6,16 @@ import com.tinkerpop.gremlin.structure.Vertex;
 import com.tinkerpop.gremlin.process.T;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
 
 /**
  * Created by fitz on 2/6/15.
  */
-public class ThingTest extends DedupTest {
+@RunWith(Enclosed.class)
+public abstract class ThingTest {
+
+    public static class StandardTest extends DedupTest{
 
         @Override
         public Traversal<Vertex, String> get_g_V_both_dedup_name() {
@@ -26,5 +31,7 @@ public class ThingTest extends DedupTest {
         public Traversal<Vertex, String> get_g_V_both_propertiesXnameX_orderXa_bX_dedup_value() {
             return g.V().both().<String>properties("name").order().by((a, b) -> a.value().compareTo(b.value())).dedup().value();
         }
+
+    }
 
 }
