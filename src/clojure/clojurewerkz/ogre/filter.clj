@@ -17,7 +17,7 @@
   ([^Traversal t]
     (typed-traversal .dedup t))
   ([^Traversal t f]
-    (typed-traversal #(.by (.dedup %) (f-to-function f)) t )))
+    (typed-traversal .dedup t (f-to-function f))))
 
 (defn except
   "Filters out the given objects."
