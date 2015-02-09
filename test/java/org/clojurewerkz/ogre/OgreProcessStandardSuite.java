@@ -1,6 +1,6 @@
 package org.clojurewerkz.ogre;
 
-import com.tinkerpop.gremlin.AbstractGremlinSuite;
+import com.tinkerpop.gremlin.process.ProcessStandardSuite;
 import com.tinkerpop.gremlin.process.graph.step.branch.BranchTest;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 /**
  * Created by fitz on 2/8/15.
  */
-public class OgreProcessStandardSuite extends AbstractGremlinSuite {
+public class OgreProcessStandardSuite extends ProcessStandardSuite {
     /**
      * This list of tests in the suite that will be executed.  Gremlin developers should add to this list
      * as needed to enforce tests upon implementations.
@@ -54,14 +54,11 @@ public class OgreProcessStandardSuite extends AbstractGremlinSuite {
     }
 
     public OgreProcessStandardSuite(final Class<?> klass, final RunnerBuilder builder) throws InitializationError {
-        super(klass, builder, testsToExecute, testsToEnforce);
+        super(klass, builder, testsToExecute, testsToEnforce, true);
     }
 
     public OgreProcessStandardSuite(final Class<?> klass, final RunnerBuilder builder, final Class<?>[] testsToExecute, final Class<?>[] testsToEnforce) throws InitializationError {
-        super(klass, builder, testsToExecute, testsToEnforce);
+        super(klass, builder, testsToExecute, testsToEnforce, true);
     }
-
-    public OgreProcessStandardSuite(final Class<?> klass, final RunnerBuilder builder, final Class<?>[] testsToExecute, final Class<?>[] testsToEnforce, final boolean gremlinFlavorSuite) throws InitializationError {
-        super(klass, builder, testsToExecute, testsToEnforce, gremlinFlavorSuite);
-    }
+    
 }

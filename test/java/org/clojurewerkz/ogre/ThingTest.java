@@ -6,12 +6,14 @@ import com.tinkerpop.gremlin.structure.Vertex;
 import com.tinkerpop.gremlin.process.T;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
 /**
  * Created by fitz on 2/6/15.
  */
+@Ignore
 @RunWith(Enclosed.class)
 public abstract class ThingTest {
 
@@ -19,7 +21,8 @@ public abstract class ThingTest {
 
         @Override
         public Traversal<Vertex, String> get_g_V_both_dedup_name() {
-            return g.V().both().dedup().values("name");
+            //let's make one fail
+            return g.V().both().dedup().values("name!");//.values("name");
         }
 
         @Override
