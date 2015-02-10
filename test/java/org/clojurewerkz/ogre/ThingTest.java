@@ -4,6 +4,8 @@ import com.tinkerpop.gremlin.process.Traversal;
 import com.tinkerpop.gremlin.process.graph.step.filter.DedupTest;
 import com.tinkerpop.gremlin.structure.Vertex;
 import com.tinkerpop.gremlin.process.T;
+import clojure.lang.IFn;
+import clojure.java.api.Clojure;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Ignore;
@@ -19,10 +21,15 @@ public abstract class ThingTest {
 
     public static class StandardTest extends DedupTest{
 
+        static IFn require = Clojure.var("clojure.core", "require");
+        static {
+            require.invoke(Clojure.read("clojurewerkz.ogre.tp3suite.thing-clojure"));
+        }
+
         @Override
         public Traversal<Vertex, String> get_g_V_both_dedup_name() {
-            //let's make one fail
-            return g.V().both().dedup().values("name!");//.values("name");
+            IFn fn = Clojure.var("clojurewerkz.ogre.tp3suite.thing-clojure", "get-g-v-both-dedup-name");
+            return (Traversal<Vertex,String>)fn.invoke(g);
         }
 
         @Override
