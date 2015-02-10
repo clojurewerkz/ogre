@@ -23,5 +23,10 @@
                  "sonatype-snapshots" {:url "http://oss.sonatype.org/content/repositories/snapshots"
                                        :snapshots true
                                        :releases {:checksum :fail :update :always}}}
+
+  :test-paths ["test/clojure"]
+  :java-source-paths ["test/java"]
+  :junit ["test/java"]
+  :plugins [[lein-junit "1.1.8"]]
   :global-vars {*warn-on-reflection* true
                 *assert* false})
