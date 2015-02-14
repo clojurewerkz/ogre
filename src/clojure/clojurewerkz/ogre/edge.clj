@@ -25,7 +25,7 @@
 (defn refresh
   "Goes and grabs the edge from the graph again. Useful for \"refreshing\" stale edges."
   [^Graph g ^Edge edge]
-  (.e g (.id edge)))
+  (.next (.E g (into-array [(.id edge)]))))
 
 ;;
 ;; Removal methods
@@ -47,17 +47,18 @@
        (map #(vector (keyword %) (get edge %)))
        (into {T/id (id-of edge) T/label (label-of edge)})))
 
+;; todo: consider what should be done with find-by-id and get-all-edges now that .e is gone from M7
 (defn find-by-id
   "Retrieves edges by id from the graph."
   [^Graph g & ids]
   (if (= 1 (count ids))
-    (.e g (first ids))
-    (seq (for [id ids] (.e g id)))))
+    (try (.next (.E g (into-array ids))) (catch Exception e nil))
+    (t/into-vec! (.E g (into-array ids)))))
 
 (defn get-all-edges
   "Returns all edges."
   [^Graph g]
-  (.E g))
+  (.E g (into-array [])))
 
 (defn ^Vertex get-vertex
   "Get the vertex of the edge in a certain direction."

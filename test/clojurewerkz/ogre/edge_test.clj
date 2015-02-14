@@ -15,7 +15,7 @@
         a (e/connect-with-id! 102 u :test w)
         a-id (e/id-of a)]
     (e/remove! a)
-    (is (=  nil (e/find-by-id a-id)))))
+    (is (=  nil (e/find-by-id g a-id)))))
 
 (deftest test-connect
   (let [g (u/new-tinkergraph)

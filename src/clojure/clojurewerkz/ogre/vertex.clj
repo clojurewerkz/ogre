@@ -24,7 +24,7 @@
 (defn refresh
   "Gets a vertex back from the database and refreshes it to be usable again."
   [^Graph g ^Vertex vertex]
-  (.v g (.id vertex)))
+  (.V g (.id vertex)))
 
 ;;
 ;; Removal methods
@@ -46,22 +46,23 @@
        (map #(vector (keyword %) (get vertex %)))
        (into {T/id (id-of vertex)})))
 
+;; todo: consider what should be done with find-by-id and get-all-edges now that .v is gone from M7
 (defn find-by-id
   "Retrieves nodes by id from the given graph."
   [^Graph g & ids]
   (if (= 1 (count ids))
-    (try (.v g (first ids)) (catch Exception e nil))
-    (seq (for [id ids] (try (.v g id) (catch Exception e nil))))))
+    (try (.next (.V g (into-array ids))) (catch Exception e nil))
+    (t/into-vec! (.V g (into-array ids)))))
 
 (defn find-by-kv
   "Given a key and a value, returns the set of all vertices that satisfy the pair."
   [^Graph g k ^Vertex v]
-  (-> g (.V) (.has (name k) v)))
+  (-> g (.V (into-array [])) (.has (name k) v)))
 
 (defn get-all-vertices
   "Returns all vertices."
   [^Graph g]
-  (.V g))
+  (.V g (into-array [])))
 
 (defn edges-of
   "Returns edges that this vertex is part of with direction and with given labels."
