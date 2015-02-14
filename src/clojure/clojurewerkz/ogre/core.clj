@@ -67,6 +67,7 @@
 (po/import-fn map/key)
 (po/import-fn map/label)
 (po/import-fn map/map)
+(po/import-fn map/by)
 (po/import-fn map/other-v)
 (po/import-fn map/path)
 (po/import-fn map/properties)

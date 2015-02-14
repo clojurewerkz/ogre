@@ -55,8 +55,13 @@
 (defn order
   "Orders the items in the traversal according to the specified comparator
   or the default order if not specified."
-  ([^Traversal t] (order t #(compare %1 %2)))
-  ([^Traversal t c] (typed-traversal .order t (into-array [c]))))
+  [^Traversal t] (.order t))
+
+(defn by
+  ([^Traversal t]
+    (typed-traversal .by t))
+  ([^Traversal t arg]
+    (typed-traversal .by t arg)))
 
 ;; orderBy
 
@@ -67,8 +72,8 @@
 (defn path
   "Gets the path through the traversal up to the current step. If functions are provided
   they are applied round robin to each of the objects in the path."
-  [^Traversal t & fns]
-    (typed-traversal .path t (fs-to-function-array fns)))
+  [^Traversal t]
+    (typed-traversal .path t))
 
 (defn properties
   "Gets the properties of an element."
@@ -82,16 +87,14 @@
 (defn select
   "Get a list of named steps, with optional functions for post processing round robin style."
   ([^Traversal t]
-    (select t #(identity %)))
+    (.select t (into-array [])))
   ([^Traversal t & f]
     (typed-traversal .select t (fs-to-function-array f))))
 
 (defn select-only
   "Select the named steps to emit, with optional functions for post processing round robin style."
   ([^Traversal t cols]
-   (select-only t cols identity))
-  ([^Traversal t cols & fs]
-   (typed-traversal .select t (keywords-to-str-list cols) (fs-to-function-array fs))))
+    (typed-traversal .select t (keywords-to-str-array cols))))
 
 (defn shuffle
   "Collect all items in the traversal and randomize their order before emitting."

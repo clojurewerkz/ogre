@@ -18,16 +18,18 @@
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
                          (q/values :name)
-                         (q/order #(compare %2 %1))
+                         q/order
+                         (q/by #(compare %2 %1))
                          q/into-vec!)]
       (is (= ["vadas" "ripple" "peter" "marko" "lop" "josh"] names))))
 
   (testing "g.V().order{a,b -> a.get().value('name').compareTo(b.get().value('name'))}.values('name')"
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
-                         (q/order (fn [a b]
-                                    (compare (v/get a :name)
-                                             (v/get b :name))))
+                         q/order
+                         (q/by (fn [a b]
+                                 (compare (v/get a :name)
+                                          (v/get b :name))))
                          (q/values :name)
                          q/into-vec!)]
       (is (= (sort ["vadas" "ripple" "peter" "marko" "lop" "josh"]) (sort names)))))
@@ -36,6 +38,7 @@
     (let [g (u/classic-tinkergraph)
           names (q/query (v/get-all-vertices g)
                          (q/values :name)
-                         (q/order Order/decr)
+                         (q/order)
+                         (q/by Order/decr)
                          q/into-vec!)]
       (is (= ["vadas" "ripple" "peter" "marko" "lop" "josh"] names)))))
