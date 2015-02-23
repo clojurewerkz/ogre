@@ -64,14 +64,6 @@
   "Limit the number of elements to pass through Traversal."
   [^Traversal t l] (typed-traversal .limit t l))
 
-(defn local-limit
-  "Limit the number of elements to pass through Traversal."
-  [^Traversal t l] (typed-traversal .localLimit t l))
-
-(defn local-range
-  "Allows elements to pass that are within the given range."
-  [^Traversal t low high] (typed-traversal .localRange t low high))
-
 (defn coin
   "Allows elements to pass with the given probability."
   [^Traversal t probability] (typed-traversal .coin t probability))

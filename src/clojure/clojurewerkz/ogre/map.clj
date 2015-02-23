@@ -36,6 +36,10 @@
                                  (keyword (.label ^Element (.get t)))))))]
      (.addStep t step))))
 
+(defn local
+  "Allows a traversal to operate on a single element within a stream."
+  [^Traversal t local-t] (typed-traversal .local t local-t))
+
 (defn map
   "Gets the property map of an element."
   ([^Traversal t f]
