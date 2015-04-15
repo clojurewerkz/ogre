@@ -88,7 +88,7 @@
 
   (testing "g.v(1).out('knows')"
     (let [vs (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
-                      (q/--> [:knows])
+                      (q/--> :knows)
                       q/into-vec!)]
       (is (= #{"vadas" "josh"}
              (u/get-names-set vs)))))

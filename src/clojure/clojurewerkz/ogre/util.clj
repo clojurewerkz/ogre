@@ -47,8 +47,9 @@
   (into-array String strs))
 
 (defn keywords-to-str-array [strs]
-  "Converts a collection of keywords to a java String array."
-  (str-array (map name strs)))
+  "Converts a single keyword or a collection of keywords to a java String array."
+  (let [to-convert (if (keyword? strs) [strs] strs)]
+    (str-array (map name to-convert))))
 
 (defn ^java.util.ArrayList keywords-to-str-list [strs]
   "Converts a collection of keywords to a java List of Strings."
