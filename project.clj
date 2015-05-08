@@ -24,6 +24,7 @@
                                        :snapshots true
                                        :releases {:checksum :fail :update :always}}}
 
+  :aot :all
   :test-paths ["test/clojure"]
   :java-source-paths ["test/java"]
   :junit ["test/java"]

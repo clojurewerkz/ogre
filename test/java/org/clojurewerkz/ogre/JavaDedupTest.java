@@ -17,28 +17,30 @@ import org.junit.runner.RunWith;
  */
 @Ignore
 @RunWith(Enclosed.class)
-public abstract class ThingTest {
+public abstract class JavaDedupTest {
 
     public static class StandardTest extends DedupTest{
 
         static IFn require = Clojure.var("clojure.core", "require");
         static {
-            require.invoke(Clojure.read("clojurewerkz.ogre.tp3suite.thing-clojure"));
+            //require.invoke(Clojure.read("clojurewerkz.ogre.tp3suite.thing-clojure"));
         }
 
         @Override
         public Traversal<Vertex, String> get_g_V_both_dedup_name() {
-            IFn fn = Clojure.var("clojurewerkz.ogre.tp3suite.thing-clojure", "get-g-v-both-dedup-name");
-            return (Traversal<Vertex,String>)fn.invoke(g);
+            System.out.println("g = " + g);
+         return g.V().both().dedup().values("name");
         }
 
         @Override
         public Traversal<Vertex, String> get_g_V_both_hasXlabel_softwareX_dedup_byXlangX_name() {
+            System.out.println("g = " + g);
             return g.V().both().has(T.label, "software").dedup().by("lang").values("name");
         }
 
         @Override
         public Traversal<Vertex, String> get_g_V_both_propertiesXnameX_orderXa_bX_dedup_value() {
+            System.out.println("g = " + g);
             return g.V().both().<String>properties("name").order().by((a, b) -> a.value().compareTo(b.value())).dedup().value();
         }
 
