@@ -1,8 +1,8 @@
 (ns clojurewerkz.ogre.filter
   (:refer-clojure :exclude [filter and or range])
-  (:import (com.tinkerpop.gremlin.process Traversal)
-           (com.tinkerpop.gremlin.structure Compare)
-           (java.util Collection))
+  (:import (org.apache.tinkerpop.gremlin.structure Compare)
+           (java.util Collection)
+           (org.apache.tinkerpop.gremlin.process.traversal Traversal))
   (:require [clojurewerkz.ogre.util :refer (f-to-function f-to-predicate typed-traversal f-to-bipredicate anon-traversal f-to-compare)]))
 
 (defn cyclic-path

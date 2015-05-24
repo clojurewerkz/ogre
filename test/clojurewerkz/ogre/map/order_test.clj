@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.map.order-test
-  (:import (com.tinkerpop.gremlin.structure Order))
+  (:import (org.apache.tinkerpop.gremlin.structure Order))
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]

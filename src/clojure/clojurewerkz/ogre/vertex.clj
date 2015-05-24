@@ -1,7 +1,6 @@
 (ns clojurewerkz.ogre.vertex
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import (com.tinkerpop.gremlin.structure Vertex Graph)
-           (com.tinkerpop.gremlin.process T))
+  (:import (org.apache.tinkerpop.gremlin.structure Vertex Graph T))
   (:require [clojurewerkz.ogre.util :refer (to-edge-direction keywords-to-str-array prop-map-to-array)]
             [clojurewerkz.ogre.element :as el]
             [clojurewerkz.ogre.traversal :as t]

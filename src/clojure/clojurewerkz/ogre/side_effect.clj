@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.side-effect
   (:refer-clojure :exclude [group-by count])
-  (:import (com.tinkerpop.gremlin.process Traversal Traverser))
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal Traverser))
   (:require [clojurewerkz.ogre.traversal :as t]
             [clojurewerkz.ogre.util :refer (f-to-function f-to-consumer f-to-predicate typed-traversal)]))
 

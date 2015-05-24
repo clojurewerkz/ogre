@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.traversal
   (:refer-clojure :exclude [iterate])
-  (:import (com.tinkerpop.gremlin.process Traversal))
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal))
   (:require [clojurewerkz.ogre.util :refer (convert-to-map typed-traversal)]))
 
 (defn iterate!

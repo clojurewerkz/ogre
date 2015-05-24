@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.branch
-  (:import (com.tinkerpop.gremlin.process Traversal))
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal))
   (:require [clojurewerkz.ogre.util :refer (typed-traversal f-to-function f-to-predicate anon-traversal)]))
 
 (defmacro choose

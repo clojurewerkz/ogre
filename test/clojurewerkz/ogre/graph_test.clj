@@ -5,23 +5,13 @@
             [clojurewerkz.ogre.traversal :as t]
             [clojurewerkz.support.io :as sio]
             [clojurewerkz.ogre.test-util :as u])
-  (:import  [com.tinkerpop.gremlin.tinkergraph.structure TinkerFactory TinkerGraph]
-            [com.tinkerpop.gremlin.neo4j.structure Neo4jGraph]
+  (:import  [org.apache.tinkerpop.gremlin.tinkergraph.structure TinkerFactory TinkerGraph]
             [org.apache.commons.io FileUtils]))
 
 (def ^:dynamic *graph*)
 
 (defn temp-db-fixture
-  [f]
-  (let [tmp (sio/create-temp-dir)]
-    (try
-      (binding [*graph* (Neo4jGraph/open (str (.getPath tmp) "/neo4j"))]
-        (try
-          (f)
-          (finally
-            (.close ^Neo4jGraph *graph*))))
-      (finally
-        (FileUtils/deleteQuietly tmp)))))
+  [f])
 
 (use-fixtures :each temp-db-fixture)
 

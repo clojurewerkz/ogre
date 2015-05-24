@@ -1,9 +1,9 @@
 (ns clojurewerkz.ogre.map
   (:refer-clojure :exclude [map key shuffle])
-  (:import (com.tinkerpop.gremlin.process Traversal Traverser)
-           (com.tinkerpop.gremlin.process.graph GraphTraversal)
-           (com.tinkerpop.gremlin.process.graph.step.map MapStep)
-           (com.tinkerpop.gremlin.structure Order Element))
+  (:import (org.apache.tinkerpop.gremlin.structure Order Element)
+           (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal)
+           (org.apache.tinkerpop.gremlin.process.traversal Traverser Traversal)
+           (org.apache.tinkerpop.gremlin.process.traversal.step.map MapStep))
   (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array keywords-to-str-list f-to-bifunction typed-traversal anon-traversal as)]))
 
 (defn back

@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.side-effect.side-effect-test
-  (:import (com.tinkerpop.gremlin.process Traverser))
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Traverser))
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]

@@ -1,6 +1,5 @@
 (ns clojurewerkz.ogre.edge-test
-  (:import (com.tinkerpop.gremlin.structure Edge)
-           (com.tinkerpop.gremlin.process T))
+  (:import (org.apache.tinkerpop.gremlin.structure Edge T))
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.graph :as g]
             [clojurewerkz.ogre.edge :as e]
