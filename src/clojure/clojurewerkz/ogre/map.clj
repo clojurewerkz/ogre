@@ -1,10 +1,10 @@
 (ns clojurewerkz.ogre.map
   (:refer-clojure :exclude [map key shuffle])
-  (:import (com.tinkerpop.gremlin.process Traversal Traverser)
-           (com.tinkerpop.gremlin.process.graph GraphTraversal)
-           (com.tinkerpop.gremlin.process.graph.step.map MapStep)
-           (com.tinkerpop.gremlin.structure Order Element))
-  (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array keywords-to-str-list f-to-bifunction typed-traversal fresh-traversal as)]))
+  (:import (org.apache.tinkerpop.gremlin.structure Order Element)
+           (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal)
+           (org.apache.tinkerpop.gremlin.process.traversal Traverser Traversal)
+           (org.apache.tinkerpop.gremlin.process.traversal.step.map MapStep))
+  (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array keywords-to-str-list f-to-bifunction typed-traversal anon-traversal as)]))
 
 (defn back
   "Goes back to the results of a named step."
@@ -36,6 +36,10 @@
                                  (keyword (.label ^Element (.get t)))))))]
      (.addStep t step))))
 
+(defn local
+  "Allows a traversal to operate on a single element within a stream."
+  [^Traversal t local-t] (typed-traversal .local t local-t))
+
 (defn map
   "Gets the property map of an element."
   ([^Traversal t f]
@@ -46,7 +50,7 @@
   [^Traversal t start-label & matches]
   `(typed-traversal .match ~t (name ~start-label)
                     (into-array ~(vec (for [[label m] (partition 2 matches)]
-                                        `(-> (fresh-traversal ~t)
+                                        `(-> (anon-traversal)
                                            (as ~label)
                                            ~m))))))
 
@@ -55,8 +59,13 @@
 (defn order
   "Orders the items in the traversal according to the specified comparator
   or the default order if not specified."
-  ([^Traversal t] (order t #(compare %1 %2)))
-  ([^Traversal t c] (typed-traversal .order t (into-array [c]))))
+  [^Traversal t] (.order t))
+
+(defn by
+  ([^Traversal t]
+    (typed-traversal .by t))
+  ([^Traversal t arg]
+    (typed-traversal .by t arg)))
 
 ;; orderBy
 
@@ -67,8 +76,8 @@
 (defn path
   "Gets the path through the traversal up to the current step. If functions are provided
   they are applied round robin to each of the objects in the path."
-  [^Traversal t & fns]
-    (typed-traversal .path t (fs-to-function-array fns)))
+  [^Traversal t]
+    (typed-traversal .path t))
 
 (defn properties
   "Gets the properties of an element."
@@ -82,16 +91,14 @@
 (defn select
   "Get a list of named steps, with optional functions for post processing round robin style."
   ([^Traversal t]
-    (select t #(identity %)))
+    (.select t (into-array [])))
   ([^Traversal t & f]
     (typed-traversal .select t (fs-to-function-array f))))
 
 (defn select-only
   "Select the named steps to emit, with optional functions for post processing round robin style."
   ([^Traversal t cols]
-   (select-only t cols identity))
-  ([^Traversal t cols & fs]
-   (typed-traversal .select t (keywords-to-str-list cols) (fs-to-function-array fs))))
+    (typed-traversal .select t (keywords-to-str-array cols))))
 
 (defn shuffle
   "Collect all items in the traversal and randomize their order before emitting."

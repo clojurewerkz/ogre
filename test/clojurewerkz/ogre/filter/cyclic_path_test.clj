@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.filter.cyclic-path-test
-  (:import (com.tinkerpop.gremlin.process T))
+  (:import (org.apache.tinkerpop.gremlin.structure T))
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]

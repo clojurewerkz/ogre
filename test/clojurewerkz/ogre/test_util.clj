@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.test-util
   (:require [clojurewerkz.ogre.element :as el])
-  (:import (com.tinkerpop.gremlin.tinkergraph.structure TinkerFactory TinkerGraph)))
+  (:import (org.apache.tinkerpop.gremlin.tinkergraph.structure TinkerFactory TinkerGraph)))
 
 (defn get-names [vs]
   "Returns a map of names of the given vertices."

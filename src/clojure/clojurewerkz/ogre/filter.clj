@@ -1,9 +1,9 @@
 (ns clojurewerkz.ogre.filter
   (:refer-clojure :exclude [filter and or range])
-  (:import (com.tinkerpop.gremlin.process Traversal)
-           (com.tinkerpop.gremlin.structure Compare)
-           (java.util Collection))
-  (:require [clojurewerkz.ogre.util :refer (f-to-function f-to-predicate typed-traversal f-to-bipredicate fresh-traversal f-to-compare)]))
+  (:import (org.apache.tinkerpop.gremlin.structure Compare)
+           (java.util Collection)
+           (org.apache.tinkerpop.gremlin.process.traversal Traversal))
+  (:require [clojurewerkz.ogre.util :refer (f-to-function f-to-predicate typed-traversal f-to-bipredicate anon-traversal f-to-compare)]))
 
 (defn cyclic-path
   "The step analyzes the path of the traverser thus far and if there are any repeats, the traverser
@@ -17,7 +17,7 @@
   ([^Traversal t]
     (typed-traversal .dedup t))
   ([^Traversal t f]
-    (typed-traversal .dedup t (f-to-function f))))
+    (typed-traversal #(.by (.dedup %) (f-to-function f)) t )))
 
 (defn except
   "Filters out the given objects."
@@ -58,23 +58,15 @@
 (defn interval
   "Allows elements to pass that have their property in the given start and end interval."
   [^Traversal t key ^Comparable start ^Comparable end]
-  (typed-traversal .interval t (name key) start end))
+  (typed-traversal .between t (name key) start end))
 
 (defn limit
   "Limit the number of elements to pass through Traversal."
   [^Traversal t l] (typed-traversal .limit t l))
 
-(defn local-limit
-  "Limit the number of elements to pass through Traversal."
-  [^Traversal t l] (typed-traversal .localLimit t l))
-
-(defn local-range
-  "Allows elements to pass that are within the given range."
-  [^Traversal t low high] (typed-traversal .localRange t low high))
-
-(defn random
+(defn coin
   "Allows elements to pass with the given probability."
-  [^Traversal t probability] (typed-traversal .random t probability))
+  [^Traversal t probability] (typed-traversal .coin t probability))
 
 (defn range
   "Allows elements to pass that are within the given range."
@@ -97,4 +89,4 @@
   ([^Traversal t pred a b]
    `(typed-traversal .where ~t (name ~a) (name ~b) (f-to-bipredicate ~pred)))
   ([^Traversal t constraint]
-   `(typed-traversal .where ~t (-> (fresh-traversal ~t) ~constraint))))
+   `(typed-traversal .where ~t (-> (anon-traversal) ~constraint))))

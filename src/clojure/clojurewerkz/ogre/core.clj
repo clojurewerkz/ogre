@@ -44,6 +44,7 @@
 (po/import-macro util/subquery)
 
 ;; clojurewerkz.ogre.filter steps
+(po/import-fn filter/coin)
 (po/import-fn filter/cyclic-path)
 (po/import-fn filter/dedup)
 (po/import-fn filter/except)
@@ -52,9 +53,6 @@
 (po/import-fn filter/has-not)
 (po/import-fn filter/interval)
 (po/import-fn filter/limit)
-(po/import-fn filter/local-limit)
-(po/import-fn filter/local-range)
-(po/import-fn filter/random)
 (po/import-fn filter/range)
 (po/import-fn filter/retain)
 (po/import-fn filter/simple-path)
@@ -66,7 +64,9 @@
 (po/import-fn map/fold)
 (po/import-fn map/key)
 (po/import-fn map/label)
+(po/import-fn map/local)
 (po/import-fn map/map)
+(po/import-fn map/by)
 (po/import-fn map/other-v)
 (po/import-fn map/path)
 (po/import-fn map/properties)
@@ -97,6 +97,7 @@
 ;; clojurewerkz.ogre.side-effect steps
 (po/import-fn side-effect/aggregate)
 (po/import-fn side-effect/cap)
+(po/import-fn side-effect/count)
 (po/import-fn side-effect/side-effect)
 (po/import-fn side-effect/subgraph)
 (po/import-fn side-effect/get-capped!)

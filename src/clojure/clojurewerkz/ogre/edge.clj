@@ -1,7 +1,6 @@
 (ns clojurewerkz.ogre.edge
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import (com.tinkerpop.gremlin.structure Vertex Edge Graph)
-           (com.tinkerpop.gremlin.process T))
+  (:import (org.apache.tinkerpop.gremlin.structure Vertex Edge Graph T))
   (:require [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.util :refer (to-edge-direction prop-map-to-array)]
             [clojurewerkz.ogre.element :as el]
@@ -25,7 +24,7 @@
 (defn refresh
   "Goes and grabs the edge from the graph again. Useful for \"refreshing\" stale edges."
   [^Graph g ^Edge edge]
-  (.e g (.id edge)))
+  (.next (.E g (into-array [(.id edge)]))))
 
 ;;
 ;; Removal methods
@@ -47,17 +46,18 @@
        (map #(vector (keyword %) (get edge %)))
        (into {T/id (id-of edge) T/label (label-of edge)})))
 
+;; todo: consider what should be done with find-by-id and get-all-edges now that .e is gone from M7
 (defn find-by-id
   "Retrieves edges by id from the graph."
   [^Graph g & ids]
   (if (= 1 (count ids))
-    (.e g (first ids))
-    (seq (for [id ids] (.e g id)))))
+    (try (.next (.E g (into-array ids))) (catch Exception e nil))
+    (t/into-vec! (.E g (into-array ids)))))
 
 (defn get-all-edges
   "Returns all edges."
   [^Graph g]
-  (.E g))
+  (.E g (into-array [])))
 
 (defn ^Vertex get-vertex
   "Get the vertex of the edge in a certain direction."
@@ -67,12 +67,12 @@
 (defn ^Vertex head-vertex
   "Get the head vertex of the edge."
   [^Edge e]
-  (.inV e))
+  (.inVertex e))
 
 (defn ^Vertex tail-vertex
   "Get the tail vertex of the edge."
   [^Edge e]
-  (.outV e))
+  (.outVertex e))
 
 (defn endpoints
   "Returns the endpoints of the edge in array with the order [starting-node,ending-node]."
@@ -88,7 +88,7 @@
     ;; https://groups.google.com/forum/?fromgroups=#!topic/gremlin-users/R2RJxJc1BHI
     (let [^Edge edges (t/into-set! (if label (v/outgoing-edges-of v1 label) (v/outgoing-edges-of v1)))
           v2-id (.id v2)
-          edge-set (set (filter #(= v2-id (.id ^Vertex (t/first-of! (head-vertex %)))) edges))]
+          edge-set (set (filter #(= v2-id (.id ^Vertex (head-vertex %))) edges))]
       (when (not (empty? edge-set))
         edge-set))))
 

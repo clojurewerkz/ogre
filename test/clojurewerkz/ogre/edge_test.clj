@@ -1,6 +1,5 @@
 (ns clojurewerkz.ogre.edge-test
-  (:import (com.tinkerpop.gremlin.structure Edge)
-           (com.tinkerpop.gremlin.process T))
+  (:import (org.apache.tinkerpop.gremlin.structure Edge T))
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.graph :as g]
             [clojurewerkz.ogre.edge :as e]
@@ -15,7 +14,7 @@
         a (e/connect-with-id! 102 u :test w)
         a-id (e/id-of a)]
     (e/remove! a)
-    (is (=  nil (e/find-by-id a-id)))))
+    (is (=  nil (e/find-by-id g a-id)))))
 
 (deftest test-connect
   (let [g (u/new-tinkergraph)

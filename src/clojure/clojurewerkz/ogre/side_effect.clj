@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.side-effect
-  (:refer-clojure :exclude [group-by])
-  (:import (com.tinkerpop.gremlin.process Traversal Traverser))
+  (:refer-clojure :exclude [group-by count])
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal Traverser))
   (:require [clojurewerkz.ogre.traversal :as t]
             [clojurewerkz.ogre.util :refer (f-to-function f-to-consumer f-to-predicate typed-traversal)]))
 
@@ -16,7 +16,9 @@
   ([^Traversal t] (typed-traversal .cap t))
   ([^Traversal t k] (typed-traversal .cap t (name k))))
 
-;; count
+(defn count
+  "Count elements in the traversal."
+  ([^Traversal t] (typed-traversal .count t)))
 
 (defn get-capped!
   "Returns the value of the previous step."

@@ -10,7 +10,7 @@
             g.of().as('b').has('name', 'lop'),
             g.of().as('b').in('created').as('c'),
             g.of().as('c').has('age', 29)).
-          select(['a', 'c']){it.value('name')}"
+          select(['a', 'c']).by('name')"
     (let [g (u/classic-tinkergraph)
           vs (q/query (v/get-all-vertices g)
                       (q/match :a
@@ -18,7 +18,8 @@
                         :b (q/has :name "lop")
                         :b (-> (q/in [:created]) (q/as :c))
                         :c (q/has :age (int 29)))
-                      (q/select-only [:a :c] #(v/get % :name))
+                      (q/select-only [:a :c])
+                      (q/by "name")
                       q/all-into-maps!)]
       (is (= (count vs) 3))
       (is (= (first vs) {:a "marko" :c "marko"}))

@@ -1,8 +1,7 @@
 (ns clojurewerkz.ogre.vertex
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import (com.tinkerpop.gremlin.structure Vertex Graph)
-           (com.tinkerpop.gremlin.process T))
-  (:require [clojurewerkz.ogre.util :refer (to-edge-direction keywords-to-str-array prop-map-to-array)]
+  (:import (org.apache.tinkerpop.gremlin.structure Vertex Graph T Direction))
+  (:require [clojurewerkz.ogre.util :refer (to-edge-direction keywords-to-str-array prop-map-to-array ensure-traversal-source)]
             [clojurewerkz.ogre.element :as el]
             [clojurewerkz.ogre.traversal :as t]
             [potemkin :as po]))
@@ -24,7 +23,7 @@
 (defn refresh
   "Gets a vertex back from the database and refreshes it to be usable again."
   [^Graph g ^Vertex vertex]
-  (.v g (.id vertex)))
+  (.V g (.id vertex)))
 
 ;;
 ;; Removal methods
@@ -46,62 +45,64 @@
        (map #(vector (keyword %) (get vertex %)))
        (into {T/id (id-of vertex)})))
 
+;; todo: consider what should be done with find-by-id and get-all-edges now that .v is gone from M7
 (defn find-by-id
   "Retrieves nodes by id from the given graph."
-  [^Graph g & ids]
-  (if (= 1 (count ids))
-    (try (.v g (first ids)) (catch Exception e nil))
-    (seq (for [id ids] (try (.v g id) (catch Exception e nil))))))
+  [graph-or-traversal & ids]
+  (let [g (ensure-traversal-source graph-or-traversal)]
+    (if (= 1 (count ids))
+      (try (.next (.V g (into-array ids))) (catch Exception e nil))
+      (t/into-vec! (.V g (into-array ids))))))
 
 (defn find-by-kv
   "Given a key and a value, returns the set of all vertices that satisfy the pair."
   [^Graph g k ^Vertex v]
-  (-> g (.V) (.has (name k) v)))
+  (-> g ensure-traversal-source (.V (into-array [])) (.has (name k) v)))
 
 (defn get-all-vertices
   "Returns all vertices."
   [^Graph g]
-  (.V g))
+  (.V (ensure-traversal-source g) (into-array [])))
 
 (defn edges-of
   "Returns edges that this vertex is part of with direction and with given labels."
   [^Vertex v direction & labels]
-  (.toE v (to-edge-direction direction) (keywords-to-str-array labels)))
+  (.edges v (to-edge-direction direction) (keywords-to-str-array labels)))
 
 (defn all-edges-of
   "Returns edges that this vertex is part of, with given labels."
   [^Vertex v & labels]
-  (.bothE v (keywords-to-str-array labels)))
+  (.edges v Direction/BOTH (keywords-to-str-array labels)))
 
 (defn outgoing-edges-of
   "Returns outgoing (outbound) edges that this vertex is part of, with given labels."
   [^Vertex v & labels]
-  (.outE v (keywords-to-str-array labels)))
+  (.edges v Direction/OUT (keywords-to-str-array labels)))
 
 (defn incoming-edges-of
   "Returns incoming (inbound) edges that this vertex is part of, with given labels."
   [^Vertex v & labels]
-  (.inE v (keywords-to-str-array labels)))
+  (.edges v Direction/IN (keywords-to-str-array labels)))
 
 (defn connected-vertices-of
   "Returns vertices connected to this vertex with a certain direction by the given labels."
   [^Vertex v direction & labels]
-  (.to v (to-edge-direction direction) (keywords-to-str-array labels)))
+  (.vertices v (to-edge-direction direction) (keywords-to-str-array labels)))
 
 (defn connected-out-vertices
   "Returns vertices connected to this vertex by an outbound edge with the given labels."
   [^Vertex v & labels]
-  (.out v (keywords-to-str-array labels)))
+  (.vertices v Direction/OUT (keywords-to-str-array labels)))
 
 (defn connected-in-vertices
   "Returns vertices connected to this vertex by an inbound edge with the given labels."
   [^Vertex v & labels]
-  (.in v (keywords-to-str-array labels)))
+  (.vertices v Direction/IN (keywords-to-str-array labels)))
 
 (defn all-connected-vertices
   "Returns vertices connected to this vertex with the given labels."
   [^Vertex v & labels]
-  (.both v (keywords-to-str-array labels)))
+  (.vertices v Direction/BOTH (keywords-to-str-array labels)))
 
 ;;
 ;; Creation methods

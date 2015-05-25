@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.element
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import (com.tinkerpop.gremlin.structure Element Element$Iterators Property)
-           (com.tinkerpop.gremlin.process Traverser))
+  (:import (org.apache.tinkerpop.gremlin.structure Element Property)
+           (org.apache.tinkerpop.gremlin.process.traversal Traverser))
   (:require [clojurewerkz.ogre.util :refer (keywords-to-str-array)]))
 
 (defprotocol GetItemProperties
@@ -9,16 +9,16 @@
   (get [item key] [item key not-found]))
 
 (extend-protocol GetItemProperties
-  com.tinkerpop.gremlin.structure.Element
+  org.apache.tinkerpop.gremlin.structure.Element
   (get
     ([item key]
       (get item key nil))
     ([item key not-found]
-      (let [^java.util.Iterator prop-iter (-> item ^Element$Iterators (.iterators) (.propertyIterator (keywords-to-str-array [key])))
+      (let [^java.util.Iterator prop-iter (-> item (.iterators) (.propertyIterator (keywords-to-str-array [key])))
             prop (if (.hasNext prop-iter) (map #(.value ^Property %) (iterator-seq prop-iter)) (list not-found))]
         (if (= (count prop) 1) (first prop) prop))))
 
-  com.tinkerpop.gremlin.process.Traverser
+  Traverser
   (get
     ([item key]
       (get (.get item) key nil))

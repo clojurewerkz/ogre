@@ -1,16 +1,21 @@
 (ns clojurewerkz.ogre.util
-  (:import (com.tinkerpop.gremlin.process Traversal)
-           (com.tinkerpop.gremlin.process.graph GraphTraversal VertexTraversal EdgeTraversal)
-           (com.tinkerpop.gremlin.structure Compare Direction Contains Graph)
-           (com.tinkerpop.gremlin.process.graph.util DefaultGraphTraversal)
-           (java.util.function Function Consumer Predicate BiPredicate BiFunction)))
+  (:import (org.apache.tinkerpop.gremlin.structure Compare Direction Contains Graph Vertex)
+           (java.util.function Function Consumer Predicate BiPredicate BiFunction)
+           (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph  GraphTraversal)
+           (org.apache.tinkerpop.gremlin.process.traversal Traversal)))
 
 (defmacro typed-traversal
   [method ^Traversal t & args]
     `(cond
-       (instance? GraphTraversal ~t) (~method ~(vary-meta t assoc :tag `GraphTraversal) ~@args)
-       (instance? VertexTraversal ~t) (~method ~(vary-meta t assoc :tag `VertexTraversal) ~@args)
-       (instance? EdgeTraversal ~t) (~method ~(vary-meta t assoc :tag `EdgeTraversal) ~@args)))
+       (instance? GraphTraversal ~t) (~method ~(vary-meta t assoc :tag `GraphTraversal) ~@args)))
+
+;TODO this should probably be temporary
+(defn ensure-traversal-source
+  "takes a graph or traversal source, and returns a traversal source"
+  [g]
+  (if (or (instance? Graph g) (instance? Vertex g))
+    (.traversal g)
+    g))
 
 (defn as
   "Assigns a name to the previous step in a traversal."
@@ -35,12 +40,9 @@
                    <         Compare/lt
                    contains? Contains/within})
 
-(defn fresh-traversal
-  [traversal-or-graph]
-  (let [^Graph g (if (instance? Traversal traversal-or-graph)
-                   (.getGraph (.sideEffects ^Traversal traversal-or-graph))
-                   traversal-or-graph)]
-    (.of g)))
+;; todo: this should be temporary - anon-traversal is kinda ugly
+(defn anon-traversal
+  [] )
 
 (defn ^"[Ljava.lang.String;" str-array [strs]
   "Converts a collection of strings to a java String array."

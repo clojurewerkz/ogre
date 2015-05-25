@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.map.path-test
-  (:import (com.tinkerpop.gremlin.process Path))
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Path))
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]

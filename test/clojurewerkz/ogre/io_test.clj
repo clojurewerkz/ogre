@@ -7,10 +7,10 @@
   (:import [java.io File]))
 
 (defn- has-n-vertices [g n]
-  (is (= n (count (seq (.toList (.V g)))))))
+  (is (= n (count (seq (.toList (.V g (into-array []))))))))
 
 (defn- has-n-edges [g n]
-  (is (= n (count (seq (.toList (.E g)))))))
+  (is (= n (count (seq (.toList (.E g (into-array []))))))))
 
 (defn- make-test-graph
   []
