@@ -67,12 +67,12 @@
 (defn ^Vertex head-vertex
   "Get the head vertex of the edge."
   [^Edge e]
-  (.inV e))
+  (.inVertex e))
 
 (defn ^Vertex tail-vertex
   "Get the tail vertex of the edge."
   [^Edge e]
-  (.outV e))
+  (.outVertex e))
 
 (defn endpoints
   "Returns the endpoints of the edge in array with the order [starting-node,ending-node]."
@@ -88,7 +88,7 @@
     ;; https://groups.google.com/forum/?fromgroups=#!topic/gremlin-users/R2RJxJc1BHI
     (let [^Edge edges (t/into-set! (if label (v/outgoing-edges-of v1 label) (v/outgoing-edges-of v1)))
           v2-id (.id v2)
-          edge-set (set (filter #(= v2-id (.id ^Vertex (t/first-of! (head-vertex %)))) edges))]
+          edge-set (set (filter #(= v2-id (.id ^Vertex (head-vertex %))) edges))]
       (when (not (empty? edge-set))
         edge-set))))
 
