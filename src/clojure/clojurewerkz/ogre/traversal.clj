@@ -1,6 +1,7 @@
 (ns clojurewerkz.ogre.traversal
   (:refer-clojure :exclude [iterate])
-  (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal))
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal)
+           (java.util Iterator))
   (:require [clojurewerkz.ogre.util :refer (convert-to-map typed-traversal)]))
 
 (defn iterate!
@@ -24,17 +25,24 @@
 (defn into-vec!
   "Returns the objects in the traversal as a vector."
   [^Traversal t]
-  (into [] (to-java-list! t)))
+  (if (instance? Iterator t)
+    (vec (iterator-seq t))
+    (into [] (to-java-list! t))))
+
 
 (defn into-set!
   "Returns the objects in the traversal as a set."
   [^Traversal t]
-  (into #{} (to-java-list! t)))
+  (if (instance? Iterator t)
+    (set (iterator-seq t))
+    (into #{} (to-java-list! t))))
 
 (defn into-list!
   "Returns the objects in the traversal as a list."
   [^Traversal t]
-  (into '() (to-java-list! t)))
+  (if (instance? Iterator t)
+    (list (iterator-seq t))
+    (into '() (to-java-list! t))))
 
 (defn into-lazy-seq!
   "Returns the objects of the traversal as a lazy sequence."
