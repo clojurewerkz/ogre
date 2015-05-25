@@ -67,42 +67,42 @@
 (defn edges-of
   "Returns edges that this vertex is part of with direction and with given labels."
   [^Vertex v direction & labels]
-  (.toE v (to-edge-direction direction) (keywords-to-str-array labels)))
+  (.edges v (to-edge-direction direction) (keywords-to-str-array labels)))
 
 (defn all-edges-of
   "Returns edges that this vertex is part of, with given labels."
   [^Vertex v & labels]
-  (.bothE v (keywords-to-str-array labels)))
+  (.edges v Direction/BOTH (keywords-to-str-array labels)))
 
 (defn outgoing-edges-of
   "Returns outgoing (outbound) edges that this vertex is part of, with given labels."
   [^Vertex v & labels]
-  (.outE v (keywords-to-str-array labels)))
+  (.edges v Direction/OUT (keywords-to-str-array labels)))
 
 (defn incoming-edges-of
   "Returns incoming (inbound) edges that this vertex is part of, with given labels."
   [^Vertex v & labels]
-  (.inE v (keywords-to-str-array labels)))
+  (.edges v Direction/IN (keywords-to-str-array labels)))
 
 (defn connected-vertices-of
   "Returns vertices connected to this vertex with a certain direction by the given labels."
   [^Vertex v direction & labels]
-  (.to v (to-edge-direction direction) (keywords-to-str-array labels)))
+  (.vertices v (to-edge-direction direction) (keywords-to-str-array labels)))
 
 (defn connected-out-vertices
   "Returns vertices connected to this vertex by an outbound edge with the given labels."
   [^Vertex v & labels]
-  (.out v (keywords-to-str-array labels)))
+  (.vertices v Direction/OUT (keywords-to-str-array labels)))
 
 (defn connected-in-vertices
   "Returns vertices connected to this vertex by an inbound edge with the given labels."
   [^Vertex v & labels]
-  (.in v (keywords-to-str-array labels)))
+  (.vertices v Direction/IN (keywords-to-str-array labels)))
 
 (defn all-connected-vertices
   "Returns vertices connected to this vertex with the given labels."
   [^Vertex v & labels]
-  (.both v (keywords-to-str-array labels)))
+  (.vertices v Direction/BOTH (keywords-to-str-array labels)))
 
 ;;
 ;; Creation methods
