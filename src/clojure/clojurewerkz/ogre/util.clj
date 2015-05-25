@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.util
-  (:import (org.apache.tinkerpop.gremlin.structure Compare Direction Contains )
+  (:import (org.apache.tinkerpop.gremlin.structure Compare Direction Contains Graph Vertex)
            (java.util.function Function Consumer Predicate BiPredicate BiFunction)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph  GraphTraversal)
            (org.apache.tinkerpop.gremlin.process.traversal Traversal)))
@@ -8,6 +8,14 @@
   [method ^Traversal t & args]
     `(cond
        (instance? GraphTraversal ~t) (~method ~(vary-meta t assoc :tag `GraphTraversal) ~@args)))
+
+;TODO this should probably be temporary
+(defn ensure-traversal-source
+  "takes a graph or traversal source, and returns a traversal source"
+  [g]
+  (if (or (instance? Graph g) (instance? Vertex g))
+    (.traversal g)
+    g))
 
 (defn as
   "Assigns a name to the previous step in a traversal."

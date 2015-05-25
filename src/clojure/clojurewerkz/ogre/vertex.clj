@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.vertex
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import (org.apache.tinkerpop.gremlin.structure Vertex Graph T))
-  (:require [clojurewerkz.ogre.util :refer (to-edge-direction keywords-to-str-array prop-map-to-array)]
+  (:import (org.apache.tinkerpop.gremlin.structure Vertex Graph T Direction))
+  (:require [clojurewerkz.ogre.util :refer (to-edge-direction keywords-to-str-array prop-map-to-array ensure-traversal-source)]
             [clojurewerkz.ogre.element :as el]
             [clojurewerkz.ogre.traversal :as t]
             [potemkin :as po]))
@@ -48,20 +48,21 @@
 ;; todo: consider what should be done with find-by-id and get-all-edges now that .v is gone from M7
 (defn find-by-id
   "Retrieves nodes by id from the given graph."
-  [^Graph g & ids]
-  (if (= 1 (count ids))
-    (try (.next (.V g (into-array ids))) (catch Exception e nil))
-    (t/into-vec! (.V g (into-array ids)))))
+  [graph-or-traversal & ids]
+  (let [g (ensure-traversal-source graph-or-traversal)]
+    (if (= 1 (count ids))
+      (try (.next (.V g (into-array ids))) (catch Exception e nil))
+      (t/into-vec! (.V g (into-array ids))))))
 
 (defn find-by-kv
   "Given a key and a value, returns the set of all vertices that satisfy the pair."
   [^Graph g k ^Vertex v]
-  (-> g (.V (into-array [])) (.has (name k) v)))
+  (-> g ensure-traversal-source (.V (into-array [])) (.has (name k) v)))
 
 (defn get-all-vertices
   "Returns all vertices."
   [^Graph g]
-  (.V g (into-array [])))
+  (.V (ensure-traversal-source g) (into-array [])))
 
 (defn edges-of
   "Returns edges that this vertex is part of with direction and with given labels."
