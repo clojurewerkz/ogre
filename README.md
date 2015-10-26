@@ -6,7 +6,7 @@ Ogre is a Clojure "flavor" of the [Gremlin](http://gremlin.tinkerpop.com) graph 
 
 ## Project Goals
 
-* Provide and API that enhances the expressivity of Gremlin when working in Clojure.
+* Provide an API that enhances the expressivity of Gremlin when working in Clojure.
 * Expose the all the features of Gremlin and Blueprints as it makes sense in Clojure.
 * Don't introduce any significant amount of performance overhead.
 
