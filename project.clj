@@ -22,5 +22,6 @@
                  "sonatype-snapshots" {:url "http://oss.sonatype.org/content/repositories/snapshots"
                                        :snapshots true
                                        :releases {:checksum :fail :update :always}}}
+  :test-paths ["test/clojure"]
   :global-vars {*warn-on-reflection* true
                 *assert* false})
