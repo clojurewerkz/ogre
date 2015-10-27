@@ -1,9 +1,9 @@
 (ns clojurewerkz.ogre.map.order-test
-  (:import (org.apache.tinkerpop.gremlin.structure Order))
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.test-util :as u]))
+            [clojurewerkz.ogre.test-util :as u])
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Order)))
 
 (deftest test-order-step
   (testing "g.V().values('name').order()"

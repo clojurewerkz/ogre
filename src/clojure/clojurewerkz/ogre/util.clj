@@ -1,8 +1,8 @@
 (ns clojurewerkz.ogre.util
-  (:import (org.apache.tinkerpop.gremlin.structure Compare Direction Contains Graph Vertex)
+  (:import (org.apache.tinkerpop.gremlin.structure  Direction  Graph Vertex)
            (java.util.function Function Consumer Predicate BiPredicate BiFunction)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph  GraphTraversal)
-           (org.apache.tinkerpop.gremlin.process.traversal Traversal)))
+           (org.apache.tinkerpop.gremlin.process.traversal Traversal P)))
 
 (defmacro typed-traversal
   [method ^Traversal t & args]
@@ -32,13 +32,13 @@
   [& body]
   `(-> ~@body))
 
-(def f-to-compare {=         Compare/eq
-                   not=      Compare/neq
-                   >=        Compare/gte
-                   >         Compare/gt
-                   <=        Compare/lte
-                   <         Compare/lt
-                   contains? Contains/within})
+(def f-to-compare {=         #(P/eq %)
+                   not=      #(P/neq %)
+                   >=        #(P/gte %)
+                   >         #(P/gt %)
+                   <=        #(P/lte %)
+                   <         #(P/lt %)
+                   contains? #(P/within %)})
 
 ;; todo: this should be temporary - anon-traversal is kinda ugly
 (defn anon-traversal
