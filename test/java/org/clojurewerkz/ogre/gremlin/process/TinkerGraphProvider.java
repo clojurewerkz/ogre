@@ -19,6 +19,7 @@ import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerProperty;
 import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerVertex;
 import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerVertexProperty;
 import org.apache.commons.configuration.Configuration;
+import org.junit.Ignore;
 
 import java.io.File;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ import java.util.Set;
 /**
  * @author Stephen Mallette (http://stephen.genoprime.com)
  */
+@Ignore
 public class TinkerGraphProvider extends AbstractGraphProvider {
 
 

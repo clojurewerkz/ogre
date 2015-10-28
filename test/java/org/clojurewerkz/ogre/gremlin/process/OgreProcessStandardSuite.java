@@ -3,20 +3,18 @@ package org.clojurewerkz.ogre.gremlin.process;
 
 import org.apache.tinkerpop.gremlin.process.ProcessStandardSuite;
 
-import org.apache.tinkerpop.gremlin.process.traversal.CoreTraversalTest;
-import org.clojurewerkz.ogre.gremlin.process.traversal.OgreTraversalSideEffectsTest;
-import org.clojurewerkz.ogre.gremlin.process.traversal.step.branch.*;
+import org.clojurewerkz.ogre.gremlin.process.traversal.step.filter.OgreHasTest;
+import org.junit.Ignore;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
 
-public class OgreProcessStandardSuite extends ProcessStandardSuite{
+public class OgreProcessStandardSuite extends ProcessStandardSuite {
 
     /**
      * This list of tests in the suite that will be executed.  Gremlin developers should add to this list
      * as needed to enforce tests upon implementations.
      */
     private static final Class<?>[] allTests = new Class<?>[]{
-            org.clojurewerkz.Branch$Traversals.class
 //            // branch
 //            OgreBranchTest.Traversals.class,
 //            OgreChooseTest.Traversals.class,
@@ -30,7 +28,7 @@ public class OgreProcessStandardSuite extends ProcessStandardSuite{
 //            OgreDedupTest.Traversals.class,
 //            OgreDropTest.Traversals.class,
 //            OgreFilterTest.Traversals.class,
-//            OgreHasTest.Traversals.class,
+            OgreHasTest.Traversals.class,
 //            OgreIsTest.Traversals.class,
 //            OgreOrTest.Traversals.class,
 //            OgreRangeTest.Traversals.class,
