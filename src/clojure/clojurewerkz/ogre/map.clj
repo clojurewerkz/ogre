@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.map
   (:refer-clojure :exclude [map key shuffle])
-  (:import (org.apache.tinkerpop.gremlin.structure Order Element)
+  (:import (org.apache.tinkerpop.gremlin.structure Element)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal)
            (org.apache.tinkerpop.gremlin.process.traversal Traverser Traversal)
            (org.apache.tinkerpop.gremlin.process.traversal.step.map MapStep))
