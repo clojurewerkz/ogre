@@ -2,7 +2,8 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.vertex :as v]
-            [clojurewerkz.ogre.test-util :as u]))
+            [clojurewerkz.ogre.test-util :as u])
+  (:import (org.apache.tinkerpop.gremlin.structure T)))
 
 (defn get_g_V_outXcreatedX_hasXname__mapXlengthX_isXgtX3XXX_name
   [g]
@@ -12,30 +13,31 @@
 (defn get_g_VX1X_hasXkeyX
   [g v1Id key]
   "g.V(v1Id).has(key)"
-  (q/query (v/get-all-vertices g)))
+  (q/query (q/V g v1Id)
+           (q/has key)))
 
 (defn get_g_VX1X_hasXname_markoX
   [g v1Id]
   "g.V(v1Id).has(\"name\", \"marko\")"
-  (q/query (v/get-all-vertices g)
+  (q/query (q/V g v1Id)
            (q/has :name :marko)))
 
 (defn get_g_V_hasXname_markoX
   [g]
   "g.V().has(\"name\", \"marko\")"
-  (q/query (v/get-all-vertices g)
+  (q/query (q/V g)
            (q/has :name :marko)))
 
 (defn get_g_V_hasXname_blahX
   [g]
   "return g.V().has(\"name\", \"blah\")"
-  (q/query (v/get-all-vertices g)
+  (q/query (q/V g)
            (q/has :name :blah)))
 
 (defn get_g_V_hasXblahX
   [g]
   "return g.V().has(\"blah\")"
-  (q/query (v/get-all-vertices g)
+  (q/query (q/V g)
            (q/has :blah)))
 
 (defn get_g_VX1X_hasXage_gt_30X
@@ -56,7 +58,9 @@
 (defn get_g_VX1X_out_hasIdX2X
   [g v1Id v2Id]
   "g.V(v1Id).out().hasId(v2Id)"
-  (q/query (v/get-all-vertices g)))
+  (q/query (q/V g v1Id)
+           q/out
+           (q/has-id v2Id)))
 
 (defn get_g_VX1X_out_hasIdX2_3X
   [g v1Id v2Id v3Id]
@@ -76,18 +80,22 @@
 (defn get_g_EX7X_hasLabelXknowsX
   [g e7Id]
   "g.E(e7Id).hasLabel(\"knows\")"
-  (q/query (v/get-all-vertices g)))
+  (q/query (q/E g e7Id)
+           (q/has-label :knows)))
 
 (defn get_g_E_hasLabelXknowsX
   [g]
   "g.E().hasLabel(\"knows\")"
-  (q/query (v/get-all-vertices g)))
+  (q/query (q/E g)
+           (q/has-label :knows)))
 
 (defn get_g_EX11X_outV_outE_hasXid_10X
   [g e11Id e8Id]
   "g.E(e11Id).outV().outE().has(T.id, e8Id)"
-  (q/query (v/get-all-vertices g)))
-
+  (q/query (q/E g e11Id)
+           q/outV
+           q/outE
+           (q/has T/id e8Id)))
 (defn get_g_E_hasLabelXuses_traversesX
   [g]
   "g.E().hasLabel(\"uses\", \"traverses\")"
@@ -101,7 +109,9 @@
 (defn get_g_V_hasXperson_name_markoX_age
   [g]
   "g.V().has(\"person\", \"name\", \"marko\").values(\"age\")"
-  (q/query (v/get-all-vertices g)))
+  (q/query (v/get-all-vertices g)
+           (q/has :person :name :marko)
+           (q/values :age)))
 
 (defn get_g_VX1X_outE_hasXweight_inside_0_06X_inV
   [g v1Id]

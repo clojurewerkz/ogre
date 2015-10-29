@@ -1,53 +1,72 @@
 (ns clojurewerkz.ogre.filter
   (:refer-clojure :exclude [filter and or range])
   (:import
-           (java.util Collection)
-           (org.apache.tinkerpop.gremlin.process.traversal Traversal Compare))
+    (java.util Collection)
+    (org.apache.tinkerpop.gremlin.process.traversal Traversal Compare))
   (:require [clojurewerkz.ogre.util :refer (f-to-function f-to-predicate typed-traversal f-to-bipredicate anon-traversal f-to-compare)]))
 
 (defn cyclic-path
   "The step analyzes the path of the traverser thus far and if there are any repeats, the traverser
   is filtered out over the traversal computation."
   [^Traversal t]
-    (typed-traversal .cyclicPath t))
+  (typed-traversal .cyclicPath t))
 
 (defn dedup
   "Filters out repeated objects. A function can be supplied that provides the
   values that the traversal will consider when filtering."
   ([^Traversal t]
-    (typed-traversal .dedup t))
+   (typed-traversal .dedup t))
   ([^Traversal t f]
-    (typed-traversal #(.by (.dedup %) (f-to-function f)) t )))
+   (typed-traversal #(.by (.dedup %) (f-to-function f)) t)))
 
 (defn except
   "Filters out the given objects."
   [^Traversal t excepter]
-    (cond
-      (instance? String excepter) (typed-traversal .except t ^String excepter)
-      (instance? Collection excepter) (typed-traversal .except t ^Collection excepter)
-      :else (except t [excepter])))
+  (cond
+    (instance? String excepter) (typed-traversal .except t ^String excepter)
+    (instance? Collection excepter) (typed-traversal .except t ^Collection excepter)
+    :else (except t [excepter])))
 
 (defn filter
   "Filters using a predicate that determines whether an object should pass."
   [^Traversal t f] (typed-traversal .filter t (f-to-predicate f)))
 
+;TODO should be temporary/moved
+(defn- string-or-keyword
+  "Checks if the given value is either a string or keyword."
+  [value]
+  (clojure.core/or (string? value) (keyword? value)))
+
+;TODO should be temporary/moved
+(defn- cast-param
+  "Value is either a T, String, or keyword. If it's a keyword, pass the name."
+  [value]
+  (if (keyword value)
+    (name value)
+    value))
+
+;TODO this needs a cleanup, has step signatures have changed a lot
 (defn has
   "Allows an element if it has the given property or it satisfies given predicate."
   ([^Traversal t k]
-    (typed-traversal .has t (name k)))
+   (typed-traversal .has t (cast-param k)))
   ([^Traversal t k v-or-pred]
-   (if (ifn? v-or-pred)
+   (if (clojure.core/and (ifn? v-or-pred) (not (keyword? v-or-pred)))
      (has t k (fn [v _] (v-or-pred v)) :dummy)
-     (typed-traversal .has t (name k) v-or-pred)))
+     (typed-traversal .has t (cast-param k) v-or-pred)))
   ([^Traversal t k pred v]
-   (if-let [c (f-to-compare pred)]
-     (typed-traversal .has t (name k) ^Compare c v)
-     (typed-traversal .has t (name k) (f-to-bipredicate pred) v))))
+    ;check for t.has(label, key, value)
+   (println (clojure.string/join " " ["k" k "pred" pred "v" v]))
+   (if (clojure.core/and (string-or-keyword k) (string-or-keyword pred) (string-or-keyword v))
+     (. t has (cast-param k) (cast-param pred) (cast-param v))
+     (if-let [c (f-to-compare pred)]
+       (typed-traversal .has t (cast-param k) ^Compare c v)
+       (typed-traversal .has t (cast-param k) (f-to-bipredicate pred) v)))))
 
 (defn has-not
   "Allows an element if it does not have the given property."
   ([^Traversal t k]
-    (typed-traversal .hasNot t (name k)))
+   (typed-traversal .hasNot t (name k)))
   ([^Traversal t k v-or-pred]
    (if (ifn? v-or-pred)
      (has t k (complement v-or-pred))
@@ -75,10 +94,10 @@
 (defn retain
   "Only allows the given objects to pass."
   [^Traversal t retainer]
-    (cond
-      (instance? String retainer) (typed-traversal .retain t ^String retainer)
-      (instance? Collection retainer) (typed-traversal .retain t ^Collection retainer)
-      :else (retain t [retainer])))
+  (cond
+    (instance? String retainer) (typed-traversal .retain t ^String retainer)
+    (instance? Collection retainer) (typed-traversal .retain t ^Collection retainer)
+    :else (retain t [retainer])))
 
 (defn simple-path
   "Allows an element if the current path has no repeated elements."

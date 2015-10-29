@@ -1,8 +1,45 @@
 (ns clojurewerkz.ogre.traversal
   (:refer-clojure :exclude [iterate])
   (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal)
-           (java.util Iterator))
-  (:require [clojurewerkz.ogre.util :refer (convert-to-map typed-traversal)]))
+           (java.util Iterator)
+           (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal))
+  (:require [clojurewerkz.ogre.util :refer (convert-to-map typed-traversal)]
+            [clojurewerkz.ogre.util :as util]))
+
+(defn values
+  [^GraphTraversal traversal & property-keys]
+  (. traversal values (util/keywords-to-str-array property-keys)))
+
+(defn out
+  [^GraphTraversal traversal & edge-labels]
+  (. traversal out (util/keywords-to-str-array edge-labels)))
+
+(defn outE
+  [^GraphTraversal traversal & edge-labels]
+  (. traversal outE (util/keywords-to-str-array edge-labels)))
+
+(defn outV
+  [^GraphTraversal traversal]
+  (. traversal outV))
+
+(defn has-id
+  [^GraphTraversal traversal & ids]
+  (. traversal hasId (into-array ids)))
+(defn has-label
+  [^GraphTraversal traversal & labels]
+  (. traversal hasLabel (util/keywords-to-str-array labels)))
+
+(defn V
+  [source & ids]
+  "Returns all vertices matching the supplied ids.
+  If no ids are supplied, returns all vertices."
+  (.V (util/ensure-traversal-source source) (into-array ids)))
+
+(defn E
+  [source & ids]
+  "Returns all edges matching the supplied ids.
+  If no ids are supplied, returns all edges."
+  (.E (util/ensure-traversal-source source) (into-array ids)))
 
 (defn iterate!
   "Iterates the traversal."

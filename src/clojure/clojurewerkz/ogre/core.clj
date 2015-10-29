@@ -79,6 +79,13 @@
 (po/import-macro map/match)
 
 ;; clojurewerkz.ogre.traversal steps
+(po/import-fn traversal/V)
+(po/import-fn traversal/E)
+(po/import-fn traversal/out)
+(po/import-fn traversal/outV)
+(po/import-fn traversal/outE)
+(po/import-fn traversal/has-id)
+(po/import-fn traversal/has-label)
 (po/import-fn traversal/all-into-vecs!)
 (po/import-fn traversal/all-into-sets!)
 (po/import-fn traversal/all-into-maps!)
