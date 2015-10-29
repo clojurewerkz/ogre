@@ -30,15 +30,15 @@
   (. traversal hasLabel (util/keywords-to-str-array labels)))
 
 (defn V
-  [source & ids]
   "Returns all vertices matching the supplied ids.
   If no ids are supplied, returns all vertices."
+  [source & ids]
   (.V (util/ensure-traversal-source source) (into-array ids)))
 
 (defn E
-  [source & ids]
   "Returns all edges matching the supplied ids.
   If no ids are supplied, returns all edges."
+  [source & ids]
   (.E (util/ensure-traversal-source source) (into-array ids)))
 
 (defn iterate!
