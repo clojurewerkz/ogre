@@ -18,7 +18,7 @@ To subscribe for announcements of releases, important changes and so on, please 
 
 ## Project Maturity
 
-Orge is a relatively young project that regained active development in 2014-2015.
+Orge is a relatively young project that regained active development in 2014-2016.
 
 ## Artifacts
 
@@ -66,6 +66,6 @@ Orge uses [Leiningen 2](https://github.com/technomancy/leiningen/blob/master/doc
 
 ## License
 
-Copyright (C) 2014-2015 Zack Maril, and the ClojureWerkz team.
+Copyright (C) 2014-2016 Zack Maril, and the ClojureWerkz team.
 
 Licensed under the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html) (the same as Clojure).
