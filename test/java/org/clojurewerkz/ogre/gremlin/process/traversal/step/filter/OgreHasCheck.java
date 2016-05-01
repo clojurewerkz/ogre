@@ -7,7 +7,7 @@ import org.apache.tinkerpop.gremlin.process.traversal.step.filter.HasTest;
 import org.apache.tinkerpop.gremlin.structure.Edge;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 
-public abstract class OgreHasTest {
+public abstract class OgreHasCheck {
     public static IFn require = Clojure.var("clojure.core", "require");
 
     public static class Traversals extends HasTest {
@@ -141,5 +141,30 @@ public abstract class OgreHasTest {
         public Traversal<Vertex, Vertex> get_g_V_hasXlocationX() {
             return (Traversal) Clojure.var(HAS_NS, "get_g_V_hasXlocationX").invoke(g);
         }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Traversal<Vertex, Vertex> get_g_V_hasIdX1_2X(Object v1Id, Object v2Id) {
+            return (Traversal) Clojure.var(HAS_NS, "get_g_V_hasIdX1_2X").invoke(g, v1Id, v2Id);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Traversal<Vertex, Vertex> get_g_VX1_2X(Object v1Id, Object v2Id) {
+            return (Traversal) Clojure.var(HAS_NS, "get_g_VX1_2X").invoke(g, v1Id, v2Id);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Traversal<Vertex, Vertex> get_g_V_hasIdX1X(Object v1Id) {
+            return (Traversal) Clojure.var(HAS_NS, "get_g_V_hasIdX1X").invoke(g, v1Id);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Traversal<Vertex, Vertex> get_g_VX1X(Object v1Id) {
+            return (Traversal) Clojure.var(HAS_NS, "get_g_VX1X").invoke(g, v1Id);
+        }
+
     }
 }

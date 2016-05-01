@@ -3,7 +3,7 @@ package org.clojurewerkz.ogre.gremlin.process;
 
 import org.apache.tinkerpop.gremlin.process.ProcessStandardSuite;
 
-import org.clojurewerkz.ogre.gremlin.process.traversal.step.filter.OgreHasTest;
+import org.clojurewerkz.ogre.gremlin.process.traversal.step.filter.OgreHasCheck;
 import org.junit.Ignore;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
@@ -16,7 +16,7 @@ public class OgreProcessStandardSuite extends ProcessStandardSuite {
      */
     private static final Class<?>[] allTests = new Class<?>[]{
 //            // branch
-//            OgreBranchTest.Traversals.class,
+//            OgreTinkerPopCheck.BranchTestTraversals.class,
 //            OgreChooseTest.Traversals.class,
 //            OgreLocalTest.Traversals.class,
 //            OgreRepeatTest.Traversals.class,
@@ -28,7 +28,7 @@ public class OgreProcessStandardSuite extends ProcessStandardSuite {
 //            OgreDedupTest.Traversals.class,
 //            OgreDropTest.Traversals.class,
 //            OgreFilterTest.Traversals.class,
-            OgreHasTest.Traversals.class,
+              OgreTinkerPopCheck.HasTestTraversals.class,
 //            OgreIsTest.Traversals.class,
 //            OgreOrTest.Traversals.class,
 //            OgreRangeTest.Traversals.class,
@@ -55,7 +55,7 @@ public class OgreProcessStandardSuite extends ProcessStandardSuite {
 //            OgrePathTest.Traversals.class,
 //            OgrePropertiesTest.Traversals.class,
 //            OgreSelectTest.Traversals.class,
-//            OgreSumTest.Traversals.class,
+              OgreTinkerPopCheck.SumTestTraversals.class,
 //            OgreUnfoldTest.Traversals.class,
 //            OgreValueMapTest.Traversals.class,
 //            OgreVertexTest.Traversals.class,

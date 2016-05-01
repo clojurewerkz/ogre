@@ -4,45 +4,10 @@
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph  GraphTraversal)
            (org.apache.tinkerpop.gremlin.process.traversal Traversal P)))
 
-(defmacro typed-traversal
-  [method ^Traversal t & args]
-    `(cond
-       (instance? GraphTraversal ~t) (~method ~(vary-meta t assoc :tag `GraphTraversal) ~@args)))
-
-;TODO this should probably be temporary
-(defn ensure-traversal-source
-  "takes a graph or traversal source, and returns a traversal source"
-  [g]
-  (if (or (instance? Graph g) (instance? Vertex g))
-    (.traversal g)
-    g))
-
-(defn as
-  "Assigns a name to the previous step in a traversal."
-  [^Traversal t label]
-  (typed-traversal .as t ^String (name label)))
-
 (defmacro query
   "Starts a query."
   [xs & body]
   `(-> ~xs ~@body))
-
-(defmacro subquery
-  "Starts a subquery."
-  [& body]
-  `(-> ~@body))
-
-(def f-to-compare {=         #(P/eq %)
-                   not=      #(P/neq %)
-                   >=        #(P/gte %)
-                   >         #(P/gt %)
-                   <=        #(P/lte %)
-                   <         #(P/lt %)
-                   contains? #(P/within %)})
-
-;; todo: this should be temporary - anon-traversal is kinda ugly
-(defn anon-traversal
-  [] )
 
 (defn ^"[Ljava.lang.String;" str-array [strs]
   "Converts a collection of strings to a java String array."
@@ -53,24 +18,17 @@
   (let [to-convert (if (keyword? strs) [strs] strs)]
     (str-array (map name to-convert))))
 
-(defn ^java.util.ArrayList keywords-to-str-list [strs]
-  "Converts a collection of keywords to a java List of Strings."
-  (java.util.ArrayList. ^java.util.Collection  (mapv name strs)))
+(defn cast-param
+  "Value is either a T, String, or keyword. If it's a keyword, pass the name."
+  [value]
+  (if (keyword value)
+    (name value)
+    value))
 
-(defn prop-map-to-array [m]
-  "Converts a property map to a java Object array."
-  (into-array Object
-    (into []
-      (flatten
-        (map #(let [key (first %)
-                    value (second %)]
-            (vector (if (keyword? key) (name key) key) value)) m)))))
-
-(defmulti convert-to-map "Converts objects to a map." class)
-
-(defmethod convert-to-map java.util.HashMap
-  [m]
-  (into {} (for [[k v] m] [(keyword k) v])))
+(defn string-or-keyword
+  "Checks if the given value is either a string or keyword."
+  [value]
+  (clojure.core/or (string? value) (keyword? value)))
 
 (defn ^Function f-to-function [f]
   "Converts a function to java.util.function.Function."
@@ -101,22 +59,3 @@
   "Converts a function to java.util.function.BiPredicate."
   (reify BiPredicate
     (test [this a b] (f a b))))
-
-(defprotocol EdgeDirectionConversion
-  (to-edge-direction [input] "Converts input to a Gremlin structure edge direction"))
-
-(extend-protocol EdgeDirectionConversion
-  clojure.lang.Named
-  (to-edge-direction [input]
-    (to-edge-direction (name input)))
-
-  String
-  (to-edge-direction [input]
-    (case (.toLowerCase input)
-      "in"    Direction/IN
-      "out"   Direction/OUT
-      "both"  Direction/BOTH))
-
-  Direction
-  (to-edge-direction [input]
-    input))
