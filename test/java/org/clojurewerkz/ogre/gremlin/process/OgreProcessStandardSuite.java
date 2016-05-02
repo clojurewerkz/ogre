@@ -16,9 +16,10 @@ public class OgreProcessStandardSuite extends ProcessStandardSuite {
      */
     private static final Class<?>[] allTests = new Class<?>[]{
 //            // branch
-//            OgreTinkerPopCheck.BranchTestTraversals.class,
-//            OgreChooseTest.Traversals.class,
-//            OgreLocalTest.Traversals.class,
+              OgreTinkerPopCheck.BranchTestTraversals.class,
+              OgreTinkerPopCheck.ChooseTestTraversals.class,
+              OgreTinkerPopCheck.OptionalTestTraversals.class,
+              OgreTinkerPopCheck.LocalTestTraversals.class,
 //            OgreRepeatTest.Traversals.class,
 //            OgreUnionTest.Traversals.class,
 //            // filter
@@ -31,7 +32,7 @@ public class OgreProcessStandardSuite extends ProcessStandardSuite {
               OgreTinkerPopCheck.HasTestTraversals.class,
 //            OgreIsTest.Traversals.class,
 //            OgreOrTest.Traversals.class,
-//            OgreRangeTest.Traversals.class,
+              OgreTinkerPopCheck.RangeTestTraversals.class,
 //            OgreSampleTest.Traversals.class,
 //            OgreSimplePathTest.Traversals.class,
 //            OgreTailTest.Traversals.class,

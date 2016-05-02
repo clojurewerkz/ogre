@@ -56,7 +56,9 @@
 
 (defn as
   [^GraphTraversal t step-label & step-labels]
-  (.as t step-label (into-array step-labels)))
+  (if (empty? step-labels)
+    (.as t (util/cast-param step-label) (util/str-array []))
+    (.as t (util/cast-param step-label) (util/keywords-to-str-array step-labels))))
 
 (defn barrier
   ([^GraphTraversal t]
@@ -95,12 +97,12 @@
      (.by t ^String (util/cast-param arg1))
      (instance? String arg1)
      (.by t ^String arg1)
+     (instance? Order arg1)
+     (.by t ^Order arg1)
      (instance? java.util.Comparator arg1)
      (.by t ^java.util.Comparator arg1)
      (instance? clojure.lang.IFn arg1)
      (.by t (util/f-to-function arg1))
-     (instance? Order arg1)
-     (.by t ^Order arg1)
      (instance? T arg1)
      (.by t ^T arg1)
      (instance? Traversal arg1)
@@ -109,6 +111,8 @@
    (cond
      (instance? clojure.lang.IFn arg1)
      (.by t (util/f-to-function arg1 compar))
+     (instance? T arg1)
+     (.by t ^T arg1 compar)
      (instance? String arg1)
      (.by t ^String arg1 compar)
      (instance? Traversal arg1)
@@ -213,20 +217,20 @@
          (.has t ^String arg1 ^P val-or-pred-or-t)
          (instance? Traversal val-or-pred-or-t)
          (.has t ^String arg1 ^Traversal val-or-pred-or-t)
-         :else (.has t ^String arg1 ^Object val-or-pred-or-t))
+         :else (.has t ^String arg1 ^Object (util/cast-param val-or-pred-or-t)))
        (instance? T arg1)
        (cond
          (instance? P val-or-pred-or-t)
          (.has t ^T arg1 ^P val-or-pred-or-t)
          (instance? Traversal val-or-pred-or-t)
          (.has t ^T arg1 ^Traversal val-or-pred-or-t)
-         :else (.has t ^T arg1 ^Object val-or-pred-or-t)))))
+         :else (.has t ^T arg1 ^Object (util/cast-param val-or-pred-or-t))))))
   ([^GraphTraversal t label k val-or-pred]
    (let [arg2 (util/cast-param k)
          arg1 (util/cast-param label)]
      (if (instance? P val-or-pred)
        (.has t ^String arg1 ^String arg2 ^P val-or-pred)
-       (.has t ^String arg1 ^String arg2 ^Object val-or-pred)))))
+       (.has t ^String arg1 ^String arg2 ^Object (util/cast-param val-or-pred))))))
 
 (defn has-id
   [^GraphTraversal t & ids]
@@ -273,7 +277,7 @@
   [^GraphTraversal t val-or-pred]
   (if (instance? P val-or-pred)
     (.is t ^P val-or-pred)
-    (.is t ^Object val-or-pred)))
+    (.is t ^Object (util/cast-param val-or-pred))))
 
 (defn key
   [^GraphTraversal t]
@@ -433,13 +437,13 @@
   ([^GraphTraversal t arg1]
    (if (instance? Column arg1)
      (.select t ^Column arg1)
-     (.select t ^String arg1)))
+     (.select t ^String (util/cast-param arg1))))
   ([^GraphTraversal t arg1 & args]
    (if (instance? Pop arg1)
      (if (= (clojure.core/count args) 1)
-       (.select t ^Pop arg1 (first args))
-       (.select t ^Pop arg1 (first args) (second args) (into-array (take-last 2 args))))
-     (.select t ^String arg1 (first args) (into-array (rest args))))))
+       (.select t ^Pop arg1 (util/cast-param (first args)))
+       (.select t ^Pop arg1 (util/cast-param (first args)) (util/cast-param (second args)) (util/keywords-to-str-array (take-last 2 args))))
+     (.select t ^String (util/cast-param arg1) (util/cast-param (first args)) (util/keywords-to-str-array (rest args))))))
 
 (defn side-effect
   [^GraphTraversal t c-or-t]

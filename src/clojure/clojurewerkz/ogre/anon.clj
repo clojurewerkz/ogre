@@ -34,7 +34,9 @@
 
 (defn __as
   [step-label & step-labels]
-  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/as step-label (into-array step-labels)))
+  (if (empty? step-labels)
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/as (util/cast-param step-label) (util/str-array []))
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/as (util/cast-param step-label) (util/keywords-to-str-array  step-labels))))
 
 (defn __barrier
   ([]
@@ -156,20 +158,20 @@
          (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/has ^String arg1 ^P val-or-pred-or-t)
          (instance? Traversal val-or-pred-or-t)
          (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/has ^String arg1 ^Traversal val-or-pred-or-t)
-         :else (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/has ^String arg1 ^Object val-or-pred-or-t))
+         :else (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/has ^String arg1 ^Object (util/cast-param val-or-pred-or-t)))
        (instance? T arg1)
        (cond
          (instance? P val-or-pred-or-t)
          (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/has ^T arg1 ^P val-or-pred-or-t)
          (instance? Traversal val-or-pred-or-t)
          (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/has ^T arg1 ^Traversal val-or-pred-or-t)
-         :else (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/has ^T arg1 ^Object val-or-pred-or-t)))))
+         :else (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/has ^T arg1 ^Object (util/cast-param val-or-pred-or-t))))))
   ([label k val-or-pred]
    (let [arg2 (util/cast-param k)
          arg1 (util/cast-param label)]
      (if (instance? P val-or-pred)
        (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/has ^String arg1 ^String arg2 ^P val-or-pred)
-       (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/has ^String arg1 ^String arg2 ^Object val-or-pred)))))
+       (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/has ^String arg1 ^String arg2 ^Object (util/cast-param val-or-pred))))))
 
 (defn __has-id
   [ids]
@@ -216,7 +218,7 @@
   [val-or-pred]
   (if (instance? P val-or-pred)
     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/is ^P val-or-pred)
-    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/is ^Object val-or-pred)))
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/is ^Object (util/cast-param val-or-pred))))
 
 (defn __key
   []
@@ -354,13 +356,13 @@
   ([arg1]
    (if (instance? Column arg1)
      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^Column arg1)
-     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^String arg1)))
+     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^String (util/cast-param arg1))))
   ([arg1 & args]
    (if (instance? Pop arg1)
      (if (= (clojure.core/count args) 1)
-       (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^Pop arg1 (first args))
-       (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^Pop arg1 (first args) (second args) (into-array (take-last 2 args))))
-     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^String arg1 (first args) (into-array (rest args))))))
+       (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^Pop arg1 (util/cast-param (first args)))
+       (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^Pop arg1 (util/cast-param (first args)) (util/cast-param (second args)) (util/keywords-to-str-array (take-last 2 args))))
+     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^String (util/cast-param arg1) (util/cast-param (first args)) (util/keywords-to-str-array (rest args))))))
 
 (defn __side-effect
   [c-or-t]
