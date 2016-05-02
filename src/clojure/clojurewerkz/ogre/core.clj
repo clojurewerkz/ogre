@@ -3,15 +3,13 @@
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util]
             [clojurewerkz.ogre.anon :as anon])
-  (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal Compare P Order)
-           (org.apache.tinkerpop.gremlin.structure T)
-           (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph __)
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal Compare P Order Pop)
+           (org.apache.tinkerpop.gremlin.structure T Column VertexProperty$Cardinality)
            (java.util Iterator)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal GraphTraversalSource)))
 
-(po/import-macro util/query)
-(po/import-vars [clojurewerkz.ogre.anon
-                __bothE __is __map])
+(po/import-macro util/traverse)
+(po/import-macro anon/__)
 
 ; GraphTraversalSource
 (defn add-V
@@ -120,7 +118,15 @@
   [^GraphTraversal t k & ks]
   (.cap t k (into-array ks)))
 
-; TODO: choose()
+(defn choose
+  ([^GraphTraversal t f-or-t]
+   (if (instance? Traversal f-or-t)
+     (.choose t ^Traversal f-or-t)
+     (.choose t (util/f-to-function f-or-t))))
+  ([^GraphTraversal t p-or-t true-choice false-choice]
+   (if (instance? Traversal p-or-t)
+     (.choose t ^Traversal p-or-t ^Traversal true-choice ^Traversal false-choice)
+     (.choose t (util/f-to-predicate p-or-t) ^Traversal true-choice ^Traversal false-choice))))
 
 (defn coin
   [^GraphTraversal t prob]
@@ -389,7 +395,11 @@
   [^GraphTraversal t & ks]
   (.properties t (util/keywords-to-str-array ks)))
 
-;; TODO: property()
+(defn property
+  [^GraphTraversal t & args]
+  (if (instance? VertexProperty$Cardinality (first args))
+    (.property t ^VertexProperty$Cardinality (first args) (util/cast-param (second args)) (nth args 3) (util/cast-every-other-param (take-last 3 args)))
+    (.property t ^Object (util/cast-param (first args)) (second args) (util/cast-every-other-param (take-last 2 args)))))
 
 (defn property-map
   [^GraphTraversal t & ks]
@@ -419,7 +429,17 @@
   ([^GraphTraversal t scope amount]
    (.sample t scope amount)))
 
-;; TODO: select
+(defn select
+  ([^GraphTraversal t arg1]
+   (if (instance? Column arg1)
+     (.select t ^Column arg1)
+     (.select t ^String arg1)))
+  ([^GraphTraversal t arg1 & args]
+   (if (instance? Pop arg1)
+     (if (= (clojure.core/count args) 1)
+       (.select t ^Pop arg1 (first args))
+       (.select t ^Pop arg1 (first args) (second args) (into-array (take-last 2 args))))
+     (.select t ^String arg1 (first args) (into-array (rest args))))))
 
 (defn side-effect
   [^GraphTraversal t c-or-t]
@@ -463,7 +483,21 @@
   [^GraphTraversal t loops]
   (.times t loops))
 
-;; TODO: to()
+(defn to
+  ([^GraphTraversal t arg1]
+   (if (instance? Traversal arg1)
+     (.to t ^Traversal arg1)
+     (.to t ^String arg1)))
+  ([^GraphTraversal t direction & labels]
+   (.to t direction (util/keywords-to-str-array labels))))
+
+(defn to-E
+  ([^GraphTraversal t direction & labels]
+   (.toE t direction (util/keywords-to-str-array labels))))
+
+(defn to-V
+  ([^GraphTraversal t direction]
+   (.toV t direction)))
 
 (defn tree
   ([^GraphTraversal t]
@@ -486,6 +520,7 @@
     (.until t (util/f-to-predicate pred-or-t))))
 
 (defn midV
+  "A mid-traversal V known in Gremlin-Java as just V()"
   [^GraphTraversal t & ids]
   (.V t (into-array ids)))
 
@@ -493,7 +528,11 @@
   [^GraphTraversal t]
   (.value t))
 
-;; TODO: valueMap()
+(defn value-map
+  [^GraphTraversal t & args]
+  (if (clojure.core/and (clojure.core/not (empty? args)) (instance? Boolean (first args)))
+    (.valueMap t (first args) (util/keywords-to-str-array (rest args))))
+    (.valueMap t (util/keywords-to-str-array args)))
 
 (defn values
   [^GraphTraversal t & ks]

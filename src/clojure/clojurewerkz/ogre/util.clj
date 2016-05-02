@@ -4,8 +4,8 @@
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph  GraphTraversal)
            (org.apache.tinkerpop.gremlin.process.traversal Traversal P)))
 
-(defmacro query
-  "Starts a query."
+(defmacro traverse
+  "Starts a traversal."
   [xs & body]
   `(-> ~xs ~@body))
 
@@ -24,6 +24,13 @@
   (if (keyword value)
     (name value)
     value))
+
+(defn map-every-nth [f coll n]
+  (map-indexed #(if (zero? (mod (inc %1) n)) (f %2) %2) coll))
+
+(defn cast-every-other-param
+  [coll]
+  (to-array (map-every-nth (fn [i] (cast-param i)) coll 2)))
 
 (defn string-or-keyword
   "Checks if the given value is either a string or keyword."
