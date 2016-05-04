@@ -10,7 +10,7 @@
   [g]
   (q/traverse g (q/V)
                 (q/out :created)
-                (q/has :name (q/is (q/__ (map (fn [^Traverser v] (.length (.get v))))) (P/gt 3)))
+                (q/has :name (q/is (q/__ (map (fn [^Traverser v] (.length ^String (.get v))))) (P/gt 3)))
                 (q/values :name)))
 
 (defn get_g_VX1X_hasXkeyX

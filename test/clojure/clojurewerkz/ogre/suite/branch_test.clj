@@ -3,7 +3,7 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
   (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal P)))
+           (org.apache.tinkerpop.gremlin.process.traversal P Traverser)))
 
 (defn get_g_V_branchXlabel_eq_person__a_bX_optionXa__ageX_optionXb__langX_optionXb__nameX
   "g.V().branch(v -> v.get().label().equals('person') ? 'a' : 'b')
@@ -12,7 +12,7 @@
                     .option('b', values('name'))"
   [g]
   (q/traverse g (q/V)
-                (q/branch (fn [^Vertex v] (if (.equals ^String (.label ^Vertex (.get v)) "person") "a" "b")))
+                (q/branch (fn [^Vertex v] (if (.equals ^String (.label ^Vertex (.get ^Traverser v)) "person") "a" "b")))
                 (q/option "a" (q/__ (values :age)))
                 (q/option "b" (q/__ (values :lang)))
                 (q/option "b" (q/__ (values :name)))))

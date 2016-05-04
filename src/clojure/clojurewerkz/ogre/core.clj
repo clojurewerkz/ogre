@@ -3,7 +3,7 @@
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util]
             [clojurewerkz.ogre.anon :as anon])
-  (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal Compare P Order Pop)
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Order P Pop Scope Traversal)
            (org.apache.tinkerpop.gremlin.structure T Column VertexProperty$Cardinality)
            (java.util Iterator)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal GraphTraversalSource)))
@@ -52,7 +52,7 @@
 
 (defn and
   [^GraphTraversal t & traversals]
-  (.and t (into-array traversals)))
+  (.and t (into-array Traversal traversals)))
 
 (defn as
   [^GraphTraversal t step-label & step-labels]
@@ -120,7 +120,7 @@
 
 (defn cap
   [^GraphTraversal t k & ks]
-  (.cap t k (into-array ks)))
+  (.cap t (util/cast-param k) (util/keywords-to-str-array ks)))
 
 (defn choose
   ([^GraphTraversal t f-or-t]
@@ -151,10 +151,12 @@
   (.cyclicPath t))
 
 (defn dedup
-  ([^GraphTraversal t labels]
-   (.dedup t (into-array labels)))
-  ([^GraphTraversal t scope labels]
-   (.dedup t scope (into-array labels))))
+  ([^GraphTraversal t]
+   (.dedup t (into-array String [])))
+  ([^GraphTraversal t & args]
+   (if (instance? Scope (first args))
+     (.dedup t ^Scope (first args) (util/keywords-to-str-array (rest args)))
+     (.dedup t (util/keywords-to-str-array args)))))
 
 (defn drop
   [^GraphTraversal t]
@@ -196,13 +198,13 @@
   ([^GraphTraversal t]
    (.group t))
   ([^GraphTraversal t k]
-   (.group t k)))
+   (.group t (util/cast-param k))))
 
 (defn group-count
   ([^GraphTraversal t]
    (.groupCount t))
   ([^GraphTraversal t k]
-   (.groupCount t k)))
+   (.groupCount t (util/cast-param k))))
 
 (defn has
   "Allows an element if it has the given property or it satisfies given predicate."
@@ -345,7 +347,7 @@
 
 (defn or
   [^GraphTraversal t & traversals]
-  (.or t (into-array traversals)))
+  (.or t (into-array Traversal traversals)))
 
 (defn order
   ([^GraphTraversal t]
@@ -473,10 +475,10 @@
   ([^GraphTraversal t]
    (.tail t))
   ([^GraphTraversal t arg1]
-   (if (instance? ^Scope arg1)
-     (.sack t ^Scope arg1)
-     (.sack t (long arg1))))
-  ([^GraphTraversal t scope lim]
+   (if (instance? Scope arg1)
+     (.tail t ^Scope arg1)
+     (.tail t (long arg1))))
+  ([^GraphTraversal t ^Scope scope ^Long lim]
    (.tail t scope lim)))
 
 (defn time-limit
@@ -549,5 +551,5 @@
      (.where t ^Traversal p-or-t)
      (.where t ^P p-or-t)))
   ([^GraphTraversal t k p]
-   (.where t k p)))
+   (.where t (util/cast-param k) p)))
 

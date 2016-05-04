@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util])
-  (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal Compare P Order Pop)
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Order P Pop Scope Traversal)
            (org.apache.tinkerpop.gremlin.structure T Column VertexProperty$Cardinality)
            (java.util Iterator)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal GraphTraversalSource)))
@@ -30,7 +30,7 @@
 
 (defn __and
   [traversals]
-  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/and (into-array traversals)))
+  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/and (into-array Traversal traversals)))
 
 (defn __as
   [step-label & step-labels]
@@ -67,7 +67,7 @@
 
 (defn __cap
   [k & ks]
-  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/cap k (into-array ks)))
+  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/cap (util/cast-param k) (util/keywords-to-str-array ks)))
 
 (defn __choose
   ([f-or-t]
@@ -98,10 +98,12 @@
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/cyclicPath))
 
 (defn __dedup
-  ([labels]
-   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/dedup (into-array labels)))
-  ([scope labels]
-   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/dedup scope (into-array labels))))
+  ([]
+   ((org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/dedup (into-array String []))))
+  ([& args]
+   (if (instance? Scope (first args))
+     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/dedup ^Scope (first args) (util/keywords-to-str-array (rest args))))
+     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/dedup (util/keywords-to-str-array args))))
 
 (defn __drop
   []
@@ -137,13 +139,13 @@
   ([]
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/group))
   ([k]
-   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/group k)))
+   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/group (util/cast-param k))))
 
 (defn __group-count
   ([]
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/groupCount))
   ([k]
-   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/groupCount k)))
+   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/groupCount (util/cast-param k))))
 
 (defn __has
   "Allows an element if it has the given property or it satisfies given predicate."
@@ -280,7 +282,7 @@
 
 (defn __or
   [traversals]
-  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/or (into-array traversals)))
+  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/or (into-array Traversal traversals)))
 
 (defn __order
   ([]
@@ -392,10 +394,10 @@
   ([]
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/tail))
   ([arg1]
-   (if (instance? ^Scope arg1)
-     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/sack ^Scope arg1)
-     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/sack (long arg1))))
-  ([scope lim]
+   (if (instance? Scope arg1)
+     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/tail ^Scope arg1)
+     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/tail (long arg1))))
+  ([^Scope scope ^Long lim]
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/tail scope lim)))
 
 (defn __time-limit
@@ -429,7 +431,7 @@
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/unfold))
 
 (defn __union
-  [traversals]
+  [& traversals]
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/union (into-array traversals)))
 
 (defn __until
@@ -464,5 +466,5 @@
      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/where ^Traversal p-or-t)
      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/where ^P p-or-t)))
   ([k p]
-   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/where k p)))
+   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/where (util/cast-param k) p)))
 
