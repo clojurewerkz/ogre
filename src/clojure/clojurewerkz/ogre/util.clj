@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.util
   (:import (org.apache.tinkerpop.gremlin.structure  Direction  Graph Vertex)
-           (java.util.function Function Consumer Predicate BiPredicate BiFunction)
+           (java.util.function Function Consumer Predicate BiPredicate BiFunction Supplier)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph  GraphTraversal)
            (org.apache.tinkerpop.gremlin.process.traversal Traversal P)))
 
@@ -30,7 +30,7 @@
 
 (defn cast-every-other-param
   [coll]
-  (to-array (map-every-nth (fn [i] (cast-param i)) coll 2)))
+  (to-array (map-every-nth (fn [i] (cast-param i)) coll 1)))
 
 (defn string-or-keyword
   "Checks if the given value is either a string or keyword."
@@ -56,6 +56,11 @@
   "Converts a function to java.util.function.Consumer."
   (reify Consumer
     (accept [this arg] (f arg))))
+
+(defn ^Supplier f-to-supplier [f]
+  "Converts a function to java.util.function.Supplier."
+  (reify Supplier
+    (get [this] (f))))
 
 (defn ^Predicate f-to-predicate [f]
   "Converts a function to java.util.function.Predicate."

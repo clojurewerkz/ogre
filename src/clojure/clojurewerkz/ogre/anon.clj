@@ -14,11 +14,11 @@
   [xs & body]
    `(-> (apply ~(symbol (str "clojurewerkz.ogre.anon/__" (name (first xs)))) ~(vec (rest xs))) ~@body))
 
-(defn __add-E
+(defn __addE
   [label]
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/addE ^String (util/cast-param label)))
 
-(defn __add-V
+(defn __addV
   ([]
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/addV))
   ([label]
@@ -29,7 +29,7 @@
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/aggregate k))
 
 (defn __and
-  [traversals]
+  [& traversals]
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/and (into-array Traversal traversals)))
 
 (defn __as
@@ -78,6 +78,10 @@
    (if (instance? Traversal p-or-t)
      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/choose ^Traversal p-or-t ^Traversal true-choice ^Traversal false-choice)
      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/choose (util/f-to-predicate p-or-t) ^Traversal true-choice ^Traversal false-choice))))
+
+(defn __coalesce
+  [& traversals]
+  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/coalesce (into-array Traversal traversals)))
 
 (defn __coin
   [prob]
@@ -281,7 +285,7 @@
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/optional opt-traversal)))
 
 (defn __or
-  [traversals]
+  [& traversals]
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/or (into-array Traversal traversals)))
 
 (defn __order
@@ -323,8 +327,12 @@
 (defn __property
   [args]
   (if (instance? VertexProperty$Cardinality (first args))
-    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/property ^VertexProperty$Cardinality (first args) (util/cast-param (second args)) (nth args 3) (util/cast-every-other-param (take-last 3 args)))
-    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/property ^Object (util/cast-param (first args)) (second args) (util/cast-every-other-param (take-last 2 args)))))
+    (if (= (clojure.core/count args) 3)
+      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/property ^VertexProperty$Cardinality (first args) (util/cast-param (second args)) (nth args 2) (into-array []))
+      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/property ^VertexProperty$Cardinality (first args) (util/cast-param (second args)) (nth args 2) (util/cast-every-other-param (take-last (- (clojure.core/count args) 3) args))))
+    (if (= (clojure.core/count args) 2)
+      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/property ^Object (util/cast-param (first args)) (second args) (into-array []))
+      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/property ^Object (util/cast-param (first args)) (second args) (util/cast-every-other-param (take-last (- (clojure.core/count args) 2) args))))))
 
 (defn __property-map
   [& ks]

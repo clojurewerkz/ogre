@@ -34,13 +34,23 @@
   [^GraphTraversalSource g & ids]
   (.V g (into-array ids)))
 
+(defn with-side-effect
+  ([^GraphTraversalSource g ^String k v]
+    (if (instance? clojure.lang.IFn v)
+      (.withSideEffect g (util/cast-param k) (util/f-to-supplier))
+      (.withSideEffect g (util/cast-param k) v)))
+  ([^GraphTraversalSource g ^String k v r]
+   (if (instance? clojure.lang.IFn v)
+      (.withSideEffect g (util/cast-param k) (util/f-to-supplier) (util/f-to-bifunction r))
+      (.withSideEffect g (util/cast-param k) v (util/f-to-bifunction r)))))
+
 ; GraphTraversal
 
-(defn add-E
+(defn addE
   [^GraphTraversal t label]
   (.addE t ^String (util/cast-param label)))
 
-(defn add-V
+(defn addV
   ([^GraphTraversal t]
    (.addV t))
   ([^GraphTraversal t label]
@@ -48,7 +58,7 @@
 
 (defn aggregate
   [^GraphTraversal t k]
-  (.aggregate t k))
+  (.aggregate t (util/cast-param k)))
 
 (defn and
   [^GraphTraversal t & traversals]
@@ -132,6 +142,10 @@
      (.choose t ^Traversal p-or-t ^Traversal true-choice ^Traversal false-choice)
      (.choose t (util/f-to-predicate p-or-t) ^Traversal true-choice ^Traversal false-choice))))
 
+(defn coalesce
+  [^GraphTraversal t & traversals]
+  (.coalesce t (into-array Traversal traversals)))
+
 (defn coin
   [^GraphTraversal t prob]
   (.coin t prob))
@@ -192,7 +206,7 @@
   ([^GraphTraversal t t-or-label]
    (if (instance? Traversal t-or-label)
      (.from t ^Traversal t-or-label)
-     (.from t ^String t-or-label))))
+     (.from t ^String (util/cast-param t-or-label)))))
 
 (defn group
   ([^GraphTraversal t]
@@ -404,8 +418,12 @@
 (defn property
   [^GraphTraversal t & args]
   (if (instance? VertexProperty$Cardinality (first args))
-    (.property t ^VertexProperty$Cardinality (first args) (util/cast-param (second args)) (nth args 3) (util/cast-every-other-param (take-last 3 args)))
-    (.property t ^Object (util/cast-param (first args)) (second args) (util/cast-every-other-param (take-last 2 args)))))
+    (if (= (clojure.core/count args) 3)
+      (.property t ^VertexProperty$Cardinality (first args) (util/cast-param (second args)) (nth args 2) (into-array []))
+      (.property t ^VertexProperty$Cardinality (first args) (util/cast-param (second args)) (nth args 2) (util/cast-every-other-param (take-last (- (clojure.core/count args) 3) args))))
+    (if (= (clojure.core/count args) 2)
+      (.property t ^Object (util/cast-param (first args)) (second args) (into-array []))
+      (.property t ^Object (util/cast-param (first args)) (second args) (util/cast-every-other-param (take-last (- (clojure.core/count args) 2) args))))))
 
 (defn property-map
   [^GraphTraversal t & ks]
@@ -493,7 +511,7 @@
   ([^GraphTraversal t arg1]
    (if (instance? Traversal arg1)
      (.to t ^Traversal arg1)
-     (.to t ^String arg1)))
+     (.to t ^String (util/cast-param arg1))))
   ([^GraphTraversal t direction & labels]
    (.to t direction (util/keywords-to-str-array labels))))
 
