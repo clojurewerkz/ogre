@@ -3,7 +3,7 @@
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util]
             [clojurewerkz.ogre.anon :as anon])
-  (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Order P Pop Scope Traversal)
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Operator Order P Pop Scope Traversal)
            (org.apache.tinkerpop.gremlin.structure T Column VertexProperty$Cardinality)
            (java.util Iterator)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal GraphTraversalSource)))
@@ -33,6 +33,10 @@
   If no ids are supplied, returns all vertices."
   [^GraphTraversalSource g & ids]
   (.V g (into-array ids)))
+
+(defn with-path
+  [^GraphTraversalSource g]
+  (.withPath g))
 
 (defn with-side-effect
   ([^GraphTraversalSource g ^String k v]
@@ -200,7 +204,9 @@
   ([^GraphTraversal t]
    (.fold t))
   ([^GraphTraversal t seed fold-function]
-   (.fold t seed (util/f-to-bifunction fold-function))))
+   (if (instance? Operator fold-function)
+     (.fold t seed fold-function)
+     (.fold t seed (util/f-to-bifunction fold-function)))))
 
 (defn from
   ([^GraphTraversal t t-or-label]
@@ -361,7 +367,7 @@
 
 (defn or
   [^GraphTraversal t & traversals]
-  (.or t (into-array Traversal traversals)))
+   (.or t (into-array Traversal traversals)))
 
 (defn order
   ([^GraphTraversal t]

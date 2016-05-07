@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util])
-  (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Order P Pop Scope Traversal)
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Operator Order P Pop Scope Traversal)
            (org.apache.tinkerpop.gremlin.structure T Column VertexProperty$Cardinality)
            (java.util Iterator)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal GraphTraversalSource)))
@@ -137,7 +137,9 @@
   ([]
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/fold))
   ([seed fold-function]
-   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/fold seed (util/f-to-bifunction fold-function))))
+   (if (instance? Operator fold-function)
+     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/fold seed fold-function)
+     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/fold seed (util/f-to-bifunction fold-function)))))
 
 (defn __group
   ([]
@@ -286,7 +288,7 @@
 
 (defn __or
   [& traversals]
-  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/or (into-array Traversal traversals)))
+   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/or (into-array Traversal traversals)))
 
 (defn __order
   ([]
