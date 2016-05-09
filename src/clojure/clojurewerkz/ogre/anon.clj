@@ -183,8 +183,9 @@
 
 (defn __has-id
   [ids]
-  (let [id-array (into-array Object ids)]
-    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasId id-array)))
+  (if (seq? ids)
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasId (into-array Object ids)))
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasId (into-array Object [ids])))
 
 (defn __has-key
   [ks]

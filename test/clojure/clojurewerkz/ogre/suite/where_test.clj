@@ -3,7 +3,7 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
   (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal P)))
+           (org.apache.tinkerpop.gremlin.process.traversal P Traversal)))
 
 (defn get_g_V_hasXageX_asXaX_out_in_hasXageX_asXbX_selectXa_bX_whereXa_eqXbXX
   "g.V().has('age').as('a').out().in().has('age').as('b').select('a','b').where('a', eq('b'))"
@@ -97,7 +97,7 @@
 (defn get_g_withSideEffectXa_graph_verticesX2XX_VX1X_out_whereXneqXaXX
   "g.withSideEffect('a', g.V(v2Id).next()).V(v1Id).out().where(neq('a'))"
   [g v1Id v2Id]
-  (q/traverse g (q/with-side-effect :a (.next (q/traverse g (q/V v2Id))))
+  (q/traverse g (q/with-side-effect :a ^Vertex (.next ^java.util.Iterator (q/traverse g (q/V v2Id))))
                 (q/V v1Id)
                 (q/out)
                 (q/where (P/neq "a"))))

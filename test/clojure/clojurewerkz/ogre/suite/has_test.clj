@@ -6,7 +6,7 @@
            (org.apache.tinkerpop.gremlin.process.traversal P Traverser)))
 
 (defn get_g_V_outXcreatedX_hasXname__mapXlengthX_isXgtX3XXX_name
-  "g.V().out(\"created\").has(\"name\", __.<String, Integer>map(s -> s.get().length()).is(P.gt(3))).values(\"name\")"
+  "g.V().out(\"created\").has(\"name\", __.map(s -> s.get().length()).is(P.gt(3))).values(\"name\")"
   [g]
   (q/traverse g (q/V)
                 (q/out :created)

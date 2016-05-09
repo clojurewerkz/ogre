@@ -3,7 +3,7 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
   (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal P)))
+           (org.apache.tinkerpop.gremlin.process.traversal P Traversal)))
 
 (defn get_g_VX1X_asXaX_outXcreatedX_addEXcreatedByX_toXaX_propertyXweight_2X
   "g.V(v1Id).as('a').out('created').addE('createdBy').to('a').property('weight', 2.0d)"
@@ -78,7 +78,7 @@
 (defn get_g_withSideEffectXx__g_V_toListX_addOutEXexistsWith_x_time_nowX
   "g.withSideEffect('x', g.V().toList()).V().addOutE('existsWith', 'x', 'time', 'now')"
   [g]
-  (q/traverse g (q/with-side-effect :x (.toList (q/traverse g (q/V))))
+  (q/traverse g (q/with-side-effect :x ^List (.toList ^Traversal (q/traverse g (q/V))))
                 (q/V)
                 (q/addE :existsWith)
                 (q/from :x)

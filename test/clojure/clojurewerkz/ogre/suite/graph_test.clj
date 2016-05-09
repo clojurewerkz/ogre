@@ -3,7 +3,7 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
   (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal P)))
+           (org.apache.tinkerpop.gremlin.process.traversal P Traversal)))
 
 (defn get_g_V_hasXname_GarciaX_inXsungByX_asXsongX_V_hasXname_Willie_DixonX_inXwrittenByX_whereXeqXsongXX_name
   "g.V().has('artist', 'name', 'Garcia').in('sungBy').as('song')
@@ -23,7 +23,7 @@
   [g]
   (q/traverse g (q/V)
                 (q/has-label :person) (q/as :p)
-                (q/midV (.toList (q/traverse g (q/V) (q/has-label :software))))
+                (q/midV ^List (.toList ^Traversal (q/traverse g (q/V) (q/has-label :software))))
                 (q/addE :uses)
                 (q/from :p)))
 

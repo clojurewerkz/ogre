@@ -123,8 +123,12 @@
      (.by t ^Traversal arg1)))
   ([^GraphTraversal t arg1 ^java.util.Comparator compar]
    (cond
+     (keyword? arg1)
+     (.by t (util/cast-param arg1) compar)
+     (instance? Column arg1)
+     (.by t ^Column arg1 compar)
      (instance? clojure.lang.IFn arg1)
-     (.by t (util/f-to-function arg1 compar))
+     (.by t (util/f-to-function arg1) compar)
      (instance? T arg1)
      (.by t ^T arg1 compar)
      (instance? String arg1)
@@ -256,8 +260,9 @@
 
 (defn has-id
   [^GraphTraversal t & ids]
-  (let [id-array (into-array Object ids)]
-    (.hasId t id-array)))
+  (if (seq? ids)
+    (.hasId t (into-array Object ids))
+    (.hasId t (into-array Object [ids]))))
 
 (defn has-key
   [^GraphTraversal t & ks]
@@ -415,7 +420,7 @@
 
 (defn project
   [^GraphTraversal t k & ks]
-  (.project t k (into-array ks)))
+  (.project t (util/cast-param k) (util/keywords-to-str-array ks)))
 
 (defn properties
   [^GraphTraversal t & ks]
