@@ -115,26 +115,26 @@
      (.by t ^Order arg1)
      (instance? java.util.Comparator arg1)
      (.by t ^java.util.Comparator arg1)
-     (instance? clojure.lang.IFn arg1)
-     (.by t (util/f-to-function arg1))
      (instance? T arg1)
      (.by t ^T arg1)
      (instance? Traversal arg1)
      (.by t ^Traversal arg1)))
-  ([^GraphTraversal t arg1 ^java.util.Comparator compar]
-   (cond
-     (keyword? arg1)
-     (.by t (util/cast-param arg1) compar)
-     (instance? Column arg1)
-     (.by t ^Column arg1 compar)
-     (instance? clojure.lang.IFn arg1)
-     (.by t (util/f-to-function arg1) compar)
-     (instance? T arg1)
-     (.by t ^T arg1 compar)
-     (instance? String arg1)
-     (.by t ^String arg1 compar)
-     (instance? Traversal arg1)
-     (.by t ^Traversal arg1 compar))))
+  ([^GraphTraversal t arg1 compar]
+   (if (identical? :fn compar)
+     (.by t (util/f-to-function arg1))
+     (cond
+       (keyword? arg1)
+       (.by t (util/cast-param arg1) ^java.util.Comparator compar)
+       (instance? Column arg1)
+       (.by t ^Column arg1 ^java.util.Comparator compar)
+       (instance? clojure.lang.IFn arg1)
+       (.by t (util/f-to-function arg1) ^java.util.Comparator compar)
+       (instance? T arg1)
+       (.by t ^T arg1 ^java.util.Comparator compar)
+       (instance? String arg1)
+       (.by t ^String arg1 ^java.util.Comparator compar)
+       (instance? Traversal arg1)
+       (.by t ^Traversal arg1 ^java.util.Comparator compar)))))
 
 (defn cap
   [^GraphTraversal t k & ks]
@@ -191,6 +191,10 @@
    (if (instance? Traversal pred-or-t)
      (.emit t ^Traversal pred-or-t)
      (.emit t (util/f-to-predicate pred-or-t)))))
+
+(defn explain
+  ([^GraphTraversal t]
+   (.explain t)))
 
 (defn filter
   [^GraphTraversal t pred-or-t]
