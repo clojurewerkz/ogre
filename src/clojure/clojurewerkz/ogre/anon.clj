@@ -389,11 +389,11 @@
 
 (defn __store
   [k]
-  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/store k))
+  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/store (util/cast-param k)))
 
 (defn __subgraph
   [k]
-  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/subgraph k))
+  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/subgraph (util/cast-param k)))
 
 (defn __sum
   ([]
@@ -435,7 +435,7 @@
   ([]
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/tree))
   ([k]
-   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/tree k)))
+   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/tree (util/cast-param k))))
 
 (defn __unfold
   []

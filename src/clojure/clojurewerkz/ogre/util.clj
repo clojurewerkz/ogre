@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.util
   (:import (org.apache.tinkerpop.gremlin.structure  Direction  Graph Vertex)
-           (java.util.function Function Consumer Predicate BiPredicate BiFunction Supplier)
+           (java.util.function Function Consumer Predicate BiPredicate BiFunction BinaryOperator UnaryOperator Supplier)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph  GraphTraversal)
            (org.apache.tinkerpop.gremlin.process.traversal Traversal P)))
 
@@ -42,9 +42,19 @@
   (reify Function
     (apply [this arg] (f arg))))
 
+(defn ^UnaryOperator f-to-unaryoperator [f]
+  "Converts a function to java.util.function.UnaryOperator."
+  (reify UnaryOperator
+    (apply [this arg] (f arg))))
+
 (defn ^BiFunction f-to-bifunction [f]
   "Converts a function to java.util.function.BiFunction."
   (reify BiFunction
+    (apply [this arg1 arg2] (f arg1 arg2))))
+
+(defn ^BinaryOperator f-to-binaryoperator [f]
+  "Converts a function to java.util.function.BinaryOperator."
+  (reify BinaryOperator
     (apply [this arg1 arg2] (f arg1 arg2))))
 
 (defn ^"[Ljava.util.function.Function;" fs-to-function-array

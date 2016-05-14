@@ -55,10 +55,7 @@ public class OgreProcessStandardSuite extends ProcessStandardSuite {
               OgreTinkerPopCheck.MinTestTraversals.class,
               OgreTinkerPopCheck.SumTestTraversals.class,
               OgreTinkerPopCheck.OrderTestTraversals.class,
-//            OgreTinkerPopCheck.OgreMatchTestCountMatchTraversals.class,
-//            OgreTinkerPopCheck.MatchTestGreedyMatchTraversals.class,
               OgreTinkerPopCheck.PathTestTraversals.class,
-//            OgreTinkerPopCheck.ProfileTestTraversals.class,
               OgreTinkerPopCheck.ProjectTestTraversals.class,
               OgreTinkerPopCheck.PropertiesTestTraversals.class,
               OgreTinkerPopCheck.SelectTestTraversals.class,
@@ -71,20 +68,13 @@ public class OgreProcessStandardSuite extends ProcessStandardSuite {
               OgreTinkerPopCheck.GroupTestTraversals.class,
 // deprecated  OgreTinkerPopCheck.GroupTestV3d0Traversals.class,
               OgreTinkerPopCheck.GroupCountTestTraversals.class,
-//            OgreInjectTest.Traversals.class,
-//            OgreProfileTest.Traversals.class,
-//            OgreSackTest.Traversals.class,
-//            OgreSideEffectCapTest.Traversals.class,
-//            OgreSideEffectTest.Traversals.class,
-//            OgreStoreTest.Traversals.class,
-//            OgreSubgraphTest.Traversals.class,
-//            OgreTreeTest.Traversals.class,
-
-            // util
-//            OgreTraversalSideEffectsTest.Traversals.class,
-
-            // compliance
-//            CoreTraversalTest.class,
+              OgreTinkerPopCheck.InjectTestTraversals.class,
+              OgreTinkerPopCheck.SackTestTraversals.class,
+              OgreTinkerPopCheck.SideEffectCapTestTraversals.class,
+              OgreTinkerPopCheck.SideEffectTestTraversals.class,
+              OgreTinkerPopCheck.StoreTestTraversals.class,
+              OgreTinkerPopCheck.SubgraphTestTraversals.class,
+              OgreTinkerPopCheck.TreeTestTraversals.class
     };
 
     public OgreProcessStandardSuite(final Class<?> klass, final RunnerBuilder builder) throws InitializationError {

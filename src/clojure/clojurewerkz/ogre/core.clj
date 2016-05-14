@@ -3,7 +3,7 @@
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util]
             [clojurewerkz.ogre.anon :as anon])
-  (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Operator Order P Pop Scope Traversal)
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Operator Order P Pop SackFunctions$Barrier Scope Traversal)
            (org.apache.tinkerpop.gremlin.structure T Column VertexProperty$Cardinality)
            (java.util Iterator)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal GraphTraversalSource)))
@@ -34,19 +34,59 @@
   [^GraphTraversalSource g & ids]
   (.V g (into-array ids)))
 
+(defn with-bulk
+  [^GraphTraversalSource g use-bulk]
+  (.withBulk g use-bulk))
+
 (defn with-path
   [^GraphTraversalSource g]
   (.withPath g))
 
+(defn with-sack
+  ([^GraphTraversalSource g arg]
+   (if (instance? clojure.lang.IFn arg)
+     (.withSack g (util/f-to-supplier arg))
+     (.withSack g arg)))
+  ([^GraphTraversalSource g arg m]
+    (let [^java.util.function.BinaryOperator merge-operator (if (contains? m ::merge)
+                                                              (if (instance? Operator (::merge m)) (::merge m) (util/f-to-binaryoperator (::merge m)))
+                                                              nil)
+          ^java.util.function.UnaryOperator split-operator (if (contains? m ::split)
+                                                             (if (instance? Operator (::split m)) (::split m) (util/f-to-unaryoperator (::split m)))
+                                                             nil)]
+      (if (instance? clojure.lang.IFn arg)
+        (cond
+          (clojure.core/and (nil? merge-operator) (nil? split-operator))
+          (.withSack g (util/f-to-supplier arg))
+          (nil? merge-operator)
+          (.withSack g (util/f-to-supplier arg) split-operator)
+          (nil? split-operator)
+          (.withSack g (util/f-to-supplier arg) merge-operator)
+          :else
+          (.withSack g (util/f-to-supplier arg) split-operator merge-operator))
+        (cond
+          (clojure.core/and (nil? merge-operator) (nil? split-operator))
+          (.withSack g arg)
+          (nil? merge-operator)
+          (.withSack g arg split-operator)
+          (nil? split-operator)
+          (.withSack g arg merge-operator)
+          :else
+          (.withSack g arg split-operator merge-operator))))))
+
 (defn with-side-effect
   ([^GraphTraversalSource g ^String k v]
     (if (instance? clojure.lang.IFn v)
-      (.withSideEffect g (util/cast-param k) (util/f-to-supplier))
+      (.withSideEffect g (util/cast-param k) (util/f-to-supplier v))
       (.withSideEffect g (util/cast-param k) v)))
   ([^GraphTraversalSource g ^String k v r]
-   (if (instance? clojure.lang.IFn v)
-      (.withSideEffect g (util/cast-param k) (util/f-to-supplier) (util/f-to-bifunction r))
-      (.withSideEffect g (util/cast-param k) v (util/f-to-bifunction r)))))
+   (if (instance? Operator r)
+     (if (instance? clojure.lang.IFn v)
+        (.withSideEffect g (util/cast-param k) (util/f-to-supplier v) ^Operator r)
+        (.withSideEffect g (util/cast-param k) v ^Operator r))
+     (if (instance? clojure.lang.IFn v)
+        (.withSideEffect g (util/cast-param k) (util/f-to-supplier v) (util/f-to-binaryoperator r))
+        (.withSideEffect g (util/cast-param k) v (util/f-to-binaryoperator r))))))
 
 ; GraphTraversal
 
@@ -78,8 +118,12 @@
   ([^GraphTraversal t]
    (.barrier t))
   ([^GraphTraversal t max-or-consumer]
-   (if (instance? clojure.lang.IFn max-or-consumer)
+   (cond
+     (identical? max-or-consumer ::norm-sack)
+     (.barrier t (SackFunctions$Barrier/normSack))
+     (instance? clojure.lang.IFn max-or-consumer)
      (.barrier t (util/f-to-consumer max-or-consumer))
+     :else
      (.barrier t (int max-or-consumer)))))
 
 (defn both
@@ -458,9 +502,9 @@
   ([^GraphTraversal t]
    (.sack t))
   ([^GraphTraversal t sack-op]
-   (.sack t sack-op))
-  ([^GraphTraversal t sack-op ks]
-   (.sack t sack-op (util/keywords-to-str-array ks))))
+   (if (instance? Operator sack-op)
+     (.sack t sack-op)
+     (.sack t (util/f-to-bifunction sack-op)))))
 
 (defn sample
   ([^GraphTraversal t amount]
@@ -492,11 +536,11 @@
 
 (defn store
   [^GraphTraversal t k]
-  (.store t k))
+  (.store t (util/cast-param k)))
 
 (defn subgraph
   [^GraphTraversal t k]
-  (.subgraph t k))
+  (.subgraph t (util/cast-param k)))
 
 (defn sum
   ([^GraphTraversal t]
@@ -542,7 +586,7 @@
   ([^GraphTraversal t]
    (.tree t))
   ([^GraphTraversal t k]
-   (.tree t k)))
+   (.tree t (util/cast-param k))))
 
 (defn unfold
   [^GraphTraversal t]
