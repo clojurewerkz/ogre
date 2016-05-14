@@ -4,12 +4,30 @@
             [clojurewerkz.ogre.util :as util]
             [clojurewerkz.ogre.anon :as anon])
   (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Operator Order P Pop SackFunctions$Barrier Scope Traversal)
-           (org.apache.tinkerpop.gremlin.structure T Column VertexProperty$Cardinality)
+           (org.apache.tinkerpop.gremlin.structure Graph T Column VertexProperty$Cardinality)
+           (org.apache.tinkerpop.gremlin.structure.util GraphFactory)
            (java.util Iterator)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal GraphTraversalSource)))
 
 (po/import-macro util/traverse)
 (po/import-macro anon/__)
+
+; GraphFactory
+(defn open-graph
+  "Opens a new TinkerGraph with default configuration or open a new Graph instance with the specified
+   configuration. The configuration may be a path to a file or a Map of configuration options."
+  ([] (open-graph {(Graph/GRAPH) (.getName org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph)}))
+  ([conf]
+   (cond
+     (map? conf)
+     (GraphFactory/open ^java.util.Map conf)
+     (string? conf)
+     (GraphFactory/open ^String conf))))
+
+; Graph
+(defn traversal
+  [^Graph graph]
+  (.traversal graph))
 
 ; GraphTraversalSource
 (defn add-V
@@ -19,8 +37,7 @@
     (.addV g ^String (util/cast-param label))))
 
 (defn E
-  "Returns all edges matching the supplied ids.
-  If no ids are supplied, returns all edges."
+  "Returns all edges matching the supplied ids. If no ids are supplied, returns all edges."
   [^GraphTraversalSource g & ids]
   (.E g (into-array ids)))
 
@@ -29,8 +46,7 @@
   (.inject g (into-array starts)))
 
 (defn V
-  "Returns all vertices matching the supplied ids.
-  If no ids are supplied, returns all vertices."
+  "Returns all vertices matching the supplied ids. If no ids are supplied, returns all vertices."
   [^GraphTraversalSource g & ids]
   (.V g (into-array ids)))
 

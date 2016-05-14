@@ -6,7 +6,7 @@
 
 (defmacro traverse
   "Starts a traversal."
-  [xs & body]
+  ^GraphTraversal [xs & body]
   `(-> ~xs ~@body))
 
 (defn ^"[Ljava.lang.String;" str-array [strs]
