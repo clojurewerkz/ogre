@@ -1,13 +1,50 @@
 (ns clojurewerkz.ogre.util
-  (:import (org.apache.tinkerpop.gremlin.structure  Direction  Graph Vertex)
+  (:import (java.util Iterator)
+           (org.apache.tinkerpop.gremlin.structure Direction  Graph Vertex)
            (java.util.function Function Consumer Predicate BiPredicate BiFunction BinaryOperator UnaryOperator Supplier)
-           (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph  GraphTraversal)
+           (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal)
            (org.apache.tinkerpop.gremlin.process.traversal Traversal P)))
 
 (defmacro traverse
   "Starts a traversal."
   ^GraphTraversal [xs & body]
   `(-> ~xs ~@body))
+
+;; traversal terminators
+
+(defn iterate!
+  "Iterates the traversal with the intent of producing side-effects."
+  [^Traversal t]
+  (.iterate t))
+
+(defn next!
+  "Returns the next object in the traversal."
+  ([^Traversal t]
+   (.next t))
+  ([^Traversal t i]
+   (.next t i)))
+
+(defn into-vec!
+  "Returns the objects in the traversal as a vector."
+  [^Traversal t]
+  (into [] (iterator-seq t)))
+
+(defn into-set!
+  "Returns the objects in the traversal as a set."
+  [^Traversal t]
+  (into {} (iterator-seq t)))
+
+(defn into-list!
+  "Returns the objects in the traversal as a list."
+  [^Traversal t]
+  (into () (iterator-seq t)))
+
+(defn into-seq!
+  "Returns the objects of the traversal as a sequence."
+  [^Traversal t]
+  (iterator-seq t))
+
+;; utility functions
 
 (defn ^"[Ljava.lang.String;" str-array [strs]
   "Converts a collection of strings to a java String array."

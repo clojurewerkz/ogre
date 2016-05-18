@@ -2,17 +2,17 @@
 
 <img src="https://raw.github.com/clojurewerkz/ogre/master/ogre.png" height="200"></img>
 
-Ogre is a Clojure "flavor" of the [Gremlin](http://gremlin.tinkerpop.com) graph query language. Like Gremlin, it can be used to query graphs that conform to the [Tinkerpop Blueprints](http://blueprints.tinkerpop.com) interface.
+Ogre is a Clojure [Gremlin Language Variant](http://tinkerpop.apache.org/docs/3.2.1-SNAPSHOT/tutorials/gremlin-language-variants/) of the [Gremlin](http://tinkerpop.apache.org/gremlin.html) graph traversal language from [Apache Tinkerpop](http://tinkerpop.apache.org/). Like Gremlin, it can be used to query any graphs that are [TinkerPop-enabled](http://tinkerpop.apache.org/providers.html).
 
 ## Project Goals
 
 * Provide an API that enhances the expressivity of Gremlin when working in Clojure.
-* Expose the all the features of Gremlin and Blueprints as it makes sense in Clojure.
+* Expose the features of TinkerPop as it makes sense in Clojure.
 * Don't introduce any significant amount of performance overhead.
 
 ## Community
 
-Questions related to Ogre can be asked on the [clojure-titanium mailing list](https://groups.google.com/forum/#!forum/clojure-titanium). 
+Questions related to Ogre can be asked on the [clojure-titanium mailing list](https://groups.google.com/forum/#!forum/clojure-titanium).
 
 To subscribe for announcements of releases, important changes and so on, please follow [@ClojureWerkz](https://twitter.com/#!/clojurewerkz) on Twitter.
 
@@ -47,8 +47,22 @@ With Maven:
 
 ## Documentation & Examples
 
- * [Guides](http://ogre.clojurewerkz.org/)
-
+```text
+clojurewerkz.ogre.core=> (def graph (open-graph))
+#'clojurewerkz.ogre.core/graph
+clojurewerkz.ogre.core=> (def g (traversal graph))
+#'clojurewerkz.ogre.core/g
+clojurewerkz.ogre.core=> (org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerFactory/generateModern graph)
+nil
+clojurewerkz.ogre.core=> (traverse g V (match
+                    #_=>   (__ (as :a) (out :created) (as :b))
+                    #_=>   (__ (as :b) (has :name "lop"))
+                    #_=>   (__ (as :b) (in :created) (as :c))
+                    #_=>   (__ (as :c) (has :age 29)))
+                    #_=>   (select :a :c) (by :name)
+                    #_=>   (into-seq!))
+({"a" "marko", "c" "marko"} {"a" "josh", "c" "marko"} {"a" "peter", "c" "marko"})
+```
 
 ## Supported Clojure Versions
 

@@ -12,6 +12,13 @@
 (po/import-macro util/traverse)
 (po/import-macro anon/__)
 
+(po/import-fn util/into-seq!)
+(po/import-fn util/into-list!)
+(po/import-fn util/into-vec!)
+(po/import-fn util/into-set!)
+(po/import-fn util/iterate!)
+(po/import-fn util/next!)
+
 ; GraphFactory
 (defn open-graph
   "Opens a new TinkerGraph with default configuration or open a new Graph instance with the specified
