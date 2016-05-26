@@ -15,7 +15,7 @@
                                       [commons-io/commons-io "2.4"]]}
              :1.7    {:dependencies [[org.clojure/clojure "1.7.0"]]}
              :master {:dependencies [[org.clojure/clojure "1.8.0-master-SNAPSHOT"]]}}
-  :aliases {"all" ["with-profile" "dev:dev,1.5:dev,1.7"]}
+  :aliases {"all" ["with-profile" "dev:dev,1.7"]}
   :repositories {"sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
                              :snapshots false
                              :releases {:checksum :fail :update :always}}
