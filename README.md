@@ -1,6 +1,6 @@
 # Ogre
 
-<img src="https://raw.github.com/clojurewerkz/ogre/master/ogre.png" height="200"></img>
+<img src="gremlin-ogre.png"></img>
 
 Ogre is a Clojure [Gremlin Language Variant](http://tinkerpop.apache.org/docs/3.2.1-SNAPSHOT/tutorials/gremlin-language-variants/) of the [Gremlin](http://tinkerpop.apache.org/gremlin.html) graph traversal language from [Apache Tinkerpop](http://tinkerpop.apache.org/). Like Gremlin, it can be used to query any graphs that are [TinkerPop-enabled](http://tinkerpop.apache.org/providers.html).
 
