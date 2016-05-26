@@ -1,4 +1,5 @@
 language: clojure
+before_script: lein with-profile dev javac
 jdk:
   # TinkerPop 3 requires JDK 8
   - oraclejdk8
