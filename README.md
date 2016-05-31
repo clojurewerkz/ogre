@@ -83,3 +83,7 @@ Orge uses [Leiningen 2](https://github.com/technomancy/leiningen/blob/master/doc
 Copyright (C) 2014-2016 Zack Maril, and the ClojureWerkz team.
 
 Licensed under the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html) (the same as Clojure).
+
+## Acknowledgements
+
+[Joe Lee](http://www.jml3designz.com/) illustrated the "Gremlin Ogre" image based on the original Clojurewerkz Ogre logo and Apache TinkerPop's Gremlin character developed [Ketrina Yim](http://ketrinayim.tumblr.com/).
