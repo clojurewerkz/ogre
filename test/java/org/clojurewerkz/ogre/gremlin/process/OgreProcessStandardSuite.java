@@ -3,7 +3,6 @@ package org.clojurewerkz.ogre.gremlin.process;
 
 import org.apache.tinkerpop.gremlin.process.ProcessStandardSuite;
 
-import org.clojurewerkz.ogre.gremlin.process.traversal.step.filter.OgreHasCheck;
 import org.junit.Ignore;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
