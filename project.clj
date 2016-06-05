@@ -12,7 +12,9 @@
   :source-paths ["src/clojure"]
   :profiles {:dev    { :global-vars {*assert* true}
                        :dependencies [[clojurewerkz/support "1.1.0" :exclusions [org.clojure/clojure]]
-                                      [commons-io/commons-io "2.4"]]}
+                                      [commons-io/commons-io "2.4"]]
+                      :java-source-paths ["test/java"]
+                      :resource-paths ["test/resources"]}
              :1.5    {:dependencies [[org.clojure/clojure "1.5.1"]]}
              :1.7    {:dependencies [[org.clojure/clojure "1.7.0"]]}
              :master {:dependencies [[org.clojure/clojure "1.8.0-master-SNAPSHOT"]]}}
@@ -24,8 +26,6 @@
                                        :snapshots true
                                        :releases {:checksum :fail :update :always}}}
   :plugins [[lein-junit "1.1.8"]]
-  :java-source-paths ["test/java"]
-  :resource-paths ["test/resources"]
   :junit ["test/java"]
   :test-paths ["test/clojure"]
   :global-vars {*warn-on-reflection* true
