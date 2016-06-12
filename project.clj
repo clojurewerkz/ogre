@@ -4,7 +4,7 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :aot :all
-  :dependencies [[org.clojure/clojure "1.6.0"]
+  :dependencies [[org.clojure/clojure "1.8.0"]
                  [potemkin "0.3.3"]
                  [org.apache.tinkerpop/gremlin-core "3.2.0-incubating"]
                  [org.apache.tinkerpop/gremlin-test "3.2.0-incubating"  :scope "test" :exclusions [org.slf4j/slf4j-api]]
@@ -15,10 +15,9 @@
                                       [commons-io/commons-io "2.4"]]
                       :java-source-paths ["test/java"]
                       :resource-paths ["test/resources"]}
-             :1.5    {:dependencies [[org.clojure/clojure "1.5.1"]]}
              :1.7    {:dependencies [[org.clojure/clojure "1.7.0"]]}
-             :master {:dependencies [[org.clojure/clojure "1.8.0-master-SNAPSHOT"]]}}
-  :aliases {"all" ["with-profile" "dev:dev,1.5:dev,1.7"]}
+             :master {:dependencies [[org.clojure/clojure "1.9.0-master-SNAPSHOT"]]}}
+  :aliases {"all" ["with-profile" "dev:dev,master:dev,1.7"]}
   :repositories {"sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
                              :snapshots false
                              :releases {:checksum :fail :update :always}}
