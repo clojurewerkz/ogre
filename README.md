@@ -18,7 +18,9 @@ To subscribe for announcements of releases, important changes and so on, please 
 
 ## Project Maturity
 
-Orge is a relatively young project that regained active development in 2014-2016.
+Despite being first released in 2014, Orge is a relatively young
+project that regained active development in 2016. We are targeting
+Gremlin `3.2.0` development releases.
 
 ## Artifacts
 
@@ -35,14 +37,14 @@ Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre).
 
 With Leiningen:
 
-    [clojurewerkz/ogre "3.0.0.0"]
+    [clojurewerkz/ogre "3.0.0.0-beta1"]
 
 With Maven:
 
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>ogre</artifactId>
-      <version>3.0.0.0</version>
+      <version>3.0.0.0-beta1</version>
     </dependency>
 
 ## Documentation & Examples
