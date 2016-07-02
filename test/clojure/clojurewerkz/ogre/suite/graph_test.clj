@@ -23,7 +23,7 @@
   [g]
   (q/traverse g (q/V)
                 (q/has-label :person) (q/as :p)
-                (q/midV ^List (.toList ^Traversal (q/traverse g (q/V) (q/has-label :software))))
+                (q/midV ^List  (q/traverse g (q/V) (q/has-label :software) (q/into-list!)))
                 (q/addE :uses)
                 (q/from :p)))
 

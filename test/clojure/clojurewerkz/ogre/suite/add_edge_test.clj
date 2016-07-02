@@ -78,7 +78,7 @@
 (defn get_g_withSideEffectXx__g_V_toListX_addOutEXexistsWith_x_time_nowX
   "g.withSideEffect('x', g.V().toList()).V().addOutE('existsWith', 'x', 'time', 'now')"
   [g]
-  (q/traverse g (q/with-side-effect :x ^List (.toList ^Traversal (q/traverse g (q/V))))
+  (q/traverse g (q/with-side-effect :x ^ArrayList (q/traverse g (q/V) (q/into-list!)))
                 (q/V)
                 (q/addE :existsWith)
                 (q/from :x)

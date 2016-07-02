@@ -84,12 +84,12 @@
                 return map;
             }).sack()"
   [g]
-  (q/traverse g (q/with-sack (new java.util.HashMap) {:split (fn [m] (.clone m))})
+  (q/traverse g (q/with-sack (new java.util.HashMap) {:split (fn [m] (.clone ^java.util.HashMap m))})
                 (q/V)
                 (q/out)
                 (q/out)
-                (q/sack (fn [m,v]
-                          (.put m "a" (.value v "name"))
+                (q/sack (fn [m v]
+                          (.put ^java.util.Map m "a" (.value ^Vertex v "name"))
                           m))
                 (q/sack)))
 

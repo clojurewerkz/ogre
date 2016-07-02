@@ -3,7 +3,7 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
   (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal P Traverser)))
+           (org.apache.tinkerpop.gremlin.process.traversal P Traverser Traversal)))
 
 (defn get_g_VX1X_out_name_injectXdanielX_asXaX_mapXlengthX_path
   "g.V(v1Id).out().values('name').inject('daniel').as('a').map(t -> t.get().length()).path()"
@@ -20,5 +20,5 @@
   [g v1Id v2Id]
   (q/traverse g (q/V v1Id)
                 (q/out)
-                (q/inject (.next (q/traverse g (q/V v2Id))))
+                (q/inject (q/traverse g (q/V v2Id) (q/next!)))
                 (q/values :name)))

@@ -97,7 +97,7 @@
 (defn get_g_withSideEffectXa_graph_verticesX2XX_VX1X_out_whereXneqXaXX
   "g.withSideEffect('a', g.V(v2Id).next()).V(v1Id).out().where(neq('a'))"
   [g v1Id v2Id]
-  (q/traverse g (q/with-side-effect :a ^Vertex (.next ^java.util.Iterator (q/traverse g (q/V v2Id))))
+  (q/traverse g (q/with-side-effect :a ^Vertex (q/traverse g (q/V v2Id) (q/next!)))
                 (q/V v1Id)
                 (q/out)
                 (q/where (P/neq "a"))))

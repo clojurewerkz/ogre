@@ -31,7 +31,7 @@
   [g]
   (q/traverse g (q/V)
                 (q/group)
-                (q/by (fn [^Vertex v] (.substring (.value v "name") 0 1)) :fn)
+                (q/by (fn [^Vertex v] (.substring ^String (.value v "name") 0 1)) :fn)
                 (q/by (q/__ (q/constant (long 1))))))
 
 (defn get_g_V_groupXaX_byXname_substring_1X_byXconstantX1XX_capXaX
@@ -39,7 +39,7 @@
   [g]
   (q/traverse g (q/V)
                 (q/group :a)
-                (q/by (fn [^Vertex v] (.substring (.value v "name") 0 1)) :fn)
+                (q/by (fn [^Vertex v] (.substring ^String (.value v "name") 0 1)) :fn)
                 (q/by (q/__ (q/constant (long 1))))
                 (q/cap :a)))
 

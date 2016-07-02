@@ -18,7 +18,7 @@
   (q/traverse g (q/V)
                 (q/value-map)
                 (q/unfold)
-                (q/map (fn [m] (.getKey ^java.util.Map$Entry (.get m))))))
+                (q/map (fn [m] (.getKey ^java.util.Map$Entry (.get ^Traverser m))))))
 
 (defn get_g_VX1X_repeatXboth_simplePathX_untilXhasIdX6XX_path_byXnameX_unfold
   "g.V(v1Id).repeat(both().simplePath()).until(hasId(v6Id)).path().by('name').unfold()"

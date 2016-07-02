@@ -14,8 +14,8 @@
   (q/traverse g (q/with-side-effect :a (fn [] (new java.util.ArrayList)))
                 (q/V v1Id)
                 (q/side-effect (fn [^Traverser t]
-                                 (.clear (.sideEffects t "a"))
-                                 (.add (.sideEffects t "a") (.get t))))
+                                 (.clear ^java.util.ArrayList (.sideEffects t "a"))
+                                 (.add ^ java.util.ArrayList (.sideEffects t "a") (.get t))))
                 (q/values :name)))
 
 (defn get_g_VX1X_out_sideEffectXincr_cX_name
@@ -36,9 +36,9 @@
                 (q/V v1Id)
                 (q/out)
                 (q/side-effect (fn [^Traverser t]
-                                 (let [temp (int (+ (.get (.sideEffects t "c") 0) 1))]
-                                   (.clear (.sideEffects t "c"))
-                                   (.add (.sideEffects t "c") temp))))
+                                 (let [temp (int (+ (.get ^java.util.ArrayList (.sideEffects t "c") 0) 1))]
+                                   (.clear ^java.util.ArrayList (.sideEffects t "c"))
+                                   (.add ^java.util.ArrayList (.sideEffects t "c") temp))))
                 (q/values :name)))
 
 (defn get_g_VX1X_out_sideEffectXX_name
