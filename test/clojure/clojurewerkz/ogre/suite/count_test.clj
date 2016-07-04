@@ -64,4 +64,4 @@
   [g]
   (q/traverse g (q/V)
                 (q/fold)
-                (q/count (Scope/local))))
+                (q/count (q/scope :local))))

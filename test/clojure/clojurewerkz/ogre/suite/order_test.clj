@@ -22,7 +22,7 @@
                 map.put(3, (int) v.get().value('age') * 3);
                 map.put(4, (int) v.get().value('age'));
                 return map;
-            }).order(Scope.local).by(Column.values, Order.decr).by(Column.keys, Order.incr)"
+            }).order(q/scope.local).by(Column.values, Order.decr).by(Column.keys, Order.incr)"
   [g v1Id]
   (q/traverse g (q/V v1Id)
                 (q/has-label :person)
@@ -30,7 +30,7 @@
                                 (int 2) (int (* (int (.value ^Vertex (.get v) "age")) 2))
                                 (int 3) (int (* (int (.value ^Vertex (.get v) "age")) 3))
                                 (int 4) (int (.value ^Vertex (.get v) "age")) }))
-                (q/order (Scope/local))
+                (q/order (q/scope :local))
                 (q/by (Column/valueOf "values") (Order/decr))
                 (q/by (Column/keys) (Order/incr))))
 
@@ -50,19 +50,19 @@
                 (q/by (q/__ (q/values :name) (q/order) (q/by (Order/decr)) (q/fold)))))
 
 (defn get_g_V_localXbothE_weight_foldX_order_byXsumXlocalX_decrX
-  "g.V().local(__.bothE().values('weight').fold()).order().by(__.sum(Scope.local), Order.decr)"
+  "g.V().local(__.bothE().values('weight').fold()).order().by(__.sum(q/scope.local), Order.decr)"
   [g]
   (q/traverse g (q/V)
                 (q/local (q/__ (q/bothE) (q/values :weight) (q/fold)))
                 (q/order)
-                (q/by (q/__ (q/sum (Scope/local))) (Order/decr))))
+                (q/by (q/__ (q/sum (q/scope :local))) (Order/decr))))
 
 (defn get_g_V_asXvX_mapXbothE_weight_foldX_sumXlocalX_asXsX_selectXv_sX_order_byXselectXsX_decrX
-  "g.V().as('v').map(__.bothE().values('weight').fold()).sum(Scope.local).as('s').select('v', 's').order().by(__.select('s'), Order.decr)"
+  "g.V().as('v').map(__.bothE().values('weight').fold()).sum(q/scope.local).as('s').select('v', 's').order().by(__.select('s'), Order.decr)"
   [g]
   (q/traverse g (q/V) (q/as :v)
                 (q/map (q/__ (q/bothE) (q/values :weight) (q/fold)))
-                (q/sum (Scope/local)) (q/as :s)
+                (q/sum (q/scope :local)) (q/as :s)
                 (q/select :v :s)
                 (q/order)
                 (q/by (q/__ (q/select :s)) (Order/decr))))
@@ -76,12 +76,12 @@
                 (q/by :age)))
 
 (defn get_g_V_hasLabelXpersonX_fold_orderXlocalX_byXageX
-  "g.V().hasLabel('person').fold().order(Scope.local).by('age')"
+  "g.V().hasLabel('person').fold().order(q/scope.local).by('age')"
   [g]
   (q/traverse g (q/V)
                 (q/has-label :person)
                 (q/fold)
-                (q/order (Scope/local))
+                (q/order (q/scope :local))
                 (q/by :age)))
 
 (defn get_g_V_hasLabelXpersonX_order_byXvalueXageX__decrX_name

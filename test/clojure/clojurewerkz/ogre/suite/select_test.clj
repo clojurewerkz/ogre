@@ -110,7 +110,7 @@
                 (q/until (q/__ (q/out) (q/out)))
                 (q/repeat (q/__ (q/in) (q/as :a)))
                 (q/select :a)
-                (q/by (q/__ (q/tail (Scope/local)) (q/values :name)))))
+                (q/by (q/__ (q/tail (q/scope :local)) (q/values :name)))))
 
 (defn get_g_V_outE_weight_groupCount_unfold_selectXvaluesX_unfold
   "g.V().outE().values('weight').groupCount().unfold().select(values).unfold()"
@@ -307,7 +307,7 @@
                 (q/select :name :language :creators)
                 (q/by :name)
                 (q/by :lang)
-                (q/by (q/__ (q/in :created) (q/values :name) (q/fold) (q/order (Scope/local))))))
+                (q/by (q/__ (q/in :created) (q/values :name) (q/fold) (q/order (q/scope :local))))))
 
 (defn get_g_V_asXaX_whereXoutXknowsXX_selectXaX
   "g.V().as('a').where(__.out('knows')).select('a')"

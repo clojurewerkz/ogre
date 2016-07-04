@@ -45,7 +45,7 @@
                 (q/out) (q/as :a)
                 (q/select :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
-                (q/tail (Scope/local) (long 2))))
+                (q/tail (q/scope :local) (long 2))))
 
 (defn get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_tailXlocal_1X
   "g.V().as('a').out().as('a').out().as('a').select('a').by(unfold().values('name').fold()).tail(local, 1)"
@@ -55,7 +55,7 @@
                 (q/out) (q/as :a)
                 (q/select :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
-                (q/tail (Scope/local) (long 1))))
+                (q/tail (q/scope :local) (long 1))))
 
 (defn get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_tailXlocalX
   "g.V().as('a').out().as('a').out().as('a').select('a').by(unfold().values('name').fold()).tail(local)"
@@ -65,7 +65,7 @@
                 (q/out) (q/as :a)
                 (q/select :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
-                (q/tail (Scope/local))))
+                (q/tail (q/scope :local))))
 
 (defn get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXlimitXlocal_0XX_tailXlocal_1X
   "g.V().as('a').out().as('a').out().as('a').select('a').by(limit(local, 0)).tail(local, 1)"
@@ -74,8 +74,8 @@
                 (q/out) (q/as :a)
                 (q/out) (q/as :a)
                 (q/select :a)
-                (q/by (q/__ (q/limit (Scope/local) 0)))
-                (q/tail (Scope/local) (long 1))))
+                (q/by (q/__ (q/limit (q/scope :local) 0)))
+                (q/tail (q/scope :local) (long 1))))
 
 (defn get_g_V_asXaX_out_asXbX_out_asXcX_selectXa_b_cX_byXnameX_tailXlocal_2X
   "g.V().as('a').out().as('b').out().as('c').select('a','b','c').by('name').tail(local, 2)"
@@ -85,7 +85,7 @@
                 (q/out) (q/as :c)
                 (q/select :a :b :c)
                 (q/by :name)
-                (q/tail (Scope/local) (long 2))))
+                (q/tail (q/scope :local) (long 2))))
 
 (defn get_g_V_asXaX_out_asXbX_out_asXcX_selectXa_b_cX_byXnameX_tailXlocal_1X
   "g.V().as('a').out().as('b').out().as('c').select('a','b','c').by('name').tail(local, 1)"
@@ -95,7 +95,7 @@
                 (q/out) (q/as :c)
                 (q/select :a :b :c)
                 (q/by :name)
-                (q/tail (Scope/local) (long 1))))
+                (q/tail (q/scope :local) (long 1))))
 
 (defn get_g_V_valuesXnameX_order_tailXglobal_2X
   "g.V().values('name').order().tail(global, 2)"
@@ -103,5 +103,5 @@
   (q/traverse g (q/V)
                 (q/values :name)
                 (q/order)
-                (q/tail (Scope/global) (long 2))))
+                (q/tail (q/scope :global) (long 2))))
 

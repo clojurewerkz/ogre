@@ -72,7 +72,7 @@
                 (q/as :a)
                 (q/select :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
-                (q/limit Scope/local 2)))
+                (q/limit (q/scope :local) 2)))
 
 (defn get_g_V_asXaX_in_asXaX_in_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_limitXlocal_1X
   "g.V().as('a').in().as('a').in().as('a').<List<String>>select('a').by(unfold().values('name').fold()).limit(local, 1)"
@@ -85,7 +85,7 @@
                 (q/as :a)
                 (q/select :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
-                (q/limit Scope/local 1)))
+                (q/limit (q/scope :local) 1)))
 
 (defn get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_3X
   "g.V().as('a').out().as('a').out().as('a').<List<String>>select('a').by(unfold().values('name').fold()).range(local, 1, 3)"
@@ -98,7 +98,7 @@
                 (q/as :a)
                 (q/select :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
-                (q/range Scope/local 1 3)))
+                (q/range (q/scope :local) 1 3)))
 
 (defn get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_2X
   "g.V().as('a').out().as('a').out().as('a').<List<String>>select('a').by(unfold().values('name').fold()).range(local, 1, 2)"
@@ -111,7 +111,7 @@
                 (q/as :a)
                 (q/select :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
-                (q/range Scope/local 1 2)))
+                (q/range (q/scope :local) 1 2)))
 
 (defn get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_rangeXlocal_4_5X
   "g.V().as('a').out().as('a').out().as('a').<List<String>>select('a').by(unfold().values('name').fold()).range(local, 4, 5)"
@@ -124,7 +124,7 @@
                 (q/as :a)
                 (q/select :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
-                (q/range Scope/local 4 5)))
+                (q/range (q/scope :local) 4 5)))
 
 (defn get_g_V_asXaX_in_asXbX_in_asXcX_selectXa_b_cX_byXnameX_limitXlocal_2X
   "g.V().as('a').in().as('b').in().as('c').<Map<String, String>>select('a','b','c').by('name').limit(local, 2)"
@@ -137,7 +137,7 @@
                 (q/as :c)
                 (q/select :a :b :c)
                 (q/by :name)
-                (q/limit Scope/local 2)))
+                (q/limit (q/scope :local) 2)))
 
 (defn get_g_V_asXaX_in_asXbX_in_asXcX_selectXa_b_cX_byXnameX_limitXlocal_1X
   "g.V().as('a').in().as('b').in().as('c').<Map<String, String>>select('a','b','c').by('name').limit(local, 1)"
@@ -150,7 +150,7 @@
                 (q/as :c)
                 (q/select :a :b :c)
                 (q/by :name)
-                (q/limit Scope/local 1)))
+                (q/limit (q/scope :local) 1)))
 
 (defn get_g_V_asXaX_out_asXbX_out_asXcX_selectXa_b_cX_byXnameX_rangeXlocal_1_3X
   "g.V().as('a').out().as('b').out().as('c').<Map<String, String>>select('a','b','c').by('name').range(local, 1, 3)"
@@ -163,7 +163,7 @@
                 (q/as :c)
                 (q/select :a :b :c)
                 (q/by :name)
-                (q/range Scope/local 1 3)))
+                (q/range (q/scope :local) 1 3)))
 
 (defn get_g_V_asXaX_out_asXbX_out_asXcX_selectXa_b_cX_byXnameX_rangeXlocal_1_2X
   "g.V().as('a').out().as('b').out().as('c').<Map<String, String>>select('a','b','c').by('name').range(local, 1, 2)"
@@ -176,5 +176,5 @@
                 (q/as :c)
                 (q/select :a :b :c)
                 (q/by :name)
-                (q/range Scope/local 1 2)))
+                (q/range (q/scope :local) 1 2)))
 

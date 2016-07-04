@@ -38,4 +38,4 @@
   (q/traverse g (q/V)
                 (q/group)
                 (q/by (T/label))
-                (q/by (q/__ (q/bothE) (q/values :weight) (q/fold) (q/sample (Scope/local) 5)))))
+                (q/by (q/__ (q/bothE) (q/values :weight) (q/fold) (q/sample (q/scope :local) 5)))))
