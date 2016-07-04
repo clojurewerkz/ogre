@@ -100,16 +100,16 @@
 (defn with-side-effect
   ([^GraphTraversalSource g ^String k v]
     (if (instance? clojure.lang.IFn v)
-      (.withSideEffect g (util/cast-param k) (util/f-to-supplier v))
-      (.withSideEffect g (util/cast-param k) v)))
+      (.withSideEffect g ^String (util/cast-param k) (util/f-to-supplier v))
+      (.withSideEffect g ^String (util/cast-param k) v)))
   ([^GraphTraversalSource g ^String k v r]
    (if (instance? Operator r)
      (if (instance? clojure.lang.IFn v)
-        (.withSideEffect g (util/cast-param k) (util/f-to-supplier v) ^Operator r)
-        (.withSideEffect g (util/cast-param k) v ^Operator r))
+        (.withSideEffect g ^String (util/cast-param k) (util/f-to-supplier v) ^Operator r)
+        (.withSideEffect g ^String (util/cast-param k) v ^Operator r))
      (if (instance? clojure.lang.IFn v)
-        (.withSideEffect g (util/cast-param k) (util/f-to-supplier v) (util/f-to-binaryoperator r))
-        (.withSideEffect g (util/cast-param k) v (util/f-to-binaryoperator r))))))
+        (.withSideEffect g ^String (util/cast-param k) (util/f-to-supplier v) (util/f-to-binaryoperator r))
+        (.withSideEffect g ^String (util/cast-param k) v (util/f-to-binaryoperator r))))))
 
 ; GraphTraversal
 
@@ -191,7 +191,7 @@
      (.by t (util/f-to-function arg1))
      (cond
        (keyword? arg1)
-       (.by t (util/cast-param arg1) ^java.util.Comparator compar)
+       (.by t ^String (util/cast-param arg1) ^java.util.Comparator compar)
        (instance? Column arg1)
        (.by t ^Column arg1 ^java.util.Comparator compar)
        (instance? clojure.lang.IFn arg1)
