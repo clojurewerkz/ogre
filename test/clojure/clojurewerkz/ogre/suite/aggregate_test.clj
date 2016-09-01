@@ -28,3 +28,14 @@
                 (q/aggregate :x)
                 (q/by :name)
                 (q/cap :x)))
+
+(defn get_g_V_hasLabelXpersonX_aggregateXxX_byXageX_capXxX_asXyX_selectXyX
+  "g.V().hasLabel('person').aggregate('x').by('age').cap('x').as('y').select('y')"
+  [g]
+  (q/traverse g (q/V)
+                (q/has-label :person)
+                (q/aggregate :x)
+                (q/by :age)
+                (q/cap :x)
+                (q/as :y)
+                (q/select :y)))

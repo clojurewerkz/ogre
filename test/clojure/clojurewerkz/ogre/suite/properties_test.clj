@@ -29,3 +29,11 @@
                 (q/properties)
                 (q/has (T/id) nameId)
                 (q/value)))
+
+(defn get_g_V_hasXageX_propertiesXnameX
+  "g.V().has('age').<String>properties('name')"
+  [g]
+  (q/traverse g (q/V)
+                (q/has :age)
+                (q/properties :name)))
+

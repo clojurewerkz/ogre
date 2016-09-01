@@ -156,3 +156,20 @@
                 (q/by (T/label))
                 (q/by (q/__ (q/outE) (q/values :weight) (q/sum)))
                 (q/cap :a)))
+
+(defn get_g_V_group_byXbothE_countX_byXgroup_byXlabelXX
+  "g.V().<Long, Map<String, List<Vertex>>>group().by(__.bothE().count()).by(__.group().by(T.label))"
+  [g]
+  (q/traverse g (q/V)
+                (q/group)
+                (q/by (q/__ (q/bothE) (q/count)))
+                (q/by (q/__ (q/group) (q/by (T/label))))))
+
+(defn get_g_V_outXfollowedByX_group_byXsongTypeX_byXbothE_group_byXlabelX_byXweight_sumXX
+  "g.V().out('followedBy').<String, Map<String, Number>>group().by('songType').by(__.bothE().group().by(T.label).by(__.values('weight').sum()))"
+  [g]
+  (q/traverse g (q/V)
+                (q/out :followedBy)
+                (q/group)
+                (q/by :songType)
+                (q/by (q/__ (q/bothE) (q/group) (q/by (T/label)) (q/by (q/__ (q/values :weight) (q/sum)))))))

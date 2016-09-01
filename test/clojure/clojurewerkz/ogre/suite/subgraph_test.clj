@@ -24,3 +24,14 @@
                 (q/subgraph :sg)
                 (q/values :name)
                 (q/cap :sg)))
+
+(defn get_g_withSideEffectXsgX_V_hasXname_danielX_outE_subgraphXsgX_inV
+  "g.withSideEffect('sg', () -> subgraph).V().has('name','daniel').outE().subgraph('sg').inV()"
+  [g subgraph]
+  (q/traverse g (q/with-side-effect :sg (fn [] subgraph))
+                (q/V)
+                (q/has :name "daniel")
+                (q/outE)
+                (q/subgraph :sg)
+                (q/inV)))
+

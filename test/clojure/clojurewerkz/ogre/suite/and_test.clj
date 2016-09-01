@@ -5,7 +5,7 @@
   (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
            (org.apache.tinkerpop.gremlin.process.traversal P)))
 
-(defn get_g_V_andXhasXage_gt_27X__outE_count_gt_2X_name
+(defn get_g_V_andXhasXage_gt_27X__outE_count_gte_2X_name
   "g.V().and(has('age', P.gt(27)), outE().count().is(P.gte(2l))).values('name')"
   [g]
   (q/traverse g (q/V)

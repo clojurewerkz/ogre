@@ -80,3 +80,14 @@
                 (q/outV)
                 (q/values :name)))
 
+(defn get_g_V_localXmatchXproject__created_person__person_name_nameX_selectXname_projectX_by_byXnameX
+  "g.V().local(__.match(as('project').in('created').as('person'),
+                        as('person').values('name').as('name')))
+                        .<String>select('name', 'project').by().by('name');"
+  [g]
+  (q/traverse g (q/V)
+                (q/local (q/__ (q/match (q/__ (q/as :project) (q/in :created) (q/as :person))
+                                        (q/__ (q/as :person) (q/values :name) (q/as :name)))))
+                (q/select :name :project)
+                (q/by) (q/by :name)))
+

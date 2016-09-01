@@ -139,13 +139,6 @@
   [g v4Id]
   (q/traverse g (q/V v4Id) (q/both)))
 
-;; this implementation is hacked a bit because the test on the TinkerPop side should be passing the
-;; vertices as an argument to the test. look for that fix in 3.2.1.
-(defn get_g_VXlistXv1_v2_v3XX_name
-  "g.V(Arrays.asList(convertToVertex(graph, 'marko'), convertToVertex(graph, 'vadas'), convertToVertex(graph, 'lop'))).values('name')"
-  [g]
-  (q/traverse g (q/V 1 2 3) (q/values :name)))
-
 (defn get_g_V_out_out
   "g.V().out().out()"
   [g]
@@ -170,3 +163,19 @@
   "g.E(e11Id)"
   [g e11Id]
   (q/traverse g (q/E e11Id)))
+
+(defn get_g_VX1_2_3_4X_name
+  "g.V(v1Id, v2Id, v3Id, v4Id).values('name')"
+  [g v1 v2 v3 v4]
+  (q/traverse g (q/V v1 v2 v3 v4) (q/values :name)))
+
+(defn get_g_VXlistX1_2_3XX_name
+  "g.V(Arrays.asList(v1Id, v2Id, v3Id)).values('name')"
+  [g v1 v2 v3]
+  (q/traverse g (q/V [v1 v2 v3]) (q/values :name)))
+
+(defn get_g_VXlistXv1_v2_v3XX_name
+  "g.V(Arrays.asList(v1, v2, v3)).values('name')"
+  [g v1 v2 v3]
+  (q/traverse g (q/V [v1 v2 v3]) (q/values :name)))
+

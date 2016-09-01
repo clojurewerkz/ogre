@@ -258,7 +258,7 @@
     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/map (util/f-to-function f-or-t))))
 
 (defn __match
-  [traversals]
+  [& traversals]
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/match (into-array traversals)))
 
 (defn __max
