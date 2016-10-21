@@ -162,3 +162,24 @@
   "g.V(1)"
   [g id1]
   (q/traverse g (q/V id1)))
+
+(defn get_g_V_hasLabelXpersonX_hasXage_notXlteX10X_andXnotXbetweenX11_20XXXX_andXltX29X_orXeqX35XXXX_name
+  "g.V().hasLabel('person').has('age', P.not(P.lte(10).and(P.not(P.between(11, 20)))).and(P.lt(29).or(P.eq(35)))).values('name')"
+  [g]
+  (q/traverse g (q/V)
+                (q/has-label :person)
+                (q/has :age (.and (P/not (.and (P/lte 10) (P/not (P/between 11 20)))) (.or (P/lt 29) (P/eq 35))))
+                (q/values :name)))
+
+(defn get_g_V_in_hasIdXneqX1XX
+  "g.V().in().hasId(P.neq(v1Id))"
+  [g v1Id]
+  (q/traverse g (q/V)
+                (q/in)
+                (q/has-id (P/neq v1Id))))
+
+(defn get_g_V_hasIdXwithinX1_2XX
+  "g.V().hasId(P.within(v1Id, v2Id))"
+  [g vId1 vId2]
+  (q/traverse g (q/V)
+                (q/has-id (P/within (to-array [vId1 vId2])))))

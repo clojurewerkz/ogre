@@ -167,7 +167,7 @@
 (defn get_g_VX1_2_3_4X_name
   "g.V(v1Id, v2Id, v3Id, v4Id).values('name')"
   [g v1 v2 v3 v4]
-  (q/traverse g (q/V v1 v2 v3 v4) (q/values :name)))
+  (q/traverse g (q/V [v1 v2 v3 v4]) (q/values :name)))
 
 (defn get_g_VXlistX1_2_3XX_name
   "g.V(Arrays.asList(v1Id, v2Id, v3Id)).values('name')"
@@ -178,4 +178,13 @@
   "g.V(Arrays.asList(v1, v2, v3)).values('name')"
   [g v1 v2 v3]
   (q/traverse g (q/V [v1 v2 v3]) (q/values :name)))
+
+(defn get_g_V_hasLabelXpersonX_V_hasLabelXsoftwareX_name
+  "g.V().hasLabel('person').V().hasLabel('software').values('name')"
+  [g]
+  (q/traverse g (q/V)
+                (q/has-label :person)
+                (q/midV)
+                (q/has-label :software)
+                (q/values :name)))
 

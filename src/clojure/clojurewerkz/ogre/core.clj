@@ -331,19 +331,15 @@
 
 (defn has-id
   [^GraphTraversal t & ids]
-  (if (seq? ids)
-    (.hasId t (into-array Object ids))
-    (.hasId t (into-array Object [ids]))))
+  (.hasId t (first ids) (into-array (rest ids))))
 
 (defn has-key
   [^GraphTraversal t & ks]
-  (let [k-array (util/keywords-to-str-array ks)]
-    (.hasKey t k-array)))
+  (.hasKey t (util/cast-param (first ks)) (util/keywords-to-str-array (rest ks))))
 
 (defn has-label
   [^GraphTraversal t & labels]
-  (let [label-array (util/keywords-to-str-array labels)]
-    (.hasLabel t label-array)))
+  (.hasLabel t (util/cast-param (first labels)) (util/keywords-to-str-array (rest labels))))
 
 (defn id
   [^GraphTraversal t]

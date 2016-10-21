@@ -2,8 +2,8 @@
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
-  (:import (org.apache.tinkerpop.gremlin.structure T Vertex Property)
-           (org.apache.tinkerpop.gremlin.process.traversal P Order)))
+  (:import (org.apache.tinkerpop.gremlin.structure Column T Vertex Property)
+           (org.apache.tinkerpop.gremlin.process.traversal P Order Scope)))
 
 (defn get_g_V_both_both_dedup_byXoutE_countX_name
   "g.V().both().both().dedup().by(__.outE().count()).values('name')"
@@ -115,3 +115,48 @@
                 (q/select :v)
                 (q/values :name)
                 (q/dedup)))
+
+(defn get_g_V_asXaX_repeatXbothX_timesX3X_emit_asXbX_group_byXselectXaXX_byXselectXbX_dedup_order_byXidX_foldX_selectXvaluesX_unfold_dedup
+  "g.V().as('a').repeat(both()).times(3).emit().as('b').group().by(select('a')).by(select('b').dedup().order().by(T.id).fold()).select(values).<Collection<Vertex>>unfold().dedup();"
+  [g]
+  (q/traverse g (q/V)
+                (q/as :a)
+                (q/repeat (q/__ (q/both))) (q/times 3) (q/emit) (q/as :b)
+                (q/group)
+                  (q/by (q/__ (q/select :a)))
+                  (q/by (q/__ (q/select :b) (q/dedup) (q/order) (q/by T/id) (q/fold)))
+                (q/select (Column/valueOf "values"))
+                (q/unfold)
+                (q/dedup)))
+
+(defn get_g_V_groupCount_selectXvaluesX_unfold_dedup
+  "g.V().groupCount().select(values).<Long>unfold().dedup()"
+  [g]
+  (q/traverse g (q/V)
+                (q/group-count)
+                (q/select (Column/valueOf "values"))
+                (q/unfold)
+                (q/dedup)))
+
+(defn get_g_V_out_asXxX_in_asXyX_selectXx_yX_byXnameX_fold_dedupXlocal_x_yX_unfold
+  "g.V().out().as('x').in().as('y').select('x', 'y').by('name').fold().dedup(Scope.local, 'x', 'y').unfold()"
+  [g]
+  (q/traverse g (q/V)
+                (q/out) (q/as :x)
+                (q/in) (q/as :y)
+                (q/select :x :y)
+                (q/by :name)
+                (q/fold)
+                (q/dedup Scope/local :x :y)
+                (q/unfold)))
+
+(defn get_g_V_out_in_valuesXnameX_fold_dedupXlocalX_unfold
+  "g.V().out().in().values('name').fold().dedup(Scope.local).unfold()"
+  [g]
+  (q/traverse g (q/V)
+                (q/out)
+                (q/in)
+                (q/values :name)
+                (q/fold)
+                (q/dedup (Scope/local))
+                (q/unfold)))

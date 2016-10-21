@@ -105,3 +105,11 @@
                 (q/order)
                 (q/tail (q/scope :global) (long 2))))
 
+(defn get_g_V_repeatXin_outX_timesX3X_tailX7X_count
+  "g.V().repeat(in().out()).times(3).tail(7).count()"
+  [g]
+  (q/traverse g (q/V)
+                (q/repeat (q/__ (q/in) (q/out)))
+                (q/times 3)
+                (q/tail 7)
+                (q/count)))

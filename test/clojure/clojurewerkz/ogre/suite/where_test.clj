@@ -174,3 +174,48 @@
                                (q/or)
                                (q/where (q/__ (q/as :b) (q/out :created) (q/and) (q/as :b) (q/has (T/label) "person")))))
                 (q/select :a :b)))
+
+(defn get_g_V_asXaX_outEXcreatedX_asXbX_inV_asXcX_inXcreatedX_asXdX_whereXa_ltXbX_orXgtXcXX_andXneqXdXXX_byXageX_byXweightX_byXinXcreatedX_valuesXageX_minX_selectXa_c_dX
+  "g.V().as('a').outE('created').as('b').
+     inV().as('c').
+     in('created').as('d').
+     where('a', lt('b').or(gt('c')).and(neq('d'))).
+       by('age').
+       by('weight').
+       by(in('created').values('age').min()).
+     select('a', 'c', 'd').by('name')"
+  [g]
+  (q/traverse g (q/V) (q/as :a)
+                (q/outE :created) (q/as :b)
+                (q/inV) (q/as :c)
+                (q/in :created) (q/as :d)
+                (q/where :a (.and (.or (P/lt "b") (P/gt "c")) (P/neq "d")))
+                  (q/by :age)
+                  (q/by :weight)
+                  (q/by (q/__ (q/in :created) (q/values :age) (q/min)))
+                (q/select :a :c :d)
+                  (q/by :name)))
+
+(defn get_g_V_asXaX_outEXcreatedX_asXbX_inV_asXcX_whereXa_gtXbX_orXeqXbXXX_byXageX_byXweightX_byXweightX_selectXa_cX_byXnameX
+  "g.V().as('a').outE('created').as('b').inV().as('c').where('a', gt('b').or(eq('b'))).by('age').by('weight').by('weight').<String>select('a', 'c').by('name')"
+  [g]
+  (q/traverse g (q/V) (q/as :a)
+                (q/outE :created) (q/as :b)
+                (q/inV) (q/as :c)
+                (q/where :a (.or (P/gt "b") (P/eq "b")))
+                  (q/by :age)
+                  (q/by :weight)
+                  (q/by :weight)
+                (q/select :a :c)
+                  (q/by :name)))
+
+(defn get_g_V_asXaX_outXcreatedX_inXcreatedX_asXbX_whereXa_gtXbXX_byXageX_selectXa_bX_byXnameX
+  "g.V().as('a').out('created').in('created').as('b').where('a', gt('b')).by('age').<String>select('a', 'b').by('name')"
+  [g]
+  (q/traverse g (q/V) (q/as :a)
+                (q/out :created)
+                (q/in :created) (q/as :b)
+                (q/where :a (P/gt "b"))
+                  (q/by :age)
+                (q/select :a :b)
+                  (q/by :name)))

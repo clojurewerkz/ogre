@@ -21,3 +21,11 @@
                   (q/__ (q/out :knows))
                   (q/__ (q/in :created)))
                 (q/values :name)))
+
+(defn get_g_V_chooseXhasLabelXpersonX_and_outXcreatedX__outXknowsX__identityX_name
+  "g.V().choose(hasLabel('person').and().out('created'), out('knows'), identity()).values('name')"
+  [g]
+  (q/traverse g (q/V)
+                (q/choose (q/__ (q/has-label :person) (q/and) (q/out :created)) (q/__(q/out :knows)) (q/__ (q/identity)))
+                (q/values :name)))
+

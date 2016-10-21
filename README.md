@@ -20,7 +20,7 @@ To subscribe for announcements of releases, important changes and so on, please 
 
 Despite being first released in 2014, Orge is a relatively young
 project that regained active development in 2016. We are targeting
-Gremlin `3.2.0` development releases.
+Gremlin `3.2.x` development releases.
 
 ## Artifacts
 

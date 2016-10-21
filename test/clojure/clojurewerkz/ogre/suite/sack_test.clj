@@ -25,7 +25,7 @@
                 (q/barrier)
                 (q/sack)))
 
-(defn get_g_withSackXhellowX_V_outE_sackXassignX_byXlabelX_inV_sack
+(defn get_g_withSackXhelloX_V_outE_sackXassignX_byXlabelX_inV_sack
   "g.withSack('hello').V().outE().sack(Operator.assign).by(T.label).inV().sack()"
   [g]
   (q/traverse g (q/with-sack "hello")
@@ -99,6 +99,17 @@
   (q/traverse g (q/with-sack (.pow (java.math.BigInteger/TEN) 1000) {::q/merge (Operator/assign)})
                 (q/V)
                 (q/local (q/__ (q/out :knows) (q/barrier ::q/norm-sack)))
+                (q/in :knows)
+                (q/barrier)
+                (q/sack)))
+
+(defn get_g_withBulkXfalseX_withSackX1_sumX_VX1X_localXoutEXknowsX_barrierXnormSackX_inVX_inXknowsX_barrier_sack
+  "g.withBulk(false).withSack(1.0d, sum).V(v1Id).local(outE('knows').barrier(normSack).inV()).in('knows').barrier().sack()"
+  [g v1Id]
+  (q/traverse g (q/with-bulk false)
+                (q/with-sack 1.0 {::q/merge (Operator/sum)})
+                (q/V v1Id)
+                (q/local (q/__ (q/outE :knows) (q/barrier ::q/norm-sack) (q/inV)))
                 (q/in :knows)
                 (q/barrier)
                 (q/sack)))

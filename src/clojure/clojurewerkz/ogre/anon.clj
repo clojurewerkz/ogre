@@ -183,19 +183,18 @@
 
 (defn __has-id
   [ids]
-  (if (seq? ids)
-    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasId (into-array Object ids)))
-    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasId (into-array Object [ids])))
+  (let [id-list (if (seq? ids) ids [ids])]
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasId (first id-list) (into-array Object (rest id-list)))))
 
 (defn __has-key
   [ks]
-  (let [k-array (util/keywords-to-str-array ks)]
-    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasKey k-array)))
+  (let [k-list (if (seq? ks) ks [ks])]
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasKey (util/cast-param (first k-list)) (util/keywords-to-str-array (rest k-list)))))
 
 (defn __has-label
   [labels]
-  (let [label-array (util/keywords-to-str-array labels)]
-    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasLabel label-array)))
+  (let [label-list (if (seq? labels) labels [labels])]
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasLabel (util/cast-param (first label-list)) (util/keywords-to-str-array (rest label-list)))))
 
 (defn __id
   []

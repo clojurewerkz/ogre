@@ -65,14 +65,6 @@
                 (q/repeat (q/__ (q/out)))
                 (q/path)))
 
-(defn get_g_V_emitXhasXlabel_personXX_repeatXoutX_name
-  "g.V(v1Id).emit(has(T.label, 'person')).repeat(out()).values('name')"
-  [g v1Id]
-  (q/traverse g (q/V v1Id)
-                (q/emit (q/__ (q/has T/label :person)))
-                (q/repeat (q/__ (q/out)))
-                (q/values :name)))
-
 (defn get_g_V_repeatXgroupCountXmX_byXnameX_outX_timesX2X_capXmX
   "g.V().repeat(groupCount('m').by('name').out()).times(2).cap('m')"
   [g]
@@ -98,4 +90,12 @@
   (q/traverse g (q/V v1Id)
                 (q/repeat (q/__ (q/out)))
                 (q/until (q/__ (q/outE) (q/count) (q/is 0)))
+                (q/values :name)))
+
+(defn get_g_VX1X_emitXhasXlabel_personXX_repeatXoutX_name
+  "g.V(v1Id).emit(has(T.label, 'person')).repeat(out()).values('name')"
+  [g v1Id]
+  (q/traverse g (q/V v1Id)
+                (q/emit (q/__ (q/has T/label :person)))
+                (q/repeat (q/__ (q/out)))
                 (q/values :name)))

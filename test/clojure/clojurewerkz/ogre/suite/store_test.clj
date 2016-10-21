@@ -5,7 +5,7 @@
   (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
            (org.apache.tinkerpop.gremlin.process.traversal P)))
 
-(defn get_g_V_withSideEffectXa_setX_both_name_storeXaX_capXaX
+(defn get_g_withSideEffectXa_setX_V_both_name_storeXaX_capXaX
   "g.withSideEffect('a', HashSetSupplier.instance()).V().both().values('name').store('a').cap('a')"
   [g]
   (q/traverse g (q/with-side-effect :a (org.apache.tinkerpop.gremlin.util.function.HashSetSupplier/instance))
@@ -47,3 +47,6 @@
                 (q/by :name)
                 (q/values :name)
                 (q/cap :a)))
+
+
+

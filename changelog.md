@@ -2,7 +2,7 @@
 
 ### TinkerPop3 Support
 
-Ogre now targets Gremlin 3.2 and TinkerPop 3. This involves major breaking changes to the API.
+Ogre now targets Gremlin 3.2.x and TinkerPop 3. This involves major breaking changes to the API.
 Documentation will be updated once targeted development versions of Gremlin and TinkerPop ship
 and Ogre API becomes mostly stable again.
 
