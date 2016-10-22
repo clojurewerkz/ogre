@@ -111,6 +111,16 @@
         (.withSideEffect g ^String (util/cast-param k) (util/f-to-supplier v) (util/f-to-binaryoperator r))
         (.withSideEffect g ^String (util/cast-param k) v (util/f-to-binaryoperator r))))))
 
+(defn with-remote
+  [^GraphTraversalSource g conn]
+  (cond
+    (instance? org.apache.commons.configuration.Configuration conn)
+    (.withRemote g ^org.apache.commons.configuration.Configuration conn)
+    (instance? String conn)
+    (.withRemote g ^String conn)
+    (instance? org.apache.tinkerpop.gremlin.process.remote.RemoteConnection conn)
+    (.withRemote ^org.apache.tinkerpop.gremlin.process.remote.RemoteConnection conn)))
+
 ; GraphTraversal
 
 (defn addE
