@@ -23,7 +23,6 @@
 (defn open-graph
   "Opens a new TinkerGraph with default configuration or open a new Graph instance with the specified
    configuration. The configuration may be a path to a file or a Map of configuration options."
-  ([] (open-graph {(Graph/GRAPH) (.getName org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph)}))
   ([conf]
    (cond
      (map? conf)

@@ -49,8 +49,10 @@ With Maven:
 
 ## Documentation & Examples
 
+You'll need to choose an implementation for the graph database and add that to your project's dependencies. Here we use the in-memory graph database implementation provided by `org.apache.tinkerpop/tinkergraph-gremlin`:
+
 ```text
-clojurewerkz.ogre.core=> (def graph (open-graph))
+clojurewerkz.ogre.core=> (def graph (open-graph {(Graph/GRAPH) (.getName org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph)}))
 #'clojurewerkz.ogre.core/graph
 clojurewerkz.ogre.core=> (def g (traversal graph))
 #'clojurewerkz.ogre.core/g
