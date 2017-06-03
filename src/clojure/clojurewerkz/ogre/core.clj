@@ -54,7 +54,7 @@
 (defn V
   "Returns all vertices matching the supplied ids. If no ids are supplied, returns all vertices."
   [^GraphTraversalSource g & ids]
-  (.V g (into-array (clojure.core/map int ids))))
+  (.V g (into-array ids)))
 
 (defn with-bulk
   [^GraphTraversalSource g use-bulk]
