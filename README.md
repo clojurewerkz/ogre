@@ -20,7 +20,7 @@ To subscribe for announcements of releases, important changes and so on, please 
 
 Despite being first released in 2014, Orge is a relatively young
 project that regained active development in 2016. We are targeting
-Gremlin `3.2.x` development releases.
+Gremlin `3.2.x` releases.
 
 ## Artifacts
 
@@ -37,14 +37,14 @@ Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre).
 
 With Leiningen:
 
-    [clojurewerkz/ogre "3.0.0.0-beta2"]
+    [clojurewerkz/ogre "3.0.0"]
 
 With Maven:
 
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>ogre</artifactId>
-      <version>3.0.0.0-beta2</version>
+      <version>3.0.0</version>
     </dependency>
 
 ## Documentation & Examples
@@ -84,7 +84,7 @@ Orge uses [Leiningen 2](https://github.com/technomancy/leiningen/blob/master/doc
 
 ## License
 
-Copyright (C) 2014-2016 Zack Maril, and the ClojureWerkz team.
+Copyright (C) 2014-2017 Zack Maril, and the ClojureWerkz team.
 
 Licensed under the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html) (the same as Clojure).
 
