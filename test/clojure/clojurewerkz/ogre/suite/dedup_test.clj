@@ -116,19 +116,6 @@
                 (q/values :name)
                 (q/dedup)))
 
-(defn get_g_V_asXaX_repeatXbothX_timesX3X_emit_asXbX_group_byXselectXaXX_byXselectXbX_dedup_order_byXidX_foldX_selectXvaluesX_unfold_dedup
-  "g.V().as('a').repeat(both()).times(3).emit().as('b').group().by(select('a')).by(select('b').dedup().order().by(T.id).fold()).select(values).<Collection<Vertex>>unfold().dedup();"
-  [g]
-  (q/traverse g (q/V)
-                (q/as :a)
-                (q/repeat (q/__ (q/both))) (q/times 3) (q/emit) (q/as :b)
-                (q/group)
-                  (q/by (q/__ (q/select :a)))
-                  (q/by (q/__ (q/select :b) (q/dedup) (q/order) (q/by T/id) (q/fold)))
-                (q/select (Column/valueOf "values"))
-                (q/unfold)
-                (q/dedup)))
-
 (defn get_g_V_groupCount_selectXvaluesX_unfold_dedup
   "g.V().groupCount().select(values).<Long>unfold().dedup()"
   [g]
@@ -160,3 +147,29 @@
                 (q/fold)
                 (q/dedup (Scope/local))
                 (q/unfold)))
+
+(defn get_g_V_repeatXdedupX_timesX2X_count
+  "g.V().repeat(dedup()).times(2).count()"
+  [g]
+  (q/traverse g (q/V)
+                (q/repeat (q/__ (q/dedup)))
+                (q/times 2)
+                (q/count)))
+
+(defn get_g_V_asXaX_repeatXbothX_timesX3X_emit_name_asXbX_group_byXselectXaXX_byXselectXbX_dedup_order_foldX_selectXvaluesX_unfold_dedup
+  "g.V().as('a').repeat(both()).times(3).emit().values('name').as('b').group().by(select('a')).by(select('b').dedup().order().fold()).select(values).unfold().dedup()"
+  [g]
+  (q/traverse g (q/V)
+                (q/as :a)
+                (q/repeat (q/__ (q/both)))
+                  (q/times 3)
+                  (q/emit)
+                (q/values :name)
+                (q/as :b)
+                (q/group)
+                  (q/by (q/__ (q/select :a)))
+                  (q/by (q/__ (q/select :b) (q/dedup) (q/order) (q/fold)))
+                (q/select (Column/valueOf "values"))
+                (q/unfold)
+                (q/dedup)))
+

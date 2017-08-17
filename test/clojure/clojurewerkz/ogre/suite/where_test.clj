@@ -1,7 +1,8 @@
 (ns clojurewerkz.ogre.suite.where-test
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
   (:require [clojure.test :refer [deftest testing is]]
-            [clojurewerkz.ogre.core :as q])
+            [clojurewerkz.ogre.core :as q]
+            [clojurewerkz.ogre.util :as util])
   (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
            (org.apache.tinkerpop.gremlin.process.traversal P Traversal)))
 
@@ -219,3 +220,33 @@
                   (q/by :age)
                 (q/select :a :b)
                   (q/by :name)))
+
+(defn get_g_VX1X_asXaX_out_hasXageX_whereXgtXaXX_byXageX_name
+  "g.V(v1Id).as('a').out().has('age').where(gt('a')).by('age').values('name')"
+  [g v1Id]
+  (q/traverse g (q/V v1Id) (q/as :a)
+                (q/out)
+                (q/has :age)
+                (q/where (P/gt "a"))
+                  (q/by :age)
+                (q/values :name)))
+
+(defn get_g_withSideEffectXa_josh_peterX_VX1X_outXcreatedX_inXcreatedX_name_whereXwithinXaXX
+  "g.withSideEffect('a', Arrays.asList('josh', 'peter')).V(v1Id).out('created').in('created').values('name').where(P.within('a'))"
+  [g v1Id]
+  (q/traverse g (q/with-side-effect :a (java.util.ArrayList. ["josh", "peter"]))
+                (q/V v1Id)
+                (q/out :created)
+                (q/in :created)
+                (q/values :name)
+                (q/where (P/within (util/str-array ["a"])))))
+
+(defn get_g_V_asXaX_outXcreatedX_whereXasXaX_name_isXjoshXX_inXcreatedX_name
+  "g.V().as('a').out('created').where(as('a').values('name').is('josh')).in('created').values('name')"
+  [g]
+  (q/traverse g (q/V) (q/as :a)
+                (q/out :created)
+                (q/where (q/__ (q/as :a) (q/values :name) (q/is "josh")))
+                (q/in :created)
+                (q/values :name)))
+

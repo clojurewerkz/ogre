@@ -51,3 +51,13 @@
                 (q/path)
                 (q/by :age)
                 (q/by :name)))
+
+(defn get_g_VX1X_outEXcreatedX_inV_inE_outV_path
+  "g.V(v1Id).outE('created').inV().inE().outV().path()"
+  [g v1Id]
+  (q/traverse g (q/V v1Id)
+               (q/outE :created)
+               (q/inV)
+               (q/inE)
+               (q/outV)
+               (q/path)))

@@ -6,9 +6,9 @@
   :aot :all
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [potemkin "0.3.3"]
-                 [org.apache.tinkerpop/gremlin-core "3.2.3"]
-                 [org.apache.tinkerpop/gremlin-test "3.2.3"  :scope "test"]
-                 [org.apache.tinkerpop/tinkergraph-gremlin "3.2.3" :scope "test"]
+                 [org.apache.tinkerpop/gremlin-core "3.2.4"]
+                 [org.apache.tinkerpop/gremlin-test "3.2.4"  :scope "test"]
+                 [org.apache.tinkerpop/tinkergraph-gremlin "3.2.4" :scope "test"]
                  [org.slf4j/slf4j-log4j12 "1.7.21" :scope "test"]]
   :source-paths ["src/clojure"]
   :profiles {:dev    { :global-vars {*assert* true}

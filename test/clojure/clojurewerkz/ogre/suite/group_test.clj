@@ -93,23 +93,23 @@
   [g]
   (q/traverse g (q/V)
                 (q/group)
-                (q/by :name)))
+                  (q/by :name)))
 
 (defn get_g_V_group_byXnameX_by
   "g.V().group().by('name').by()"
   [g]
   (q/traverse g (q/V)
                 (q/group)
-                (q/by :name)
-                (q/by)))
+                  (q/by :name)
+                  (q/by)))
 
 (defn get_g_V_groupXaX_byXnameX_capXaX
   "g.V().group('a').by('name').cap('a')"
   [g]
   (q/traverse g (q/V)
                 (q/group :a)
-                (q/by :name)
-                (q/by)
+                  (q/by :name)
+                  (q/by)
                 (q/cap :a)))
 
 (defn get_g_V_hasXlangX_groupXaX_byXlangX_byXnameX_out_capXaX
@@ -173,3 +173,36 @@
                 (q/group)
                 (q/by :songType)
                 (q/by (q/__ (q/bothE) (q/group) (q/by (T/label)) (q/by (q/__ (q/values :weight) (q/sum)))))))
+
+(defn get_g_withSideEffectXa__marko_666_noone_blahX_V_groupXaX_byXnameX_byXoutE_label_foldX_capXaX
+  "g.withSideEffect('a', m).V().group('a').by('name').by(outE().label().fold()).cap('a')"
+  [g m]
+  (q/traverse g (q/with-side-effect :a m)
+                (q/V)
+                (q/group :a)
+                  (q/by :name)
+                  (q/by (q/__ (q/outE) (q/label) (q/fold)))
+                (q/cap :a)))
+
+(defn get_g_V_group_byXlabelX_byXbothE_groupXaX_byXlabelX_byXweight_sumX_weight_sumX
+  "g.V().group().by(T.label).by(bothE().group('a').by(T.label).by(values('weight').sum()).values('weight').sum())"
+  [g]
+  (q/traverse g (q/V)
+                (q/group)
+                  (q/by (T/label))
+                  (q/by (q/__ (q/bothE) (q/group :a)
+                                          (q/by (T/label))
+                                          (q/by (q/__ (q/values :weight) (q/sum)))
+                              (q/values :weight) (q/sum)))))
+
+(defn get_g_V_groupXmX_byXnameX_byXinXknowsX_nameX_capXmX
+  "g.V().group('m').by('name').by(__.in('knows').values('name')).cap('m')"
+  [g]
+  (q/traverse g (q/V)
+                (q/group :m)
+                  (q/by :name)
+                  (q/by (q/__ (q/in :knows) (q/values :name)))
+                (q/cap :m)))
+
+
+

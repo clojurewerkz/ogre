@@ -221,6 +221,10 @@
    (if (instance? Traversal f-or-t)
      (.choose t ^Traversal f-or-t)
      (.choose t (util/f-to-function f-or-t))))
+  ([^GraphTraversal t p-or-t true-choice]
+   (if (instance? Traversal p-or-t)
+     (.choose t ^Traversal p-or-t ^Traversal true-choice)
+     (.choose t (util/f-to-predicate p-or-t) ^Traversal true-choice)))
   ([^GraphTraversal t p-or-t true-choice false-choice]
    (if (instance? Traversal p-or-t)
      (.choose t ^Traversal p-or-t ^Traversal true-choice ^Traversal false-choice)
@@ -347,8 +351,12 @@
   (.hasKey t (util/cast-param (first ks)) (util/keywords-to-str-array (rest ks))))
 
 (defn has-label
-  [^GraphTraversal t & labels]
-  (.hasLabel t (util/cast-param (first labels)) (util/keywords-to-str-array (rest labels))))
+  ([^GraphTraversal t label-or-pred]
+    (if (instance? P label-or-pred)
+      (.hasLabel t ^P label-or-pred)
+      (.hasLabel t (util/cast-param label-or-pred) (util/str-array []))))
+  ([^GraphTraversal t label & labels]
+    (.hasLabel t (util/cast-param label) (util/keywords-to-str-array labels))))
 
 (defn id
   [^GraphTraversal t]

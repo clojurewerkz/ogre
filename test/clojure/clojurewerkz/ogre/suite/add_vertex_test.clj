@@ -87,3 +87,20 @@
   (q/traverse g (q/V)
                 (q/addV :animal)
                 (q/property :age (int 0))))
+
+(defn get_g_withSideEffectXa_markoX_addV_propertyXname_selectXaXX_name
+  "g.withSideEffect('a', 'marko').addV().property('name', select('a')).values('name')"
+  [g]
+  (q/traverse g (q/with-side-effect :a "marko")
+                (q/add-V)
+                (q/property :name (q/__ (q/select :a)))
+                (q/values :name)))
+
+(defn get_g_withSideEffectXa_testX_V_hasLabelXsoftwareX_propertyXtemp_selectXaXX_valueMapXname_tempX
+  "g.withSideEffect('a', 'test').V().hasLabel('software').property('temp', select('a')).valueMap('name', 'temp')"
+  [g]
+  (q/traverse g (q/with-side-effect :a "test")
+                (q/V)
+                (q/has-label :software)
+                (q/property :temp (q/__ (q/select :a)))
+                (q/value-map :name :temp)))

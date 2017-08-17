@@ -3,7 +3,8 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
   (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal P Traverser)))
+           (org.apache.tinkerpop.gremlin.process.traversal P Traverser)
+           (org.apache.tinkerpop.gremlin.process.traversal.step TraversalOptionParent$Pick)))
 
 (defn get_g_V_branchXlabel_eq_person__a_bX_optionXa__ageX_optionXb__langX_optionXb__nameX
   "g.V().branch(v -> v.get().label().equals('person') ? 'a' : 'b')
@@ -17,7 +18,7 @@
                 (q/option "b" (q/__ (values :lang)))
                 (q/option "b" (q/__ (values :name)))))
 
-(defn get_g_V_branchXlabelX_optionXperson__ageX_optionXsoftware__langX_optionXsoftware__nameX
+(defn get_g_V_branchXlabel_isXpersonX_countX_optionX1__ageX_optionX0__langX_optionX0__nameX
   "g.V().branch(label().is('person').count())
                     .option(1L, values('age'))
                     .option(0L, values('lang'))
@@ -28,3 +29,17 @@
                 (q/option (long 1) (q/__ (values :age)))
                 (q/option (long 0) (q/__ (values :lang)))
                 (q/option (long 0) (q/__ (values :name)))))
+
+(defn get_g_V_branchXlabel_isXpersonX_countX_optionX1__ageX_optionX0__langX_optionX0__nameX_optionXany__labelX
+  "g.V().branch(label().is('person').count())
+                    .option(1L, values('age'))
+                    .option(0L, values('lang'))
+                    .option(0L, values('name'))
+                    .option(any, label())"
+  [g]
+  (q/traverse g (q/V)
+                (q/branch (q/__ (q/label) (q/is :person) (q/count)))
+                (q/option (long 1) (q/__ (values :age)))
+                (q/option (long 0) (q/__ (values :lang)))
+                (q/option (long 0) (q/__ (values :name)))
+                (q/option (TraversalOptionParent$Pick/any) (q/__ (q/label)))))

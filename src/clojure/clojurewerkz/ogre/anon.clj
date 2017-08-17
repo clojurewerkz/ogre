@@ -74,6 +74,10 @@
    (if (instance? Traversal f-or-t)
      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/choose ^Traversal f-or-t)
      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/choose (util/f-to-function f-or-t))))
+  ([p-or-t true-choice]
+   (if (instance? Traversal p-or-t)
+     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/choose ^Traversal p-or-t ^Traversal true-choice)
+     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/choose (util/f-to-predicate p-or-t) ^Traversal true-choice)))
   ([p-or-t true-choice false-choice]
    (if (instance? Traversal p-or-t)
      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/choose ^Traversal p-or-t ^Traversal true-choice ^Traversal false-choice)
@@ -103,7 +107,7 @@
 
 (defn __dedup
   ([]
-   ((org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/dedup (into-array String []))))
+   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/dedup (into-array String [])))
   ([& args]
    (if (instance? Scope (first args))
      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/dedup ^Scope (first args) (util/keywords-to-str-array (rest args))))
@@ -192,9 +196,12 @@
     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasKey (util/cast-param (first k-list)) (util/keywords-to-str-array (rest k-list)))))
 
 (defn __has-label
-  [labels]
-  (let [label-list (if (seq? labels) labels [labels])]
-    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasLabel (util/cast-param (first label-list)) (util/keywords-to-str-array (rest label-list)))))
+  ([label-or-pred]
+    (if (instance? P label-or-pred)
+      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasLabel ^P label-or-pred)
+      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasLabel (util/cast-param label-or-pred) (util/str-array []))))
+  ([label & labels]
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/hasLabel (util/cast-param label) (util/keywords-to-str-array labels))))
 
 (defn __id
   []
