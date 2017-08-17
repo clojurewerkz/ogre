@@ -5,19 +5,20 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :aot :all
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [potemkin "0.3.3"]
+                 [potemkin "0.3.12"]
                  [org.apache.tinkerpop/gremlin-core "3.2.4"]
                  [org.apache.tinkerpop/gremlin-test "3.2.4"  :scope "test"]
                  [org.apache.tinkerpop/tinkergraph-gremlin "3.2.4" :scope "test"]
                  [org.slf4j/slf4j-log4j12 "1.7.21" :scope "test"]]
   :source-paths ["src/clojure"]
+  :java-source-paths ["test/java"]
+  :resource-paths ["test/resources"]
   :profiles {:dev    { :global-vars {*assert* true}
                        :dependencies [[clojurewerkz/support "1.1.0" :exclusions [org.clojure/clojure]]
-                                      [commons-io/commons-io "2.4"]]
-                      :java-source-paths ["test/java"]
-                      :resource-paths ["test/resources"]}
-             :1.7    {:dependencies [[org.clojure/clojure "1.7.0"]]}
-             :master {:dependencies [[org.clojure/clojure "1.9.0-master-SNAPSHOT"]]}}
+                                      [commons-io/commons-io "2.4"]]}
+             :1.7    { :dependencies [[org.clojure/clojure "1.7.0"]]}
+             :1.8    { :dependencies [[org.clojure/clojure "1.8.0"]]}
+             :master { :dependencies [[org.clojure/clojure "1.9.0-master-SNAPSHOT"]]}}
   :aliases {"all" ["with-profile" "dev:dev,master:dev,1.7"]}
   :repositories {"sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
                              :snapshots false
