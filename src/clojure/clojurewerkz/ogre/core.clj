@@ -118,7 +118,7 @@
     (instance? String conn)
     (.withRemote g ^String conn)
     (instance? org.apache.tinkerpop.gremlin.process.remote.RemoteConnection conn)
-    (.withRemote ^org.apache.tinkerpop.gremlin.process.remote.RemoteConnection conn)))
+    (.withRemote g ^org.apache.tinkerpop.gremlin.process.remote.RemoteConnection conn)))
 
 ; GraphTraversal
 
