@@ -1,4 +1,4 @@
-(defproject clojurewerkz/ogre "3.0.0"
+(defproject clojurewerkz/ogre "3.2.4.0"
   :description "Clojure dialect of the Gremlin graph processing language"
   :url "https://github.com/clojurewerkz/ogre"
   :license {:name "Eclipse Public License"
