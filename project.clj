@@ -16,8 +16,6 @@
   :profiles {:dev    { :global-vars {*assert* true}
                        :dependencies [[clojurewerkz/support "1.1.0" :exclusions [org.clojure/clojure]]
                                       [commons-io/commons-io "2.4"]]}
-             :1.7    { :dependencies [[org.clojure/clojure "1.7.0"]]}
-             :1.8    { :dependencies [[org.clojure/clojure "1.8.0"]]}
              :master { :dependencies [[org.clojure/clojure "1.9.0-master-SNAPSHOT"]]}}
   :aliases {"all" ["with-profile" "dev:dev,master:dev,1.7"]}
   :repositories {"sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
