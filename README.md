@@ -2,7 +2,8 @@
 
 <img src="gremlin-ogre.png"></img>
 
-Ogre is a Clojure [Gremlin Language Variant](http://tinkerpop.apache.org/docs/current/tutorials/gremlin-language-variants/) of the [Gremlin](http://tinkerpop.apache.org/gremlin.html) graph traversal language from [Apache Tinkerpop](http://tinkerpop.apache.org/). Like Gremlin, it can be used to query any graphs that are [TinkerPop-enabled](http://tinkerpop.apache.org/providers.html).
+Ogre is a Clojure [Gremlin Language Variant](http://tinkerpop.apache.org/docs/current/tutorials/gremlin-language-variants/) of the [Gremlin](http://tinkerpop.apache.org/gremlin.html)
+graph traversal language from [Apache Tinkerpop](http://tinkerpop.apache.org/). Like Gremlin, it can be used to query any graphs that are [TinkerPop-enabled](http://tinkerpop.apache.org/providers.html).
 
 ## Project Goals
 
@@ -74,7 +75,7 @@ clojurewerkz.ogre.core=> (traverse g V (match
 
 ## Supported Clojure Versions
 
-Orge requires Clojure 1.6+. The most recent stable release is always recommended.
+Orge requires Clojure 1.8+. The most recent stable release is always recommended.
 
 ## Continuous Integration
 
@@ -82,16 +83,18 @@ Orge requires Clojure 1.6+. The most recent stable release is always recommended
 
 ## Development
 
-Orge uses [Leiningen 2](https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md). Once installed and run tests against supported Clojure versions using:
+Orge uses [Leiningen 2](https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md). Once installed and run tests using:
 
-    lein all test
+    lein test
 
 ## License
 
 Copyright (C) 2014-2017 Zack Maril, and the ClojureWerkz team.
+Copyright (C) 2017 Stephen Mallette, Zack Maril, and the ClojureWerkz team.
 
 Licensed under the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html) (the same as Clojure).
 
 ## Acknowledgements
 
-[Joe Lee](http://www.jml3designz.com/) illustrated the "Gremlin Ogre" image based on the original Clojurewerkz Ogre logo and Apache TinkerPop's Gremlin character developed [Ketrina Yim](http://ketrinayim.tumblr.com/).
+[Joe Lee](http://www.jml3designz.com/) illustrated the "Gremlin Ogre" image based on the original Clojurewerkz Ogre logo and
+Apache TinkerPop's Gremlin character developed [Ketrina Yim](http://ketrinayim.tumblr.com/).
