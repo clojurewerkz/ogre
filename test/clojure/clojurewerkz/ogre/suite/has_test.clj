@@ -141,28 +141,6 @@
   (q/traverse g (q/V)
                 (q/has :location)))
 
-(defn get_g_V_hasIdX1_2X
-  "g.V().hasId(1,2)"
-  [g id1 id2]
-  (q/traverse g (q/V)
-                (q/has-id id1 id2)))
-
-(defn get_g_VX1_2X
-  "g.V(1,2)"
-  [g id1 id2]
-  (q/traverse g (q/V id1 id2)))
-
-(defn get_g_V_hasIdX1X
-  "g.V().hasId(1)"
-  [g id1]
-  (q/traverse g (q/V)
-                (q/has-id id1)))
-
-(defn get_g_VX1X
-  "g.V(1)"
-  [g id1]
-  (q/traverse g (q/V id1)))
-
 (defn get_g_V_hasLabelXpersonX_hasXage_notXlteX10X_andXnotXbetweenX11_20XXXX_andXltX29X_orXeqX35XXXX_name
   "g.V().hasLabel('person').has('age', P.not(P.lte(10).and(P.not(P.between(11, 20)))).and(P.lt(29).or(P.eq(35)))).values('name')"
   [g]
@@ -178,8 +156,58 @@
                 (q/in)
                 (q/has-id (P/neq v1Id))))
 
-(defn get_g_V_hasIdXwithinX1_2XX
-  "g.V().hasId(P.within(v1Id, v2Id))"
-  [g vId1 vId2]
+(defn get_g_V_hasLabelXpersonX_hasLabelXsoftwareX
+  "g.V().hasLabel('person').hasLabel('software')"
+  [g]
   (q/traverse g (q/V)
-                (q/has-id (P/within (to-array [vId1 vId2])))))
+                (q/has-label :person)
+                (q/has-label :software)))
+
+(defn get_g_V_hasIdX1X_hasIdX2X
+  "g.V().hasId(v1Id).hasId(v2Id)"
+  [g v1Id v2Id]
+  (q/traverse g (q/V)
+                (q/has-id v1Id)
+                (q/has-id v2Id)))
+
+(defn get_g_V_hasNotXageX_name
+  "g.V().hasNot('age').values('name')"
+  [g]
+  (q/traverse g (q/V)
+                (q/has-not :age)
+                (q/values :name)))
+
+(defn get_g_V_both_properties_dedup_hasKeyXageX_hasValueXgtX30XX_value
+  "g.V().both().properties().dedup().hasKey('age').hasValue(P.gt(30)).value()"
+  [g]
+  (q/traverse g (q/V)
+                (q/both)
+                (q/properties)
+                (q/dedup)
+                (q/has-key :age)
+                (q/has-value (P/gt 30))
+                (q/value)))
+
+(defn get_g_V_both_properties_dedup_hasKeyXageX_value
+  "g.V().both().properties().dedup().hasKey('age').value()"
+  [g]
+  (q/traverse g (q/V)
+                (q/both)
+                (q/properties)
+                (q/dedup)
+                (q/has-key :age)
+                (q/value)))
+
+(defn get_g_V_asXaX_out_asXbX_out_asXcX_simplePath_byXlabelX_fromXbX_toXcX_path_byXnameX
+  "g.V().as('a').out().as('b').out().as('c').simplePath().by(T.label).from('b').to('c').path().by('name')"
+  [g]
+  (q/traverse g (q/V) (q/as :a)
+                (q/out) (q/as :b)
+                (q/out) (q/as :c)
+                (q/simple-path)
+                  (q/by T/label)
+                  (q/from :b)
+                  (q/to :c)
+                (q/path)
+                  (q/by :name)))
+

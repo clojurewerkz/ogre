@@ -61,3 +61,14 @@
                (q/inE)
                (q/outV)
                (q/path)))
+
+(defn get_g_V_asXaX_out_asXbX_out_asXcX_path_fromXbX_toXcX_byXnameX
+  "g.V().as('a').out().as('b').out().as('c').path().from('b').to('c').by('name')"
+  [g]
+  (q/traverse g (q/V) (q/as :a)
+                (q/out) (q/as :b)
+                (q/out) (q/as :c)
+                (q/path)
+                  (q/from :b)
+                  (q/to :c)
+                (q/by :name)))

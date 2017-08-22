@@ -3,7 +3,7 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
   (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal P)))
+           (org.apache.tinkerpop.gremlin.process.traversal P Traverser)))
 
 (defn get_g_V_repeatXoutX_timesX2X
   "g.V().repeat(out()).times(2)"
@@ -99,3 +99,20 @@
                 (q/emit (q/__ (q/has T/label :person)))
                 (q/repeat (q/__ (q/out)))
                 (q/values :name)))
+
+(defn get_g_V_repeatXbothX_untilXname_eq_marko_or_loops_gt_1X_groupCount_byXnameX
+  "g.V().repeat(both()).until(t -> t.get().value('name').equals('lop') || t.loops() > 1).groupCount().by('name')"
+  [g]
+  (q/traverse g (q/V)
+                (q/repeat (q/__ (q/both)))
+                  (q/until (fn [^Traverser t] (clojure.core/or (= (.value (.get t) "name") "lop") (> (.loops t) 1))))
+                (q/group-count)
+                  (q/by :name)))
+
+(defn get_g_VX1X_repeatXgroupCountXmX_byXloopsX_outX_timesX3X_capXmX
+  "g.V(v1Id).repeat(groupCount('m').by(loops()).out()).times(3).cap('m')"
+  [g v1Id]
+  (q/traverse g (q/V v1Id)
+                (q/repeat (q/__ (q/group-count :m) (q/by (q/__ (q/loops))) (q/out)))
+                  (q/times 3)
+                (q/cap :m)))

@@ -358,6 +358,18 @@
   ([^GraphTraversal t label & labels]
     (.hasLabel t (util/cast-param label) (util/keywords-to-str-array labels))))
 
+(defn has-not
+  [^GraphTraversal t ^String k]
+  (.hasNot t (util/cast-param k)))
+
+(defn has-value
+  ([^GraphTraversal t pred-or-obj]
+    (if (instance? P pred-or-obj)
+      (.hasValue t ^P pred-or-obj)
+      (.hasValue t ^Object pred-or-obj)))
+  ([^GraphTraversal t ^Object obj & objs]
+    (.hasValue t obj (into-array objs))))
+
 (defn id
   [^GraphTraversal t]
   (.id t))

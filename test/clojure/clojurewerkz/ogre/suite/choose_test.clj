@@ -50,3 +50,14 @@
                   (q/option "bleep" (q/__ (q/out :created)))
                   (q/option (TraversalOptionParent$Pick/none) (q/__ (q/identity)))
                 (q/values :name)))
+
+(defn get_g_V_hasLabelXpersonX_asXp1X_chooseXoutEXknowsX__outXknowsXX_asXp2X_selectXp1_p2X_byXnameX
+  "g.V().hasLabel('person').as('p1').choose(outE('knows'), out('knows')).as('p2').select('p1', 'p2').by('name')"
+  [g]
+  (q/traverse g (q/V)
+                (q/has-label :person) (q/as :p1)
+                (q/choose (q/__ (q/outE :knows))
+                          (q/__ (q/out :knows))) (q/as :p2)
+                (q/select :p1 :p2)
+                  (q/by :name)))
+

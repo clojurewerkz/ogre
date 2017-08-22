@@ -19,9 +19,13 @@ To subscribe for announcements of releases, important changes and so on, please 
 
 ## Project Maturity
 
-Despite being first released in 2014, Orge is a relatively young
-project that regained active development in 2016. We are targeting
-Gremlin `3.2.x` releases.
+Despite being first released in 2014, Orge is a relatively young project that regained
+active development in 2016. Most of Ogre's features are driven by changes to Apache
+TinkerPop (specifically the [Traversal API](http://tinkerpop.apache.org/docs/current/reference/#graph-traversal-steps))
+which has largely stabilized itself in over the course of the 3.2.x line of code. As a
+result, Ogre tends to be fairly stable with its implementation of that API. Ogre also
+implements the TinkerPop Process Test Suite, which helps validate that Ogre is compliant
+with Gremlin.
 
 ## Artifacts
 
@@ -38,19 +42,19 @@ Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre).
 
 With Leiningen:
 
-    [clojurewerkz/ogre "3.2.4.0"]
+    [clojurewerkz/ogre "3.2.5.0"]
 
 With Maven:
 
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>ogre</artifactId>
-      <version>3.2.4.0</version>
+      <version>3.2.5.0</version>
     </dependency>
 
 ## Documentation & Examples
 
-You'll need to choose an implementation for the graph database and add that to your project's dependencies. Here we use the in-memory graph database implementation provided by `org.apache.tinkerpop/tinkergraph-gremlin`:
+You'll need to choose a TinkerPop-enabled graph database and add that to your project's dependencies. Here we use the in-memory graph database implementation provided by `org.apache.tinkerpop/tinkergraph-gremlin`:
 
 ```text
 user=> (load "clojurewerkz/ogre/core")
@@ -72,6 +76,8 @@ clojurewerkz.ogre.core=> (traverse g V (match
                     #_=>   (into-seq!))
 ({"a" "marko", "c" "marko"} {"a" "josh", "c" "marko"} {"a" "peter", "c" "marko"})
 ```
+
+Ogre has more complete documentation [here](http://ogre.clojurewerkz.org/).
 
 ## Supported Clojure Versions
 

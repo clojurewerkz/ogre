@@ -107,3 +107,11 @@
                 (q/from :a)
                 (q/property :year (int 2009))
                 (q/property :acl "public")))
+
+(defn get_g_addV_asXfirstX_repeatXaddEXnextX_toXaddVX_inVX_timesX5X_addEXnextX_toXselectXfirstXX
+  "g.addV().as('first').repeat(__.addE('next').to(__.addV()).inV()).times(5).addE('next').to(select('first'))"
+  [g]
+  (q/traverse g (q/add-V) (q/as :first)
+                (q/repeat (q/__ (q/addE :next) (q/to (q/__ (q/addV))) (q/inV)))
+                  (q/times 5)
+                (q/addE :next) (q/to (q/__ (q/select :first)))))

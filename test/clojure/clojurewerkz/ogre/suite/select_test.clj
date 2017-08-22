@@ -3,7 +3,7 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
   (:import (org.apache.tinkerpop.gremlin.structure Column T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal Order P Scope)))
+           (org.apache.tinkerpop.gremlin.process.traversal Order P Scope Pop)))
 
 (defn get_g_VX1X_asXaX_outXknowsX_asXbX_selectXa_bX
   "g.V(v1Id).as('a').out('knows').as('b').select('a', 'b')"
@@ -340,3 +340,20 @@
   (q/traverse g (q/V v1Id) (q/as :here)
                 (q/out)
                 (q/select :here)))
+
+(defn get_g_VX1X_asXaX_repeatXout_asXaXX_timesX2X_selectXlast_aX
+  "g.V(v1Id).as('a').repeat(__.out().as('a')).times(2).select(Pop.last, 'a')"
+  [g v1Id]
+  (q/traverse g (q/V v1Id) (q/as :a)
+                (q/repeat (q/__ (q/out) (q/as :a)))
+                  (q/times 2)
+                (q/select (Pop/last) :a)))
+
+
+(defn get_g_VX1X_asXaX_repeatXout_asXaXX_timesX2X_selectXfirst_aX
+  "g.V(v1Id).as('a').repeat(__.out().as('a')).times(2).select(Pop.first, 'a')"
+  [g v1Id]
+  (q/traverse g (q/V v1Id) (q/as :a)
+                (q/repeat (q/__ (q/out) (q/as :a)))
+                  (q/times 2)
+                (q/select (Pop/first) :a)))

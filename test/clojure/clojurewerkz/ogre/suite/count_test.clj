@@ -65,3 +65,10 @@
   (q/traverse g (q/V)
                 (q/fold)
                 (q/count (q/scope :local))))
+
+ (defn get_g_V_whereXinXknowsX_outXcreatedX_count_is_0XX_name
+   "g.V().where(in('knows').out('created').count().is(0)).values('name')"
+   [g]
+   (q/traverse g (q/V)
+                 (q/where (q/__ (q/in :knows) (q/out :created) (q/count) (q/is 0)))
+                 (q/values :name)))
