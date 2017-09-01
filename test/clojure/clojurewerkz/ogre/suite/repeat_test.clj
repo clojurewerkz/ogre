@@ -105,7 +105,7 @@
   [g]
   (q/traverse g (q/V)
                 (q/repeat (q/__ (q/both)))
-                  (q/until (fn [^Traverser t] (clojure.core/or (= (.value (.get t) "name") "lop") (> (.loops t) 1))))
+                  (q/until (fn [^Traverser t] (clojure.core/or (= (.value ^Vertex (.get t) "name") "lop") (> (.loops t) 1))))
                 (q/group-count)
                   (q/by :name)))
 
