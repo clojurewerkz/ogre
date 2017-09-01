@@ -1,3 +1,8 @@
+## Changes in Ogre 3.2.5.0
+
+* Bump to TinkerPop 3.2.5. 
+* Added support for `hasNot()` and `hasValue()` steps which were missed in previous versions
+
 ## Changes in Ogre 3.2.4.0
 
 Ogre now targets Apache TinkerPop 3.2.4 and is the first non-beta release of
