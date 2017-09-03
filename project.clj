@@ -1,4 +1,4 @@
-(defproject clojurewerkz/ogre "3.2.5.0"
+(defproject clojurewerkz/ogre "3.2.6.0-SNAPSHOT"
   :description "Clojure library for working with TinkerPop graphs and a dialect of the Gremlin graph processing language"
   :url "https://github.com/clojurewerkz/ogre"
   :license {:name "Eclipse Public License"
