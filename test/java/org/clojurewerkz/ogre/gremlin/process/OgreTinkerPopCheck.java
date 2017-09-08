@@ -1274,6 +1274,12 @@ public static IFn require = Clojure.var("clojure.core", "require");
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_addV_asXfirstX_repeatXaddEXnextX_toXaddVX_inVX_timesX5X_addEXnextX_toXselectXfirstXX").invoke(g);
         }
 
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_withSideEffectXb_bX_VXaX_addEXknowsX_toXbX_propertyXweight_0_5X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_withSideEffectXb_bX_VXaX_addEXknowsX_toXbX_propertyXweight_0_5X").invoke(g);
+        }
+
     }
 
     public static class AddVertexTestTraversals extends AddVertexTest {
@@ -2940,6 +2946,12 @@ public static IFn require = Clojure.var("clojure.core", "require");
         @SuppressWarnings("unchecked")
         public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_withSackXhelloX_V_outE_sackXassignX_byXlabelX_inV_sack() {
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_withSackXhelloX_V_outE_sackXassignX_byXlabelX_inV_sack").invoke(g);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_withSackX2X_V_sackXdivX_byXconstantX3_0XX_sack() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_withSackX2X_V_sackXdivX_byXconstantX3_0XX_sack").invoke(g);
         }
 
     }

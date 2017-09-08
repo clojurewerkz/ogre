@@ -1,3 +1,7 @@
+## Changes in Ogre 3.2.6.0
+
+* Bump to TinkerPop 3.2.6.
+
 ## Changes in Ogre 3.2.5.0
 
 * Bump to TinkerPop 3.2.5. 

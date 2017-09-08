@@ -1,4 +1,4 @@
-(defproject clojurewerkz/ogre "3.2.6.0-SNAPSHOT"
+(defproject clojurewerkz/ogre "3.2.6.0"
   :description "Clojure library for working with TinkerPop graphs and a dialect of the Gremlin graph processing language"
   :url "https://github.com/clojurewerkz/ogre"
   :license {:name "Eclipse Public License"
@@ -6,9 +6,9 @@
   :aot :all
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [potemkin "0.3.12"]
-                 [org.apache.tinkerpop/gremlin-core "3.2.5"]
-                 [org.apache.tinkerpop/gremlin-test "3.2.5"  :scope "test"]
-                 [org.apache.tinkerpop/tinkergraph-gremlin "3.2.5" :scope "test"]
+                 [org.apache.tinkerpop/gremlin-core "3.2.6"]
+                 [org.apache.tinkerpop/gremlin-test "3.2.6"  :scope "test"]
+                 [org.apache.tinkerpop/tinkergraph-gremlin "3.2.6" :scope "test"]
                  [org.slf4j/slf4j-log4j12 "1.7.21" :scope "test"]]
   :source-paths ["src/clojure"]
   :java-source-paths ["test/java"]

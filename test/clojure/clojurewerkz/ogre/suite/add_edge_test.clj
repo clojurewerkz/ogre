@@ -3,7 +3,8 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
   (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal P Traversal)))
+           (org.apache.tinkerpop.gremlin.process.traversal P Traversal)
+           (java.util ArrayList)))
 
 (defn get_g_VX1X_asXaX_outXcreatedX_addEXcreatedByX_toXaX_propertyXweight_2X
   "g.V(v1Id).as('a').out('created').addE('createdBy').to('a').property('weight', 2.0d)"
@@ -115,3 +116,11 @@
                 (q/repeat (q/__ (q/addE :next) (q/to (q/__ (q/addV))) (q/inV)))
                   (q/times 5)
                 (q/addE :next) (q/to (q/__ (q/select :first)))))
+
+
+(defn get_g_withSideEffectXb_bX_VXaX_addEXknowsX_toXbX_propertyXweight_0_5X
+  "g.withSideEffect('b', b).V(a).addE('knows').to('b').property('weight', 0.5d)"
+  [g]
+  (let [a (q/traverse g (q/V) (q/has "name" "marko") (q/next!))
+        b (q/traverse g (q/V) (q/has "name" "peter") (q/next!))]
+    (q/traverse g (q/with-side-effect :b b) (q/V a) (q/addE :knows) (q/to :b) (q/property :weight 0.5))))

@@ -113,3 +113,12 @@
                 (q/in :knows)
                 (q/barrier)
                 (q/sack)))
+
+(defn get_g_withSackX2X_V_sackXdivX_byXconstantX3_0XX_sack
+  "g.withSack(2).V().sack(Operator.div).by(constant(3.0)).sack()"
+  [g]
+  (q/traverse g (q/with-sack 2)
+                (q/V)
+                (q/sack Operator/div)
+                  (q/by (q/__ (q/constant 3.0)))
+                (q/sack)))
