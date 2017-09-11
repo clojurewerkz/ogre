@@ -57,27 +57,6 @@
                 (q/times 2)
                 (q/sack)))
 
-(defn get_g_withSackX0X_V_outE_sackXsum_weightX_inV_sack_sum
-  "g.withSack(0.0f).V().outE().sack(Operator.sum, 'weight').inV().sack().sum()"
-  [g]
-  (q/traverse g (q/with-sack (float 0.0))
-                (q/V)
-                (q/outE)
-                (q/sack (Operator/sum))
-                (q/by :weight)
-                (q/inV)
-                (q/sack)
-                (q/sum)))
-
-(defn get_g_withSackX0X_V_repeatXoutE_sackXsum_weightX_inVX_timesX2X_sack
-  "g.withSack(0.0f).V().repeat(outE().sack(Operator.sum, 'weight').inV()).times(2).sack()"
-  [g]
-  (q/traverse g (q/with-sack (float 0.0))
-                (q/V)
-                (q/repeat (q/__ (q/outE) (q/sack (Operator/sum)) (q/by :weight) (q/inV)))
-                (q/times 2)
-                (q/sack)))
-
 (defn get_g_withSackXmap__map_cloneX_V_out_out_sackXmap_a_nameX_sack
   "g.withSack(HashMap::new, m -> (HashMap) m.clone()).V().out().out().sack((map, vertex) -> {
                 map.put('a', vertex.value('name'));

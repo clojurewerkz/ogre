@@ -66,21 +66,6 @@
                 (q/property :name "an animal")
                 (q/property (q/__ (q/values :name)) (q/__ (q/label)))))
 
-;; addV with key/values was deprecated in TinkerPop 3.1.0 - not supported by Ogre directly
-(defn get_g_addVXlabel_person_name_stephenX
-  "g.addV(T/label, 'person', 'name', 'stephen')"
-  [g]
-  (q/traverse g (q/add-V :person)
-                (q/property :name "stephen")))
-
-;; addV with key/values was deprecated in TinkerPop 3.1.0 - not supported by Ogre directly
-(defn get_g_V_addVXlabel_animal_age_0X
-  "g.V().addV(T/label, 'animal', 'age', 0)"
-  [g]
-  (q/traverse g (q/V)
-                (q/addV :animal)
-                (q/property :age (int 0))))
-
 (defn get_g_V_addVXanimalX_propertyXage_0X
   "g.V().addV('animal').property('age', 0)"
   [g]

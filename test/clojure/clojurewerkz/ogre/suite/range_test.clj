@@ -2,7 +2,7 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
   (:import (org.apache.tinkerpop.gremlin.structure T)
-           (org.apache.tinkerpop.gremlin.process.traversal P Scope)))
+           (org.apache.tinkerpop.gremlin.process.traversal P Scope Pop)))
 
 (defn get_g_VX1X_out_limitX2X
   "g.V(v1Id).out().limit(2)"
@@ -61,8 +61,8 @@
                 (q/times 3)
                 (q/range 5 11)))
 
-(defn get_g_V_asXaX_in_asXaX_in_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_limitXlocal_2X
-  "g.V().as('a').in().as('a').in().as('a').<List<String>>select('a').by(unfold().values('name').fold()).limit(local, 2)"
+(defn get_g_V_asXaX_in_asXaX_in_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_limitXlocal_2X
+  "g.V().as('a').in().as('a').in().as('a').<List<String>>select(Pop.mixed, 'a').by(unfold().values('name').fold()).limit(local, 2)"
   [g]
   (q/traverse g (q/V)
                 (q/as :a)
@@ -70,12 +70,12 @@
                 (q/as :a)
                 (q/in)
                 (q/as :a)
-                (q/select :a)
+                (q/select Pop/mixed :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
                 (q/limit (q/scope :local) 2)))
 
-(defn get_g_V_asXaX_in_asXaX_in_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_limitXlocal_1X
-  "g.V().as('a').in().as('a').in().as('a').<List<String>>select('a').by(unfold().values('name').fold()).limit(local, 1)"
+(defn get_g_V_asXaX_in_asXaX_in_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_limitXlocal_1X
+  "g.V().as('a').in().as('a').in().as('a').<List<String>>select(Pop.mixed, 'a').by(unfold().values('name').fold()).limit(local, 1)"
   [g]
   (q/traverse g (q/V)
                 (q/as :a)
@@ -83,12 +83,12 @@
                 (q/as :a)
                 (q/in)
                 (q/as :a)
-                (q/select :a)
+                (q/select Pop/mixed :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
                 (q/limit (q/scope :local) 1)))
 
-(defn get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_3X
-  "g.V().as('a').out().as('a').out().as('a').<List<String>>select('a').by(unfold().values('name').fold()).range(local, 1, 3)"
+(defn get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_3X
+  "g.V().as('a').out().as('a').out().as('a').<List<String>>select(Pop.mixed, 'a').by(unfold().values('name').fold()).range(local, 1, 3)"
   [g]
   (q/traverse g (q/V)
                 (q/as :a)
@@ -96,12 +96,12 @@
                 (q/as :a)
                 (q/out)
                 (q/as :a)
-                (q/select :a)
+                (q/select Pop/mixed :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
                 (q/range (q/scope :local) 1 3)))
 
-(defn get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_2X
-  "g.V().as('a').out().as('a').out().as('a').<List<String>>select('a').by(unfold().values('name').fold()).range(local, 1, 2)"
+(defn get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_2X
+  "g.V().as('a').out().as('a').out().as('a').<List<String>>select(Pop.mixed, 'a').by(unfold().values('name').fold()).range(local, 1, 2)"
   [g]
   (q/traverse g (q/V)
                 (q/as :a)
@@ -109,12 +109,12 @@
                 (q/as :a)
                 (q/out)
                 (q/as :a)
-                (q/select :a)
+                (q/select Pop/mixed :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
                 (q/range (q/scope :local) 1 2)))
 
-(defn get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_rangeXlocal_4_5X
-  "g.V().as('a').out().as('a').out().as('a').<List<String>>select('a').by(unfold().values('name').fold()).range(local, 4, 5)"
+(defn get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_rangeXlocal_4_5X
+  "g.V().as('a').out().as('a').out().as('a').<List<String>>select(Pop.mixed, 'a').by(unfold().values('name').fold()).range(local, 4, 5)"
   [g]
   (q/traverse g (q/V)
                 (q/as :a)
@@ -122,7 +122,7 @@
                 (q/as :a)
                 (q/out)
                 (q/as :a)
-                (q/select :a)
+                (q/select Pop/mixed :a)
                 (q/by (q/__ (q/unfold) (q/values :name) (q/fold)))
                 (q/range (q/scope :local) 4 5)))
 
@@ -177,4 +177,36 @@
                 (q/select :a :b :c)
                 (q/by :name)
                 (q/range (q/scope :local) 1 2)))
+
+(defn get_g_V_outE_valuesXweightX_fold_orderXlocalX_skipXlocal_2X
+  "g.V().outE().values('weight').fold().order(local).skip(local, 2)"
+  [g]
+  (q/traverse g
+              (q/V)
+              (q/outE) (q/values :weight)
+              (q/fold)
+              (q/order (q/scope :local))
+              (q/skip (q/scope :local) 2)))
+
+(defn get_g_V_hasLabelXpersonX_order_byXageX_skipX1X_valuesXnameX
+  "g.V().hasLabel('person').order().by('age').skip(1).values('name')"
+  [g]
+  (q/traverse g
+              (q/V)
+              (q/has-label :person)
+              (q/order)
+              (q/by :age)
+              (q/skip 1)
+              (q/values :name)))
+
+(defn get_g_V_hasLabelXpersonX_order_byXageX_valuesXnameX_skipX1X
+  "g.V().hasLabel('person').order().by('age').<String>values('name').skip(1)"
+  [g]
+  (q/traverse g
+              (q/V)
+              (q/has-label :person)
+              (q/order)
+              (q/by :age)
+              (q/values :name)
+              (q/skip 1)))
 

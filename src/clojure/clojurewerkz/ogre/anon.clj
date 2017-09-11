@@ -361,9 +361,7 @@
   ([]
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/sack))
   ([sack-op]
-   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/sack sack-op))
-  ([sack-op ks]
-   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/sack sack-op (util/keywords-to-str-array ks))))
+   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/sack sack-op)))
 
 (defn __sample
   ([amount]
@@ -392,6 +390,12 @@
 (defn __simple-path
   []
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/simplePath))
+
+(defn __skip
+  ([amount]
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/skip amount))
+  ([scope amount]
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/skip scope amount)))
 
 (defn __store
   [k]

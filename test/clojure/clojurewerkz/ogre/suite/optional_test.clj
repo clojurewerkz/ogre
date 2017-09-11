@@ -30,3 +30,10 @@
   (q/traverse g (q/V)
                 (q/optional (q/__ (q/out) (q/optional (q/__ (q/out)))))
                 (q/path)))
+
+(defn get_g_VX1X_optionalXaddVXdogXX_label
+  "g.V(v1Id).optional(addV('dog')).label()"
+  [g v1Id]
+  (q/traverse g (q/V v1Id)
+                (q/optional (q/__ (q/addV "dog")))
+              (q/label)))

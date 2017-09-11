@@ -3,7 +3,6 @@ package org.clojurewerkz.ogre.gremlin.process;
 
 import org.apache.tinkerpop.gremlin.process.ProcessStandardSuite;
 
-import org.junit.Ignore;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
 
@@ -47,8 +46,6 @@ public class OgreProcessStandardSuite extends ProcessStandardSuite {
               OgreTinkerPopCheck.GraphTestTraversals.class,
               OgreTinkerPopCheck.LoopsTestTraversals.class,
               OgreTinkerPopCheck.MapTestTraversals.class,
-// deprecated  OgreTinkerPopCheck.MapKeysTestTraversals.Traversals.class,
-// deprecated  OgreTinkerPopCheck.MapKeysTestTraversals.Traversals.class,
               OgreTinkerPopCheck.MaxTestTraversals.class,
               OgreTinkerPopCheck.MeanTestTraversals.class,
               OgreTinkerPopCheck.MinTestTraversals.class,
@@ -65,7 +62,6 @@ public class OgreProcessStandardSuite extends ProcessStandardSuite {
               OgreTinkerPopCheck.AggregateTestTraversals.class,
               OgreTinkerPopCheck.ExplainTestTraversals.class,
               OgreTinkerPopCheck.GroupTestTraversals.class,
-// deprecated  OgreTinkerPopCheck.GroupTestV3d0Traversals.class,
               OgreTinkerPopCheck.GroupCountTestTraversals.class,
               OgreTinkerPopCheck.InjectTestTraversals.class,
               OgreTinkerPopCheck.SackTestTraversals.class,

@@ -56,59 +56,6 @@
                 (q/property :year (int 2009))
                 (q/property :acl "public")))
 
-;; addOutE was deprecated in TinkerPop 3.1.0 - not supported by Ogre directly
-(defn get_g_VX1X_asXaX_outXcreatedX_addOutEXcreatedBy_aX
-  "g.V(v1Id).as('a').out('created').addOutE('createdBy', 'a')"
-  [g v1Id]
-  (q/traverse g (q/V v1Id) (q/as :a)
-                (q/out :created)
-                (q/addE :createdBy)
-                (q/from :a)))
-
-;; addOutE was deprecated in TinkerPop 3.1.0 - not supported by Ogre directly
-(defn get_g_VX1X_asXaX_outXcreatedX_addOutEXcreatedBy_a_weight_2X
-  "g.V(v1Id).as('a').out('created').addOutE('createdBy', 'a', 'weight', 2.0d)"
-  [g v1Id]
-  (q/traverse g (q/V v1Id) (q/as :a)
-                (q/out :created)
-                (q/addE :createdBy)
-                (q/from :a)
-                (q/property :weight 2.0)))
-
-;; addOutE was deprecated in TinkerPop 3.1.0 - not supported by Ogre directly
-(defn get_g_withSideEffectXx__g_V_toListX_addOutEXexistsWith_x_time_nowX
-  "g.withSideEffect('x', g.V().toList()).V().addOutE('existsWith', 'x', 'time', 'now')"
-  [g]
-  (q/traverse g (q/with-side-effect :x ^ArrayList (q/traverse g (q/V) (q/into-list!)))
-                (q/V)
-                (q/addE :existsWith)
-                (q/from :x)
-                (q/property :time "now")))
-
-;; addInE was deprecated in TinkerPop 3.1.0 - not supported by Ogre directly
-(defn get_g_V_asXaX_outXcreatedX_inXcreatedX_whereXneqXaXX_asXbX_selectXa_bX_addInEXa_codeveloper_b_year_2009X
-  "g.V().as('a').out('created').in('created').where(P.neq('a')).as('b').select('a', 'b').addInE('a', 'co-developer', 'b', 'year', 2009)"
-  [g]
-  (q/traverse g (q/V) (q/as :a)
-                (q/out :created)
-                (q/in :created)
-                (q/where (P/neq "a")) (q/as :b)
-                (q/addE :codeveloper)
-                (q/from :a)
-                (q/to :b)
-                (q/property :year (int 2009))))
-
-;; addInE was deprecated in TinkerPop 3.1.0 - not supported by Ogre directly
-(defn get_g_V_asXaX_inXcreatedX_addInEXcreatedBy_a_year_2009_acl_publicX
-  "g.V().as('a').in('created').addInE('createdBy', 'a', 'year', 2009, 'acl', 'public')"
-  [g]
-  (q/traverse g (q/V) (q/as :a)
-                (q/in :created)
-                (q/addE :createdBy)
-                (q/from :a)
-                (q/property :year (int 2009))
-                (q/property :acl "public")))
-
 (defn get_g_addV_asXfirstX_repeatXaddEXnextX_toXaddVX_inVX_timesX5X_addEXnextX_toXselectXfirstXX
   "g.addV().as('first').repeat(__.addE('next').to(__.addV()).inV()).times(5).addE('next').to(select('first'))"
   [g]
@@ -121,6 +68,28 @@
 (defn get_g_withSideEffectXb_bX_VXaX_addEXknowsX_toXbX_propertyXweight_0_5X
   "g.withSideEffect('b', b).V(a).addE('knows').to('b').property('weight', 0.5d)"
   [g]
-  (let [a (q/traverse g (q/V) (q/has "name" "marko") (q/next!))
-        b (q/traverse g (q/V) (q/has "name" "peter") (q/next!))]
+  (let [a (q/traverse g (q/V) (q/has :name "marko") (q/next!))
+        b (q/traverse g (q/V) (q/has :name "peter") (q/next!))]
     (q/traverse g (q/with-side-effect :b b) (q/V a) (q/addE :knows) (q/to :b) (q/property :weight 0.5))))
+
+(defn get_g_addEXknowsX_fromXaX_toXbX_propertyXweight_0_1X
+  "g.addE('knows').from(a).to(b).property('weight', 0.1d)"
+  [g]
+  (let [a (q/traverse g (q/V) (q/has :name "marko") (q/next!))
+        b (q/traverse g (q/V) (q/has :name "peter") (q/next!))]
+    (q/traverse g
+                (q/add-E :knows)
+                (q/from a)
+                (q/to b)
+                (q/property :weight 0.1))))
+
+(defn get_g_VXaX_addEXknowsX_toXbX_propertyXweight_0_1X
+  "g.V(a).addE('knows').to(b).property('weight', 0.1d)"
+  [g]
+  (let [a (q/traverse g (q/V) (q/has :name "marko") (q/next!))
+        b (q/traverse g (q/V) (q/has :name "peter") (q/next!))]
+    (q/traverse g
+                (q/V a)
+                (q/addE :knows)
+                (q/to b)
+                (q/property :weight 0.1))))

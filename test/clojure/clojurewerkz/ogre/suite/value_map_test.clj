@@ -19,3 +19,11 @@
   "g.V(v1Id).out('created').valueMap()"
   [g v1Id]
   (q/traverse g (q/V v1Id) (q/out :created) (q/value-map)))
+
+(defn get_g_V_hasLabelXpersonX_filterXoutEXcreatedXX_valueMapXtrueX
+  "g.V().hasLabel('person').filter(__.outE('created')).valueMap(true)"
+  [g]
+  (q/traverse g
+              (q/V) (q/has-label :person)
+              (q/filter (q/__ (q/outE :created)))
+              (q/value-map true)))

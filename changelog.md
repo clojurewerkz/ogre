@@ -1,3 +1,9 @@
+## Changes in Ogre 3.3.0.0
+
+* Bump to TinkerPop 3.3.0.0
+* Support newly added `skip` step
+* Support revised `addE` functionality that allows `Vertex` instances to be passed to `from` and `to`
+
 ## Changes in Ogre 3.2.6.0
 
 * Bump to TinkerPop 3.2.6.

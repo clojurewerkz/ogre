@@ -1,14 +1,10 @@
 package org.clojurewerkz.ogre.gremlin.process;
 import clojure.java.api.Clojure;
 import clojure.lang.IFn;
-import org.apache.tinkerpop.gremlin.process.traversal.Traversal;
 import org.apache.tinkerpop.gremlin.process.traversal.step.branch.*;
 import org.apache.tinkerpop.gremlin.process.traversal.step.filter.*;
 import org.apache.tinkerpop.gremlin.process.traversal.step.map.*;
 import org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.*;
-import org.apache.tinkerpop.gremlin.process.traversal.step.util.*;
-import org.apache.tinkerpop.gremlin.structure.Edge;
-import org.apache.tinkerpop.gremlin.structure.Vertex;
 
 public class OgreTinkerPopCheck {
 public static IFn require = Clojure.var("clojure.core", "require");
@@ -107,6 +103,12 @@ public static IFn require = Clojure.var("clojure.core", "require");
         @SuppressWarnings("unchecked")
         public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_optionalXout_optionalXoutXX_path() {
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_optionalXout_optionalXoutXX_path").invoke(g);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_VX1X_optionalXaddVXdogXX_label(java.lang.Object arg0) {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_VX1X_optionalXaddVXdogXX_label").invoke(g, arg0);
         }
 
     }
@@ -863,32 +865,32 @@ public static IFn require = Clojure.var("clojure.core", "require");
 
         @Override
         @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_in_asXaX_in_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_limitXlocal_2X() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_in_asXaX_in_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_limitXlocal_2X").invoke(g);
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_in_asXaX_in_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_limitXlocal_2X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_in_asXaX_in_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_limitXlocal_2X").invoke(g);
         }
 
         @Override
         @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_in_asXaX_in_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_limitXlocal_1X() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_in_asXaX_in_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_limitXlocal_1X").invoke(g);
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_in_asXaX_in_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_limitXlocal_1X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_in_asXaX_in_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_limitXlocal_1X").invoke(g);
         }
 
         @Override
         @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_3X() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_3X").invoke(g);
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_3X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_3X").invoke(g);
         }
 
         @Override
         @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_2X() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_2X").invoke(g);
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_2X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_rangeXlocal_1_2X").invoke(g);
         }
 
         @Override
         @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_rangeXlocal_4_5X() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_rangeXlocal_4_5X").invoke(g);
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_rangeXlocal_4_5X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_rangeXlocal_4_5X").invoke(g);
         }
 
         @Override
@@ -914,6 +916,26 @@ public static IFn require = Clojure.var("clojure.core", "require");
         public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXbX_out_asXcX_selectXa_b_cX_byXnameX_rangeXlocal_1_2X() {
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXbX_out_asXcX_selectXa_b_cX_byXnameX_rangeXlocal_1_2X").invoke(g);
         }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_outE_valuesXweightX_fold_orderXlocalX_skipXlocal_2X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_outE_valuesXweightX_fold_orderXlocalX_skipXlocal_2X").invoke(g);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_hasLabelXpersonX_order_byXageX_skipX1X_valuesXnameX() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_hasLabelXpersonX_order_byXageX_skipX1X_valuesXnameX").invoke(g);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_hasLabelXpersonX_order_byXageX_valuesXnameX_skipX1X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_hasLabelXpersonX_order_byXageX_valuesXnameX_skipX1X").invoke(g);
+        }
+
+
 
     }
 
@@ -1010,30 +1032,6 @@ public static IFn require = Clojure.var("clojure.core", "require");
 
         @Override
         @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_tailXlocal_2X() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_tailXlocal_2X").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_tailXlocal_1X() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_tailXlocal_1X").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_tailXlocalX() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXunfold_valuesXnameX_foldX_tailXlocalX").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXlimitXlocal_0XX_tailXlocal_1X() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXaX_byXlimitXlocal_0XX_tailXlocal_1X").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
         public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXbX_out_asXcX_selectXa_b_cX_byXnameX_tailXlocal_2X() {
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXbX_out_asXcX_selectXa_b_cX_byXnameX_tailXlocal_2X").invoke(g);
         }
@@ -1055,6 +1053,32 @@ public static IFn require = Clojure.var("clojure.core", "require");
         public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_repeatXin_outX_timesX3X_tailX7X_count() {
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_repeatXin_outX_timesX3X_tailX7X_count").invoke(g);
         }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXlimitXlocal_0XX_tailXlocal_1X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXlimitXlocal_0XX_tailXlocal_1X").invoke(g);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_tailXlocalX() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_tailXlocalX").invoke(g);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_tailXlocal_1X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_tailXlocal_1X").invoke(g);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_tailXlocal_2X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_tailXlocal_2X").invoke(g);
+        }
+
+
 
     }
 
@@ -1240,36 +1264,6 @@ public static IFn require = Clojure.var("clojure.core", "require");
 
         @Override
         @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_VX1X_asXaX_outXcreatedX_addOutEXcreatedBy_aX(java.lang.Object arg0) {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_VX1X_asXaX_outXcreatedX_addOutEXcreatedBy_aX").invoke(g, arg0);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_VX1X_asXaX_outXcreatedX_addOutEXcreatedBy_a_weight_2X(java.lang.Object arg0) {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_VX1X_asXaX_outXcreatedX_addOutEXcreatedBy_a_weight_2X").invoke(g, arg0);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_withSideEffectXx__g_V_toListX_addOutEXexistsWith_x_time_nowX() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_withSideEffectXx__g_V_toListX_addOutEXexistsWith_x_time_nowX").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_outXcreatedX_inXcreatedX_whereXneqXaXX_asXbX_selectXa_bX_addInEXa_codeveloper_b_year_2009X() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_outXcreatedX_inXcreatedX_whereXneqXaXX_asXbX_selectXa_bX_addInEXa_codeveloper_b_year_2009X").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_asXaX_inXcreatedX_addInEXcreatedBy_a_year_2009_acl_publicX() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_asXaX_inXcreatedX_addInEXcreatedBy_a_year_2009_acl_publicX").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
         public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_addV_asXfirstX_repeatXaddEXnextX_toXaddVX_inVX_timesX5X_addEXnextX_toXselectXfirstXX() {
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_addV_asXfirstX_repeatXaddEXnextX_toXaddVX_inVX_timesX5X_addEXnextX_toXselectXfirstXX").invoke(g);
         }
@@ -1279,6 +1273,20 @@ public static IFn require = Clojure.var("clojure.core", "require");
         public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_withSideEffectXb_bX_VXaX_addEXknowsX_toXbX_propertyXweight_0_5X() {
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_withSideEffectXb_bX_VXaX_addEXknowsX_toXbX_propertyXweight_0_5X").invoke(g);
         }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_addEXknowsX_fromXaX_toXbX_propertyXweight_0_1X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_addEXknowsX_fromXaX_toXbX_propertyXweight_0_1X").invoke(g);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_VXaX_addEXknowsX_toXbX_propertyXweight_0_1X() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_VXaX_addEXknowsX_toXbX_propertyXweight_0_1X").invoke(g);
+        }
+
+
 
     }
 
@@ -1333,18 +1341,6 @@ public static IFn require = Clojure.var("clojure.core", "require");
         @SuppressWarnings("unchecked")
         public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_addVXanimalX_propertyXname_valuesXnameXX_propertyXname_an_animalX_propertyXvaluesXnameX_labelX() {
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_addVXanimalX_propertyXname_valuesXnameXX_propertyXname_an_animalX_propertyXvaluesXnameX_labelX").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_addVXlabel_person_name_stephenX() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_addVXlabel_person_name_stephenX").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_addVXlabel_animal_age_0X() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_addVXlabel_animal_age_0X").invoke(g);
         }
 
         @Override
@@ -1623,50 +1619,6 @@ public static IFn require = Clojure.var("clojure.core", "require");
         @SuppressWarnings("unchecked")
         public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_VX1X_outE_label_mapXlengthX(java.lang.Object arg0) {
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_VX1X_outE_label_mapXlengthX").invoke(g, arg0);
-        }
-
-    }
-
-    public static class MapKeysTestTraversals extends MapKeysTest {
-        private static final String NS = "clojurewerkz.ogre.suite.map-keys-test";
-        static {
-            require.invoke(Clojure.read(NS));
-        }
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_outE_valuesXweightX_groupCount_mapKeys() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_outE_valuesXweightX_groupCount_mapKeys").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_outE_valuesXweightX_groupCount_unfold_mapKeys() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_outE_valuesXweightX_groupCount_unfold_mapKeys").invoke(g);
-        }
-
-    }
-
-    public static class MapValuesTestTraversals extends MapValuesTest {
-        private static final String NS = "clojurewerkz.ogre.suite.map-values-test";
-        static {
-            require.invoke(Clojure.read(NS));
-        }
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_outE_valuesXweightX_groupCount_mapValues() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_outE_valuesXweightX_groupCount_mapValues").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_outE_valuesXweightX_groupCount_unfold_mapValues() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_outE_valuesXweightX_groupCount_unfold_mapValues").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_outE_valuesXweightX_groupCount_mapValues_groupCount_mapValues() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_outE_valuesXweightX_groupCount_mapValues_groupCount_mapValues").invoke(g);
         }
 
     }
@@ -2060,6 +2012,12 @@ public static IFn require = Clojure.var("clojure.core", "require");
         @SuppressWarnings("unchecked")
         public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_hasXageX_propertiesXnameX() {
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_hasXageX_propertiesXnameX").invoke(g);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_injectXg_VX1X_propertiesXnameX_nextX_value(java.lang.Object arg0) {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_injectXg_VX1X_propertiesXnameX_nextX_value").invoke(g, arg0);
         }
 
     }
@@ -2541,6 +2499,12 @@ public static IFn require = Clojure.var("clojure.core", "require");
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_VX1X_outXcreatedX_valueMap").invoke(g, arg0);
         }
 
+        @Override
+        @SuppressWarnings("unchecked")
+        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_hasLabelXpersonX_filterXoutEXcreatedXX_valueMapXtrueX() {
+            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_hasLabelXpersonX_filterXoutEXcreatedXX_valueMapXtrueX").invoke(g);
+        }
+
     }
 
     public static class AggregateTestTraversals extends AggregateTest {
@@ -2724,61 +2688,6 @@ public static IFn require = Clojure.var("clojure.core", "require");
 
     }
 
-    public static class GroupTestV3d0Traversals extends GroupTestV3d0 {
-        private static final String NS = "clojurewerkz.ogre.suite.group-test-v3d0";
-        static {
-            require.invoke(Clojure.read(NS));
-        }
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_repeatXbothXfollowedByXX_timesX2X_groupXaX_byXsongTypeX_byX1X_byXcountXlocalXX_capXaX() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_repeatXbothXfollowedByXX_timesX2X_groupXaX_byXsongTypeX_byX1X_byXcountXlocalXX_capXaX").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_hasXlangX_group_byXlangX_byX1X_byXcountXlocalXX() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_hasXlangX_group_byXlangX_byX1X_byXcountXlocalXX").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_repeatXout_groupXaX_byXnameX_by_byXcountXlocalXX_timesX2X_capXaX() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_repeatXout_groupXaX_byXnameX_by_byXcountXlocalXX_timesX2X_capXaX").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_repeatXbothXfollowedByXX_timesX2X_group_byXsongTypeX_byX1X_byXcountXlocalXX() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_repeatXbothXfollowedByXX_timesX2X_group_byXsongTypeX_byX1X_byXcountXlocalXX").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_group_byXnameX() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_group_byXnameX").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_groupXaX_byXnameX_capXaX() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_groupXaX_byXnameX_capXaX").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_hasXlangX_groupXaX_byXlangX_byXnameX_out_capXaX() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_hasXlangX_groupXaX_byXlangX_byXnameX_out_capXaX").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_V_group_byXoutE_countX_byXnameX() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_V_group_byXoutE_countX_byXnameX").invoke(g);
-        }
-
-    }
-
     public static class GroupCountTestTraversals extends GroupCountTest {
         private static final String NS = "clojurewerkz.ogre.suite.group-count-test";
         static {
@@ -2910,18 +2819,6 @@ public static IFn require = Clojure.var("clojure.core", "require");
         @SuppressWarnings("unchecked")
         public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_withSackX0X_V_repeatXoutE_sackXsumX_byXweightX_inVX_timesX2X_sack() {
             return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_withSackX0X_V_repeatXoutE_sackXsumX_byXweightX_inVX_timesX2X_sack").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_withSackX0X_V_outE_sackXsum_weightX_inV_sack_sum() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_withSackX0X_V_outE_sackXsum_weightX_inV_sack_sum").invoke(g);
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public org.apache.tinkerpop.gremlin.process.traversal.Traversal get_g_withSackX0X_V_repeatXoutE_sackXsum_weightX_inVX_timesX2X_sack() {
-            return (org.apache.tinkerpop.gremlin.process.traversal.Traversal) Clojure.var(NS, "get_g_withSackX0X_V_repeatXoutE_sackXsum_weightX_inVX_timesX2X_sack").invoke(g);
         }
 
         @Override

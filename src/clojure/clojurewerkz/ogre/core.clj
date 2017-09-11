@@ -4,7 +4,7 @@
             [clojurewerkz.ogre.util :as util]
             [clojurewerkz.ogre.anon :as anon])
   (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Operator Order P Pop SackFunctions$Barrier Scope Traversal)
-           (org.apache.tinkerpop.gremlin.structure Graph T Column VertexProperty$Cardinality)
+           (org.apache.tinkerpop.gremlin.structure Graph T Column VertexProperty$Cardinality Vertex)
            (org.apache.tinkerpop.gremlin.structure.util GraphFactory)
            (java.util Iterator)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal GraphTraversalSource)))
@@ -42,12 +42,16 @@
   ([^GraphTraversalSource g label]
     (.addV g ^String (util/cast-param label))))
 
+(defn add-E
+  [^GraphTraversalSource g label]
+   (.addE g ^String (util/cast-param label)))
+
 (defn E
   "Returns all edges matching the supplied ids. If no ids are supplied, returns all edges."
   [^GraphTraversalSource g & ids]
   (.E g (into-array ids)))
 
-(defn inject
+(defn injects
   [^GraphTraversalSource g & starts]
   (.inject g (into-array starts)))
 
@@ -297,10 +301,14 @@
      (.fold t seed (util/f-to-bifunction fold-function)))))
 
 (defn from
-  ([^GraphTraversal t t-or-label]
-   (if (instance? Traversal t-or-label)
-     (.from t ^Traversal t-or-label)
-     (.from t ^String (util/cast-param t-or-label)))))
+  ([^GraphTraversal t t-or-label-or-vertex]
+   (cond
+     (instance? Traversal t-or-label-or-vertex)
+     (.from t ^Traversal t-or-label-or-vertex)
+     (instance? Vertex t-or-label-or-vertex)
+     (.from t ^Vertex t-or-label-or-vertex)
+     :else
+     (.from t ^String (util/cast-param t-or-label-or-vertex)))))
 
 (defn group
   ([^GraphTraversal t]
@@ -582,6 +590,12 @@
   [^GraphTraversal t]
   (.simplePath t))
 
+(defn skip
+  ([^GraphTraversal t amount]
+   (.skip t amount))
+  ([^GraphTraversal t ^Scope scope amount]
+   (.skip t scope amount)))
+
 (defn store
   [^GraphTraversal t k]
   (.store t (util/cast-param k)))
@@ -616,8 +630,12 @@
 
 (defn to
   ([^GraphTraversal t arg1]
-   (if (instance? Traversal arg1)
+   (cond
+     (instance? Traversal arg1)
      (.to t ^Traversal arg1)
+     (instance? Vertex arg1)
+     (.to t ^Vertex arg1)
+     :else
      (.to t ^String (util/cast-param arg1))))
   ([^GraphTraversal t direction & labels]
    (.to t direction (util/keywords-to-str-array labels))))
@@ -662,8 +680,10 @@
 (defn value-map
   [^GraphTraversal t & args]
   (if (clojure.core/and (clojure.core/not (empty? args)) (instance? Boolean (first args)))
-    (.valueMap t (first args) (util/keywords-to-str-array (rest args))))
-    (.valueMap t (util/keywords-to-str-array args)))
+    (if (= (clojure.core/count args) 1)
+      (.valueMap t ^Boolean (first args) (into-array String []))
+      (.valueMap t ^Boolean (first args) (util/keywords-to-str-array (rest args))))
+    (.valueMap t (util/keywords-to-str-array args))))
 
 (defn values
   [^GraphTraversal t & ks]

@@ -37,3 +37,11 @@
                 (q/has :age)
                 (q/properties :name)))
 
+(defn get_g_injectXg_VX1X_propertiesXnameX_nextX_value
+  "g.<VertexProperty<String>>inject((VertexProperty) g.V(v1Id).properties('name').next()).value()"
+  [g v1Id]
+  (let [p (q/traverse g (q/V v1Id) (q/properties :name) (q/next!))]
+    (q/traverse g
+                (q/injects p)
+                (q/value))))
+
