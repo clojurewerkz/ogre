@@ -17,7 +17,7 @@
                        :dependencies [[clojurewerkz/support "1.1.0" :exclusions [org.clojure/clojure]]
                                       [commons-io/commons-io "2.4"]]}
              :master { :dependencies [[org.clojure/clojure "1.9.0-master-SNAPSHOT"]]}}
-  :aliases {"all" ["with-profile" "dev:dev,master:dev,1.7"]}
+  :aliases {"all" ["with-profile" "dev,dev:master"]}
   :repositories {"sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
                              :snapshots false
                              :releases {:checksum :fail :update :always}}
