@@ -32,7 +32,7 @@
 (defn into-set!
   "Returns the objects in the traversal as a set."
   [^Traversal t]
-  (into {} (iterator-seq t)))
+  (into #{} (iterator-seq t)))
 
 (defn into-list!
   "Returns the objects in the traversal as a list."
