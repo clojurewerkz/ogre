@@ -27,6 +27,8 @@ result, Ogre tends to be fairly stable with its implementation of that API. Ogre
 implements the TinkerPop Process Test Suite, which helps validate that Ogre is compliant
 with Gremlin.
 
+Ogre currently targest TinkerPop 3.3.x.
+
 ## Artifacts
 
 Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre). Maven users should add the following repository definition to your `pom.xml`:
