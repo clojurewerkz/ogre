@@ -184,7 +184,7 @@
   [g]
   (q/traverse g (q/V)
                 (q/has-label :person)
-                (q/midV)
+                (q/V)
                 (q/has-label :software)
                 (q/values :name)))
 

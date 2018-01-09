@@ -9,7 +9,7 @@
   "g.V(v1Id).as('a').addV('animal').property('age', __.select('a').by('age')).property('name', 'puppy')"
   [g v1Id]
   (q/traverse g (q/V v1Id) (q/as :a)
-                (q/addV :animal)
+                (q/add-V :animal)
                 (q/property :age (q/__ (q/select :a) (q/by :age)))
                 (q/property :name "puppy")))
 
@@ -61,7 +61,7 @@
   "g.V().addV('animal').property('name', __.values('name')).property('name', 'an animal').property(__.values('name'), __.label())"
   [g]
   (q/traverse g (q/V)
-                (q/addV :animal)
+                (q/add-V :animal)
                 (q/property :name (q/__ (q/values :name)))
                 (q/property :name "an animal")
                 (q/property (q/__ (q/values :name)) (q/__ (q/label)))))
@@ -70,7 +70,7 @@
   "g.V().addV('animal').property('age', 0)"
   [g]
   (q/traverse g (q/V)
-                (q/addV :animal)
+                (q/add-V :animal)
                 (q/property :age (int 0))))
 
 (defn get_g_withSideEffectXa_markoX_addV_propertyXname_selectXaXX_name
