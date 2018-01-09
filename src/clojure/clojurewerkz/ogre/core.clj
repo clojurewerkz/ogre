@@ -37,7 +37,7 @@
 
 ; Common Functionality between GraphTraversalSource and GraphTraversal
 (defmulti add-V
-  "Adds a vertex to the traversal"
+  "Adds a vertex to the traversal."
   (fn
     ([g _] (class g))
     ([g] (class g))))
@@ -50,19 +50,9 @@
   ([^GraphTraversalSource g] (.addV g))
   ([^GraphTraversalSource g label] (.addV g ^String (util/cast-param label))))
 
-(defmulti addV
-  "Adds a vertex to the traversal"
-  (fn
-    ([g _] (class g))
-    ([g] (class g))))
-
-(defmethod addV GraphTraversal
-  ([^GraphTraversal g] (.addV g))
-  ([^GraphTraversal g label] (.addV g ^String (util/cast-param label))))
-
-(defmethod addV GraphTraversalSource
-  ([^GraphTraversalSource g] (.addV g))
-  ([^GraphTraversalSource g label] (.addV g ^String (util/cast-param label))))
+(def addV
+  "Adds a vertex to the traversal. `addV` is equivalent to `add-V`."
+  add-V)
 
 (defmulti add-E
   "Adds an edge to the traversal"
@@ -74,18 +64,12 @@
 (defmethod add-E GraphTraversalSource
   ([^GraphTraversalSource g label] (.addE g ^String (util/cast-param label))))
 
-(defmulti addE
-  "Adds an edge to the traversal"
-  (fn [g _] (class g)))
-
-(defmethod addE GraphTraversal
-  ([^GraphTraversal g label] (.addE g ^String (util/cast-param label))))
-
-(defmethod addE GraphTraversalSource
-  ([^GraphTraversalSource g label] (.addE g ^String (util/cast-param label))))
+(def addE
+  "Adds an edge to the traversal. `addE` is equivalent to `add-E`."
+  add-E)
 
 (defmulti V
-  "Returns all vertices matching the supplied ids. If no ids are supplied, returns all vertices"
+  "Returns all vertices matching the supplied ids. If no ids are supplied, returns all vertices."
   (fn [g & _] (class g)))
 
 (defmethod V GraphTraversal
@@ -96,17 +80,10 @@
   [^GraphTraversalSource g & ids]
   (.V g (into-array ids)))
 
-(defmulti midV
-  "Returns all vertices matching the supplied ids. If no ids are supplied, returns all vertices"
-  (fn [g & _] (class g)))
-
-(defmethod midV GraphTraversal
-  [^GraphTraversal g & ids]
-  (.V g (into-array ids)))
-
-(defmethod midV GraphTraversalSource
-  [^GraphTraversalSource g & ids]
-  (.V g (into-array ids)))
+(def midV
+  "Returns all vertices matching the supplied ids. If no ids are supplied, returns all vertices.
+  `midV` is equivalent to `V`"
+  V)
 
 ; GraphTraversalSource
 (defn E
