@@ -14,15 +14,19 @@
   [xs & body]
    `(-> (apply ~(symbol (str "clojurewerkz.ogre.anon/__" (name (first xs)))) ~(vec (rest xs))) ~@body))
 
-(defn __addE
+(defn __add-E
   [label]
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/addE ^String (util/cast-param label)))
 
-(defn __addV
+(def __addE __add-E)
+
+(defn __add-V
   ([]
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/addV))
   ([label]
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/addV ^String (util/cast-param label))))
+
+(def __addV __add-V)
 
 (defn __aggregate
   [k]
@@ -461,10 +465,11 @@
     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/until ^Traversal pred-or-t)
     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/until (util/f-to-predicate pred-or-t))))
 
-(defn __midV
-  "A mid-traversal V known in Gremlin-Java as just V()"
+(defn __V
   [& ids]
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/V (into-array ids)))
+
+(def __midV __V)
 
 (defn __value
   []

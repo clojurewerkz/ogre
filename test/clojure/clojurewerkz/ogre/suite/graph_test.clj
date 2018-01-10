@@ -12,7 +12,7 @@
   (q/traverse g (q/V)
                 (q/has :artist "name" "Garcia")
                 (q/in :sungBy) (q/as :song)
-                (q/midV)
+                (q/V)
                 (q/has :artist "name" "Willie_Dixon")
                 (q/in :writtenBy)
                 (q/where (P/eq "song"))
@@ -23,15 +23,15 @@
   [g]
   (q/traverse g (q/V)
                 (q/has-label :person) (q/as :p)
-                (q/midV ^List  (q/traverse g (q/V) (q/has-label :software) (q/into-list!)))
-                (q/addE :uses)
+                (q/V ^List  (q/traverse g (q/V) (q/has-label :software) (q/into-list!)))
+                (q/add-E :uses)
                 (q/from :p)))
 
 (defn get_g_VX1X_V_valuesXnameX
   "g.V(v1Id).V().values('name')"
   [g v1Id]
   (q/traverse g (q/V v1Id)
-                (q/midV)
+                (q/V)
                 (q/values :name)))
 
 (defn get_g_V_outXknowsX_V_name
@@ -39,5 +39,5 @@
   [g]
   (q/traverse g (q/V)
                 (q/out :knows)
-                (q/midV)
+                (q/V)
                 (q/values :name)))

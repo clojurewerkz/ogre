@@ -11,7 +11,7 @@
   [g v1Id]
   (q/traverse g (q/V v1Id) (q/as :a)
                 (q/out :created)
-                (q/addE :createdBy)
+                (q/add-E :createdBy)
                 (q/to :a)
                 (q/property :weight 2.0)))
 
@@ -20,7 +20,7 @@
   [g v1Id]
   (q/traverse g (q/V v1Id) (q/as :a)
                 (q/out :created)
-                (q/addE :createdBy)
+                (q/add-E :createdBy)
                 (q/to :a)))
 
 (defn get_g_V_aggregateXxX_asXaX_selectXxX_unfold_addEXexistsWithX_toXaX_propertyXtime_nowX
@@ -30,7 +30,7 @@
                 (q/aggregate :x) (q/as :a)
                 (q/select :x)
                 (q/unfold)
-                (q/addE :existsWith)
+                (q/add-E :existsWith)
                 (q/to :a)
                 (q/property :time "now")))
 
@@ -41,7 +41,7 @@
                 (q/out :created)
                 (q/in :created)
                 (q/where (P/neq "a")) (q/as :b)
-                (q/addE :codeveloper)
+                (q/add-E :codeveloper)
                 (q/from :a)
                 (q/to :b)
                 (q/property :year (int 2009))))
@@ -51,7 +51,7 @@
   [g]
   (q/traverse g (q/V) (q/as :a)
                 (q/in :created)
-                (q/addE :createdBy)
+                (q/add-E :createdBy)
                 (q/from :a)
                 (q/property :year (int 2009))
                 (q/property :acl "public")))
@@ -60,9 +60,9 @@
   "g.addV().as('first').repeat(__.addE('next').to(__.addV()).inV()).times(5).addE('next').to(select('first'))"
   [g]
   (q/traverse g (q/add-V) (q/as :first)
-                (q/repeat (q/__ (q/addE :next) (q/to (q/__ (q/addV))) (q/inV)))
+                (q/repeat (q/__ (q/add-E :next) (q/to (q/__ (q/add-V))) (q/inV)))
                   (q/times 5)
-                (q/addE :next) (q/to (q/__ (q/select :first)))))
+                (q/add-E :next) (q/to (q/__ (q/select :first)))))
 
 
 (defn get_g_withSideEffectXb_bX_VXaX_addEXknowsX_toXbX_propertyXweight_0_5X
@@ -70,7 +70,7 @@
   [g]
   (let [a (q/traverse g (q/V) (q/has :name "marko") (q/next!))
         b (q/traverse g (q/V) (q/has :name "peter") (q/next!))]
-    (q/traverse g (q/with-side-effect :b b) (q/V a) (q/addE :knows) (q/to :b) (q/property :weight 0.5))))
+    (q/traverse g (q/with-side-effect :b b) (q/V a) (q/add-E :knows) (q/to :b) (q/property :weight 0.5))))
 
 (defn get_g_addEXknowsX_fromXaX_toXbX_propertyXweight_0_1X
   "g.addE('knows').from(a).to(b).property('weight', 0.1d)"
@@ -90,6 +90,6 @@
         b (q/traverse g (q/V) (q/has :name "peter") (q/next!))]
     (q/traverse g
                 (q/V a)
-                (q/addE :knows)
+                (q/add-E :knows)
                 (q/to b)
                 (q/property :weight 0.1))))

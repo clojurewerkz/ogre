@@ -35,5 +35,5 @@
   "g.V(v1Id).optional(addV('dog')).label()"
   [g v1Id]
   (q/traverse g (q/V v1Id)
-                (q/optional (q/__ (q/addV "dog")))
+                (q/optional (q/__ (q/add-V "dog")))
               (q/label)))

@@ -35,17 +35,57 @@
   [^Graph graph]
   (.traversal graph))
 
+; Common Functionality between GraphTraversalSource and GraphTraversal
+(defmulti add-V
+  "Adds a vertex to the traversal."
+  (fn
+    ([g _] (class g))
+    ([g] (class g))))
+
+(defmethod add-V GraphTraversal
+  ([^GraphTraversal g] (.addV g))
+  ([^GraphTraversal g label] (.addV g ^String (util/cast-param label))))
+
+(defmethod add-V GraphTraversalSource
+  ([^GraphTraversalSource g] (.addV g))
+  ([^GraphTraversalSource g label] (.addV g ^String (util/cast-param label))))
+
+(def addV
+  "Adds a vertex to the traversal. `addV` is equivalent to `add-V`."
+  add-V)
+
+(defmulti add-E
+  "Adds an edge to the traversal"
+  (fn [g _] (class g)))
+
+(defmethod add-E GraphTraversal
+  ([^GraphTraversal g label] (.addE g ^String (util/cast-param label))))
+
+(defmethod add-E GraphTraversalSource
+  ([^GraphTraversalSource g label] (.addE g ^String (util/cast-param label))))
+
+(def addE
+  "Adds an edge to the traversal. `addE` is equivalent to `add-E`."
+  add-E)
+
+(defmulti V
+  "Returns all vertices matching the supplied ids. If no ids are supplied, returns all vertices."
+  (fn [g & _] (class g)))
+
+(defmethod V GraphTraversal
+  [^GraphTraversal g & ids]
+  (.V g (into-array ids)))
+
+(defmethod V GraphTraversalSource
+  [^GraphTraversalSource g & ids]
+  (.V g (into-array ids)))
+
+(def midV
+  "Returns all vertices matching the supplied ids. If no ids are supplied, returns all vertices.
+  `midV` is equivalent to `V`"
+  V)
+
 ; GraphTraversalSource
-(defn add-V
-  ([^GraphTraversalSource g]
-    (.addV g))
-  ([^GraphTraversalSource g label]
-    (.addV g ^String (util/cast-param label))))
-
-(defn add-E
-  [^GraphTraversalSource g label]
-   (.addE g ^String (util/cast-param label)))
-
 (defn E
   "Returns all edges matching the supplied ids. If no ids are supplied, returns all edges."
   [^GraphTraversalSource g & ids]
@@ -54,11 +94,6 @@
 (defn injects
   [^GraphTraversalSource g & starts]
   (.inject g (into-array starts)))
-
-(defn V
-  "Returns all vertices matching the supplied ids. If no ids are supplied, returns all vertices."
-  [^GraphTraversalSource g & ids]
-  (.V g (into-array ids)))
 
 (defn with-bulk
   [^GraphTraversalSource g use-bulk]
@@ -125,16 +160,6 @@
     (.withRemote g ^org.apache.tinkerpop.gremlin.process.remote.RemoteConnection conn)))
 
 ; GraphTraversal
-
-(defn addE
-  [^GraphTraversal t label]
-  (.addE t ^String (util/cast-param label)))
-
-(defn addV
-  ([^GraphTraversal t]
-   (.addV t))
-  ([^GraphTraversal t label]
-   (.addV t ^String (util/cast-param label))))
 
 (defn aggregate
   [^GraphTraversal t k]
@@ -667,11 +692,6 @@
   (if (instance? Traversal pred-or-t)
     (.until t ^Traversal pred-or-t)
     (.until t (util/f-to-predicate pred-or-t))))
-
-(defn midV
-  "A mid-traversal V known in Gremlin-Java as just V()"
-  [^GraphTraversal t & ids]
-  (.V t (into-array ids)))
 
 (defn value
   [^GraphTraversal t]
