@@ -116,3 +116,14 @@
                 (q/repeat (q/__ (q/group-count :m) (q/by (q/__ (q/loops))) (q/out)))
                   (q/times 3)
                 (q/cap :m)))
+
+(defn get_g_V_hasXname_markoX_repeatXoutE_inV_simplePathX_untilXhasXname_rippleXX_path_byXnameX_byXlabelX
+  "g.V().has('name', 'marko').repeat(outE().inV().simplePath()).until(has('name', 'ripple')).path().by('name').by(T.label)"
+  [g]
+  (q/traverse g (q/V)
+                (q/has :name "marko")
+                (q/repeat (q/__ (q/outE) (q/inV) (q/simple-path)))
+                  (q/until (q/__ (q/has :name "ripple")))
+                (q/path)
+                  (q/by :name)
+                  (q/by T/label)))

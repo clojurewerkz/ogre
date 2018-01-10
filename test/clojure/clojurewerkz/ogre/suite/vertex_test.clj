@@ -188,3 +188,17 @@
                 (q/has-label :software)
                 (q/values :name)))
 
+(defn get_g_V_bothEXselfX
+  "g.V().bothE('self')"
+  [g]
+  (q/traverse g
+              (q/V)
+              (q/bothE :self)))
+
+(defn get_g_V_bothXselfX
+  "g.V().both('self')"
+  [g]
+  (q/traverse g
+              (q/V)
+              (q/both :self)))
+

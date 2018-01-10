@@ -46,6 +46,7 @@ public class OgreProcessStandardSuite extends ProcessStandardSuite {
               OgreTinkerPopCheck.GraphTestTraversals.class,
               OgreTinkerPopCheck.LoopsTestTraversals.class,
               OgreTinkerPopCheck.MapTestTraversals.class,
+              OgreTinkerPopCheck.MathTestTraversals.class,
               OgreTinkerPopCheck.MaxTestTraversals.class,
               OgreTinkerPopCheck.MeanTestTraversals.class,
               OgreTinkerPopCheck.MinTestTraversals.class,

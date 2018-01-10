@@ -211,3 +211,31 @@
                 (q/path)
                   (q/by :name)))
 
+(defn get_g_V_hasIdXemptyX_count
+  "g.V().hasId(Collections.emptyList()).count()"
+  [g]
+  (q/traverse g (q/V)
+                (q/has-id (java.util.Collections/emptyList))
+                (q/count)))
+
+(defn get_g_V_hasIdXwithoutXemptyXX_count
+  "g.V().hasId(P.without(Collections.emptyList())).count()"
+  [g]
+  (q/traverse g (q/V)
+                (q/has-id (P/without (java.util.Collections/emptyList)))
+                (q/count)))
+
+(defn get_g_V_hasIdXwithinXemptyXX_count
+  "g.V().hasId(P.within(Collections.emptyList())).count()"
+  [g]
+  (q/traverse g (q/V)
+                (q/has-id (P/within (java.util.Collections/emptyList)))
+                (q/count)))
+
+(defn get_g_V_notXhasIdXwithinXemptyXXX_count
+  "g.V().not(__.hasId(P.within(Collections.emptyList()))).count()"
+  [g]
+  (q/traverse g (q/V)
+                (q/not (q/__(q/has-id (P/within (java.util.Collections/emptyList)))))
+                (q/count)))
+

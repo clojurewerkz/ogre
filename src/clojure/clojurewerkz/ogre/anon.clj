@@ -15,16 +15,20 @@
    `(-> (apply ~(symbol (str "clojurewerkz.ogre.anon/__" (name (first xs)))) ~(vec (rest xs))) ~@body))
 
 (defn __add-E
-  [label]
-  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/addE ^String (util/cast-param label)))
+  [label-or-traversal]
+    (if (instance? GraphTraversal label-or-traversal)
+      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/addE ^GraphTraversal label-or-traversal)
+      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/addE ^String (util/cast-param label-or-traversal))))
 
 (def __addE __add-E)
 
 (defn __add-V
   ([]
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/addV))
-  ([label]
-   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/addV ^String (util/cast-param label))))
+  ([label-or-traversal]
+    (if (instance? GraphTraversal label-or-traversal)
+      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/addV ^GraphTraversal label-or-traversal)
+      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/addV ^String (util/cast-param label-or-traversal)))))
 
 (def __addV __add-V)
 
@@ -270,6 +274,10 @@
 (defn __match
   [& traversals]
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/match (into-array traversals)))
+
+(defn __math
+  [expr]
+   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/math expr))
 
 (defn __max
   ([]

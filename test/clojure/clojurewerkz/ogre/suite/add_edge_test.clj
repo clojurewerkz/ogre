@@ -2,8 +2,8 @@
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
-  (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal P Traversal)
+  (:import (org.apache.tinkerpop.gremlin.structure T Vertex Column)
+           (org.apache.tinkerpop.gremlin.process.traversal P Order Scope Traversal)
            (java.util ArrayList)))
 
 (defn get_g_VX1X_asXaX_outXcreatedX_addEXcreatedByX_toXaX_propertyXweight_2X
@@ -67,29 +67,44 @@
 
 (defn get_g_withSideEffectXb_bX_VXaX_addEXknowsX_toXbX_propertyXweight_0_5X
   "g.withSideEffect('b', b).V(a).addE('knows').to('b').property('weight', 0.5d)"
-  [g]
-  (let [a (q/traverse g (q/V) (q/has :name "marko") (q/next!))
-        b (q/traverse g (q/V) (q/has :name "peter") (q/next!))]
-    (q/traverse g (q/with-side-effect :b b) (q/V a) (q/add-E :knows) (q/to :b) (q/property :weight 0.5))))
+  [g a b]
+    (q/traverse g (q/with-side-effect :b b) (q/V a) (q/add-E :knows) (q/to :b) (q/property :weight 0.5)))
 
 (defn get_g_addEXknowsX_fromXaX_toXbX_propertyXweight_0_1X
   "g.addE('knows').from(a).to(b).property('weight', 0.1d)"
-  [g]
-  (let [a (q/traverse g (q/V) (q/has :name "marko") (q/next!))
-        b (q/traverse g (q/V) (q/has :name "peter") (q/next!))]
+  [g a b]
     (q/traverse g
                 (q/add-E :knows)
                 (q/from a)
                 (q/to b)
-                (q/property :weight 0.1))))
+                (q/property :weight 0.1)))
 
 (defn get_g_VXaX_addEXknowsX_toXbX_propertyXweight_0_1X
   "g.V(a).addE('knows').to(b).property('weight', 0.1d)"
-  [g]
-  (let [a (q/traverse g (q/V) (q/has :name "marko") (q/next!))
-        b (q/traverse g (q/V) (q/has :name "peter") (q/next!))]
+  [g a b]
     (q/traverse g
                 (q/V a)
                 (q/add-E :knows)
                 (q/to b)
-                (q/property :weight 0.1))))
+                (q/property :weight 0.1)))
+
+(defn get_g_addEXV_outE_label_groupCount_orderXlocalX_byXvalues_decrX_selectXkeysX_unfold_limitX1XX_fromXV_hasXname_vadasXX_toXV_hasXname_lopXX
+  "g.addE(V().outE().label().groupCount().order(local).by(values, decr).select(keys).unfold().limit(1)).
+       from(V().has('name', 'vadas')).
+       to(V().has('name', 'lop'))"
+  [g]
+  (q/traverse g
+              (q/add-E (q/__ (q/V) (q/outE) (q/label) (q/group-count) (q/order (q/scope :local)) (q/by (Column/valueOf "values") (Order/decr)) (q/select (Column/keys)) (q/unfold) (q/limit 1)))
+              (q/from (q/__ (q/V) (q/has :name "vadas")))
+              (q/to (q/__ (q/V) (q/has :name "lop")))))
+
+(defn get_g_V_hasXname_markoX_asXaX_outEXcreatedX_asXbX_inV_addEXselectXbX_labelX_toXaX
+  "g.V().has('name', 'marko').as('a').outE('created').as('b').inV().addE(select('b').label()).to('a')"
+  [g]
+  (q/traverse g
+              (q/V)
+              (q/has :name "marko") (q/as :a)
+              (q/outE :created) (q/as :b)
+              (q/inV)
+              (q/add-E (q/__ (q/select :b) (q/label)))
+                (q/to :a)))

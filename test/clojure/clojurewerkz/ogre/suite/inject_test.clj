@@ -22,3 +22,13 @@
                 (q/out)
                 (q/inject (q/traverse g (q/V v2Id) (q/next!)))
                 (q/values :name)))
+
+(defn get_g_VX1X_injectXg_VX4XX_out_name
+  "g.V(v1Id).inject(g.V(v4Id).next()).out().values('name')"
+  [g v1Id v4Id]
+  (q/traverse g
+              (q/V v1Id)
+              (q/inject (q/traverse g (q/V v4Id) (q/next!)))
+              (q/out)
+              (q/values :name)))
+

@@ -89,3 +89,24 @@
                 (q/has-label :software)
                 (q/property :temp (q/__ (q/select :a)))
                 (q/value-map :name :temp)))
+
+(defn get_g_V_asXaX_hasXname_markoX_outXcreatedX_asXbX_addVXselectXaX_labelX_propertyXtest_selectXbX_labelX_valueMapXtrueX
+  "g.V().as('a').has('name', 'marko').out('created').as('b').addV(select('a').label()).property('test', select('b').label()).valueMap(true)"
+  [g]
+  (q/traverse g
+              (q/V) (q/as :a)
+              (q/has :name "marko")
+              (q/out :created) (q/as :b)
+              (q/add-V (q/__ (q/select :a) (q/label)))
+              (q/property :test (q/__ (q/select :b) (q/label)))
+              (q/value-map true)))
+
+(defn get_g_addVXV_hasXname_markoX_propertiesXnameX_keyX_label
+  "g.addV(V().has('name', 'marko').properties('name').key()).label()"
+  [g]
+  (q/traverse g
+              (q/add-V (q/__ (q/V) (q/has :name "marko") (q/properties :name) (q/key)))
+              (q/label)))
+
+
+

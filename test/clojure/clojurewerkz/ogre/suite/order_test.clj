@@ -197,3 +197,31 @@
                 (q/by :weight (Order/decr))
                 (q/values :weight)))
 
+(defn get_g_V_hasLabelXpersonX_group_byXnameX_byXoutE_weight_sumX_unfold_order_byXvalues_decrX
+  "g.V().hasLabel('person').group().by('name').by(outE().values('weight').sum()).unfold().order().by(Column.values, Order.decr)"
+  [g]
+  (q/traverse g
+              (q/V)
+              (q/has-label :person)
+              (q/group)
+                (q/by :name)
+                (q/by (q/__ (q/outE) (q/values :weight) (q/sum)))
+              (q/unfold)
+              (q/order)
+                (q/by (Column/valueOf "values") (Order/decr))))
+
+(defn get_g_V_hasLabelXpersonX_group_byXnameX_byXoutE_weight_sumX_orderXlocalX_byXvaluesX
+  "g.V().hasLabel('person').group().by('name').by(outE().values('weight').sum()).order(Scope.local).by(Column.values)"
+  [g]
+  (q/traverse g
+              (q/V)
+              (q/has-label :person)
+              (q/group)
+                (q/by :name)
+                (q/by (q/__ (q/outE) (q/values :weight) (q/sum)))
+              (q/order (q/scope :local))
+                (q/by (Column/valueOf "values"))))
+
+
+
+

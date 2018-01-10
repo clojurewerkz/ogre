@@ -44,11 +44,17 @@
 
 (defmethod add-V GraphTraversal
   ([^GraphTraversal g] (.addV g))
-  ([^GraphTraversal g label] (.addV g ^String (util/cast-param label))))
+  ([^GraphTraversal g label-or-traversal]
+    (if (instance? GraphTraversal label-or-traversal)
+      (.addV g ^GraphTraversal label-or-traversal)
+      (.addV g ^String (util/cast-param label-or-traversal)))))
 
 (defmethod add-V GraphTraversalSource
   ([^GraphTraversalSource g] (.addV g))
-  ([^GraphTraversalSource g label] (.addV g ^String (util/cast-param label))))
+  ([^GraphTraversalSource g label-or-traversal]
+    (if (instance? GraphTraversal label-or-traversal)
+      (.addV g ^GraphTraversal label-or-traversal)
+      (.addV g ^String (util/cast-param label-or-traversal)))))
 
 (def addV
   "Adds a vertex to the traversal. `addV` is equivalent to `add-V`."
@@ -59,10 +65,16 @@
   (fn [g _] (class g)))
 
 (defmethod add-E GraphTraversal
-  ([^GraphTraversal g label] (.addE g ^String (util/cast-param label))))
+  ([^GraphTraversal g label-or-traversal]
+    (if (instance? GraphTraversal label-or-traversal)
+      (.addE g ^GraphTraversal label-or-traversal)
+      (.addE g ^String (util/cast-param label-or-traversal)))))
 
 (defmethod add-E GraphTraversalSource
-  ([^GraphTraversalSource g label] (.addE g ^String (util/cast-param label))))
+  ([^GraphTraversalSource g label-or-traversal]
+    (if (instance? GraphTraversal label-or-traversal)
+      (.addE g ^GraphTraversal label-or-traversal)
+      (.addE g ^String (util/cast-param label-or-traversal)))))
 
 (def addE
   "Adds an edge to the traversal. `addE` is equivalent to `add-E`."
@@ -216,6 +228,8 @@
      (.by t ^String (util/cast-param arg1))
      (instance? String arg1)
      (.by t ^String arg1)
+     (instance? Column arg1)
+     (.by t ^Column arg1)
      (instance? Order arg1)
      (.by t ^Order arg1)
      (instance? java.util.Comparator arg1)
@@ -466,6 +480,10 @@
 (defn match
   [^GraphTraversal t & traversals]
   (.match t (into-array traversals)))
+
+(defn math
+  ([^GraphTraversal t ^String expr]
+   (.math t expr)))
 
 (defn max
   ([^GraphTraversal t]
