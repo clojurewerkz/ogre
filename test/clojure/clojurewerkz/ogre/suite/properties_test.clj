@@ -42,6 +42,6 @@
   [g v1Id]
   (let [p (q/traverse g (q/V v1Id) (q/properties :name) (q/next!))]
     (q/traverse g
-                (q/injects p)
+                (q/inject p)
                 (q/value))))
 

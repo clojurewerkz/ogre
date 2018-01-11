@@ -103,9 +103,21 @@
   [^GraphTraversalSource g & ids]
   (.E g (into-array ids)))
 
-(defn injects
-  [^GraphTraversalSource g & starts]
-  (.inject g (into-array starts)))
+(defmulti inject
+  "Injects an arbitrary set of objects into the traversal stream"
+  (fn [g & _] (class g)))
+
+(defmethod inject GraphTraversal
+  [^GraphTraversal g & args]
+  (.inject g (into-array args)))
+
+(defmethod inject GraphTraversalSource
+  [^GraphTraversalSource g & args]
+  (.inject g (into-array args)))
+
+(def injects
+  "Equivalent to `inject`"
+  inject)
 
 (defn with-bulk
   [^GraphTraversalSource g use-bulk]
@@ -434,10 +446,6 @@
   [^GraphTraversal t & labels]
   (let [label-array (util/keywords-to-str-array labels)]
     (.inE t label-array)))
-
-(defn inject
-  [^GraphTraversal t & args]
-  (.inject t (into-array args)))
 
 (defn inV
   [^GraphTraversal t]

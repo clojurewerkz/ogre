@@ -3,7 +3,8 @@
 * Bump to Apache TinkerPop 3.3.1
 * The API for `addV`, `addE`, and `midV` have been made more consistent to simply be `add-V`, `add-E` and `V`
 respectively. The old methods are still supported for now.
-* Support the new `math` step 
+* The `injects` start step is now simply `inject`, though `injects` is still supported.
+* Support the new `math` step
 
 ## Changes in Ogre 3.3.0.0
 

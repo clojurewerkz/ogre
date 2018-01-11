@@ -39,7 +39,7 @@
   [g]
   (q/traverse g
               (q/with-sack 1)
-              (q/injects 1)
+              (q/inject 1)
               (q/repeat (q/__ (q/sack Operator/sum)
                                 (q/by (q/__ (q/constant 1)))))
                 (q/times 10)
