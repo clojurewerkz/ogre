@@ -25,6 +25,6 @@
                                        :snapshots true
                                        :releases {:checksum :fail :update :always}}}
   :plugins [[lein-junit "1.1.8"]]
-  :test-paths ["test/clojure" "test/java"]
+  :test-paths ["test/clojure"]
   :global-vars {*warn-on-reflection* true
                 *assert* false})
