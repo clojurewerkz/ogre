@@ -5,6 +5,7 @@
 respectively. The old methods are still supported for now.
 * The `injects` start step is now simply `inject`, though `injects` is still supported.
 * Support the new `math` step
+* Dependency updates
 
 ## Changes in Ogre 3.3.0.0
 
