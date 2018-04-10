@@ -5,13 +5,13 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [potemkin "0.4.4"]
-                 [org.apache.tinkerpop/gremlin-core "3.3.1"]]
+                 [org.apache.tinkerpop/gremlin-core "3.3.2"]]
   :source-paths ["src/clojure"]
   :profiles {:dev {:global-vars {*assert* true}
                    :dependencies [[clojurewerkz/support "1.1.0" :exclusions [org.clojure/clojure]]
                                   [commons-io/commons-io "2.6"]
-                                  [org.apache.tinkerpop/gremlin-test "3.3.1"  :scope "test"]
-                                  [org.apache.tinkerpop/tinkergraph-gremlin "3.3.1" :scope "test"]
+                                  [org.apache.tinkerpop/gremlin-test "3.3.2"  :scope "test"]
+                                  [org.apache.tinkerpop/tinkergraph-gremlin "3.3.2" :scope "test"]
                                   [org.slf4j/slf4j-log4j12 "1.7.25" :scope "test"]]
                    :resource-paths ["test/resources"]
                    :java-source-paths ["test/java"]

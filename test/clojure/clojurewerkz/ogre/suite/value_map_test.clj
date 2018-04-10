@@ -27,3 +27,15 @@
               (q/V) (q/has-label :person)
               (q/filter (q/__ (q/outE :created)))
               (q/value-map true)))
+
+(defn get_g_V_valueMapXtrueX
+  "g.V().valueMap(true)"
+  [g]
+  (q/traverse g (q/V) (q/value-map true)))
+
+(defn get_g_V_valueMapXtrue_name_ageX
+  "g.V().valueMap(true, 'name','age')"
+  [g]
+  (q/traverse g (q/V) (q/value-map true :name :age)))
+
+

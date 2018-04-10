@@ -127,3 +127,13 @@
                 (q/path)
                   (q/by :name)
                   (q/by T/label)))
+
+(defn get_g_V_hasXloop_name_loopX_repeatXinX_timesX5X_path_by_name
+  "g.V().has('loops','name','loop').repeat(__.in()).times(5).path().by('name')"
+  [g]
+  (q/traverse g (q/V)
+              (q/has "loops" :name "loop")
+              (q/repeat (q/__ (q/in)))
+              (q/times 5)
+              (q/path)
+              (q/by :name)))

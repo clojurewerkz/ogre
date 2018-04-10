@@ -29,3 +29,11 @@
   (q/traverse g (q/V)
                 (q/values :age)
                 (q/min)))
+
+(defn get_g_V_foo_injectX9999999999X_min
+  "g.V().values('foo').inject(9999999999L).min()"
+  [g]
+  (q/traverse g (q/V)
+              (q/values :foo)
+              (q/inject (long 9999999999))
+              (q/min)))

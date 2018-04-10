@@ -64,3 +64,8 @@
   (q/traverse g (q/V v1Id v2Id)
                 (q/local
                   (q/__ (q/union (q/__ (q/outE) (q/count)) (q/__ (q/inE) (q/count)) (q/__ (q/outE) (q/values :weight) (q/sum)))))))
+
+(defn get_g_VX1_2X_localXunionXcountXX
+  "g.V(v1Id, v2Id).local(union(count()))"
+  [g v1Id v2Id]
+  (q/traverse g (q/V v1Id v2Id) (q/local (q/__ (q/union (q/__ (q/count)))))))

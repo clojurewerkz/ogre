@@ -239,3 +239,32 @@
                 (q/not (q/__(q/has-id (P/within (java.util.Collections/emptyList)))))
                 (q/count)))
 
+(defn get_g_V_hasXage_withoutX27X_count
+  "g.V().has('age', P.without(27)).count()"
+  [g]
+  (q/traverse g (q/V)
+              (q/has "age" (P/without [27]))
+              (q/count)))
+
+(defn get_g_V_hasXage_withoutX27_29X_count
+  "g.V().has('age', P.without(27, 29)).count()"
+  [g]
+  (q/traverse g (q/V)
+              (q/has "age" (P/without [27 29]))
+              (q/count)))
+
+(defn get_g_V_hasXage_withinX27X_count
+  "g.V().has('age', P.within(27)).count()"
+  [g]
+  (q/traverse g (q/V)
+              (q/has "age" (P/within [27]))
+              (q/count)))
+
+(defn get_g_V_hasXage_withinX27_29X_count
+  "g.V().has('age', P.within(27, 29)).count()"
+  [g]
+  (q/traverse g (q/V)
+              (q/has "age" (P/within [27 29]))
+              (q/count)))
+
+
