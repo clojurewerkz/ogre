@@ -108,5 +108,12 @@
               (q/add-V (q/__ (q/V) (q/has :name "marko") (q/properties :name) (q/key)))
               (q/label)))
 
-
+(defn get_g_withSideEffectXa_nameX_addV_propertyXselectXaX_markoX_name
+  "g.withSideEffect('a', 'name').addV().property(select('a'),'marko').values('name')"
+  [g]
+  (q/traverse g
+              (q/with-side-effect :a "name")
+              (q/add-V)
+              (q/property (q/__ (q/select :a)) "marko")
+              (q/values :name)))
 
