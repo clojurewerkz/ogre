@@ -621,13 +621,16 @@
 
 (defn select
   ([^GraphTraversal t arg1]
-   (if (instance? Column arg1)
-     (.select t ^Column arg1)
+   (condp instance? arg1
+     Column (.select t ^Column arg1)
+     Traversal (.select t ^Traversal arg1)
      (.select t ^String (util/cast-param arg1))))
   ([^GraphTraversal t arg1 & args]
    (if (instance? Pop arg1)
      (if (= (clojure.core/count args) 1)
-       (.select t ^Pop arg1 (util/cast-param (first args)))
+       (condp instance? (first args)
+         Traversal (.select t ^Traversal (first args))
+         (.select t ^Pop arg1 (util/cast-param (first args))))
        (.select t ^Pop arg1 (util/cast-param (first args)) (util/cast-param (second args)) (util/keywords-to-str-array (take-last 2 args))))
      (.select t ^String (util/cast-param arg1) (util/cast-param (first args)) (util/keywords-to-str-array (rest args))))))
 

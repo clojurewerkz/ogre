@@ -357,3 +357,38 @@
                 (q/repeat (q/__ (q/out) (q/as :a)))
                   (q/times 2)
                 (q/select (Pop/first) :a)))
+
+(defn get_g_V_asXaX_outXknowsX_asXaX_selectXall_constantXaXX
+  "g.V().as('a').out('knows').as('a').select(Pop.all, (Traversal) __.constant('a'))"
+  [g]
+  (q/traverse g
+              q/V (q/as :a)
+              (q/out :knows) (q/as :a)
+              (q/select (Pop/all) (q/__ (q/constant "a")))))
+
+(defn get_g_V_asXaX_groupXmX_by_byXbothE_countX_barrier_selectXmX_selectXselectXaXX_byXmathX_plus_XX
+  "g.V().as('a').group('m').by().by(__.bothE().count()).barrier().select('m').<Double>select(__.select('a')).by(__.math('_+_'))"
+  [g]
+  (q/traverse g
+              (q/V) (q/as :a)
+              (q/group :m)
+              (q/by)
+              (q/by (q/__ (q/bothE)
+                          (q/count)))
+              (q/barrier)
+              (q/select :m)
+              (q/select (q/__ (q/select :a)))
+              (q/by (q/__ (q/math "_+_")))))
+
+(defn get_g_V_asXaX_groupXmX_by_byXbothE_countX_barrier_selectXmX_selectXselectXaXX
+  "g.V().as('a').group('m').by().by(__.bothE().count()).barrier().select('m').select(__.select('a'))"
+  [g]
+  (q/traverse g
+              (q/V) (q/as :a)
+              (q/group :m)
+              (q/by)
+              (q/by (q/__ (q/bothE)
+                          (q/count)))
+              (q/barrier)
+              (q/select :m)
+              (q/select (q/__ (q/select :a)))))
