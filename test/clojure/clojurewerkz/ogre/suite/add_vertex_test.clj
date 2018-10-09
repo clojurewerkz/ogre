@@ -1,9 +1,7 @@
 (ns clojurewerkz.ogre.suite.add-vertex-test
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
   (:require [clojure.test :refer [deftest testing is]]
-            [clojurewerkz.ogre.core :as q])
-  (:import (org.apache.tinkerpop.gremlin.structure T Vertex VertexProperty$Cardinality)
-           (org.apache.tinkerpop.gremlin.process.traversal P)))
+            [clojurewerkz.ogre.core :as q]))
 
 (defn get_g_VX1X_addVXanimalX_propertyXage_selectXaX_byXageXX_propertyXname_puppyX
   "g.V(v1Id).as('a').addV('animal').property('age', __.select('a').by('age')).property('name', 'puppy')"
@@ -30,16 +28,16 @@
   "g.addV('person').property(VertexProperty.Cardinality.single, 'name', 'stephen').property(VertexProperty.Cardinality.single, 'name', 'stephenm')"
   [g]
   (q/traverse g (q/add-V :person)
-                (q/property (VertexProperty$Cardinality/single) :name "stephen")
-                (q/property (VertexProperty$Cardinality/single) :name "stephenm")))
+                (q/property (q/cardinality :single) :name "stephen")
+                (q/property (q/cardinality :single) :name "stephenm")))
 
 (defn get_g_addVXpersonX_propertyXsingle_name_stephenX_propertyXsingle_name_stephenm_since_2010X
   "g.addV('person').property(VertexProperty.Cardinality.single, 'name', 'stephen').
      property(VertexProperty.Cardinality.single, 'name', 'stephenm', 'since', 2010)"
   [g]
   (q/traverse g (q/add-V :person)
-                (q/property (VertexProperty$Cardinality/single) :name "stephen")
-                (q/property (VertexProperty$Cardinality/single) :name "stephenm" :since (int 2010))))
+                (q/property (q/cardinality :single) :name "stephen")
+                (q/property (q/cardinality :single) :name "stephenm" :since (int 2010))))
 
 (defn get_g_V_hasXname_markoX_propertyXfriendWeight_outEXknowsX_weight_sum__acl_privateX
   "g.V().has('name', 'marko').property('friendWeight', __.outE('knows').values('weight').sum(), 'acl', 'private')"

@@ -6,7 +6,6 @@
   (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Operator Order P Pop SackFunctions$Barrier Scope Traversal)
            (org.apache.tinkerpop.gremlin.structure Graph T Column VertexProperty$Cardinality Vertex)
            (org.apache.tinkerpop.gremlin.structure.util GraphFactory)
-           (java.util Iterator)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal GraphTraversalSource)))
 
 (po/import-macro util/traverse)
@@ -754,3 +753,8 @@
   (if (clojure.core/and (keyword? s) (contains? #{:local :global} s))
     (if (= s :local) (Scope/local) (Scope/global))
     (throw (IllegalArgumentException. "Must be :local or :global"))))
+
+(defn cardinality
+  [card]
+  (let [c (name card)]
+    (first (clojure.core/filter #(.equalsIgnoreCase (.name %) c) (VertexProperty$Cardinality/values)))))

@@ -1,3 +1,8 @@
+## Changes in Ogre 3.3.3.0
+
+* Bump to Apache TinkerPop 3.3.3
+* Improved syntax for specifying `VertexProperty$Cardinality` by adding `(cardinality :single)`.
+
 ## Changes in Ogre 3.3.2.0
 
 * Bump to Apache TinkerPop 3.3.2
