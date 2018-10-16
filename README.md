@@ -56,7 +56,21 @@ With Maven:
 
 ## Documentation & Examples
 
-You'll need to choose a TinkerPop-enabled graph database and add that to your project's dependencies. Here we use the in-memory graph database implementation provided by `org.apache.tinkerpop/tinkergraph-gremlin`:
+You'll need to choose a TinkerPop-enabled graph database and add that to your project's dependencies. Here we use the in-memory graph database implementation provided by `org.apache.tinkerpop/tinkergraph-gremlin`, e.g.:
+
+With Leiningen:
+
+    [org.apache.tinkerpop/tinkergraph-gremlin "3.3.2"]
+
+With Maven:
+
+    <dependency>
+      <groupId>org.apache.tinkerpop</groupId>
+      <artifactId>tinkergraph-gremlin</artifactId>
+      <version>3.3.2</version>
+    </dependency>
+
+REPL examples:
 
 ```text
 user=> (load "clojurewerkz/ogre/core")
