@@ -2,8 +2,8 @@
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
-  (:import (org.apache.tinkerpop.gremlin.structure Column T Vertex Property)
-           (org.apache.tinkerpop.gremlin.process.traversal P Order Scope)))
+  (:import (org.apache.tinkerpop.gremlin.structure T Property)
+           (org.apache.tinkerpop.gremlin.process.traversal Order Scope)))
 
 (defn get_g_V_both_both_dedup_byXoutE_countX_name
   "g.V().both().both().dedup().by(__.outE().count()).values('name')"
@@ -121,7 +121,7 @@
   [g]
   (q/traverse g (q/V)
                 (q/group-count)
-                (q/select (Column/valueOf "values"))
+                (q/select (q/column :values))
                 (q/unfold)
                 (q/dedup)))
 
@@ -169,7 +169,7 @@
                 (q/group)
                   (q/by (q/__ (q/select :a)))
                   (q/by (q/__ (q/select :b) (q/dedup) (q/order) (q/fold)))
-                (q/select (Column/valueOf "values"))
+                (q/select (q/column :values))
                 (q/unfold)
                 (q/dedup)))
 

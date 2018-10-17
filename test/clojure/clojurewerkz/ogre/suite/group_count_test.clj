@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
-  (:import (org.apache.tinkerpop.gremlin.structure Column T Vertex)
+  (:import (org.apache.tinkerpop.gremlin.structure T)
            (org.apache.tinkerpop.gremlin.process.traversal P)))
 
 (defn get_g_V_hasXnoX_groupCount
@@ -93,7 +93,7 @@
                 (q/union (q/__ (q/out :knows))
                          (q/__ (q/out :created) (q/in :created)))
                 (q/group-count)
-                (q/select (Column/valueOf "values"))
+                (q/select (q/column :values))
                 (q/unfold)
                 (q/sum)))
 
@@ -105,7 +105,7 @@
                 (q/group-count :a)
                 (q/out)
                 (q/cap :a)
-                (q/select (Column/keys))
+                (q/select (q/column :keys))
                 (q/unfold)
                 (q/both)
                 (q/group-count :a)

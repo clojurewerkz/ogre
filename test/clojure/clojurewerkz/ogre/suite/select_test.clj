@@ -2,8 +2,7 @@
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
-  (:import (org.apache.tinkerpop.gremlin.structure Column T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal Order P Scope Pop)))
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Order Pop)))
 
 (defn get_g_VX1X_asXaX_outXknowsX_asXbX_selectXa_bX
   "g.V(v1Id).as('a').out('knows').as('b').select('a', 'b')"
@@ -120,7 +119,7 @@
                 (q/values :weight)
                 (q/group-count)
                 (q/unfold)
-                (q/select (Column/valueOf "values"))
+                (q/select (q/column :values))
                 (q/unfold)))
 
 (defn get_g_V_outE_weight_groupCount_selectXvaluesX_unfold_groupCount_selectXvaluesX_unfold
@@ -130,10 +129,10 @@
                 (q/outE)
                 (q/values :weight)
                 (q/group-count)
-                (q/select (Column/valueOf "values"))
+                (q/select (q/column :values))
                 (q/unfold)
                 (q/group-count)
-                (q/select (Column/valueOf "values"))
+                (q/select (q/column :values))
                 (q/unfold)))
 
 (defn get_g_V_outE_weight_groupCount_selectXkeysX_unfold
@@ -143,7 +142,7 @@
                 (q/outE)
                 (q/values :weight)
                 (q/group-count)
-                (q/select (Column/keys))
+                (q/select (q/column :keys))
                 (q/unfold)))
 
 (defn get_g_V_outE_weight_groupCount_unfold_selectXkeysX_unfold
@@ -154,7 +153,7 @@
                 (q/values :weight)
                 (q/group-count)
                 (q/unfold)
-                (q/select (Column/keys))
+                (q/select (q/column :keys))
                 (q/unfold)))
 
 (defn get_g_V_asXa_bX_out_asXcX_path_selectXkeysX
@@ -163,7 +162,7 @@
   (q/traverse g (q/V) (q/as :a :b)
                 (q/out) (q/as :c)
                 (q/path)
-                (q/select (Column/keys))))
+                (q/select (q/column :keys))))
 
 (defn get_g_V_asXaX_outXknowsX_asXbX_localXselectXa_bX_byXnameXX
   "g.V().as('a').out('knows').as('b').local(__.select('a', 'b').by('name'))"
@@ -323,7 +322,7 @@
                 (q/outE)
                 (q/values :weight)
                 (q/group-count)
-                (q/select (Column/valueOf "values"))
+                (q/select (q/column :values))
                 (q/unfold)))
 
 (defn get_g_V_label_groupCount_asXxX_selectXxX

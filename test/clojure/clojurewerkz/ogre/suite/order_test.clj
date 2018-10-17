@@ -2,8 +2,8 @@
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
-  (:import (org.apache.tinkerpop.gremlin.structure Column T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal Order P Scope Traverser)))
+  (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
+           (org.apache.tinkerpop.gremlin.process.traversal Order Traverser)))
 
 (defn get_g_V_asXaX_outXcreatedX_asXbX_order_byXshuffleX_selectXa_bX
   "g.V().as('a').out('created').as('b').order().by(Order.shuffle).select('a', 'b')"
@@ -31,8 +31,8 @@
                                 (int 3) (int (* (int (.value ^Vertex (.get v) "age")) 3))
                                 (int 4) (int (.value ^Vertex (.get v) "age")) }))
                 (q/order (q/scope :local))
-                (q/by (Column/valueOf "values") (Order/decr))
-                (q/by (Column/keys) (Order/incr))))
+                (q/by (q/column :values) (Order/decr))
+                (q/by (q/column :keys) (Order/incr))))
 
 (defn get_g_V_order_byXoutE_count__decrX
   "g.V().order().by(outE().count(), Order.decr)"
@@ -208,7 +208,7 @@
                 (q/by (q/__ (q/outE) (q/values :weight) (q/sum)))
               (q/unfold)
               (q/order)
-                (q/by (Column/valueOf "values") (Order/decr))))
+                (q/by (q/column :values) (Order/decr))))
 
 (defn get_g_V_hasLabelXpersonX_group_byXnameX_byXoutE_weight_sumX_orderXlocalX_byXvaluesX
   "g.V().hasLabel('person').group().by('name').by(outE().values('weight').sum()).order(Scope.local).by(Column.values)"
@@ -220,7 +220,7 @@
                 (q/by :name)
                 (q/by (q/__ (q/outE) (q/values :weight) (q/sum)))
               (q/order (q/scope :local))
-                (q/by (Column/valueOf "values"))))
+                (q/by (q/column :values))))
 
 
 

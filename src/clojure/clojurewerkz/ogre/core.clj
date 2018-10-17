@@ -755,3 +755,7 @@
 (defn cardinality
   [card]
   (VertexProperty$Cardinality/valueOf (name card)))
+
+(defn column
+  [s]
+  (Column/valueOf (name s)))

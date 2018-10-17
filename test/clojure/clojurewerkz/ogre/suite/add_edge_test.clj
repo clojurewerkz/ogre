@@ -2,9 +2,7 @@
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
   (:require [clojure.test :refer [deftest testing is]]
             [clojurewerkz.ogre.core :as q])
-  (:import (org.apache.tinkerpop.gremlin.structure T Vertex Column)
-           (org.apache.tinkerpop.gremlin.process.traversal P Order Scope Traversal)
-           (java.util ArrayList)))
+  (:import (org.apache.tinkerpop.gremlin.process.traversal P Order)))
 
 (defn get_g_VX1X_asXaX_outXcreatedX_addEXcreatedByX_toXaX_propertyXweight_2X
   "g.V(v1Id).as('a').out('created').addE('createdBy').to('a').property('weight', 2.0d)"
@@ -94,7 +92,7 @@
        to(V().has('name', 'lop'))"
   [g]
   (q/traverse g
-              (q/add-E (q/__ (q/V) (q/outE) (q/label) (q/group-count) (q/order (q/scope :local)) (q/by (Column/valueOf "values") (Order/decr)) (q/select (Column/keys)) (q/unfold) (q/limit 1)))
+              (q/add-E (q/__ (q/V) (q/outE) (q/label) (q/group-count) (q/order (q/scope :local)) (q/by (q/column :values) (Order/decr)) (q/select (q/column :keys)) (q/unfold) (q/limit 1)))
               (q/from (q/__ (q/V) (q/has :name "vadas")))
               (q/to (q/__ (q/V) (q/has :name "lop")))))
 
