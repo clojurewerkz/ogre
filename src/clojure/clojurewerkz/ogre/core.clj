@@ -750,11 +750,8 @@
 
 (defn scope
   [s]
-  (if (clojure.core/and (keyword? s) (contains? #{:local :global} s))
-    (if (= s :local) (Scope/local) (Scope/global))
-    (throw (IllegalArgumentException. "Must be :local or :global"))))
+  (Scope/valueOf (name s)))
 
 (defn cardinality
   [card]
-  (let [c (name card)]
-    (first (clojure.core/filter #(.equalsIgnoreCase (.name %) c) (VertexProperty$Cardinality/values)))))
+  (VertexProperty$Cardinality/valueOf (name card)))
