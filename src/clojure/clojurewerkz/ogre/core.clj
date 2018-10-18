@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.core
-  (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
+  (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse sort shuffle])
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util]
             [clojurewerkz.ogre.anon :as anon])
@@ -749,13 +749,21 @@
 ;; helpers
 
 (defn scope
+  "Provides access to Gremlin's Scope enum."
   [s]
   (Scope/valueOf (name s)))
 
 (defn cardinality
+  "Provides access to Gremlin's Cardinality enum."
   [card]
   (VertexProperty$Cardinality/valueOf (name card)))
 
 (defn column
+  "Provides access to Gremlin's Column enum."
+  [c]
+  (Column/valueOf (name c)))
+
+(defn sort
+  "Provides access to Gremlin's Order enum."
   [s]
-  (Column/valueOf (name s)))
+  (Order/valueOf (name s)))

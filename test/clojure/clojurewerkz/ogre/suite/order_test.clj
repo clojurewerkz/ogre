@@ -11,7 +11,7 @@
   (q/traverse g (q/V) (q/as :a)
                 (q/out :created) (q/as :b)
                 (q/order)
-                (q/by (Order/shuffle))
+                (q/by (q/sort :shuffle))
                 (q/select :a :b)))
 
 (defn get_g_VX1X_hasXlabel_personX_mapXmapXint_ageXX_orderXlocalX_byXvalues_decrX_byXkeys_incrX
@@ -31,15 +31,15 @@
                                 (int 3) (int (* (int (.value ^Vertex (.get v) "age")) 3))
                                 (int 4) (int (.value ^Vertex (.get v) "age")) }))
                 (q/order (q/scope :local))
-                (q/by (q/column :values) (Order/decr))
-                (q/by (q/column :keys) (Order/incr))))
+                (q/by (q/column :values) (q/sort :decr))
+                (q/by (q/column :keys) (q/sort :incr))))
 
 (defn get_g_V_order_byXoutE_count__decrX
   "g.V().order().by(outE().count(), Order.decr)"
   [g]
   (q/traverse g (q/V)
                 (q/order)
-                (q/by (q/__ (q/outE) (q/count)) (Order/decr))))
+                (q/by (q/__ (q/outE) (q/count)) (q/sort :decr))))
 
 (defn get_g_V_group_byXlabelX_byXname_order_byXdecrX_foldX
   "g.V().group().by(T.label).by(__.values('name').order().by(Order.decr).fold())"
@@ -47,7 +47,7 @@
   (q/traverse g (q/V)
                 (q/group)
                 (q/by (T/label))
-                (q/by (q/__ (q/values :name) (q/order) (q/by (Order/decr)) (q/fold)))))
+                (q/by (q/__ (q/values :name) (q/order) (q/by (q/sort :decr)) (q/fold)))))
 
 (defn get_g_V_localXbothE_weight_foldX_order_byXsumXlocalX_decrX
   "g.V().local(__.bothE().values('weight').fold()).order().by(__.sum(q/scope.local), Order.decr)"
@@ -55,7 +55,7 @@
   (q/traverse g (q/V)
                 (q/local (q/__ (q/bothE) (q/values :weight) (q/fold)))
                 (q/order)
-                (q/by (q/__ (q/sum (q/scope :local))) (Order/decr))))
+                (q/by (q/__ (q/sum (q/scope :local))) (q/sort :decr))))
 
 (defn get_g_V_asXvX_mapXbothE_weight_foldX_sumXlocalX_asXsX_selectXv_sX_order_byXselectXsX_decrX
   "g.V().as('v').map(__.bothE().values('weight').fold()).sum(q/scope.local).as('s').select('v', 's').order().by(__.select('s'), Order.decr)"
@@ -65,7 +65,7 @@
                 (q/sum (q/scope :local)) (q/as :s)
                 (q/select :v :s)
                 (q/order)
-                (q/by (q/__ (q/select :s)) (Order/decr))))
+                (q/by (q/__ (q/select :s)) (q/sort :decr))))
 
 (defn get_g_V_hasLabelXpersonX_order_byXageX
   "g.V().hasLabel('person').order().by('age')"
@@ -90,7 +90,7 @@
   (q/traverse g (q/V)
                 (q/has-label :person)
                 (q/order)
-                (q/by (fn [^Vertex v] (.value v "age")) (Order/decr))
+                (q/by (fn [^Vertex v] (.value v "age")) (q/sort :decr))
                 (q/values :name)))
 
 (defn get_g_V_properties_order_byXkey_decrX_key
@@ -99,7 +99,7 @@
   (q/traverse g (q/V)
                 (q/properties)
                 (q/order)
-                (q/by (T/key) (Order/decr))
+                (q/by (T/key) (q/sort :decr))
                 (q/key)))
 
 (defn get_g_V_hasXsong_name_OHBOYX_outXfollowedByX_outXfollowedByX_order_byXperformancesX_byXsongType_incrX
@@ -111,7 +111,7 @@
                 (q/out :followedBy)
                 (q/order)
                 (q/by :performances)
-                (q/by :songType (Order/decr))))
+                (q/by :songType (q/sort :decr))))
 
 (defn get_g_V_both_hasLabelXpersonX_order_byXage_decrX_limitX5X_name
   "g.V().both().hasLabel('person').order().by('age', Order.decr).limit(5).values('name')"
@@ -120,7 +120,7 @@
                 (q/both)
                 (q/has-label :person)
                 (q/order)
-                (q/by :age (Order/decr))
+                (q/by :age (q/sort :decr))
                 (q/limit 5)
                 (q/values :name)))
 
@@ -131,7 +131,7 @@
                 (q/both)
                 (q/has-label :person)
                 (q/order)
-                (q/by :age (Order/decr))
+                (q/by :age (q/sort :decr))
                 (q/values :name)))
 
 (defn get_g_V_hasLabelXsongX_order_byXperfomances_decrX_byXnameX_rangeX110_120X_name
@@ -140,7 +140,7 @@
   (q/traverse g (q/V)
                 (q/has-label :song)
                 (q/order)
-                (q/by :performances (Order/decr))
+                (q/by :performances (q/sort :decr))
                 (q/by :name)
                 (q/range 110 120)
                 (q/values :name)))
@@ -167,7 +167,7 @@
   [g]
   (q/traverse g (q/V)
                 (q/order)
-                (q/by :name (Order/incr))
+                (q/by :name (q/sort :incr))
                 (q/values :name)))
 
 (defn get_g_V_order_byXnameX_name
@@ -194,7 +194,7 @@
   (q/traverse g (q/V)
                 (q/outE)
                 (q/order)
-                (q/by :weight (Order/decr))
+                (q/by :weight (q/sort :decr))
                 (q/values :weight)))
 
 (defn get_g_V_hasLabelXpersonX_group_byXnameX_byXoutE_weight_sumX_unfold_order_byXvalues_decrX
@@ -208,7 +208,7 @@
                 (q/by (q/__ (q/outE) (q/values :weight) (q/sum)))
               (q/unfold)
               (q/order)
-                (q/by (q/column :values) (Order/decr))))
+                (q/by (q/column :values) (q/sort :decr))))
 
 (defn get_g_V_hasLabelXpersonX_group_byXnameX_byXoutE_weight_sumX_orderXlocalX_byXvaluesX
   "g.V().hasLabel('person').group().by('name').by(outE().values('weight').sum()).order(Scope.local).by(Column.values)"

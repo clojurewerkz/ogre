@@ -25,5 +25,5 @@
                 (q/by :name)
                 (q/by (q/__ (q/in :created) (q/count)))
                 (q/order)
-                (q/by (q/__ (q/select :b)) (Order/decr))
+                (q/by (q/__ (q/select :b)) (q/sort :decr))
                 (q/select :a)))

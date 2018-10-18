@@ -58,5 +58,5 @@
                 (q/by (q/__ (q/bothE) (q/count)))
                 (q/by :name)
               (q/order)
-                (q/by (q/__ (q/math "a /b")) (Order/decr))
+                (q/by (q/__ (q/math "a /b")) (q/sort :decr))
               (q/select :c)))

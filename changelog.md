@@ -3,6 +3,7 @@
 * Bump to Apache TinkerPop 3.3.3
 * Improved syntax for specifying `VertexProperty$Cardinality` by adding `(cardinality :single)`.
 * Improved syntax for specifying `Column` by adding `(column :values)`.
+* Improved syntax for specifying `Order` by `(sort :decr)`.
 
 ## Changes in Ogre 3.3.2.0
 

@@ -92,7 +92,7 @@
        to(V().has('name', 'lop'))"
   [g]
   (q/traverse g
-              (q/add-E (q/__ (q/V) (q/outE) (q/label) (q/group-count) (q/order (q/scope :local)) (q/by (q/column :values) (Order/decr)) (q/select (q/column :keys)) (q/unfold) (q/limit 1)))
+              (q/add-E (q/__ (q/V) (q/outE) (q/label) (q/group-count) (q/order (q/scope :local)) (q/by (q/column :values) (q/sort :decr)) (q/select (q/column :keys)) (q/unfold) (q/limit 1)))
               (q/from (q/__ (q/V) (q/has :name "vadas")))
               (q/to (q/__ (q/V) (q/has :name "lop")))))
 

@@ -22,7 +22,7 @@
   "g.V().local(properties('location').order().by(T.value, Order.incr).range(0, 2)).value()"
   [g]
   (q/traverse g (q/V)
-                (q/local (q/__ (q/properties :location) (q/order) (q/by (T/value) (Order/incr)) (q/range 0 2)))
+                (q/local (q/__ (q/properties :location) (q/order) (q/by (T/value) (q/sort :incr)) (q/range 0 2)))
                 (q/value)))
 
 (defn get_g_V_hasXlabel_personX_asXaX_localXoutXcreatedX_asXbXX_selectXa_bX_byXnameX_byXidX

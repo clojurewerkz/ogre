@@ -180,7 +180,7 @@
                 (q/has :name "gremlin")
                 (q/inE :uses)
                 (q/order)
-                (q/by :skill (Order/incr)) (q/as :a)
+                (q/by :skill (q/sort :incr)) (q/as :a)
                 (q/outV) (q/as :b)
                 (q/select :a :b)
                 (q/by :skill)
