@@ -389,7 +389,9 @@
   ([arg1 & args]
    (if (instance? Pop arg1)
      (if (= (clojure.core/count args) 1)
-       (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^Pop arg1 (util/cast-param (first args)))
+       (if (instance? Traversal (first args))
+         (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^Pop arg1 ^Traversal (first args))
+                     (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^Pop arg1 ^String (util/cast-param (first args))))
        (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^Pop arg1 (util/cast-param (first args)) (util/cast-param (second args)) (util/keywords-to-str-array (take-last 2 args))))
      (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/select ^String (util/cast-param arg1) (util/cast-param (first args)) (util/keywords-to-str-array (rest args))))))
 

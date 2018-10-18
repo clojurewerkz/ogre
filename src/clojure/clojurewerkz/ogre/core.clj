@@ -629,7 +629,7 @@
      (if (= (clojure.core/count args) 1)
        (condp instance? (first args)
          Traversal (.select t ^Traversal (first args))
-         (.select t ^Pop arg1 (util/cast-param (first args))))
+         (.select t ^Pop arg1 ^String (util/cast-param (first args))))
        (.select t ^Pop arg1 (util/cast-param (first args)) (util/cast-param (second args)) (util/keywords-to-str-array (take-last 2 args))))
      (.select t ^String (util/cast-param arg1) (util/cast-param (first args)) (util/keywords-to-str-array (rest args))))))
 
