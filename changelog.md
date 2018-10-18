@@ -1,9 +1,12 @@
 ## Changes in Ogre 3.3.3.0
 
 * Bump to Apache TinkerPop 3.3.3
-* Improved syntax for specifying `VertexProperty$Cardinality` by adding `(cardinality :single)`.
-* Improved syntax for specifying `Column` by adding `(column :values)`.
-* Improved syntax for specifying `Order` by `(sort :decr)`.
+* Improved syntax for specifying `VertexProperty$Cardinality` with `(cardinality :single)`.
+* Improved syntax for specifying `Column` with `(column :values)`.
+* Improved syntax for specifying `Order` with `(sort :decr)`.
+* `Barrier` is no longer specified by `::norm-sack` and instead follows the common pattern of `(sack-barrier :normSack)`.
+* `with-sack` no longer takes `::split` and `::merge` and rather just takes `:split` and `:merge` as its map key arguments
+* Improved sytnax for specifying `Operator` with `(operator :sum)`
 
 ## Changes in Ogre 3.3.2.0
 

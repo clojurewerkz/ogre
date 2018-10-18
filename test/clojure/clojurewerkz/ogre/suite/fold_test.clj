@@ -1,26 +1,24 @@
 (ns clojurewerkz.ogre.suite.fold-test
-  (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
-  (:require [clojure.test :refer [deftest testing is]]
-            [clojurewerkz.ogre.core :as q])
-  (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal Operator P)))
+  (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse sort shuffle])
+  (:require [clojurewerkz.ogre.core :refer :all])
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Operator)))
 
 (defn get_g_V_fold
   "g.V().fold()"
   [g]
-  (q/traverse g (q/V)
-                (q/fold)))
+  (traverse g (V)
+              (fold)))
 
 (defn get_g_V_fold_unfold
   "g.V().fold().unfold()"
   [g]
-  (q/traverse g (q/V)
-                (q/fold)
-                (q/unfold)))
+  (traverse g (V)
+              (fold)
+              (unfold)))
 
 (defn get_g_V_age_foldX0_plusX
   "g.V().values('age').fold(0, Operator.sum)"
   [g]
-  (q/traverse g (q/V)
-                (q/values :age)
-                (q/fold (int 0) (Operator/sum))))
+  (traverse g (V)
+              (values :age)
+              (fold (int 0) (operator :sum))))

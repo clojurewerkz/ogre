@@ -1,26 +1,23 @@
 (ns clojurewerkz.ogre.suite.drop-test
-  (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
-  (:require [clojure.test :refer [deftest testing is]]
-            [clojurewerkz.ogre.core :as q])
-  (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal P)))
+  (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse sort shuffle])
+  (:require [clojurewerkz.ogre.core :refer :all]))
 
 (defn get_g_V_outE_drop
   "g.V().outE().drop()"
   [g]
-  (q/traverse g (q/V)
-                (q/outE)
-                (q/drop)))
+  (traverse g (V)
+              (outE)
+              (drop)))
 
 (defn get_g_V_properties_drop
   "g.V().properties().drop()"
   [g]
-  (q/traverse g (q/V)
-                (q/properties)
-                (q/drop)))
+  (traverse g (V)
+              (properties)
+              (drop)))
 
 (defn get_g_V_drop
   "g.V().drop()"
   [g]
-  (q/traverse g (q/V)
-                (q/drop)))
+  (traverse g (V)
+              (drop)))

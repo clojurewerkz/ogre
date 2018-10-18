@@ -132,11 +132,11 @@
      (.withSack g (util/f-to-supplier arg))
      (.withSack g arg)))
   ([^GraphTraversalSource g arg m]
-    (let [^java.util.function.BinaryOperator merge-operator (if (contains? m ::merge)
-                                                              (if (instance? Operator (::merge m)) (::merge m) (util/f-to-binaryoperator (::merge m)))
+    (let [^java.util.function.BinaryOperator merge-operator (if (contains? m :merge)
+                                                              (if (instance? Operator (:merge m)) (:merge m) (util/f-to-binaryoperator (:merge m)))
                                                               nil)
-          ^java.util.function.UnaryOperator split-operator (if (contains? m ::split)
-                                                             (if (instance? Operator (::split m)) (::split m) (util/f-to-unaryoperator (::split m)))
+          ^java.util.function.UnaryOperator split-operator (if (contains? m :split)
+                                                             (if (instance? Operator (:split m)) (:split m) (util/f-to-unaryoperator (:split m)))
                                                              nil)]
       (if (instance? clojure.lang.IFn arg)
         (cond
@@ -203,8 +203,8 @@
    (.barrier t))
   ([^GraphTraversal t max-or-consumer]
    (cond
-     (identical? max-or-consumer ::norm-sack)
-     (.barrier t (SackFunctions$Barrier/normSack))
+     (instance? SackFunctions$Barrier max-or-consumer)
+     (.barrier t ^SackFunctions$Barrier max-or-consumer)
      (instance? clojure.lang.IFn max-or-consumer)
      (.barrier t (util/f-to-consumer max-or-consumer))
      :else
@@ -748,11 +748,6 @@
 
 ;; helpers
 
-(defn scope
-  "Provides access to Gremlin's Scope enum."
-  [s]
-  (Scope/valueOf (name s)))
-
 (defn cardinality
   "Provides access to Gremlin's Cardinality enum."
   [card]
@@ -763,7 +758,20 @@
   [c]
   (Column/valueOf (name c)))
 
+(defn operator
+  [o]
+  (Operator/valueOf (name o)))
+
+(defn scope
+  "Provides access to Gremlin's Scope enum."
+  [s]
+  (Scope/valueOf (name s)))
+
 (defn sort
   "Provides access to Gremlin's Order enum."
   [s]
   (Order/valueOf (name s)))
+
+(defn sack-barrier
+  [s]
+  (SackFunctions$Barrier/valueOf (name s)))

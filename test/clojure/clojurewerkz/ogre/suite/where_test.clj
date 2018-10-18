@@ -1,180 +1,175 @@
 (ns clojurewerkz.ogre.suite.where-test
-  (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
-  (:require [clojure.test :refer [deftest testing is]]
-            [clojurewerkz.ogre.core :as q]
+  (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle sort])
+  (:require [clojurewerkz.ogre.core :refer :all]
             [clojurewerkz.ogre.util :as util])
   (:import (org.apache.tinkerpop.gremlin.structure T Vertex)
-           (org.apache.tinkerpop.gremlin.process.traversal P Traversal)))
+           (org.apache.tinkerpop.gremlin.process.traversal P)))
 
 (defn get_g_V_hasXageX_asXaX_out_in_hasXageX_asXbX_selectXa_bX_whereXa_eqXbXX
   "g.V().has('age').as('a').out().in().has('age').as('b').select('a','b').where('a', eq('b'))"
   [g]
-  (q/traverse g (q/V)
-                (q/has :age) (q/as :a)
-                (q/out)
-                (q/in)
-                (q/has :age) (q/as :b)
-                (q/select :a :b)
-                (q/where :a (P/eq "b"))))
+  (traverse g (V)
+              (has :age) (as :a)
+              (out)
+              (in)
+              (has :age) (as :b)
+              (select :a :b)
+              (where :a (P/eq "b"))))
 
 (defn get_g_V_hasXageX_asXaX_out_in_hasXageX_asXbX_selectXa_bX_whereXa_neqXbXX
   "g.V().has('age').as('a').out().in().has('age').as('b').select('a','b').where('a', neq('b'))"
   [g]
-  (q/traverse g (q/V)
-                (q/has :age) (q/as :a)
-                (q/out)
-                (q/in)
-                (q/has :age) (q/as :b)
-                (q/select :a :b)
-                (q/where :a (P/neq "b"))))
+  (traverse g (V)
+                (has :age) (as :a)
+                (out)
+                (in)
+                (has :age) (as :b)
+                (select :a :b)
+                (where :a (P/neq "b"))))
 
 (defn get_g_V_hasXageX_asXaX_out_in_hasXageX_asXbX_selectXa_bX_whereXb_hasXname_markoXX
   "g.V().has('age').as('a').out().in().has('age').as('b').select('a','b').where(as('b').has('name', 'marko'))"
   [g]
-  (q/traverse g (q/V)
-                (q/has :age) (q/as :a)
-                (q/out)
-                (q/in)
-                (q/has :age) (q/as :b)
-                (q/select :a :b)
-                (q/where (q/__ (q/as :b) (q/has :name "marko")))))
+  (traverse g (V)
+              (has :age) (as :a)
+              (out)
+              (in)
+              (has :age) (as :b)
+              (select :a :b)
+              (where (__ (as :b) (has :name "marko")))))
 
 (defn get_g_V_hasXageX_asXaX_out_in_hasXageX_asXbX_selectXa_bX_whereXa_outXknowsX_bX
   "g.V().has('age').as('a').out().in().has('age').as('b').select('a','b').where(as('a').out('knows').as('b'))"
   [g]
-  (q/traverse g (q/V)
-                (q/has :age) (q/as :a)
-                (q/out)
-                (q/in)
-                (q/has :age) (q/as :b)
-                (q/select :a :b)
-                (q/where (q/__ (q/as :a) (q/out :knows) (q/as :b)))))
+  (traverse g (V)
+              (has :age) (as :a)
+              (out)
+              (in)
+              (has :age) (as :b)
+              (select :a :b)
+              (where (__ (as :a) (out :knows) (as :b)))))
 
 (defn get_g_VX1X_asXaX_outXcreatedX_inXcreatedX_asXbX_whereXa_neqXbXX_name
   "g.V(v1Id).as('a').out('created').in('created').as('b').where('a', neq('b')).values('name')"
   [g v1Id]
-  (q/traverse g (q/V v1Id) (q/as :a)
-                (q/out :created)
-                (q/in :created) (q/as :b)
-                (q/where :a (P/neq "b"))
-                (q/values :name)))
+  (traverse g (V v1Id) (as :a)
+              (out :created)
+              (in :created) (as :b)
+              (where :a (P/neq "b"))
+              (values :name)))
 
 (defn get_g_VX1X_asXaX_outXcreatedX_inXcreatedX_asXbX_whereXasXbX_outXcreatedX_hasXname_rippleXX_valuesXage_nameX
   "g.V(v1Id).as('a').out('created').in('created').as('b').where(as('b').out('created').has('name', 'ripple')).values('age', 'name')"
   [g v1Id]
-  (q/traverse g (q/V v1Id) (q/as :a)
-                (q/out :created)
-                (q/in :created) (q/as :b)
-                (q/where (q/__ (q/as :b) (q/out :created) (q/has :name "ripple")))
-                (q/values :age :name)))
+  (traverse g (V v1Id) (as :a)
+              (out :created)
+              (in :created) (as :b)
+              (where (__ (as :b) (out :created) (has :name "ripple")))
+              (values :age :name)))
 
 (defn get_g_VX1X_asXaX_outXcreatedX_inXcreatedX_whereXeqXaXX_name
   "g.V(v1Id).as('a').out('created').in('created').where(eq('a')).values('name')"
   [g v1Id]
-  (q/traverse g (q/V v1Id) (q/as :a)
-                (q/out :created)
-                (q/in :created)
-                (q/where (P/eq "a"))
-                (q/values :name)))
+  (traverse g (V v1Id) (as :a)
+              (out :created)
+              (in :created)
+              (where (P/eq "a"))
+              (values :name)))
 
 (defn get_g_VX1X_asXaX_outXcreatedX_inXcreatedX_whereXneqXaXX_name
   "g.V(v1Id).as('a').out('created').in('created').where(neq('a')).values('name')"
   [g v1Id]
-  (q/traverse g (q/V v1Id) (q/as :a)
-                (q/out :created)
-                (q/in :created)
-                (q/where (P/neq "a"))
-                (q/values :name)))
+  (traverse g (V v1Id) (as :a)
+              (out :created)
+              (in :created)
+              (where (P/neq "a"))
+              (values :name)))
 
 (defn get_g_VX1X_out_aggregateXxX_out_whereXnotXwithinXaXXX
   "g.V(v1Id).out().aggregate('x').out().where(not(within('x')))"
   [g v1Id]
-  (q/traverse g (q/V v1Id)
-                (q/out)
-                (q/aggregate :x)
-                (q/out)
-                (q/where (P/not (P/within ["x"])))))
+  (traverse g (V v1Id)
+              (out)
+              (aggregate :x)
+              (out)
+              (where (P/not (P/within ["x"])))))
 
 (defn get_g_withSideEffectXa_graph_verticesX2XX_VX1X_out_whereXneqXaXX
   "g.withSideEffect('a', g.V(v2Id).next()).V(v1Id).out().where(neq('a'))"
   [g v1Id v2Id]
-  (q/traverse g (q/with-side-effect :a ^Vertex (q/traverse g (q/V v2Id) (q/next!)))
-                (q/V v1Id)
-                (q/out)
-                (q/where (P/neq "a"))))
+  (traverse g (with-side-effect :a ^Vertex (traverse g (V v2Id) (next!)))
+              (V v1Id)
+              (out)
+              (where (P/neq "a"))))
 
 (defn get_g_VX1X_repeatXbothEXcreatedX_whereXwithoutXeXX_aggregateXeX_otherVX_emit_path
   "g.V(v1Id).repeat(bothE('created').where(without('e')).aggregate('e').otherV()).emit().path()"
   [g v1Id]
-  (q/traverse g (q/V v1Id)
-                (q/repeat (q/__ (q/bothE :created) (q/where (P/without ["e"])) (q/aggregate :e) (q/otherV)))
-                (q/emit)
-                (q/path)))
+  (traverse g (V v1Id)
+              (repeat (__ (bothE :created) (where (P/without ["e"])) (aggregate :e) (otherV)))
+                (emit)
+              (path)))
 
 (defn get_g_V_whereXnotXoutXcreatedXXX_name
   "g.V().where(not(out('created'))).values('name')"
   [g]
-  (q/traverse g (q/V)
-                (q/where (q/__ (q/not (q/__ (q/out :created)))))
-                (q/values :name)))
+  (traverse g (V)
+              (where (__ (not (__ (out :created)))))
+              (values :name)))
 
 (defn get_g_V_asXaX_out_asXbX_whereXandXasXaX_outXknowsX_asXbX__orXasXbX_outXcreatedX_hasXname_rippleX__asXbX_inXknowsX_count_isXnotXeqX0XXXXX_selectXa_bX
   "g.V().as('a').out().as('b').where(and(as('a').out('knows').as('b'),
                                          or(as('b').out('created').has('name', 'ripple'),
                                             as('b').in('knows').count().is(not(eq(0)))))).select('a','b')"
   [g]
-  (q/traverse g (q/V) (q/as :a)
-                (q/out) (q/as :b)
-                (q/where (q/__ (q/and (q/__ (q/as :a)
-                                            (q/out :knows) (q/as :b))
-                                      (q/__ (q/or (q/__ (q/as :b) (q/out :created) (q/has :name "ripple"))
-                                                  (q/__ (q/as :b)
-                                                        (q/in :knows)
-                                                        (q/count)
-                                                        (q/is (P/not (P/eq 0)))))))))
-                (q/select :a :b)))
+  (traverse g (V) (as :a)
+              (out) (as :b)
+              (where (__ (and (__ (as :a) (out :knows) (as :b))
+                              (__ (or (__ (as :b) (out :created) (has :name "ripple"))
+                                      (__ (as :b) (in :knows) (count) (is (P/not (P/eq 0)))))))))
+              (select :a :b)))
 
 (defn get_g_V_whereXoutXcreatedX_and_outXknowsX_or_inXknowsXX_valuesXnameX
   "g.V().where(out('created').and().out('knows').or().in('knows')).values('name')"
   [g]
-  (q/traverse g (q/V)
-                (q/where (q/__ (q/out :created)
-                               (q/and)
-                               (q/out :knows)
-                               (q/or)
-                               (q/in :knows)))
-                (q/values :name)))
+  (traverse g (V)
+              (where (__ (out :created)
+                         (and)
+                         (out :knows)
+                         (or)
+                         (in :knows)))
+              (values :name)))
 
 (defn get_g_V_asXaX_outXcreatedX_asXbX_whereXandXasXbX_in__notXasXaX_outXcreatedX_hasXname_rippleXXX_selectXa_bX
   "g.V().as('a').out('created').as('b').where(and(as('b').in(), not(as('a').out('created').has('name', 'ripple')))).select('a','b')"
   [g]
-  (q/traverse g (q/V) (q/as :a)
-                (q/out :created) (q/as :b)
-                (q/where (q/__ (q/and (q/__ (q/as :b) (q/in))
-                                      (q/__ (q/not (q/__ (q/as :a) (q/out :created) (q/has :name "ripple")))))))
-                (q/select :a :b)))
+  (traverse g (V) (as :a)
+              (out :created) (as :b)
+              (where (__ (and (__ (as :b) (in))
+                              (__ (not (__ (as :a) (out :created) (has :name "ripple")))))))
+              (select :a :b)))
 
 (defn get_g_V_asXaX_outXcreatedX_asXbX_inXcreatedX_asXcX_bothXknowsX_bothXknowsX_asXdX_whereXc__notXeqXaX_orXeqXdXXXX_selectXa_b_c_dX
   "g.V().as('a').out('created').as('b').in('created').as('c').both('knows').both('knows').as('d').
         where('c', P.not(P.eq('a').or(P.eq('d')))).select('a','b','c','d')"
   [g]
-  (q/traverse g (q/V) (q/as :a)
-                (q/out :created) (q/as :b)
-                (q/in :created) (q/as :c)
-                (q/both :knows)
-                (q/both :knows) (q/as :d)
-                (q/where :c (P/not (.or (P/eq "a") (P/eq "d"))))
-                (q/select :a :b :c :d)))
+  (traverse g (V) (as :a)
+              (out :created) (as :b)
+              (in :created) (as :c)
+              (both :knows)
+              (both :knows) (as :d)
+              (where :c (P/not (.or (P/eq "a") (P/eq "d"))))
+              (select :a :b :c :d)))
 
 (defn get_g_V_asXaX_out_asXbX_whereXin_count_isXeqX3XX_or_whereXoutXcreatedX_and_hasXlabel_personXXX_selectXa_bX
   "g.V().as('a').out().as('b').where(as('b').in().count().is(eq(3)).or().where(as('b').out('created').and().as('b').has(T.label, 'person'))).select('a','b')"
   [g]
-  (q/traverse g (q/V) (q/as :a)
-                (q/out) (q/as :b)
-                (q/where (q/__ (q/as :b) (q/in) (q/count) (q/is (P/eq 3))
-                               (q/or)
-                               (q/where (q/__ (q/as :b) (q/out :created) (q/and) (q/as :b) (q/has (T/label) "person")))))
-                (q/select :a :b)))
+  (traverse g (V) (as :a)
+              (out) (as :b)
+              (where (__ (as :b) (in) (count) (is (P/eq 3))
+                         (or)
+                         (where (__ (as :b) (out :created) (and) (as :b) (has (T/label) "person")))))
+              (select :a :b)))
 
 (defn get_g_V_asXaX_outEXcreatedX_asXbX_inV_asXcX_inXcreatedX_asXdX_whereXa_ltXbX_orXgtXcXX_andXneqXdXXX_byXageX_byXweightX_byXinXcreatedX_valuesXageX_minX_selectXa_c_dX
   "g.V().as('a').outE('created').as('b').
@@ -186,67 +181,67 @@
        by(in('created').values('age').min()).
      select('a', 'c', 'd').by('name')"
   [g]
-  (q/traverse g (q/V) (q/as :a)
-                (q/outE :created) (q/as :b)
-                (q/inV) (q/as :c)
-                (q/in :created) (q/as :d)
-                (q/where :a (.and (.or (P/lt "b") (P/gt "c")) (P/neq "d")))
-                  (q/by :age)
-                  (q/by :weight)
-                  (q/by (q/__ (q/in :created) (q/values :age) (q/min)))
-                (q/select :a :c :d)
-                  (q/by :name)))
+  (traverse g (V) (as :a)
+              (outE :created) (as :b)
+              (inV) (as :c)
+              (in :created) (as :d)
+              (where :a (.and (.or (P/lt "b") (P/gt "c")) (P/neq "d")))
+                (by :age)
+                (by :weight)
+                (by (__ (in :created) (values :age) (min)))
+              (select :a :c :d)
+                (by :name)))
 
 (defn get_g_V_asXaX_outEXcreatedX_asXbX_inV_asXcX_whereXa_gtXbX_orXeqXbXXX_byXageX_byXweightX_byXweightX_selectXa_cX_byXnameX
   "g.V().as('a').outE('created').as('b').inV().as('c').where('a', gt('b').or(eq('b'))).by('age').by('weight').by('weight').<String>select('a', 'c').by('name')"
   [g]
-  (q/traverse g (q/V) (q/as :a)
-                (q/outE :created) (q/as :b)
-                (q/inV) (q/as :c)
-                (q/where :a (.or (P/gt "b") (P/eq "b")))
-                  (q/by :age)
-                  (q/by :weight)
-                  (q/by :weight)
-                (q/select :a :c)
-                  (q/by :name)))
+  (traverse g (V) (as :a)
+              (outE :created) (as :b)
+              (inV) (as :c)
+              (where :a (.or (P/gt "b") (P/eq "b")))
+                (by :age)
+                (by :weight)
+                (by :weight)
+              (select :a :c)
+                (by :name)))
 
 (defn get_g_V_asXaX_outXcreatedX_inXcreatedX_asXbX_whereXa_gtXbXX_byXageX_selectXa_bX_byXnameX
   "g.V().as('a').out('created').in('created').as('b').where('a', gt('b')).by('age').<String>select('a', 'b').by('name')"
   [g]
-  (q/traverse g (q/V) (q/as :a)
-                (q/out :created)
-                (q/in :created) (q/as :b)
-                (q/where :a (P/gt "b"))
-                  (q/by :age)
-                (q/select :a :b)
-                  (q/by :name)))
+  (traverse g (V) (as :a)
+              (out :created)
+              (in :created) (as :b)
+              (where :a (P/gt "b"))
+                (by :age)
+              (select :a :b)
+                (by :name)))
 
 (defn get_g_VX1X_asXaX_out_hasXageX_whereXgtXaXX_byXageX_name
   "g.V(v1Id).as('a').out().has('age').where(gt('a')).by('age').values('name')"
   [g v1Id]
-  (q/traverse g (q/V v1Id) (q/as :a)
-                (q/out)
-                (q/has :age)
-                (q/where (P/gt "a"))
-                  (q/by :age)
-                (q/values :name)))
+  (traverse g (V v1Id) (as :a)
+              (out)
+              (has :age)
+              (where (P/gt "a"))
+                (by :age)
+              (values :name)))
 
 (defn get_g_withSideEffectXa_josh_peterX_VX1X_outXcreatedX_inXcreatedX_name_whereXwithinXaXX
   "g.withSideEffect('a', Arrays.asList('josh', 'peter')).V(v1Id).out('created').in('created').values('name').where(P.within('a'))"
   [g v1Id]
-  (q/traverse g (q/with-side-effect :a (java.util.ArrayList. ["josh", "peter"]))
-                (q/V v1Id)
-                (q/out :created)
-                (q/in :created)
-                (q/values :name)
-                (q/where (P/within (util/str-array ["a"])))))
+  (traverse g (with-side-effect :a (java.util.ArrayList. ["josh", "peter"]))
+              (V v1Id)
+              (out :created)
+              (in :created)
+              (values :name)
+              (where (P/within (util/str-array ["a"])))))
 
 (defn get_g_V_asXaX_outXcreatedX_whereXasXaX_name_isXjoshXX_inXcreatedX_name
   "g.V().as('a').out('created').where(as('a').values('name').is('josh')).in('created').values('name')"
   [g]
-  (q/traverse g (q/V) (q/as :a)
-                (q/out :created)
-                (q/where (q/__ (q/as :a) (q/values :name) (q/is "josh")))
-                (q/in :created)
-                (q/values :name)))
+  (traverse g (V) (as :a)
+              (out :created)
+              (where (__ (as :a) (values :name) (is "josh")))
+              (in :created)
+              (values :name)))
 
