@@ -185,15 +185,17 @@
               (has-label :software)
               (values :name)))
 
-(defn get_g_V_bothEXselfX
-  "g.V().bothE('self')"
+(defn get_g_V_hasLabelXloopsX_bothEXselfX
+  "g.V().hasLabel('loops').bothE('self')"
   [g]
   (traverse g (V)
+              (has-label :loops)
               (bothE :self)))
 
-(defn get_g_V_bothXselfX
-  "g.V().both('self')"
+(defn get_g_V_hasLabelXloopsX_bothXselfX
+  "g.V().hasLabel('loops').both('self')"
   [g]
   (traverse g (V)
+              (has-label :loops)
               (both :self)))
 

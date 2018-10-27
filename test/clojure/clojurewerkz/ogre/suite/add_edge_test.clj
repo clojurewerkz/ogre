@@ -85,13 +85,13 @@
                   (to b)
                 (property :weight 0.1)))
 
-(defn get_g_addEXV_outE_label_groupCount_orderXlocalX_byXvalues_decrX_selectXkeysX_unfold_limitX1XX_fromXV_hasXname_vadasXX_toXV_hasXname_lopXX
-  "g.addE(V().outE().label().groupCount().order(local).by(values, decr).select(keys).unfold().limit(1)).
+(defn get_g_addEXV_outE_label_groupCount_orderXlocalX_byXvalues_descX_selectXkeysX_unfold_limitX1XX_fromXV_hasXname_vadasXX_toXV_hasXname_lopXX
+  "g.addE(V().outE().label().groupCount().order(local).by(values, desc).select(keys).unfold().limit(1)).
        from(V().has('name', 'vadas')).
        to(V().has('name', 'lop'))"
   [g]
   (traverse g
-              (add-E (__ (V) (outE) (label) (group-count) (order (scope :local)) (by (column :values) (sort :decr)) (select (column :keys)) (unfold) (limit 1)))
+              (add-E (__ (V) (outE) (label) (group-count) (order (scope :local)) (by (column :values) (sort :desc)) (select (column :keys)) (unfold) (limit 1)))
                 (from (__ (V) (has :name "vadas")))
                 (to (__ (V) (has :name "lop")))))
 

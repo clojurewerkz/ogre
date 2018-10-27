@@ -94,15 +94,15 @@
                 (by T/label)
               (select :a :b)))
 
-(defn get_g_V_outE_asXeX_inV_asXvX_selectXeX_order_byXweight_incrX_selectXvX_valuesXnameX_dedup
-  "g.V().outE().as('e').inV().as('v').select('e').order().by('weight', Order.incr).select('v').values('name').dedup()"
+(defn get_g_V_outE_asXeX_inV_asXvX_selectXeX_order_byXweight_ascX_selectXvX_valuesXnameX_dedup
+  "g.V().outE().as('e').inV().as('v').select('e').order().by('weight', Order.asc).select('v').values('name').dedup()"
   [g]
   (traverse g (V)
               (outE) (as :e)
               (inV)
               (as :v) (select :e)
               (order)
-                (by :weight (sort :incr))
+                (by :weight (sort :asc))
               (select :v)
               (values :name)
               (dedup)))
@@ -161,4 +161,3 @@
               (select (column :values))
               (unfold)
               (dedup)))
-

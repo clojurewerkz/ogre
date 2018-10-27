@@ -60,3 +60,29 @@
               (select :p1 :p2)
                 (by :name)))
 
+(defn get_g_injectX2X_chooseXisX1X__constantX10Xfold__foldX
+  "g.inject(2).choose(__.is(1), __.constant(10).fold(), __.fold())"
+  [g]
+  (traverse g (inject 2)
+              (choose (__ (is 1)) (__ (constant 10) (fold)) (__ (fold)))))
+
+(defn get_g_injectX1X_chooseXisX1X__constantX10Xfold__foldX
+  "g.inject(1).choose(__.is(1), __.constant(10).fold(), __.fold())"
+  [g]
+  (traverse g (inject 1)
+            (choose (__ (is 1)) (__ (constant 10) (fold)) (__ (fold)))))
+
+(defn get_g_V_hasLabelXpersonX_chooseXageX__optionX27L__constantXyoungXX_optionXnone__constantXoldXX_groupCount
+  "g.V().hasLabel('person').
+     choose(values('age')).
+       option(27L, __.constant('young')).
+       option(TraversalOptionParent.Pick.none, __.constant('old')).
+     groupCount()"
+  [g]
+  (traverse g (V)
+            (has-label :person)
+            (choose (__ (values :age)))
+                    (option (long 27) (__ (constant "young")))
+                    (option (TraversalOptionParent$Pick/none) (__ (constant "old")))
+            (group-count)))
+

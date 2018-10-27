@@ -12,9 +12,9 @@
                 (by :age)))
 
 
-(defn get_g_V_outXcreatedX_projectXa_bX_byXnameX_byXinXcreatedX_countX_order_byXselectXbX__decrX_selectXaX
+(defn get_g_V_outXcreatedX_projectXa_bX_byXnameX_byXinXcreatedX_countX_order_byXselectXbX__descX_selectXaX
   "g.V().out('created').project('a', 'b').by('name').by(__.in('created').count())
-        .order().by(__.select('b'), Order.decr).select('a')"
+        .order().by(__.select('b'), Order.desc).select('a')"
   [g]
   (traverse g (V)
               (out :created)
@@ -22,5 +22,5 @@
                 (by :name)
                 (by (__ (in :created) (count)))
               (order)
-                (by (__ (select :b)) (sort :decr))
+                (by (__ (select :b)) (sort :desc))
               (select :a)))

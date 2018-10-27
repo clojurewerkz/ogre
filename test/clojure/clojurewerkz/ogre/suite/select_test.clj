@@ -61,36 +61,89 @@
                 (by)))
 
 (defn get_g_V_selectXaX
-  "final GraphTraversal<Vertex, Vertex> root = g.V();
-   return null == pop ? root.select('a') : root.select(pop, 'a');"
-  [g pop]
-  (if (nil? pop)
-    (traverse g (V) (select :a))
-    (traverse g (V) (select pop :a))))
+  "g.V().select('a')"
+  [g]
+  (traverse g (V) (select :a)))
 
 (defn get_g_V_selectXa_bX
-  "final GraphTraversal<Vertex, Vertex> root = g.V();
-   return null == pop ? root.select('a', 'b') : root.select(pop, 'a', 'b');"
-  [g pop]
-  (if (nil? pop)
-    (traverse g (V) (select :a :b))
-    (traverse g (V) (select pop :a :b))))
+  "g.V().select('a','b')"
+  [g]
+  (traverse g (V) (select :a :b)))
 
-(defn get_g_V_valueMap_selectXpop_aX
-  "final GraphTraversal<Vertex, Map<String, Object>> root = g.V().valueMap();
-   return null == pop ? root.select('a') : root.select(pop, 'a');"
-  [g pop]
-  (if (nil? pop)
-    (traverse g (V) (value-map) (select :a))
-    (traverse g (V) (value-map) (select pop :a))))
+(defn get_g_V_valueMap_selectXaX
+  "g.V().valueMap().select('a')"
+  [g]
+  (traverse g (V) (value-map) (select :a)))
 
-(defn get_g_V_valueMap_selectXpop_a_bX
-  "final GraphTraversal<Vertex, Vertex> root = g.V().valueMap();
-   return null == pop ? root.select('a', 'b') : root.select(pop, 'a', 'b');"
-  [g pop]
-  (if (nil? pop)
-    (traverse g (V) (value-map) (select :a :b))
-    (traverse g (V) (value-map) (select pop :a :b))))
+(defn get_g_V_valueMap_selectXa_bX
+  "g.V().valueMap().select('a','b')"
+  [g]
+  (traverse g (V) (value-map) (select :a :b)))
+
+(defn get_g_V_selectXfirst_aX
+  "g.V().select(first, 'a')"
+  [g]
+  (traverse g (V) (select Pop/first :a)))
+
+(defn get_g_V_selectXfirst_a_bX
+  "g.V().select(first, 'a','b')"
+  [g]
+  (traverse g (V) (select Pop/first :a :b)))
+
+(defn get_g_V_valueMap_selectXfirst_aX
+  "g.V().valueMap().select(first,'a')"
+  [g]
+  (traverse g (V) (value-map) (select Pop/first :a)))
+
+(defn get_g_V_valueMap_selectXfirst_a_bX
+  "g.V().valueMap().select(first,'a','b')"
+  [g]
+  (traverse g (V) (value-map) (select Pop/first :a :b)))
+
+(defn get_g_V_selectXlast_aX
+  "g.V().select(last, 'a')"
+  [g]
+  (traverse g (V) (select Pop/last :a)))
+
+(defn get_g_V_selectXlast_a_bX
+  "g.V().select(last, 'a','b')"
+  [g]
+  (traverse g (V) (select Pop/last :a :b)))
+
+(defn get_g_V_valueMap_selectXlast_aX
+  "g.V().valueMap().select(last,'a')"
+  [g]
+  (traverse g (V) (value-map) (select Pop/last :a)))
+
+(defn get_g_V_valueMap_selectXlast_a_bX
+  "g.V().valueMap().select(last,'a','b')"
+  [g]
+  (traverse g (V) (value-map) (select Pop/last :a :b)))
+
+(defn get_g_V_selectXall_aX
+  "g.V().select(all, 'a')"
+  [g]
+  (traverse g (V) (select Pop/all :a)))
+
+(defn get_g_V_selectXall_a_bX
+  "g.V().select(all, 'a','b')"
+  [g]
+  (traverse g (V) (select Pop/all :a :b)))
+
+(defn get_g_V_valueMap_selectXall_aX
+  "g.V().valueMap().select(all,'a')"
+  [g]
+  (traverse g (V) (value-map) (select Pop/all :a)))
+
+(defn get_g_V_valueMap_selectXall_a_bX
+  "g.V().valueMap().select(all,'a','b')"
+  [g]
+  (traverse g (V) (value-map) (select Pop/all :a :b)))
+
+(defn get_g_V_selectXaX_count
+  "g.V().select('a').count()"
+  [g]
+  (traverse g (V) (select :a) (count)))
 
 (defn get_g_V_untilXout_outX_repeatXin_asXaX_in_asXbXX_selectXa_bX_byXnameX
   "g.V().until(__.out().out()).repeat(__.in().as('a').in().as('b')).select('a', 'b').by('name')"
@@ -170,8 +223,8 @@
               (out :knows) (as :b)
               (local (__ (select :a :b) (by :name)))))
 
-(defn get_g_V_hasXname_gremlinX_inEXusesX_order_byXskill_incrX_asXaX_outV_asXbX_selectXa_bX_byXskillX_byXnameX
-  "g.V().has('name', 'gremlin').inE('uses').order().by('skill', Order.incr).as('a')
+(defn get_g_V_hasXname_gremlinX_inEXusesX_order_byXskill_ascX_asXaX_outV_asXbX_selectXa_bX_byXskillX_byXnameX
+  "g.V().has('name', 'gremlin').inE('uses').order().by('skill', Order.asc).as('a')
                                            .outV().as('b')
                                            .select('a', 'b').by('skill').by('name')"
   [g]
@@ -179,7 +232,7 @@
               (has :name "gremlin")
               (inE :uses)
               (order)
-                (by :skill (sort :incr)) (as :a)
+                (by :skill (sort :asc)) (as :a)
               (outV) (as :b)
               (select :a :b)
                 (by :skill)
@@ -368,8 +421,8 @@
   [g]
   (traverse g (V) (as :a)
               (group :m)
-              (by)
-              (by (__ (bothE) (count)))
+                (by)
+                (by (__ (bothE) (count)))
               (barrier)
               (select :m)
               (select (__ (select :a)))
@@ -380,8 +433,8 @@
   [g]
   (traverse g (V) (as :a)
               (group :m)
-              (by)
-              (by (__ (bothE) (count)))
+                (by)
+                (by (__ (bothE) (count)))
               (barrier)
               (select :m)
               (select (__ (select :a)))))

@@ -41,9 +41,8 @@
               (math "sin _")
                 (by (__ (sack)))))
 
-
-(defn get_g_V_projectXa_b_cX_byXbothE_weight_sumX_byXbothE_countX_byXnameX_order_byXmathXa_div_bX_decrX_selectXcX
-  "g.V().project('a', 'b', 'c').by(bothE().values('weight').sum()).by(bothE().count()).by('name').order().by(math('a / b'), decr).select('c')"
+(defn get_g_V_projectXa_b_cX_byXbothE_weight_sumX_byXbothE_countX_byXnameX_order_byXmathXa_div_bX_descX_selectXcX
+  "g.V().project('a', 'b', 'c').by(bothE().values('weight').sum()).by(bothE().count()).by('name').order().by(math('a / b'), desc).select('c')"
   [g]
   (traverse g (V)
               (project :a :b :c)
@@ -53,3 +52,20 @@
               (order)
                 (by (__ (math "a /b")) (sort :decr))
               (select :c)))
+
+(defn get_g_V_outE_mathX0_minus_itX_byXweightX
+  "g.V().outE().math('0-_').by('weight')"
+  [g]
+  (traverse g (V)
+              (outE)
+              (math "0-_")
+                (by :weight)))
+
+(defn get_g_V_hasXageX_valueMap_mathXit_plus_itXbyXselectXageX_unfoldXX
+  "g.V().has('age').valueMap().math('_+_').by(select('age').unfold())"
+  [g]
+  (traverse g (V)
+              (has :age)
+              (value-map)
+              (math "_+_")
+                (by (__ (select :age) (unfold)))))
