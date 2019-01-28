@@ -488,8 +488,8 @@
 (defn __value-map
   [& args]
   (if (clojure.core/and (clojure.core/not (empty? args)) (instance? Boolean (first args)))
-    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/valueMap (first args) (util/keywords-to-str-array (rest args))))
-    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/valueMap (util/keywords-to-str-array args)))
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/valueMap (first args) (util/keywords-to-str-array (rest args)))
+    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/valueMap (util/keywords-to-str-array args))))
 
 (defn __values
   [& ks]
