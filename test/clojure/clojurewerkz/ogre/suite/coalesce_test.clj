@@ -40,3 +40,12 @@
               (path)
                 (by :name)
                 (by T/label)))
+
+(defn get_g_V_outXcreatedX_order_byXnameX_coalesceXname_constantXxXX
+  "g.V().out('created').order().by('name').coalesce(values('name'), constant('x'))"
+  [g]
+  (traverse g (V)
+            (out :created)
+            (order)
+              (by :name)
+            (coalesce (__ (values :name)) (__ (constant "x")))))

@@ -1291,6 +1291,11 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_V_coalesceXoutEXknowsX_outEXcreatedXX_otherV_path_byXnameX_byXlabelX").invoke(g);
         }
 
+        @Override
+        public Traversal get_g_V_outXcreatedX_order_byXnameX_coalesceXname_constantXxXX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_outXcreatedX_order_byXnameX_coalesceXname_constantXxXX").invoke(g);
+        }
+
     }
 
     public static class ConstantTestTraversals extends ConstantTest {
@@ -2551,6 +2556,11 @@ public class OgreTinkerPopCheck {
         @Override
         public Traversal get_g_V_groupXmX_byXnameX_byXinXknowsX_nameX_capXmX() {
             return (Traversal) Clojure.var(NS, "get_g_V_groupXmX_byXnameX_byXinXknowsX_nameX_capXmX").invoke(g);
+        }
+
+        @Override
+        public Traversal get_g_V_hasLabelXpersonX_asXpX_outXcreatedX_group_byXnameX_byXselectXpX_valuesXageX_sumX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasLabelXpersonX_asXpX_outXcreatedX_group_byXnameX_byXselectXpX_valuesXageX_sumX").invoke(g);
         }
 
     }

@@ -201,3 +201,14 @@
                 (by :name)
                 (by (__ (in :knows) (values :name)))
               (cap :m)))
+
+(defn get_g_V_hasLabelXpersonX_asXpX_outXcreatedX_group_byXnameX_byXselectXpX_valuesXageX_sumX
+  "g.V().hasLabel('person').as('p').out('created').group().by('name').by(__.select('p').values('age').sum())"
+  [g]
+  (traverse g
+            (V)
+            (has-label :person) (as :p)
+            (out :created)
+            (group)
+              (by :name)
+              (by (__ (select :p) (values :age) (sum)))))
