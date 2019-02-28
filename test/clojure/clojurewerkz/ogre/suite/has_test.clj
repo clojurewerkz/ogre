@@ -2,10 +2,10 @@
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse sort shuffle])
   (:require [clojurewerkz.ogre.core :refer :all])
   (:import (org.apache.tinkerpop.gremlin.structure T)
-           (org.apache.tinkerpop.gremlin.process.traversal P Traverser)))
+           (org.apache.tinkerpop.gremlin.process.traversal P Traverser TextP)))
 
 (defn get_g_V_outXcreatedX_hasXname__mapXlengthX_isXgtX3XXX_name
-  "g.V().out(\"created\").has(\"name\", __.map(s -> s.get().length()).is(P.gt(3))).values(\"name\")"
+  "g.V().out('created').has('name', __.map(s -> s.get().length()).is(P.gt(3))).values('name')"
   [g]
   (traverse g (V)
               (out :created)
@@ -19,37 +19,37 @@
               (has key)))
 
 (defn get_g_VX1X_hasXname_markoX
-  "g.V(v1Id).has(\"name\", \"marko\")"
+  "g.V(v1Id).has('name', 'marko')"
   [g v1Id]
   (traverse g (V v1Id)
               (has :name "marko")))
 
 (defn get_g_V_hasXname_markoX
-  "g.V().has(\"name\", \"marko\")"
+  "g.V().has('name', 'marko')"
   [g]
   (traverse g (V)
               (has :name "marko")))
 
 (defn get_g_V_hasXname_blahX
-  "return g.V().has(\"name\", \"blah\")"
+  "return g.V().has('name', 'blah')"
   [g]
   (traverse g (V)
               (has :name "blah")))
 
 (defn get_g_V_hasXblahX
-  "return g.V().has(\"blah\")"
+  "return g.V().has('blah')"
   [g]
   (traverse g (V)
               (has "blah")))
 
 (defn get_g_VX1X_hasXage_gt_30X
-  "g.V(v1Id).has(\"age\", P.gt(30))"
+  "g.V(v1Id).has('age', P.gt(30))"
   [g v1Id]
   (traverse g (V [v1Id])
               (has :age (P/gt 30))))
 
 (defn get_g_VXv1X_hasXage_gt_30X
-  "g.V(g.V(v1Id).next()).has(\"age\", P.gt(30))"
+  "g.V(g.V(v1Id).next()).has('age', P.gt(30))"
   [g V1Id]
   (traverse g (V V1Id)
               (has :age (P/gt 30))))
@@ -76,25 +76,25 @@
               (has-id v2Id v3Id)))
 
 (defn get_g_V_hasXage_gt_30X
-  "g.V().has(\"age\", P.gt(30))"
+  "g.V().has('age', P.gt(30))"
   [g]
   (traverse g (V)
               (has :age (P/gt 30))))
 
 (defn get_g_V_hasXage_isXgt_30XX
-  "g.V().has(\"age\", __.is(P.gt(30)))"
+  "g.V().has('age', __.is(P.gt(30)))"
   [g]
   (traverse g (V)
               (has :age (__ (is (P/gt 30))))))
 
 (defn get_g_EX7X_hasLabelXknowsX
-  "g.E(e7Id).hasLabel(\"knows\")"
+  "g.E(e7Id).hasLabel('knows')"
   [g e7Id]
   (traverse g (E e7Id)
               (has-label :knows)))
 
 (defn get_g_E_hasLabelXknowsX
-  "g.E().hasLabel(\"knows\")"
+  "g.E().hasLabel('knows')"
   [g]
   (traverse g (E)
               (has-label :knows)))
@@ -108,26 +108,26 @@
               (has T/id e8Id)))
 
 (defn get_g_E_hasLabelXuses_traversesX
-  "g.E().hasLabel(\"uses\", \"traverses\")"
+  "g.E().hasLabel('uses', 'traverses')"
   [g]
   (traverse g (E)
               (has-label :uses :traverses)))
 
 (defn get_g_V_hasLabelXperson_software_blahX
-  "g.V().hasLabel(\"person\", \"software\", \"blah\")"
+  "g.V().hasLabel('person', 'software', 'blah')"
   [g]
   (traverse g (V)
               (has-label :person :software :blah)))
 
 (defn get_g_V_hasXperson_name_markoX_age
-  "g.V().has(\"person\", \"name\", \"marko\").values(\"age\")"
+  "g.V().has('person', 'name', 'marko').values('age')"
   [g]
   (traverse g (V)
               (has :person :name "marko")
               (values :age)))
 
 (defn get_g_VX1X_outE_hasXweight_inside_0_06X_inV
-  "g.V(v1Id).outE().has(\"weight\", P.inside(0.0d, 0.6d)).inV()"
+  "g.V(v1Id).outE().has('weight', P.inside(0.0d, 0.6d)).inV()"
   [g v1Id]
   (traverse g (V)
               (outE)
@@ -135,7 +135,7 @@
               (inV)))
 
 (defn get_g_V_hasXlocationX
-  "g.V().has(\"location\")"
+  "g.V().has('location')"
   [g]
   (traverse g (V)
               (has :location)))
@@ -266,4 +266,38 @@
               (has "age" (P/within [27 29]))
               (count)))
 
+(defn get_g_V_hasXname_containingXarkXX
+  "g.V().has('name', TextP.containing('ark'))"
+  [g]
+  (traverse g 
+            (V)
+            (has :name (TextP/containing "ark"))))
 
+
+(defn get_g_V_hasXname_startingWithXmarXX
+  "g.V().has('name', TextP.startingWith('mar'))"
+  [g]
+  (traverse g
+            (V)
+            (has :name (TextP/startingWith "mar"))))
+
+(defn get_g_V_hasXname_endingWithXasXX
+  "g.V().has('name', TextP.endingWith('as'))"
+  [g]
+  (traverse g
+            (V)
+            (has :name (TextP/endingWith "as"))))
+
+(defn get_g_V_hasXperson_name_containingXoX_andXltXmXXX
+  "g.V().has('person','name', TextP.containing('o').and(P.lt('m')))"
+  [g]
+  (traverse g
+            (V)
+            (has "person" :name (.and (TextP/containing "o") (P/lt "m")))))
+
+(defn get_g_V_hasXname_gtXmX_andXcontainingXoXXX
+  "g.V().has('name', P.gt('m').and(TextP.containing('o')))"
+  [g]
+  (traverse g
+            (V)
+            (has :name (.and (P/gt "m") (TextP/containing "o")))))

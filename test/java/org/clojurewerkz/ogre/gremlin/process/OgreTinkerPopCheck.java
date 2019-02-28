@@ -1,6 +1,7 @@
 package org.clojurewerkz.ogre.gremlin.process;
 import clojure.java.api.Clojure;
 import clojure.lang.IFn;
+import org.apache.tinkerpop.gremlin.process.traversal.Path;
 import org.apache.tinkerpop.gremlin.process.traversal.Traversal;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__;
 import org.apache.tinkerpop.gremlin.process.traversal.step.branch.*;
@@ -269,6 +270,50 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_V_hasXloop_name_loopX_repeatXinX_timesX5X_path_by_name").invoke(g);
         }
 
+        @Override
+        public Traversal<Vertex, Path> get_g_V_repeatXout_repeatXoutX_timesX1XX_timesX1X_limitX1X_path_by_name() {
+            return (Traversal) Clojure.var(NS, "get_g_V_repeatXout_repeatXoutX_timesX1XX_timesX1X_limitX1X_path_by_name").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Path> get_g_V_repeatXoutXknowsXX_untilXrepeatXoutXcreatedXX_emitXhasXname_lopXXX_path_byXnameX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_repeatXoutXknowsXX_untilXrepeatXoutXcreatedXX_emitXhasXname_lopXXX_path_byXnameX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, String> get_g_V_repeatXrepeatXout_createdXX_untilXhasXname_rippleXXXemit_lang() {
+            return (Traversal) Clojure.var(NS, "get_g_V_repeatXrepeatXout_createdXX_untilXhasXname_rippleXXXemit_lang").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, String> get_g_V_untilXconstantXtrueXX_repeatXrepeatXout_createdXX_untilXhasXname_rippleXXXemit_lang() {
+            return (Traversal) Clojure.var(NS, "get_g_V_untilXconstantXtrueXX_repeatXrepeatXout_createdXX_untilXhasXname_rippleXXXemit_lang").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, String> get_g_VX3X_repeatXbothX_createdXX_untilXloops_is_40XXemit_repeatXin_knowsXX_emit_loopsXisX1Xdedup_values(Object v3Id) {
+            return (Traversal) Clojure.var(NS, "get_g_VX3X_repeatXbothX_createdXX_untilXloops_is_40XXemit_repeatXin_knowsXX_emit_loopsXisX1Xdedup_values").invoke(g, v3Id);
+        }
+
+        @Override
+        public Traversal<Vertex, String> get_g_VX1X_repeatXrepeatXunionXout_uses_out_traversesXX_whereXloops_isX0X_timesX1X_timeX2X_name(Object v1Id) {
+            return (Traversal) Clojure.var(NS, "get_g_VX1X_repeatXrepeatXunionXout_uses_out_traversesXX_whereXloops_isX0X_timesX1X_timeX2X_name").invoke(g, v1Id);
+        }
+
+        @Override
+        public Traversal<Vertex, String> get_g_V_repeatXa_outXknows_repeatXb_outXcreatedX_filterXloops_isX0XX_emit_lang() {
+            return (Traversal) Clojure.var(NS, "get_g_V_repeatXa_outXknows_repeatXb_outXcreatedX_filterXloops_isX0XX_emit_lang").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, String> get_g_V_emit_repeatXa_outXknows_filterXloops_isX0XX_lang() {
+            return (Traversal) Clojure.var(NS, "get_g_V_emit_repeatXa_outXknows_filterXloops_isX0XX_lang").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, String> get_g_VX6X_repeatXa_bothXcreatedX_simplePathX_emitXrepeatXb_bothXknowsXX_untilXloopsXbX_asXb_whereXloopsXaX_asXbX_hasXname_vadasXX_dedup_name(Object v6Id) {
+            return (Traversal) Clojure.var(NS, "get_g_VX6X_repeatXa_bothXcreatedX_simplePathX_emitXrepeatXb_bothXknowsXX_untilXloopsXbX_asXb_whereXloopsXaX_asXbX_hasXname_vadasXX_dedup_name").invoke(g, v6Id);
+        }
     }
 
     public static class UnionTestTraversals extends UnionTest {
@@ -342,6 +387,10 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_V_asXaX_andXselectXaX_selectXaXX").invoke(g);
         }
 
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXname_markoX_and_hasXname_markoX_and_hasXname_markoX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXname_markoX_and_hasXname_markoX_and_hasXname_markoX").invoke(g);
+        }
     }
 
     public static class CoinTestTraversals extends CoinTest {
@@ -721,6 +770,31 @@ public class OgreTinkerPopCheck {
         @Override
         public Traversal get_g_V_hasXage_withinX27_29X_count() {
             return (Traversal) Clojure.var(NS, "get_g_V_hasXage_withinX27_29X_count").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXname_containingXarkXX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXname_containingXarkXX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXname_startingWithXmarXX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXname_startingWithXmarXX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXname_endingWithXasXX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXname_endingWithXasXX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXperson_name_containingXoX_andXltXmXXX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXperson_name_containingXoX_andXltXmXXX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXname_gtXmX_andXcontainingXoXXX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXname_gtXmX_andXcontainingXoXXX").invoke(g);
         }
     }
 
@@ -1245,8 +1319,8 @@ public class OgreTinkerPopCheck {
         }
 
         @Override
-        public Traversal get_g_V_asXaX_hasXname_markoX_outXcreatedX_asXbX_addVXselectXaX_labelX_propertyXtest_selectXbX_labelX_valueMapXtrueX() {
-            return (Traversal) Clojure.var(NS, "get_g_V_asXaX_hasXname_markoX_outXcreatedX_asXbX_addVXselectXaX_labelX_propertyXtest_selectXbX_labelX_valueMapXtrueX").invoke(g);
+        public Traversal get_g_V_asXaX_hasXname_markoX_outXcreatedX_asXbX_addVXselectXaX_labelX_propertyXtest_selectXbX_labelX_valueMap_withXtokensX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_asXaX_hasXname_markoX_outXcreatedX_asXbX_addVXselectXaX_labelX_propertyXtest_selectXbX_labelX_valueMap_withXtokensX").invoke(g);
         }
 
         @Override
@@ -1554,6 +1628,30 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_V_age_max").invoke(g);
         }
 
+        @Override
+        public Traversal<Vertex, Integer> get_g_V_age_fold_maxXlocalX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_age_fold_maxXlocalX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Comparable> get_g_V_foo_max() {
+            return (Traversal) Clojure.var(NS, "get_g_V_foo_max").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Comparable> get_g_V_foo_fold_maxXlocalX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_foo_fold_maxXlocalX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, String> get_g_V_name_max() {
+            return (Traversal) Clojure.var(NS, "get_g_V_name_max").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, String> get_g_V_name_fold_maxXlocalX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_name_fold_maxXlocalX").invoke(g);
+        }
     }
 
     public static class MeanTestTraversals extends MeanTest {
@@ -1561,6 +1659,7 @@ public class OgreTinkerPopCheck {
         static {
             require.invoke(Clojure.read(NS));
         }
+
         @Override
         public Traversal get_g_V_age_mean() {
             return (Traversal) Clojure.var(NS, "get_g_V_age_mean").invoke(g);
@@ -1571,6 +1670,20 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_V_hasLabelXsoftwareX_group_byXnameX_byXbothE_weight_meanX").invoke(g);
         }
 
+        @Override
+        public Traversal<Vertex, Double> get_g_V_age_fold_meanXlocalX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_age_fold_meanXlocalX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Number> get_g_V_foo_mean() {
+            return (Traversal) Clojure.var(NS, "get_g_V_foo_mean").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Number> get_g_V_foo_fold_meanXlocalX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_foo_fold_meanXlocalX").invoke(g);
+        }
     }
 
     public static class MinTestTraversals extends MinTest {
@@ -1578,6 +1691,7 @@ public class OgreTinkerPopCheck {
         static {
             require.invoke(Clojure.read(NS));
         }
+
         @Override
         public Traversal get_g_V_repeatXbothX_timesX5X_age_min() {
             return (Traversal) Clojure.var(NS, "get_g_V_repeatXbothX_timesX5X_age_min").invoke(g);
@@ -1597,6 +1711,31 @@ public class OgreTinkerPopCheck {
         public Traversal get_g_V_foo_injectX9999999999X_min() {
             return (Traversal) Clojure.var(NS, "get_g_V_foo_injectX9999999999X_min").invoke(g);
         }
+
+        @Override
+        public Traversal<Vertex, Integer> get_g_V_age_fold_minXlocalX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_age_fold_minXlocalX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Comparable> get_g_V_foo_min() {
+            return (Traversal) Clojure.var(NS, "get_g_V_foo_min").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Comparable> get_g_V_foo_fold_minXlocalX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_foo_fold_minXlocalX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, String> get_g_V_name_min() {
+            return (Traversal) Clojure.var(NS, "get_g_V_name_min").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, String> get_g_V_name_fold_minXlocalX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_name_fold_minXlocalX").invoke(g);
+        }
     }
 
     public static class SumTestTraversals extends SumTest {
@@ -1604,16 +1743,31 @@ public class OgreTinkerPopCheck {
         static {
             require.invoke(Clojure.read(NS));
         }
-        @Override
-        public Traversal get_g_V_valuesXageX_sum() {
-            return (Traversal) Clojure.var(NS, "get_g_V_valuesXageX_sum").invoke(g);
-        }
 
         @Override
         public Traversal get_g_V_hasLabelXsoftwareX_group_byXnameX_byXbothE_weight_sumX() {
             return (Traversal) Clojure.var(NS, "get_g_V_hasLabelXsoftwareX_group_byXnameX_byXbothE_weight_sumX").invoke(g);
         }
 
+        @Override
+        public Traversal<Vertex, Number> get_g_V_age_sum() {
+            return (Traversal) Clojure.var(NS, "get_g_V_age_sum").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Number> get_g_V_age_fold_sumXlocalX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_age_fold_sumXlocalX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Number> get_g_V_foo_sum() {
+            return (Traversal) Clojure.var(NS, "get_g_V_foo_sum").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Number> get_g_V_foo_fold_sumXlocalX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_foo_fold_sumXlocalX").invoke(g);
+        }
     }
 
     public static class OrderTestTraversals extends OrderTest {
@@ -1621,6 +1775,7 @@ public class OgreTinkerPopCheck {
         static {
             require.invoke(Clojure.read(NS));
         }
+
         @Override
         public Traversal get_g_V_asXaX_outXcreatedX_asXbX_order_byXshuffleX_selectXa_bX() {
             return (Traversal) Clojure.var(NS, "get_g_V_asXaX_outXcreatedX_asXbX_order_byXshuffleX_selectXa_bX").invoke(g);
@@ -1639,11 +1794,6 @@ public class OgreTinkerPopCheck {
         @Override
         public Traversal get_g_V_group_byXlabelX_byXname_order_byXdescX_foldX() {
             return (Traversal) Clojure.var(NS, "get_g_V_group_byXlabelX_byXname_order_byXdescX_foldX").invoke(g);
-        }
-
-        @Override
-        public Traversal get_g_V_localXbothE_weight_foldX_order_byXsumXlocalX_descX() {
-            return (Traversal) Clojure.var(NS, "get_g_V_localXbothE_weight_foldX_order_byXsumXlocalX_descX").invoke(g);
         }
 
         @Override
@@ -1740,6 +1890,11 @@ public class OgreTinkerPopCheck {
         public Traversal get_g_V_outE_order_byXweight_descX_weight() {
             return (Traversal) Clojure.var(NS, "get_g_V_outE_order_byXweight_descX_weight").invoke(g);
         }
+
+        @Override
+        public Traversal<Vertex, List<Double>> get_g_V_mapXbothE_weight_foldX_order_byXsumXlocalX_descX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_mapXbothE_weight_foldX_order_byXsumXlocalX_descX").invoke(g);
+        }
     }
 
     public static class PathTestTraversals extends PathTest {
@@ -1747,6 +1902,7 @@ public class OgreTinkerPopCheck {
         static {
             require.invoke(Clojure.read(NS));
         }
+
         @Override
         public Traversal get_g_VX1X_name_path(java.lang.Object arg0) {
             return (Traversal) Clojure.var(NS, "get_g_VX1X_name_path").invoke(g, arg0);
@@ -2179,6 +2335,11 @@ public class OgreTinkerPopCheck {
         public Traversal get_g_V_valueMap_selectXall_a_bX() {
             return (Traversal) Clojure.var(NS, "get_g_V_valueMap_selectXall_a_bX").invoke(g);
         }
+
+        @Override
+        public Traversal<Vertex, String> get_g_VX1X_groupXaX_byXconstantXaXX_byXnameX_selectXaX_selectXaX(Object v1Id) {
+            return (Traversal) Clojure.var(NS, "get_g_VX1X_groupXaX_byXconstantXaXX_byXnameX_selectXaX_selectXaX").invoke(g,v1Id);
+        }
     }
 
     public static class VertexTestTraversals extends VertexTest {
@@ -2376,6 +2537,7 @@ public class OgreTinkerPopCheck {
         static {
             require.invoke(Clojure.read(NS));
         }
+
         @Override
         public Traversal get_g_V_valueMap() {
             return (Traversal) Clojure.var(NS, "get_g_V_valueMap").invoke(g);
@@ -2392,11 +2554,6 @@ public class OgreTinkerPopCheck {
         }
 
         @Override
-        public Traversal get_g_V_hasLabelXpersonX_filterXoutEXcreatedXX_valueMapXtrueX() {
-            return (Traversal) Clojure.var(NS, "get_g_V_hasLabelXpersonX_filterXoutEXcreatedXX_valueMapXtrueX").invoke(g);
-        }
-
-        @Override
         public Traversal get_g_V_valueMapXtrueX() {
             return (Traversal) Clojure.var(NS, "get_g_V_valueMapXtrueX").invoke(g);
         }
@@ -2406,6 +2563,30 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_V_valueMapXtrue_name_ageX").invoke(g);
         }
 
+        @Override
+        public Traversal<Vertex, Map<Object, Object>> get_g_V_valueMap_withXtokensX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_valueMap_withXtokensX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Map<Object, Object>> get_g_V_hasLabelXpersonX_filterXoutEXcreatedXX_valueMap_withXtokensX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasLabelXpersonX_filterXoutEXcreatedXX_valueMap_withXtokensX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Map<Object, Object>> get_g_V_valueMapXname_ageX_withXtokensX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_valueMapXname_ageX_withXtokensX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Map<Object, Object>> get_g_V_valueMapXname_ageX_withXtokens_labelsX_byXunfoldX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_valueMapXname_ageX_withXtokens_labelsX_byXunfoldX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Map<Object, Object>> get_g_VX1X_valueMapXname_locationX_byXunfoldX_by(Object v1Id) {
+            return (Traversal) Clojure.var(NS, "get_g_VX1X_valueMapXname_locationX_byXunfoldX_by").invoke(g, v1Id);
+        }
     }
 
     public static class AggregateTestTraversals extends AggregateTest {
@@ -2634,6 +2815,7 @@ public class OgreTinkerPopCheck {
         public Traversal get_g_V_both_groupCountXaX_byXlabelX_asXbX_barrier_whereXselectXaX_selectXsoftwareX_isXgtX2XXX_selectXbX_name() {
             return (Traversal) Clojure.var(NS, "get_g_V_both_groupCountXaX_byXlabelX_asXbX_barrier_whereXselectXaX_selectXsoftwareX_isXgtX2XXX_selectXbX_name").invoke(g);
         }
+
 
     }
 

@@ -237,6 +237,10 @@
   []
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/inV))
 
+(defn __index
+  []
+  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/index))
+
 (defn __is
   [val-or-pred]
   (if (instance? P val-or-pred)
@@ -262,8 +266,10 @@
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/local local-traversal))
 
 (defn __loops
-  []
-  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/loops))
+  ([]
+   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/loops))
+  ([k]
+   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/loops (util/cast-param k))))
 
 (defn __map
   [f-or-t]
@@ -366,8 +372,10 @@
    (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/range scope low high)))
 
 (defn __repeat
-  [repeat-traversal]
-  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/repeat repeat-traversal))
+  ([repeat-traversal]
+   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/repeat repeat-traversal))
+  ([l repeat-traversal]
+   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/repeat (util/cast-param l) repeat-traversal)))
 
 (defn __sack
   ([]

@@ -38,3 +38,14 @@
   (traverse g (V)
               (as :a)
               (and (__ (select :a)) (__ (select :a)))))
+
+(defn get_g_V_hasXname_markoX_and_hasXname_markoX_and_hasXname_markoX
+  "g.V().has('name', 'marko').and().has('name', 'marko').and().has('name', 'marko')"
+  [g]
+  (traverse g 
+            (V)
+            (has :name "marko")
+            (and)
+            (has :name "marko")
+            (and)
+            (has :name "marko")))

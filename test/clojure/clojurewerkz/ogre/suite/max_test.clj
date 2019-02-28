@@ -26,3 +26,45 @@
   (traverse g (V)
               (values :age)
               (max)))
+
+(defn get_g_V_age_fold_maxXlocalX
+  "g.V().values('age').fold().max(Scope.local)"
+  [g]
+  (traverse g
+            (V)
+            (values :age)
+            (fold)
+            (max (scope :local))))
+
+(defn get_g_V_foo_max
+  "g.V().values('foo').max()"
+  [g]
+  (traverse g
+            (V)
+            (values :foo)
+            (max)))
+
+(defn get_g_V_foo_fold_maxXlocalX
+  "g.V().values('foo').fold().max(Scope.local)"
+  [g]
+  (traverse g
+            (V)
+            (values :foo)
+            (fold)
+            (max (scope :local))))
+
+(defn get_g_V_name_max
+  "g.V().values('name').max()"
+  [g]
+  (traverse g (V)
+            (values :name)
+            (max)))
+
+(defn get_g_V_name_fold_maxXlocalX
+  "g.V().values('name').fold().max(Scope.local)"
+  [g]
+  (traverse g
+            (V)
+            (values :name)
+            (fold)
+            (max (scope :local))))

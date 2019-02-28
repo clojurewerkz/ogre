@@ -18,4 +18,30 @@
                 (by :name)
                 (by (__ (bothE) (values :weight) (mean)))))
 
+(defn get_g_V_age_fold_meanXlocalX
+  "g.V().values('age').fold().mean(Scope.local)"
+  [g]
+  (traverse g
+            (V)
+            (values :age)
+            (fold)
+            (mean (scope :local))))
+
+(defn get_g_V_foo_mean
+  "g.V().values('foo').mean()"
+  [g]
+  (traverse g
+            (V)
+            (values :foo)
+            (mean)))
+
+(defn get_g_V_foo_fold_meanXlocalX
+  "g.V().values('foo').fold().mean(Scope.local)"
+  [g]
+  (traverse g
+            (V)
+            (values :foo)
+            (fold)
+            (mean (scope :local))))
+
 

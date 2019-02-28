@@ -3,11 +3,13 @@ package org.clojurewerkz.ogre.gremlin.process;
 
 import org.apache.tinkerpop.gremlin.AbstractGraphProvider;
 import org.apache.tinkerpop.gremlin.LoadGraphWith;
+import org.apache.tinkerpop.gremlin.TestHelper;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.structure.GraphTest;
 import org.apache.tinkerpop.gremlin.structure.VertexProperty;
 import org.apache.tinkerpop.gremlin.structure.io.IoEdgeTest;
 import org.apache.tinkerpop.gremlin.structure.io.IoVertexTest;
+import org.apache.tinkerpop.gremlin.structure.io.gryo.GryoResourceAccess;
 import org.apache.tinkerpop.gremlin.structure.util.detached.DetachedGraphTest;
 import org.apache.tinkerpop.gremlin.structure.util.star.StarGraphTest;
 import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerEdge;
@@ -20,6 +22,8 @@ import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerVertexProperty;
 import org.apache.commons.configuration.Configuration;
 import org.junit.Ignore;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -158,5 +162,12 @@ public class TinkerGraphProvider extends AbstractGraphProvider {
             return TinkerGraph.DefaultIdManager.INTEGER;
         else
             throw new IllegalStateException(String.format("Need to define a new %s for %s", TinkerGraph.IdManager.class.getName(), loadGraphWith.name()));
+    }
+
+    @Override
+    protected void readIntoGraph(final Graph graph, final String path) throws IOException {
+        final String dataFile = TestHelper.generateTempFileFromResource(this.getClass(),
+                GryoResourceAccess.class, path.substring(path.lastIndexOf(File.separator) + 1), "", false).getAbsolutePath();
+        graph.traversal().io(dataFile).read().iterate();
     }
 }

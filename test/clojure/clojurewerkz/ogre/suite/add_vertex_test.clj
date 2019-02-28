@@ -1,6 +1,7 @@
 (ns clojurewerkz.ogre.suite.add-vertex-test
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse sort shuffle])
-  (:require [clojurewerkz.ogre.core :refer :all]))
+  (:require [clojurewerkz.ogre.core :refer :all])
+  (:import (org.apache.tinkerpop.gremlin.process.traversal.step.util WithOptions)))
 
 (defn get_g_VX1X_addVXanimalX_propertyXage_selectXaX_byXageXX_propertyXname_puppyX
   "g.V(v1Id).as('a').addV('animal').property('age', __.select('a').by('age')).property('name', 'puppy')"
@@ -87,16 +88,17 @@
               (property :temp (__ (select :a)))
               (value-map :name :temp)))
 
-(defn get_g_V_asXaX_hasXname_markoX_outXcreatedX_asXbX_addVXselectXaX_labelX_propertyXtest_selectXbX_labelX_valueMapXtrueX
-  "g.V().as('a').has('name', 'marko').out('created').as('b').addV(select('a').label()).property('test', select('b').label()).valueMap(true)"
+(defn get_g_V_asXaX_hasXname_markoX_outXcreatedX_asXbX_addVXselectXaX_labelX_propertyXtest_selectXbX_labelX_valueMap_withXtokensX
+  "g.V().as('a').has('name', 'marko').out('created').as('b').addV(select('a').label()).property('test', select('b').label()).valueMap().with(WithOptions.tokens)"
   [g]
   (traverse g
-              (V) (as :a)
-              (has :name "marko")
-              (out :created) (as :b)
-              (add-V (__ (select :a) (label)))
-              (property :test (__ (select :b) (label)))
-              (value-map true)))
+            (V) (as :a)
+            (has :name "marko")
+            (out :created) (as :b)
+            (add-V (__ (select :a) (label)))
+            (property :test (__ (select :b) (label)))
+            (value-map)
+            (with WithOptions/tokens)))
 
 (defn get_g_addVXV_hasXname_markoX_propertiesXnameX_keyX_label
   "g.addV(V().has('name', 'marko').properties('name').key()).label()"

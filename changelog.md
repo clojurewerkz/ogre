@@ -1,3 +1,7 @@
+## Changes in Ogre 3.4.0
+
+* Bump to Apache TinkerPop 3.4.0
+
 ## Changes in Ogre 3.3.4.0
 
 * Bump to Apache TinkerPop 3.3.4

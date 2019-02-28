@@ -48,14 +48,6 @@
                 (by (T/label))
                 (by (__ (values :name) (order) (by (sort :desc)) (fold)))))
 
-(defn get_g_V_localXbothE_weight_foldX_order_byXsumXlocalX_descX
-  "g.V().local(__.bothE().values('weight').fold()).order().by(__.sum(scope.local), Order.desc)"
-  [g]
-  (traverse g (V)
-              (local (__ (bothE) (values :weight) (fold)))
-              (order)
-                (by (__ (sum (scope :local))) (sort :desc))))
-
 (defn get_g_V_asXvX_mapXbothE_weight_foldX_sumXlocalX_asXsX_selectXv_sX_order_byXselectXsX_descX
   "g.V().as('v').map(__.bothE().values('weight').fold()).sum(scope.local).as('s').select('v', 's').order().by(__.select('s'), Order.desc)"
   [g]
@@ -245,6 +237,13 @@
               (order (scope :local))
                 (by (column :values))))
 
-
+(defn get_g_V_mapXbothE_weight_foldX_order_byXsumXlocalX_descX
+  "g.V().map(__.bothE().values('weight').fold()).order().by(__.sum(Scope.local), Order.desc)"
+  [g]
+  (traverse g 
+            (V)
+            (map (__ (bothE) (values :weight) (fold)))
+            (order)
+              (by (__ (sum (scope :local))) (sort :desc))))
 
 

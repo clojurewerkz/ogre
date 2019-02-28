@@ -34,3 +34,45 @@
               (values :foo)
               (inject (long 9999999999))
               (min)))
+
+(defn get_g_V_age_fold_minXlocalX
+  "g.V().values('age').fold().min(Scope.local)"
+  [g]
+  (traverse g
+            (V)
+            (values :age)
+            (fold)
+            (min (scope :local))))
+
+(defn get_g_V_foo_min
+  "g.V().values('foo').min()"
+  [g]
+  (traverse g
+            (V)
+            (values :foo)
+            (min)))
+
+(defn get_g_V_foo_fold_minXlocalX
+  "g.V().values('foo').fold().min(Scope.local)"
+  [g]
+  (traverse g
+            (V)
+            (values :foo)
+            (fold)
+            (min (scope :local))))
+
+(defn get_g_V_name_min
+  "g.V().values('name').min()"
+  [g]
+  (traverse g (V)
+            (values :name)
+            (min)))
+
+(defn get_g_V_name_fold_minXlocalX
+  "g.V().values('name').fold().min(Scope.local)"
+  [g]
+  (traverse g
+            (V)
+            (values :name)
+            (fold)
+            (min (scope :local))))

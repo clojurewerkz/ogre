@@ -292,6 +292,10 @@
   [^GraphTraversal t prob]
   (.coin t prob))
 
+(defn connected-component
+  [^GraphTraversal t]
+  (.connectedComponent t))
+
 (defn constant
   [^GraphTraversal t c]
   (.constant t c))
@@ -450,6 +454,10 @@
   [^GraphTraversal t]
   (.inV t))
 
+(defn index
+  [^GraphTraversal t]
+  (.index t))
+
 (defn is
   [^GraphTraversal t val-or-pred]
   (if (instance? P val-or-pred)
@@ -475,8 +483,10 @@
   (.local t local-traversal))
 
 (defn loops
-  [^GraphTraversal t]
-  (.loops t))
+  ([^GraphTraversal t]
+   (.loops t))
+  ([^GraphTraversal t k]
+   (.loops t (util/cast-param k))))
 
 (defn map
   [^GraphTraversal t f-or-t]
@@ -601,8 +611,10 @@
    (.range t scope low high)))
 
 (defn repeat
-  [^GraphTraversal t repeat-traversal]
-  (.repeat t repeat-traversal))
+  ([^GraphTraversal t repeat-traversal]
+   (.repeat t repeat-traversal))
+  ([^GraphTraversal t l repeat-traversal]
+   (.repeat t (util/cast-param l) repeat-traversal)))
 
 (defn sack
   ([^GraphTraversal t]
@@ -632,6 +644,10 @@
          (.select t ^Pop arg1 ^String (util/cast-param (first args))))
        (.select t ^Pop arg1 (util/cast-param (first args)) (util/cast-param (second args)) (util/keywords-to-str-array (take-last 2 args))))
      (.select t ^String (util/cast-param arg1) (util/cast-param (first args)) (util/keywords-to-str-array (rest args))))))
+
+(defn shortest-path
+  [^GraphTraversal t]
+  (.shortestPath t))
 
 (defn side-effect
   [^GraphTraversal t c-or-t]
@@ -745,6 +761,12 @@
      (.where t ^P p-or-t)))
   ([^GraphTraversal t k p]
    (.where t (util/cast-param k) p)))
+
+(defn with
+  ([^GraphTraversal t ^String s]
+   (.with t s))
+  ([^GraphTraversal t ^String k v]
+   (.with t k v)))
 
 ;; helpers
 

@@ -438,3 +438,17 @@
               (barrier)
               (select :m)
               (select (__ (select :a)))))
+
+(defn get_g_VX1X_groupXaX_byXconstantXaXX_byXnameX_selectXaX_selectXaX
+  "g.V(v1Id).group('a').by(__.constant('a')).by(__.values('name')).
+    barrier().
+    select('a').select('a')"
+  [g v1Id]
+  (traverse g 
+            (V v1Id)
+            (group :a)
+              (by (__ (constant "a")))
+              (by (__ (values :name)))
+            (barrier)
+            (select :a)
+            (select :a)))
