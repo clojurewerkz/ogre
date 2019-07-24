@@ -301,3 +301,24 @@
   (traverse g
             (V)
             (has :name (.and (P/gt "m") (TextP/containing "o")))))
+
+(defn get_g_V_hasXname_not_containingXarkXX
+  "g.V().has('name', TextP.notContaining('ark'))"
+  [g]
+  (traverse g
+            (V)
+            (has :name (TextP/notContaining "ark"))))
+
+(defn get_g_V_hasXname_not_startingWithXmarXX
+  "g.V().has('name', TextP.notStartingWith('mar'))"
+  [g]
+  (traverse g
+            (V)
+            (has :name (TextP/notStartingWith "mar"))))
+
+(defn get_g_V_hasXname_not_endingWithXasXX
+  "g.V().has('name', TextP.notEndingWith('as'))"
+  [g]
+  (traverse g
+            (V)
+            (has :name (TextP/notEndingWith "as"))))

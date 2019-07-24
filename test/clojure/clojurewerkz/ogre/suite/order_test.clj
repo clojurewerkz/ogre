@@ -131,7 +131,7 @@
   (traverse g (V)
             (has-label :person)
             (order)
-              (by (fn [x] (.value x "age")) (sort :desc))
+              (by (fn [^Vertex x] (.value x "age")) (sort :desc))
             (values :name)))
 
 (defn get_g_V_hasLabelXsongX_order_byXperformances_descX_byXnameX_rangeX110_120X_name

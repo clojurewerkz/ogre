@@ -45,9 +45,10 @@ public class OgreTinkerPopCheck {
         static {
             require.invoke(Clojure.read(NS));
         }
+
         @Override
-        public Traversal get_g_V_chooseXout_countX_optionX2L__nameX_optionX3L__valueMapX() {
-            return (Traversal) Clojure.var(NS, "get_g_V_chooseXout_countX_optionX2L__nameX_optionX3L__valueMapX").invoke(g);
+        public Traversal get_g_V_chooseXout_countX_optionX2L_nameX_optionX3L_ageX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_chooseXout_countX_optionX2L_nameX_optionX3L_ageX").invoke(g);
         }
 
         @Override
@@ -93,7 +94,6 @@ public class OgreTinkerPopCheck {
         public Traversal get_g_V_hasLabelXpersonX_chooseXageX__optionX27L__constantXyoungXX_optionXnone__constantXoldXX_groupCount() {
             return (Traversal) Clojure.var(NS, "get_g_V_hasLabelXpersonX_chooseXageX__optionX27L__constantXyoungXX_optionXnone__constantXoldXX_groupCount").invoke(g);
         }
-
     }
 
     public static class OptionalTestTraversals extends OptionalTest {
@@ -795,6 +795,21 @@ public class OgreTinkerPopCheck {
         @Override
         public Traversal<Vertex, Vertex> get_g_V_hasXname_gtXmX_andXcontainingXoXXX() {
             return (Traversal) Clojure.var(NS, "get_g_V_hasXname_gtXmX_andXcontainingXoXXX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXname_not_containingXarkXX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXname_not_containingXarkXX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXname_not_startingWithXmarXX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXname_not_startingWithXmarXX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXname_not_endingWithXasXX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXname_not_endingWithXasXX").invoke(g);
         }
     }
 

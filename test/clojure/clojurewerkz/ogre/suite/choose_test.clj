@@ -5,13 +5,13 @@
            (org.apache.tinkerpop.gremlin.process.traversal P)
            (org.apache.tinkerpop.gremlin.process.traversal.step TraversalOptionParent$Pick)))
 
-(defn get_g_V_chooseXout_countX_optionX2L__nameX_optionX3L__valueMapX
-  "g.V().choose(out().count()).option(2L, values('name')).option(3L, valueMap())"
+(defn get_g_V_chooseXout_countX_optionX2L_nameX_optionX3L_ageX
+  "g.V().choose(out().count()).option(2L, values('name')).option(3L, values('age'))"
   [g]
   (traverse g (V)
               (choose (__ (out) (count)))
                 (option (long 2) (__ (values :name)))
-                (option (long 3) (__ (value-map)))))
+                (option (long 3) (__ (values :age)))))
 
 (defn get_g_V_chooseXlabel_eqXpersonX__outXknowsX__inXcreatedXX_name
   "g.V().choose(v -> v.label().equals('person'), out('knows'), in('created')).values('name')"
