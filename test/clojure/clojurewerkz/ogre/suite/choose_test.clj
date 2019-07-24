@@ -63,14 +63,14 @@
 (defn get_g_injectX2X_chooseXisX1X__constantX10Xfold__foldX
   "g.inject(2).choose(__.is(1), __.constant(10).fold(), __.fold())"
   [g]
-  (traverse g (inject 2)
-              (choose (__ (is 1)) (__ (constant 10) (fold)) (__ (fold)))))
+  (traverse g (inject (int 2))
+              (choose (__ (is (int 1))) (__ (constant (int 10)) (fold)) (__ (fold)))))
 
 (defn get_g_injectX1X_chooseXisX1X__constantX10Xfold__foldX
   "g.inject(1).choose(__.is(1), __.constant(10).fold(), __.fold())"
   [g]
-  (traverse g (inject 1)
-            (choose (__ (is 1)) (__ (constant 10) (fold)) (__ (fold)))))
+  (traverse g (inject (int 1))
+            (choose (__ (is (int 1))) (__ (constant (int 10)) (fold)) (__ (fold)))))
 
 (defn get_g_V_hasLabelXpersonX_chooseXageX__optionX27L__constantXyoungXX_optionXnone__constantXoldXX_groupCount
   "g.V().hasLabel('person').

@@ -185,8 +185,10 @@
 ; GraphTraversal
 
 (defn aggregate
-  [^GraphTraversal t k]
+  ([^GraphTraversal t k]
   (.aggregate t (util/cast-param k)))
+  ([^GraphTraversal t scope k]
+  (.aggregate t scope (util/cast-param k))))
 
 (defn and
   [^GraphTraversal t & traversals]

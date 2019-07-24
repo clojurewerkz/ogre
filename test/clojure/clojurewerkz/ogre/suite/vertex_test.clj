@@ -199,3 +199,23 @@
               (has-label :loops)
               (both :self)))
 
+(defn get_g_VXv1X_out
+  "g.V(v1).out()"
+  [g v1]
+  (traverse g (V v1) (out)))
+
+(defn get_g_EXe11X
+  "g.E(e11)"
+  [g e11]
+  (traverse g (E e11)))
+
+(defn get_g_EXlistXe7_e11XX
+  "g.E([e7,e11])"
+  [g e7 e11]
+  (traverse g (E [e7 e11])))
+
+(defn get_g_EXe7_e11X
+  "g.E(e7,e11)"
+  [g e7 e11]
+  (traverse g (E e7 e11)))
+

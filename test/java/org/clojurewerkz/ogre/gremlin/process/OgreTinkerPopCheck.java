@@ -9,10 +9,13 @@ import org.apache.tinkerpop.gremlin.process.traversal.step.filter.*;
 import org.apache.tinkerpop.gremlin.process.traversal.step.map.*;
 import org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.*;
 import org.apache.tinkerpop.gremlin.process.traversal.util.TraversalExplanation;
+import org.apache.tinkerpop.gremlin.structure.Edge;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @SuppressWarnings("unchecked")
 public class OgreTinkerPopCheck {
@@ -38,6 +41,15 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_V_branchXlabel_isXpersonX_countX_optionX1__ageX_optionX0__langX_optionX0__nameX_optionXany__labelX").invoke(g);
         }
 
+        @Override
+        public Traversal<Vertex, Object> get_g_V_branchXageX_optionXltX30X__youngX_optionXgtX30X__oldX_optionXnone__on_the_edgeX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_branchXageX_optionXltX30X__youngX_optionXgtX30X__oldX_optionXnone__on_the_edgeX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Object> get_g_V_branchXidentityX_optionXhasLabelXsoftwareX__inXcreatedX_name_order_foldX_optionXhasXname_vadasX__ageX_optionXneqX123X__bothE_countX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_branchXidentityX_optionXhasLabelXsoftwareX__inXcreatedX_name_order_foldX_optionXhasXname_vadasX__ageX_optionXneqX123X__bothE_countX").invoke(g);
+        }
     }
 
     public static class ChooseTestTraversals extends ChooseTest {
@@ -78,16 +90,12 @@ public class OgreTinkerPopCheck {
 
         @Override
         public Traversal get_g_injectX2X_chooseXisX1X__constantX10Xfold__foldX() {
-            // TODO: next release of TinkerPop will have a better way to assert this result - faulty test
-            return g.inject(2).choose(__.is(1), __.constant(10).fold(), __.fold());
-            //return (Traversal) Clojure.var(NS, "get_g_injectX2X_chooseXisX1X__constantX10Xfold__foldX").invoke(g);
+            return (Traversal) Clojure.var(NS, "get_g_injectX2X_chooseXisX1X__constantX10Xfold__foldX").invoke(g);
         }
 
         @Override
         public Traversal get_g_injectX1X_chooseXisX1X__constantX10Xfold__foldX() {
-            // TODO: next release of TinkerPop will have a better way to assert this result - faulty test
-            return g.inject(1).choose(__.is(1), __.constant(10).fold(), __.fold());
-            //return (Traversal) Clojure.var(NS, "get_g_injectX1X_chooseXisX1X__constantX10Xfold__foldX").invoke(g);
+            return (Traversal) Clojure.var(NS, "get_g_injectX1X_chooseXisX1X__constantX10Xfold__foldX").invoke(g);
         }
 
         @Override
@@ -2523,6 +2531,25 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_V_hasLabelXloopsX_bothXselfX").invoke(g);
         }
 
+        @Override
+        public Traversal<Vertex, Vertex> get_g_VXv1X_out(final Vertex v1) {
+            return (Traversal) Clojure.var(NS, "get_g_VXv1X_out").invoke(g, v1);
+        }
+
+        @Override
+        public Traversal<Edge, Edge> get_g_EXe11X(final Edge e11) {
+            return (Traversal) Clojure.var(NS, "get_g_EXe11X").invoke(g, e11);
+        }
+
+        @Override
+        public Traversal<Edge, Edge> get_g_EXlistXe7_e11XX(final Edge e7, final Edge e11) {
+            return (Traversal) Clojure.var(NS, "get_g_EXlistXe7_e11XX").invoke(g, e7, e11);
+        }
+
+        @Override
+        public Traversal<Edge, Edge> get_g_EXe7_e11X(final Edge e7, final Edge e11) {
+            return (Traversal) Clojure.var(NS, "get_g_EXe7_e11X").invoke(g, e7, e11);
+        }
     }
 
     public static class UnfoldTestTraversals extends UnfoldTest {
@@ -2629,6 +2656,30 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_V_hasLabelXpersonX_aggregateXxX_byXageX_capXxX_asXyX_selectXyX").invoke(g);
         }
 
+        @Override
+        public Traversal<Vertex, List<String>> get_g_V_name_aggregateXglobal_xX_capXxX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_name_aggregateXglobal_xX_capXxX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Collection> get_g_V_aggregateXlocal_aX_byXnameX_out_capXaX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_aggregateXlocal_aX_byXnameX_out_capXaX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Collection> get_g_VX1X_aggregateXlocal_aX_byXnameX_out_aggregateXlocal_aX_byXnameX_name_capXaX(final Object v1Id) {
+            return (Traversal) Clojure.var(NS, "get_g_VX1X_aggregateXlocal_aX_byXnameX_out_aggregateXlocal_aX_byXnameX_name_capXaX").invoke(g, v1Id);
+        }
+
+        @Override
+        public Traversal<Vertex, Set<String>> get_g_withSideEffectXa_setX_V_both_name_aggregateXlocal_aX_capXaX() {
+            return (Traversal) Clojure.var(NS, "get_g_withSideEffectXa_setX_V_both_name_aggregateXlocal_aX_capXaX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Collection> get_g_V_aggregateXlocal_aX_byXoutEXcreatedX_countX_out_out_aggregateXlocal_aX_byXinEXcreatedX_weight_sumX_capXaX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_aggregateXlocal_aX_byXoutEXcreatedX_countX_out_out_aggregateXlocal_aX_byXinEXcreatedX_weight_sumX_capXaX").invoke(g);
+        }
     }
 
     public static class ExplainTestTraversals extends ExplainTest {

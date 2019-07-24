@@ -33,8 +33,10 @@
 (def __addV __add-V)
 
 (defn __aggregate
-  [k]
+  ([k]
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/aggregate k))
+  ([scope k]
+  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/aggregate scope k)))
 
 (defn __and
   [& traversals]
