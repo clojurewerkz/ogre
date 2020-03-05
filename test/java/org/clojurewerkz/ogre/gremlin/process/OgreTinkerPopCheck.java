@@ -10,6 +10,7 @@ import org.apache.tinkerpop.gremlin.process.traversal.step.map.*;
 import org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.*;
 import org.apache.tinkerpop.gremlin.process.traversal.util.TraversalExplanation;
 import org.apache.tinkerpop.gremlin.structure.Edge;
+import org.apache.tinkerpop.gremlin.structure.Property;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 
 import java.util.Collection;
@@ -546,6 +547,15 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_V_drop").invoke(g);
         }
 
+        @Override
+        public Traversal<Vertex, ? extends Property<Object>> get_g_V_properties_propertiesXstartTimeX_drop() {
+            return (Traversal) Clojure.var(NS, "get_g_V_properties_propertiesXstartTimeX_drop").invoke(g);
+        }
+
+        @Override
+        public Traversal<Edge, ? extends Property<Object>> get_g_E_propertiesXweightX_drop() {
+            return (Traversal) Clojure.var(NS, "get_g_E_propertiesXweightX_drop").invoke(g);
+        }
     }
 
     public static class FilterTestTraversals extends FilterTest {
@@ -818,6 +828,16 @@ public class OgreTinkerPopCheck {
         @Override
         public Traversal<Vertex, Vertex> get_g_V_hasXname_not_endingWithXasXX() {
             return (Traversal) Clojure.var(NS, "get_g_V_hasXname_not_endingWithXasXX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Double> get_g_V_bothE_properties_dedup_hasKeyXweightX_value() {
+            return (Traversal) Clojure.var(NS, "get_g_V_bothE_properties_dedup_hasKeyXweightX_value").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Double> get_g_V_bothE_properties_dedup_hasKeyXweightX_hasValueXltX0d3XX_value() {
+            return (Traversal) Clojure.var(NS, "get_g_V_bothE_properties_dedup_hasKeyXweightX_hasValueXltX0d3XX_value").invoke(g);
         }
     }
 
@@ -2065,6 +2085,10 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_V_outXcreatedX_projectXa_bX_byXnameX_byXinXcreatedX_countX_order_byXselectXbX__descX_selectXaX").invoke(g);
         }
 
+        @Override
+        public Traversal<Vertex, Map<String, Object>> get_g_V_valueMap_projectXxX_byXselectXnameXX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_valueMap_projectXxX_byXselectXnameXX").invoke(g);
+        }
     }
 
     public static class PropertiesTestTraversals extends PropertiesTest {

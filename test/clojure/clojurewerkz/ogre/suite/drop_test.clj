@@ -21,3 +21,18 @@
   [g]
   (traverse g (V)
               (drop)))
+
+(defn get_g_V_properties_propertiesXstartTimeX_drop
+  "g.V().properties().properties('startTime').drop()"
+  [g]
+  (traverse g (V)
+              (properties)
+              (properties :startTime)
+              (drop)))
+
+(defn get_g_E_propertiesXweightX_drop
+  "g.E().properties('weight').drop()"
+  [g]
+  (traverse g (E)
+              (properties :weight)
+              (drop)))

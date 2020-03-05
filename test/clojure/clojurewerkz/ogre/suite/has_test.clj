@@ -322,3 +322,24 @@
   (traverse g
             (V)
             (has :name (TextP/notEndingWith "as"))))
+
+(defn get_g_V_bothE_properties_dedup_hasKeyXweightX_value
+  "g.V().bothE().properties().dedup().hasKey('weight').value()"
+  [g]
+  (traverse g (V)
+              (bothE)
+              (properties)
+              (dedup)
+              (has-key :weight)
+              (value)))
+
+(defn get_g_V_bothE_properties_dedup_hasKeyXweightX_hasValueXltX0d3XX_value
+  "g.V().bothE().properties().dedup().hasKey('weight').hasValue(lt(0.3)).value()"
+  [g]
+  (traverse g (V)
+            (bothE)
+            (properties)
+            (dedup)
+            (has-key :weight)
+            (has-value (P/lt 0.3))
+            (value)))

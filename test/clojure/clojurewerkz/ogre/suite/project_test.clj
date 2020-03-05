@@ -24,3 +24,11 @@
               (order)
                 (by (__ (select :b)) (sort :desc))
               (select :a)))
+
+(defn get_g_V_valueMap_projectXxX_byXselectXnameXX
+  "g.V().valueMap().project('x').by(select('name'))"
+  [g]
+  (traverse g V
+              value-map
+              (project :x)
+                (by (__ (select :name)))))
