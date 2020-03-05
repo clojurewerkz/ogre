@@ -1,11 +1,9 @@
 (ns clojurewerkz.ogre.anon
   (:refer-clojure :exclude [and count drop filter group-by key key identity iterate loop map max min next not or range repeat reverse shuffle])
-  (:require [potemkin :as po]
-            [clojurewerkz.ogre.util :as util])
-  (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Operator Order P Pop Scope Traversal)
+  (:require [clojurewerkz.ogre.util :as util])
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Operator P Pop Scope Traversal)
            (org.apache.tinkerpop.gremlin.structure T Column VertexProperty$Cardinality)
-           (java.util Iterator)
-           (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal GraphTraversalSource)))
+           (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal)))
 
 ; __ (anonymous GraphTraversal)
 
@@ -126,6 +124,10 @@
 (defn __drop
   []
   (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/drop))
+
+(defn __element-map
+  [& ks]
+  (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__/elementMap (util/keywords-to-str-array ks)))
 
 (defn __emit
   ([]

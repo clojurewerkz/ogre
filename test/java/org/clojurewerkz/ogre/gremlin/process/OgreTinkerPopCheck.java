@@ -1,9 +1,9 @@
 package org.clojurewerkz.ogre.gremlin.process;
+
 import clojure.java.api.Clojure;
 import clojure.lang.IFn;
 import org.apache.tinkerpop.gremlin.process.traversal.Path;
 import org.apache.tinkerpop.gremlin.process.traversal.Traversal;
-import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__;
 import org.apache.tinkerpop.gremlin.process.traversal.step.branch.*;
 import org.apache.tinkerpop.gremlin.process.traversal.step.filter.*;
 import org.apache.tinkerpop.gremlin.process.traversal.step.map.*;
@@ -1097,9 +1097,6 @@ public class OgreTinkerPopCheck {
         public Traversal get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_tailXlocal_2X() {
             return (Traversal) Clojure.var(NS, "get_g_V_asXaX_out_asXaX_out_asXaX_selectXmixed_aX_byXunfold_valuesXnameX_foldX_tailXlocal_2X").invoke(g);
         }
-
-
-
     }
 
     public static class WhereTestTraversals extends WhereTest {
@@ -1462,6 +1459,29 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_V_whereXinXknowsX_outXcreatedX_count_is_0XX_name").invoke(g);
         }
 
+    }
+
+    public static class ElementMapTestTraversals extends ElementMapTest {
+        private static final String NS = "clojurewerkz.ogre.suite.element-map-test";
+
+        static {
+            require.invoke(Clojure.read(NS));
+        }
+
+        @Override
+        public Traversal<Vertex, Map<Object, Object>> get_g_V_elementMap() {
+            return (Traversal) Clojure.var(NS, "get_g_V_elementMap").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Map<Object, Object>> get_g_V_elementMapXname_ageX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_elementMapXname_ageX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Edge, Map<Object, Object>> get_g_EX11X_elementMap(Object e11Id) {
+            return (Traversal) Clojure.var(NS, "get_g_EX11X_elementMap").invoke(g, e11Id);
+        }
     }
 
     public static class FlatMapTestTraversals extends FlatMapTest {

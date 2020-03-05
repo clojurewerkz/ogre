@@ -1,7 +1,12 @@
+## Changes in Ogre 3.4.4.0
+
+* Bump to Apache TinkerPop 3.4.4
+* Added support for `elementMap()` step.
+
 ## Changes in Ogre 3.4.3.0
 
 * Bump to Apache TinkerPop 3.4.3
-* Support new form of the `aggregate()` step that takes a `Scope`.
+* Supported new form of the `aggregate()` step that takes a `Scope`.
 
 ## Changes in Ogre 3.4.2.0
 

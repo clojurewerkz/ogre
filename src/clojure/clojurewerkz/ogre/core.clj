@@ -3,7 +3,7 @@
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util]
             [clojurewerkz.ogre.anon :as anon])
-  (:import (org.apache.tinkerpop.gremlin.process.traversal Compare Operator Order P Pop SackFunctions$Barrier Scope Traversal)
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Operator Order P Pop SackFunctions$Barrier Scope Traversal)
            (org.apache.tinkerpop.gremlin.structure Graph T Column VertexProperty$Cardinality Vertex)
            (org.apache.tinkerpop.gremlin.structure.util GraphFactory)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal GraphTraversalSource)))
@@ -323,6 +323,10 @@
 (defn drop
   [^GraphTraversal t]
   (.drop t))
+
+(defn element-map
+  [^GraphTraversal t & ks]
+  (.elementMap t (util/keywords-to-str-array ks)))
 
 (defn emit
   ([^GraphTraversal t]

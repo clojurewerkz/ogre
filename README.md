@@ -44,14 +44,14 @@ Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre).
 
 With Leiningen:
 
-    [clojurewerkz/ogre "3.4.3.0"]
+    [clojurewerkz/ogre "3.4.4.0"]
 
 With Maven:
 
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>ogre</artifactId>
-      <version>3.4.3.0</version>
+      <version>3.4.4.0</version>
     </dependency>
 
 ## Documentation & Examples
@@ -60,14 +60,14 @@ You'll need to choose a TinkerPop-enabled graph database and add that to your pr
 
 With Leiningen:
 
-    [org.apache.tinkerpop/tinkergraph-gremlin "3.4.3"]
+    [org.apache.tinkerpop/tinkergraph-gremlin "3.4.4"]
 
 With Maven:
 
     <dependency>
       <groupId>org.apache.tinkerpop</groupId>
       <artifactId>tinkergraph-gremlin</artifactId>
-      <version>3.4.3</version>
+      <version>3.4.4</version>
     </dependency>
 
 REPL examples:

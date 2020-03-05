@@ -1,9 +1,7 @@
 (ns clojurewerkz.ogre.util
-  (:import (java.util Iterator)
-           (org.apache.tinkerpop.gremlin.structure Direction  Graph Vertex)
-           (java.util.function Function Consumer Predicate BiPredicate BiFunction BinaryOperator UnaryOperator Supplier)
+  (:import (java.util.function Function Consumer Predicate BiPredicate BiFunction BinaryOperator UnaryOperator Supplier)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal)
-           (org.apache.tinkerpop.gremlin.process.traversal Traversal P)))
+           (org.apache.tinkerpop.gremlin.process.traversal Traversal)))
 
 (defmacro traverse
   "Starts a traversal."
