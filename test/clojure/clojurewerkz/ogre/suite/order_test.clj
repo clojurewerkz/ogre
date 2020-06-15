@@ -246,4 +246,12 @@
             (order)
               (by (__ (sum (scope :local))) (sort :desc))))
 
-
+(defn g_VX1X_elementMap_orderXlocalX_byXkeys_descXunfold
+  "g.V(v1Id).elementMap().order(Scope.local).by(keys, desc).unfold()"
+  [g v1Id]
+  (traverse g
+            (V v1Id)
+            (element-map)
+            (order (scope :local))
+              (by (column :keys) (sort :desc))
+            (unfold)))

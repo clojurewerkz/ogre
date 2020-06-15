@@ -343,3 +343,10 @@
             (has-key :weight)
             (has-value (P/lt 0.3))
             (value)))
+
+(defn get_g_V_hasXp_neqXvXX
+  "g.V().has('p', P.neq('v'))"
+  [g]
+  (traverse g
+            (V)
+            (has :p (P/neq "v"))))

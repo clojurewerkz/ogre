@@ -1,3 +1,7 @@
+## Changes in Ogre 3.4.7.0
+
+* Bump to Apache TinkerPop 3.4.7
+
 ## Changes in Ogre 3.4.6.0
 
 * Bump to Apache TinkerPop 3.4.6 (note that TinkerPop 3.4.5 contained a bug of significance and users of that version were asked to immediately upgrade to 3.4.6)

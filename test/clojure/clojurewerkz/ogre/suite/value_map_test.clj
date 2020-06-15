@@ -62,3 +62,10 @@
   (traverse g
             (V v1Id)
             (value-map :name :location) (by (__ (unfold))) (by)))
+
+(defn get_g_V_valueMapXname_ageX_withXtokens_idsX_byXunfoldX
+  "g.V().valueMap(\"name\", \"age\").with(WithOptions.tokens, WithOptions.ids).by(__.unfold())"
+  [g]
+  (traverse g
+            (V)
+            (value-map :name :age) (with (WithOptions/tokens) (WithOptions/ids)) (by (__ (unfold)))))

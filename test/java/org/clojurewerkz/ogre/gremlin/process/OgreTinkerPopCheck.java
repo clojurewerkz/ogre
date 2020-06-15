@@ -3,11 +3,14 @@ package org.clojurewerkz.ogre.gremlin.process;
 import clojure.java.api.Clojure;
 import clojure.lang.IFn;
 import org.apache.tinkerpop.gremlin.process.traversal.Path;
+import org.apache.tinkerpop.gremlin.process.traversal.Scope;
 import org.apache.tinkerpop.gremlin.process.traversal.Traversal;
+import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__;
 import org.apache.tinkerpop.gremlin.process.traversal.step.branch.*;
 import org.apache.tinkerpop.gremlin.process.traversal.step.filter.*;
 import org.apache.tinkerpop.gremlin.process.traversal.step.map.*;
 import org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.*;
+import org.apache.tinkerpop.gremlin.process.traversal.step.util.WithOptions;
 import org.apache.tinkerpop.gremlin.process.traversal.util.TraversalExplanation;
 import org.apache.tinkerpop.gremlin.structure.Edge;
 import org.apache.tinkerpop.gremlin.structure.Property;
@@ -17,6 +20,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static org.apache.tinkerpop.gremlin.process.traversal.Order.desc;
+import static org.apache.tinkerpop.gremlin.structure.Column.keys;
 
 @SuppressWarnings("unchecked")
 public class OgreTinkerPopCheck {
@@ -838,6 +844,11 @@ public class OgreTinkerPopCheck {
         @Override
         public Traversal<Vertex, Double> get_g_V_bothE_properties_dedup_hasKeyXweightX_hasValueXltX0d3XX_value() {
             return (Traversal) Clojure.var(NS, "get_g_V_bothE_properties_dedup_hasKeyXweightX_hasValueXltX0d3XX_value").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXp_neqXvXX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXp_neqXvXX").invoke(g);
         }
     }
 
@@ -1958,6 +1969,11 @@ public class OgreTinkerPopCheck {
         public Traversal<Vertex, List<Double>> get_g_V_mapXbothE_weight_foldX_order_byXsumXlocalX_descX() {
             return (Traversal) Clojure.var(NS, "get_g_V_mapXbothE_weight_foldX_order_byXsumXlocalX_descX").invoke(g);
         }
+
+        @Override
+        public Traversal<Vertex, Map.Entry<Object, Object>> get_g_VX1X_elementMap_orderXlocalX_byXkeys_descXunfold(final Object v1Id) {
+            return (Traversal) Clojure.var(NS, "g_VX1X_elementMap_orderXlocalX_byXkeys_descXunfold").invoke(g, v1Id);
+        }
     }
 
     public static class PathTestTraversals extends PathTest {
@@ -2672,6 +2688,11 @@ public class OgreTinkerPopCheck {
         @Override
         public Traversal<Vertex, Map<Object, Object>> get_g_VX1X_valueMapXname_locationX_byXunfoldX_by(Object v1Id) {
             return (Traversal) Clojure.var(NS, "get_g_VX1X_valueMapXname_locationX_byXunfoldX_by").invoke(g, v1Id);
+        }
+
+        @Override
+        public Traversal<Vertex, Map<Object, Object>> get_g_V_valueMapXname_ageX_withXtokens_idsX_byXunfoldX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_valueMapXname_ageX_withXtokens_idsX_byXunfoldX").invoke(g);
         }
     }
 
