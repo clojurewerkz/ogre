@@ -350,3 +350,10 @@
   (traverse g
             (V)
             (has :p (P/neq "v"))))
+
+(defn get_g_V_hasXlabel_isXsoftwareXX
+  "g.V().has(T.label, __.is('software'))"
+  [g]
+  (traverse g
+            (V)
+            (has (T/label) (__ (is "software")))))

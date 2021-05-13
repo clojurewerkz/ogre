@@ -4,6 +4,7 @@
             [clojurewerkz.ogre.util :as util]
             [clojurewerkz.ogre.anon :as anon])
   (:import (org.apache.tinkerpop.gremlin.process.traversal Operator Order P Pop SackFunctions$Barrier Scope Traversal)
+           (org.apache.tinkerpop.gremlin.process.remote RemoteConnection)
            (org.apache.tinkerpop.gremlin.structure Graph T Column VertexProperty$Cardinality Vertex)
            (org.apache.tinkerpop.gremlin.structure.util GraphFactory)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal GraphTraversalSource)))
@@ -29,10 +30,14 @@
      (string? conf)
      (GraphFactory/open ^String conf))))
 
-; Graph
+; Embedded / Remote
 (defn traversal
-  [^Graph graph]
-  (.traversal graph))
+  [graph-or-conn]
+  (cond
+    (instance? Graph graph-or-conn)
+    (GraphTraversalSource. ^Graph graph-or-conn)
+    (instance? RemoteConnection graph-or-conn)
+    (GraphTraversalSource. ^RemoteConnection graph-or-conn)))
 
 ; Common Functionality between GraphTraversalSource and GraphTraversal
 (defmulti add-V
@@ -171,16 +176,6 @@
      (if (instance? clojure.lang.IFn v)
         (.withSideEffect g ^String (util/cast-param k) (util/f-to-supplier v) (util/f-to-binaryoperator r))
         (.withSideEffect g ^String (util/cast-param k) v (util/f-to-binaryoperator r))))))
-
-(defn with-remote
-  [^GraphTraversalSource g conn]
-  (cond
-    (instance? org.apache.commons.configuration.Configuration conn)
-    (.withRemote g ^org.apache.commons.configuration.Configuration conn)
-    (instance? String conn)
-    (.withRemote g ^String conn)
-    (instance? org.apache.tinkerpop.gremlin.process.remote.RemoteConnection conn)
-    (.withRemote g ^org.apache.tinkerpop.gremlin.process.remote.RemoteConnection conn)))
 
 ; GraphTraversal
 

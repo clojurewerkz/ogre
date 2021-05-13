@@ -99,3 +99,12 @@
               (out)
               (side-effect (fn [^Traverser t] (.sideEffects t "a" (int 1))))
               (cap :a)))
+
+(defn get_g_withSideEffectXk_nameX_V_order_byXvalueMap_selectXkX_unfoldX_name
+  "g.withSideEffect('key','name').V().order().by(valueMap().select(select('key')).unfold()).values('name')"
+  [g]
+  (traverse g (with-side-effect :key "name")
+            (V)
+            (order)
+              (by (__ (value-map) (select (__ (select :key))) (unfold)))
+            (values :name)))

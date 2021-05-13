@@ -2,8 +2,9 @@
 
 <img src="gremlin-ogre.png"></img>
 
-Ogre is a Clojure [Gremlin Language Variant](http://tinkerpop.apache.org/docs/current/tutorials/gremlin-language-variants/) of the [Gremlin](http://tinkerpop.apache.org/gremlin.html)
-graph traversal language from [Apache Tinkerpop](http://tinkerpop.apache.org/). Like Gremlin, it can be used to query any graphs that are [TinkerPop-enabled](http://tinkerpop.apache.org/providers.html).
+Ogre is a Clojure [Gremlin Language Variant](http://tinkerpop.apache.org/docs/current/tutorials/gremlin-language-variants/) 
+of the [Gremlin](http://tinkerpop.apache.org/gremlin.html) graph traversal language from [Apache Tinkerpop](http://tinkerpop.apache.org/).
+Like Gremlin, it can be used to query any graphs that are [TinkerPop-enabled](http://tinkerpop.apache.org/providers.html).
 
 ## Project Goals
 
@@ -31,7 +32,8 @@ Ogre currently targets TinkerPop 3.4.x.
 
 ## Artifacts
 
-Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre). Maven users should add the following repository definition to your `pom.xml`:
+Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre). Maven users should add the following 
+repository definition to your `pom.xml`:
 
 ``` xml
 <repository>
@@ -44,30 +46,31 @@ Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre).
 
 With Leiningen:
 
-    [clojurewerkz/ogre "3.4.7.0"]
+    [clojurewerkz/ogre "3.4.8.0"]
 
 With Maven:
 
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>ogre</artifactId>
-      <version>3.4.7.0</version>
+      <version>3.4.8.0</version>
     </dependency>
 
 ## Documentation & Examples
 
-You'll need to choose a TinkerPop-enabled graph database and add that to your project's dependencies. Here we use the in-memory graph database implementation provided by `org.apache.tinkerpop/tinkergraph-gremlin`, e.g.:
+You'll need to choose a TinkerPop-enabled graph database and add that to your project's dependencies. Here we use the 
+in-memory graph database implementation provided by `org.apache.tinkerpop/tinkergraph-gremlin`, e.g.:
 
 With Leiningen:
 
-    [org.apache.tinkerpop/tinkergraph-gremlin "3.4.7"]
+    [org.apache.tinkerpop/tinkergraph-gremlin "3.4.8"]
 
 With Maven:
 
     <dependency>
       <groupId>org.apache.tinkerpop</groupId>
       <artifactId>tinkergraph-gremlin</artifactId>
-      <version>3.4.7</version>
+      <version>3.4.8</version>
     </dependency>
 
 REPL examples:
@@ -93,6 +96,39 @@ clojurewerkz.ogre.core=> (traverse g V (match
 ({"a" "marko", "c" "marko"} {"a" "josh", "c" "marko"} {"a" "peter", "c" "marko"})
 ```
 
+As an alternative to embedded graph databases like TinkerGraph, you might also choose to utilize a remote graph (e.g.
+one hosted in [Gremlin Server](https://tinkerpop.apache.org/docs/current/reference/#connecting-gremlin-server) or
+a [Remote Gremlin Provider](https://tinkerpop.apache.org/docs/current/reference/#connecting-rgp)). In such case, you
+would first need `org.apache.tinkerpop/gremlin-driver` to connect to the remote graph:
+
+With Leiningen:
+
+    [org.apache.tinkerpop/gremlin-driver "3.4.8"]
+
+With Maven:
+
+    <dependency>
+      <groupId>org.apache.tinkerpop</groupId>
+      <artifactId>gremlin-driver</artifactId>
+      <version>3.4.8</version>
+    </dependency>
+
+From the driver, you create a `DriverRemoteConnection` and pass that to the `traversal` function (rather than the 
+`Graph` instance as demonstrated in the last example):
+
+```text
+clojurewerkz.ogre.core=> (def conn (org.apache.tinkerpop.gremlin.driver.remote.DriverRemoteConnection/using "localhost" 8182 "g"))
+#'clojurewerkz.ogre.core/conn
+clojurewerkz.ogre.core=> (def g (traversal conn))
+#'clojurewerkz.ogre.core/g
+clojurewerkz.ogre.core=> (traverse g V (has :name "josh") (values :age) (into-seq!))
+(32)
+```
+
+In short, to connect to a remote graph simply use Java interop to construct a `DriverRemoteConnection` instance in the
+ways specified by the TinkerPop [Reference Documentation](https://tinkerpop.apache.org/docs/current/reference/#gremlin-java-connecting)
+and then give that object to the `traversal` function to create `g`.
+
 Ogre has more complete documentation [here](http://ogre.clojurewerkz.org/).
 
 ## Supported Clojure Versions
@@ -112,7 +148,7 @@ Orge uses [Leiningen 2](https://github.com/technomancy/leiningen/blob/master/doc
 ## License
 
 Copyright (C) 2014-2017 Zack Maril, and the ClojureWerkz team.
-Copyright (C) 2017 Stephen Mallette, Zack Maril, and the ClojureWerkz team.
+Copyright (C) 2017-2021 Stephen Mallette, Zack Maril, and the ClojureWerkz team.
 
 Licensed under the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html) (the same as Clojure).
 

@@ -1,3 +1,8 @@
+## Changes in Ogre 3.4.8.0
+
+* Bump to Apache TinkerPop 3.4.8
+* Removed `with-remote` function which used some deprecated functions in TinkerPop and allowed the `traversal` function to take a `RemoteConnection` directly.
+
 ## Changes in Ogre 3.4.7.0
 
 * Bump to Apache TinkerPop 3.4.7

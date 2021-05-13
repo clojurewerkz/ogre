@@ -850,6 +850,11 @@ public class OgreTinkerPopCheck {
         public Traversal<Vertex, Vertex> get_g_V_hasXp_neqXvXX() {
             return (Traversal) Clojure.var(NS, "get_g_V_hasXp_neqXvXX").invoke(g);
         }
+
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXlabel_isXsoftwareXX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXlabel_isXsoftwareXX").invoke(g);
+        }
     }
 
     public static class IsTestTraversals extends IsTest {
@@ -3081,6 +3086,10 @@ public class OgreTinkerPopCheck {
             return (Traversal) Clojure.var(NS, "get_g_withSideEffectXa_0X_V_out_sideEffectXsideEffectsXa_1XX_capXaX").invoke(g);
         }
 
+        @Override
+        public Traversal<Vertex, String> get_g_withSideEffectXk_nameX_V_order_byXvalueMap_selectXkX_unfoldX_name() {
+            return (Traversal) Clojure.var(NS, "get_g_withSideEffectXk_nameX_V_order_byXvalueMap_selectXkX_unfoldX_name").invoke(g);
+        }
     }
 
     public static class StoreTestTraversals extends StoreTest {
