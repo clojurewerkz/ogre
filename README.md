@@ -46,14 +46,14 @@ repository definition to your `pom.xml`:
 
 With Leiningen:
 
-    [clojurewerkz/ogre "3.4.10.0"]
+    [clojurewerkz/ogre "3.4.11.0"]
 
 With Maven:
 
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>ogre</artifactId>
-      <version>3.4.10.0</version>
+      <version>3.4.11.0</version>
     </dependency>
 
 ## Documentation & Examples
@@ -63,14 +63,14 @@ in-memory graph database implementation provided by `org.apache.tinkerpop/tinker
 
 With Leiningen:
 
-    [org.apache.tinkerpop/tinkergraph-gremlin "3.4.10"]
+    [org.apache.tinkerpop/tinkergraph-gremlin "3.4.11"]
 
 With Maven:
 
     <dependency>
       <groupId>org.apache.tinkerpop</groupId>
       <artifactId>tinkergraph-gremlin</artifactId>
-      <version>3.4.10</version>
+      <version>3.4.11</version>
     </dependency>
 
 REPL examples:
@@ -103,14 +103,14 @@ would first need `org.apache.tinkerpop/gremlin-driver` to connect to the remote 
 
 With Leiningen:
 
-    [org.apache.tinkerpop/gremlin-driver "3.4.10"]
+    [org.apache.tinkerpop/gremlin-driver "3.4.11"]
 
 With Maven:
 
     <dependency>
       <groupId>org.apache.tinkerpop</groupId>
       <artifactId>gremlin-driver</artifactId>
-      <version>3.4.10</version>
+      <version>3.4.11</version>
     </dependency>
 
 From the driver, you create a `DriverRemoteConnection` and pass that to the `traversal` function (rather than the 

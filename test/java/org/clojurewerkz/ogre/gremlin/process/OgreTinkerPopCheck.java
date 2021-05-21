@@ -531,6 +531,12 @@ public class OgreTinkerPopCheck {
         public Traversal get_g_V_asXaX_repeatXbothX_timesX3X_emit_name_asXbX_group_byXselectXaXX_byXselectXbX_dedup_order_foldX_selectXvaluesX_unfold_dedup() {
             return (Traversal) Clojure.var(NS, "get_g_V_asXaX_repeatXbothX_timesX3X_emit_name_asXbX_group_byXselectXaXX_byXselectXbX_dedup_order_foldX_selectXvaluesX_unfold_dedup").invoke(g);
         }
+
+        @Override
+        public Traversal get_g_V_both_group_by_byXout_dedup_foldX_unfold_selectXvaluesX_unfold_out_order_byXnameX_limitX1X_valuesXnameX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_both_group_by_byXout_dedup_foldX_unfold_selectXvaluesX_unfold_out_order_byXnameX_limitX1X_valuesXnameX").invoke(g);
+        }
+
     }
 
     public static class DropTestTraversals extends DropTest {
