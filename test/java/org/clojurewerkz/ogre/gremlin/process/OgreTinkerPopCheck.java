@@ -2428,6 +2428,26 @@ public class OgreTinkerPopCheck {
         public Traversal<Vertex, String> get_g_VX1X_groupXaX_byXconstantXaXX_byXnameX_selectXaX_selectXaX(Object v1Id) {
             return (Traversal) Clojure.var(NS, "get_g_VX1X_groupXaX_byXconstantXaXX_byXnameX_selectXaX_selectXaX").invoke(g,v1Id);
         }
+
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXperson_name_markoX_barrier_asXaX_outXknows_selectXaX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXperson_name_markoX_barrier_asXaX_outXknows_selectXaX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, String> get_g_V_hasXperson_name_markoX_elementMapXnameX_asXaX_unionXidentity_identityX_selectXaX_selectXnameX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXperson_name_markoX_elementMapXnameX_asXaX_unionXidentity_identityX_selectXaX_selectXnameX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Long> get_g_V_hasXperson_name_markoX_count_asXaX_unionXidentity_identityX_selectXaX() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXperson_name_markoX_count_asXaX_unionXidentity_identityX_selectXaX").invoke(g);
+        }
+
+        @Override
+        public Traversal<Vertex, Vertex> get_g_V_hasXperson_name_markoX_path_asXaX_unionXidentity_identityX_selectXaX_unfold() {
+            return (Traversal) Clojure.var(NS, "get_g_V_hasXperson_name_markoX_path_asXaX_unionXidentity_identityX_selectXaX_unfold").invoke(g);
+        }
     }
 
     public static class VertexTestTraversals extends VertexTest {

@@ -452,3 +452,45 @@
             (barrier)
             (select :a)
             (select :a)))
+
+(defn get_g_V_hasXperson_name_markoX_barrier_asXaX_outXknows_selectXaX
+  "g.V().has('person','name','marko').barrier().as('a').out('knows').select('a')"
+  [g]
+  (traverse g
+            (V)
+            (has "person" :name "marko")
+            (barrier) (as :a)
+            (out :knows)
+            (select :a)))
+
+(defn get_g_V_hasXperson_name_markoX_elementMapXnameX_asXaX_unionXidentity_identityX_selectXaX_selectXnameX
+  "g.V().has('person','name','marko').elementMap('name').as('a').union(identity(),identity()).select('a').select('name')"
+  [g]
+  (traverse g
+            (V)
+            (has "person" :name "marko")
+            (element-map) (as :a)
+            (union (__ (identity)) (__ (identity)))
+            (select :a)
+            (select :name)))
+
+(defn get_g_V_hasXperson_name_markoX_count_asXaX_unionXidentity_identityX_selectXaX
+  "g.V().has('person','name','marko').count().as('a').union(identity(),identity()).select('a')"
+  [g]
+  (traverse g
+            (V)
+            (has "person" :name "marko")
+            (count) (as :a)
+            (union (__ (identity)) (__ (identity)))
+            (select :a)))
+
+(defn get_g_V_hasXperson_name_markoX_path_asXaX_unionXidentity_identityX_selectXaX_unfold
+  "g.V().has('person','name','marko').path().as('a').union(identity(),identity()).select('a').unfold()"
+  [g]
+  (traverse g
+            (V)
+            (has "person" :name "marko")
+            (path) (as :a)
+            (union (__ (identity)) (__ (identity)))
+            (select :a)
+            (unfold)))
