@@ -129,6 +129,41 @@ In short, to connect to a remote graph simply use Java interop to construct a `D
 ways specified by the TinkerPop [Reference Documentation](https://tinkerpop.apache.org/docs/current/reference/#gremlin-java-connecting)
 and then give that object to the `traversal` function to create `g`.
 
+If you are using AWS Neptune with SigV4 authentication enabled, you'll need to include amazon-neptune-gramlin-java-sigv4.
+
+With Leiningen: 
+    
+    [com.amazonaws/amazon-neptune-gremlin-java-sigv4 "2.1.2"]
+
+With Maven: 
+
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>amazon-neptune-gremlin-java-sigv4</artifactId>
+      <version>2.1.2</version>
+    </dependency>
+
+Then, you can create a graph traversal source by doing something like the following:
+
+```clojure
+(let [ctxBuilder (doto (SslContextBuilder/forClient)
+                   (.sslProvider SslProvider/JDK))
+      sslContext (.build ctxBuilder)
+      port add-your-port-number-here
+      builder (doto (Cluster/build)
+                (.addContactPoint "add.your.endpoint.here.neptune.amazonaws.com")
+                (.port port)
+                (.serializer Serializers/GRAPHBINARY_V1D0)
+                (.enableSsl true)
+                (.sslContext sslContext)
+                (.channelizer SigV4WebSocketChannelizer))
+      cluster (.create builder)
+      conn (DriverRemoteConnection/using cluster)
+      g (traversal conn)]
+  (System/setProperty "SERVICE_REGION" "us-east-1")
+  (traverse g V count next!))
+```
+
 Ogre has more complete documentation [here](http://ogre.clojurewerkz.org/).
 
 ## Supported Clojure Versions
